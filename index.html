@@ -48,7 +48,8 @@
 
     .list strong {
       width: 130px;
-      display: inline-block;
+      min-width: 130px;
+      max-width: 130px;
     }
 
     .list.list-min span {
@@ -189,9 +190,16 @@
       }
     }
 
-    .align-p-title p strong {
-      display: inline-block;
+    .list.long strong {
       width: 230px;
+      min-width: 230px;
+      max-width: 230px;
+    }
+
+    .list.short strong {
+      width: 90px;
+      min-width: 90px;
+      max-width: 90px;
     }
 
     .profile-image {
@@ -214,6 +222,10 @@
       width: calc(100% - 100px - 200px - 100px - 50px);
       height: calc(100% - 50px);
       overflow: scroll;
+    }
+
+    .flex li, .flex p {
+      display: flex;
     }
 
     @media screen and (max-width: 650px) {
@@ -304,46 +316,52 @@
     <div class="contents">25 (05/26/1994)</div>
     <h3><span>SKILLS</span></h3>
     <div class="contents">
-      <ul class="list">
-        <li><strong>Backend: </strong>PHP, Node.js, Java</li>
-        <li><strong>Frontend: </strong>JavaScript, TypeScript, HTML, CSS, Scss, Less</li>
-        <li><strong>Apps: </strong>React Native, Objective-C</li>
-        <li><strong>Frameworks: </strong>Laravel, Lumen, CakePHP, FuelPHP, React(with Redux), Vue, Nuxt, jQuery, Bootstrap, Tailwind, Material UI, WordPress, PHPUnit, PHP CodeSniffer, Jest</li>
-        <li><strong>Infrastructures: </strong>CentOS, Ubuntu, AWS, MySQL, SQLite, Apache, Nginx, Elasticsearch, Docker, Vagrant, memcached, Redis, Firebase, New Relic</li>
-        <li><strong>Payment services: </strong>Stripe, GMO Payment Gateway, pay.jp</li>
+      <ul class="list flex">
+        <li><strong>Backend: </strong><span>PHP, Node.js, Java</span></li>
+        <li><strong>Frontend: </strong><span>JavaScript, TypeScript, HTML, CSS, Scss, Less</span></li>
+        <li><strong>Apps: </strong><span>React Native, Objective-C</span></li>
+        <li><strong>Frameworks: </strong><span>Laravel, Lumen, CakePHP, FuelPHP, React(with Redux), Vue, Nuxt, jQuery, Bootstrap, Tailwind, Material UI, WordPress, PHPUnit, PHP CodeSniffer, Jest</span></li>
+        <li><strong>Infrastructures: </strong><span>CentOS, Ubuntu, AWS, MySQL, SQLite, Apache, Nginx, Elasticsearch, Docker, Vagrant, memcached, Redis, Firebase, New Relic</span></li>
+        <li><strong>Payment services: </strong><span>Stripe, GMO Payment Gateway, pay.jp</span></li>
       </ul>
     </div>
     <h3><span>PRODUCTS</span></h3>
-    <div class="contents align-p-title">
-      <p><strong>PHPJava:</strong> Implement JVM (Java Virtual Machine) by PHP. <a href="https://github.com/php-java/php-java" target="_blank">[See more]</a></p>
-      <p><strong>JS-JVM:</strong> Implement JVM (Java Virtual Machine) by JavaScript. This is simply implementation. <a href="https://github.com/memory-agape/js-jvm" target="_blank">[See more]</a></p>
-      <p><strong>GitHub-PHP-Function-Jumper:</strong> Allows to pop-up functions, classes and dynamic methods on GitHub. And allows to jump to the PHP Manual. <a href="https://github.com/memory-agape/github-php-function-jumper" target="_blank">[See more]</a></p>
-      <p><strong>Magnolia:</strong> Implement streaming camera for Hamster. <a href="https://github.com/memory-agape/magnolia-server" target="_blank">[Backend]</a>, <a href="https://github.com/memory-agape/magnolia-client" target="_blank">[Frontend]</a>, <a href="https://github.com/memory-agape/magnolia-raspberrypi" target="_blank">[RaspberryPi]</a></p>
+    <div class="contents">
+      <ul class="list flex">
+        <li><strong>PHPJava:</strong><span>Implement JVM (Java Virtual Machine) by PHP. <a href="https://github.com/php-java/php-java" target="_blank">[See more]</a></span></li>
+        <li><strong>JS-JVM:</strong><span>Implement JVM (Java Virtual Machine) by JavaScript. This is simply implementation. <a href="https://github.com/memory-agape/js-jvm" target="_blank">[See more]</a></span></li>
+        <li><strong>GitHub-PHP-Function-Jumper:</strong><span>Allows to pop-up functions, classes and dynamic methods on GitHub. And allows to jump to the PHP Manual. <a href="https://github.com/memory-agape/github-php-function-jumper" target="_blank">[See more]</a></span></li>
+        <li><strong>Magnolia:</strong><span>Implement streaming camera for Hamster. <a href="https://github.com/memory-agape/magnolia-server" target="_blank">[Backend]</a>, <a href="https://github.com/memory-agape/magnolia-client" target="_blank">[Frontend]</a>, <a href="https://github.com/memory-agape/magnolia-raspberrypi" target="_blank">[RaspberryPi]</a></span></li>
+      </ul>
     </div>
     <h3><span>ARTICLES</span></h3>
     <div class="contents">
-      <p><strong>08/15/2019:</strong> <a href="https://note.mu/m3m0r7/n/neda17b15feeb" target="_blank">ストリーミングでハムスターの監視ができるシステムを RaspberryPi と PHP でつくったので仕組みとかを公開してみます</a></p>
-      <p><strong>07/21/2019:</strong> <a href="https://note.mu/m3m0r7/n/nccb3039caf6b" target="_blank">ロリポップマネージドクラウドの 10 万円分クーポンをもらったのでハムスター監視システムをサクッとデプロイしてみたよ</a></p>
-      <p><strong>07/18/2019:</strong> <a href="https://basebook.binc.jp/entry/2019/07/18/150000" target="_blank">BASEに入社して1か月の軌跡</a></p>
-      <p><strong>07/01/2019:</strong> <a href="https://note.mu/m3m0r7/n/n057fa3437c0e" target="_blank">足をケガして車イス生活を 3 週間くらい続けたので感想を書きます</a></p>
-      <p><strong>06/15/2019:</strong> <a href="https://note.mu/m3m0r7/n/n4009ae9ad002" target="_blank">株式会社 GameWith を退職しました。 そして…</a></p>
+      <ul class="list flex short">
+        <li><strong>08/15/2019:</strong><span><a href="https://note.mu/m3m0r7/n/neda17b15feeb" target="_blank">ストリーミングでハムスターの監視ができるシステムを RaspberryPi と PHP でつくったので仕組みとかを公開してみます</a></span></li>
+        <li><strong>07/21/2019:</strong><span><a href="https://note.mu/m3m0r7/n/nccb3039caf6b" target="_blank">ロリポップマネージドクラウドの 10 万円分クーポンをもらったのでハムスター監視システムをサクッとデプロイしてみたよ</a></span></li>
+        <li><strong>07/18/2019:</strong><span><a href="https://basebook.binc.jp/entry/2019/07/18/150000" target="_blank">BASEに入社して1か月の軌跡</a></span></li>
+        <li><strong>07/01/2019:</strong><span><a href="https://note.mu/m3m0r7/n/n057fa3437c0e" target="_blank">足をケガして車イス生活を 3 週間くらい続けたので感想を書きます</a></span></li>
+        <li><strong>06/15/2019:</strong><span><a href="https://note.mu/m3m0r7/n/n4009ae9ad002" target="_blank">株式会社 GameWith を退職しました。 そして…</a></span></li>
+      </ul>
     </div>
     <h3><span>RECENT ACTIVITIES</span></h3>
     <div class="contents">
-      <p><strong>10/12/2019:</strong> I will make a speech at <strong>PHP Conference Okinawa 2019</strong>. The title is <strong>&quot;<a href="https://phpcon.okinawa.jp/" target="_blank">PHPer のための PHPUnit と Selenium を使ったブラウザテストのすゝめ</a>&quot;</strong></p>
-      <p><strong>09/21/2019:</strong> I will make a speech at <strong>PHP Conference Hokkaido 2019</strong>. The title is <strong>&quot;<a href="https://phpcon.hokkaido.jp/" target="_blank">PHPer のための PHPUnit と Selenium を使ったブラウザテストのすゝめ</a>&quot;</strong></p>
-      <p><strong>08/31/2019:</strong> I made a speech at <strong>Builderscon</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/php-de-jvm-woshi-zhuang-site-hello-world-wochu-li-surumade" target="_blank">How to implement JVM by PHP, And until output Hello World.</a>&quot;</strong></p>
-      <p><strong>06/29/2019:</strong> I got first place in the CodeGolf event at <strong>PHP Conference Fukuoka 2019</strong>. <a href="https://note.mu/mclolipopjp/n/n836e89cd81f2" target="_blank">[See more]</a></p>
-      <p><strong>06/01/2019:</strong> I joined <strong>BASE, Inc.</strong></p>
-      <p><strong>05/31/2019:</strong> I leave <strong>GameWith, Inc.</strong></p>
-      <p><strong>04/24/2019:</strong> I made a speech at <strong>PHP Study</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/hamusutawojian-shi-surusisutemuwo-raspberry-pi-to-php-false-swoole-tezuo-tutahua" target="_blank">ハムスターを監視するシステムを Raspberry Pi と PHP の Swoole で作った話</a>&quot;</strong></p>
-      <p><strong>03/29/2019:</strong> I made a speech at <strong>PHPerKaigi 2019</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/phperkaigi-2019" target="_blank">PHP で JVM に入門する</a>&quot;</strong></p>
-      <p><strong>02/20/2019:</strong> I made a speech at <strong>Elasticsearch Study Meeting 2019</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/elasticsearch-mian-qiang-hui-2019-gamewithtejian-suo-sisutemukashi-warerumate" target="_blank">GameWith で検索システムが使われるまで</a>&quot;</strong></p>
-      <p><strong>02/16/2019:</strong> I made a speech at <strong>LaravelJP Conference 2019</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/laravel-jp-conference-2019-lt" target="_blank">PHP で Java を動かす</a>&quot;</strong></p>
-      <p><strong>01/26/2019:</strong> I made a speech at <strong>PHP Conference Sendai 2019</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/php-conference-sendai-2019-presentation-slides" target="_blank">開発期間 2 ヶ月で Elasticsearch をプロダクトに使ってリリースした話</a>&quot;</strong></p>
-      <p><strong>04/16/2018:</strong> I joined <strong>GameWith, Inc</strong>.</p>
-      <p><strong>10/01/2017:</strong> <a href="https://www.jstage.jst.go.jp/article/transinf/E100.D/10/E100.D_2016OFP0001/_pdf">The paper [PDF]</a> quoted my library &quot;<a href="https://github.com/memory-agape/php-websocket-server" target="_blank">php-websocket-server</a>&quot;.</p>
-      <p><strong>01/30/2013:</strong> <a href="https://www.amazon.co.jp/HTML5%E3%81%AB%E3%82%88%E3%82%8B%E3%83%9E%E3%83%AB%E3%83%81%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E5%9E%8B%E6%AC%A1%E4%B8%96%E4%BB%A3Web%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E9%96%8B%E7%99%BA-%E5%B0%8F%E6%9E%97-%E9%80%8F/dp/4798129542" target="_blank">The book</a> quoted my library &quot;<a href="https://github.com/memory-agape/php-websocket-server">php-websocket-server</a>&quot;</p>
+      <ul class="list flex short">
+        <li><strong>10/12/2019:</strong><span>I will make a speech at <strong>PHP Conference Okinawa 2019</strong>. The title is <strong>&quot;<a href="https://phpcon.okinawa.jp/" target="_blank">PHPer のための PHPUnit と Selenium を使ったブラウザテストのすゝめ</a>&quot;</strong></span></li>
+        <li><strong>09/21/2019:</strong><span>I will make a speech at <strong>PHP Conference Hokkaido 2019</strong>. The title is <strong>&quot;<a href="https://phpcon.hokkaido.jp/" target="_blank">PHPer のための PHPUnit と Selenium を使ったブラウザテストのすゝめ</a>&quot;</strong></span></li>
+        <li><strong>08/31/2019:</strong><span>I made a speech at <strong>Builderscon</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/php-de-jvm-woshi-zhuang-site-hello-world-wochu-li-surumade" target="_blank">How to implement JVM by PHP, And until output Hello World.</a>&quot;</strong></span></li>
+        <li><strong>06/29/2019:</strong><span>I got first place in the CodeGolf event at <strong>PHP Conference Fukuoka 2019</strong>. <a href="https://note.mu/mclolipopjp/n/n836e89cd81f2" target="_blank">[See more]</a></span></li>
+        <li><strong>06/01/2019:</strong><span>I joined <strong>BASE, Inc.</strong></span></li>
+        <li><strong>05/31/2019:</strong><span>I leave <strong>GameWith, Inc.</strong></span></li>
+        <li><strong>04/24/2019:</strong><span>I made a speech at <strong>PHP Study</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/hamusutawojian-shi-surusisutemuwo-raspberry-pi-to-php-false-swoole-tezuo-tutahua" target="_blank">ハムスターを監視するシステムを Raspberry Pi と PHP の Swoole で作った話</a>&quot;</strong></span></li>
+        <li><strong>03/29/2019:</strong><span>I made a speech at <strong>PHPerKaigi 2019</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/phperkaigi-2019" target="_blank">PHP で JVM に入門する</a>&quot;</strong></span></li>
+        <li><strong>02/20/2019:</strong><span>I made a speech at <strong>Elasticsearch Study Meeting 2019</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/elasticsearch-mian-qiang-hui-2019-gamewithtejian-suo-sisutemukashi-warerumate" target="_blank">GameWith で検索システムが使われるまで</a>&quot;</strong></span></li>
+        <li><strong>02/16/2019:</strong><span>I made a speech at <strong>LaravelJP Conference 2019</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/laravel-jp-conference-2019-lt" target="_blank">PHP で Java を動かす</a>&quot;</strong></span></li>
+        <li><strong>01/26/2019:</strong><span>I made a speech at <strong>PHP Conference Sendai 2019</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/php-conference-sendai-2019-presentation-slides" target="_blank">開発期間 2 ヶ月で Elasticsearch をプロダクトに使ってリリースした話</a>&quot;</strong></span></li>
+        <li><strong>04/16/2018:</strong><span>I joined <strong>GameWith, Inc</strong>.</span></li>
+        <li><strong>10/01/2017:</strong><span><a href="https://www.jstage.jst.go.jp/article/transinf/E100.D/10/E100.D_2016OFP0001/_pdf">The paper [PDF]</a> quoted my library &quot;<a href="https://github.com/memory-agape/php-websocket-server" target="_blank">php-websocket-server</a>&quot;.</span></li>
+        <li><strong>01/30/2013:</strong><span><a href="https://www.amazon.co.jp/HTML5%E3%81%AB%E3%82%88%E3%82%8B%E3%83%9E%E3%83%AB%E3%83%81%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E5%9E%8B%E6%AC%A1%E4%B8%96%E4%BB%A3Web%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E9%96%8B%E7%99%BA-%E5%B0%8F%E6%9E%97-%E9%80%8F/dp/4798129542" target="_blank">The book</a> quoted my library &quot;<a href="https://github.com/memory-agape/php-websocket-server">php-websocket-server</a>&quot;</span></li>
+      </ul>
     </div>
     <h3><span>ENJOY</span></h3>
     <div class="contents">
@@ -351,10 +369,10 @@
     </div>
     <h3><span>CONTACT ME</span></h3>
     <div class="contents">
-      <ul class="list list-min">
-        <li><span>E-mail: </span><span class="email">memory.agape.works</span></li>
-        <li><span>GitHub: </span><a href="https://github.com/memory-agape">https://github.com/memory-agape</a></li>
-        <li><span>Twitter: </span><a href="https://twitter.com/m3m0r7">https://twitter.com/m3m0r7</a></li>
+      <ul class="list flex short">
+        <li><strong>E-mail: </strong><span><span class="email">memory.agape.works</span></span></li>
+        <li><strong>GitHub: </strong><span><a href="https://github.com/memory-agape">https://github.com/memory-agape</a></span></li>
+        <li><strong>Twitter: </strong><span><a href="https://twitter.com/m3m0r7">https://twitter.com/m3m0r7</a></span></li>
       </ul>
     </div>
 
