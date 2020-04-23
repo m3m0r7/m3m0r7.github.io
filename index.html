@@ -208,7 +208,7 @@
       max-width: 60px;
     }
 
-    .profile-image {
+    .profile-images {
       position: absolute;
       top: calc(50% - 100px);
       left: 100px;
@@ -238,10 +238,35 @@
       border-radius: 4px;
     }
 
+
+    .profile-image--1 {
+      position: absolute;
+      top: -55px;
+      left: -55px;
+    }
+
+    .profile-image--2 {
+      position: absolute;
+      top: 55px;
+      left: 55px;
+    }
+
     @media screen and (max-width: 650px) {
-      .profile-image {
+      .profile-images {
         position: static;
         text-align: center;
+      }
+
+      .profile-image--1 {
+        position: relative;
+        top: 40px;
+        left: -20px;
+      }
+
+      .profile-image--2 {
+        position: relative;
+        top: -40px;
+        left: 20px;
       }
 
       .profile-image-figure {
@@ -301,7 +326,10 @@
 <div class="line-3 size" style="position: absolute; right: 0; top: 0; width: 100%; background-color:#e91e63"></div>
 <div class="line-4 size" style="position: absolute; right: 0; bottom: 50px; height: 0; background-color:#ad1457"></div>
 <div class="main-contents">
-  <div class="profile-image"><img src="/assets/memory.jpg" class="profile-image-figure"></div>
+  <div class="profile-images">
+    <div class="profile-image profile-image--1"><img src="./assets/logical_memory.jpg" class="profile-image-figure"></div>
+    <div class="profile-image profile-image--2"><img src="./assets/physical_memory.jpg" class="profile-image-figure"></div>
+  </div>
   <div class="my-description">
     <h3><span>NAME</span></h3>
     <div class="contents">
@@ -309,7 +337,8 @@
     </div>
     <h3><span>JOB</span></h3>
     <div class="contents">
-      <p>I'm a poor</p>
+      <p>A Tech Lead and Engineering Manager at <a href="https://torana.us/">Torana Inc.</a></p>
+      <p>A backend and frontend engineer at <a href="https://www.togetter.co.jp/">Togetter Inc.</a></p>
       <div>
         <ul class="ex-companies">
           <li>
@@ -329,7 +358,7 @@
     <h3><span>SKILLS</span></h3>
     <div class="contents">
       <ul class="list flex">
-        <li><strong>Backend: </strong><span>PHP, Node.js, Java</span></li>
+        <li><strong>Backend: </strong><span>PHP, Node.js, Go, Java</span></li>
         <li><strong>Frontend: </strong><span>JavaScript, TypeScript, HTML, CSS, Scss, Less</span></li>
         <li><strong>Apps: </strong><span>React Native, Objective-C</span></li>
         <li><strong>Frameworks: </strong><span>Laravel, Lumen, CakePHP, FuelPHP, React(with Redux), Vue, Nuxt, jQuery, Bootstrap, Tailwind, Material UI, WordPress, PHPUnit, PHP CodeSniffer, Jest</span></li>
@@ -349,6 +378,8 @@
     <h3><span>ARTICLES</span></h3>
     <div class="contents">
       <ul class="list flex short">
+        <li><strong>02/19/2019:</strong><span><a href="https://note.com/m3m0r7/n/n0f062c3f944b" target="_blank">ファイルアップローダーサービスをローンチしました</a></span></li>
+        <li><strong>02/11/2019:</strong><span><a href="https://note.com/m3m0r7/n/nc8b3e105ec12" target="_blank">PHPerKaigi 2020 にスピーカーとして登壇しました</a></span></li>
         <li><strong>08/15/2019:</strong><span><a href="https://note.mu/m3m0r7/n/neda17b15feeb" target="_blank">ストリーミングでハムスターの監視ができるシステムを RaspberryPi と PHP でつくったので仕組みとかを公開してみます</a></span></li>
         <li><strong>07/21/2019:</strong><span><a href="https://note.mu/m3m0r7/n/nccb3039caf6b" target="_blank">ロリポップマネージドクラウドの 10 万円分クーポンをもらったのでハムスター監視システムをサクッとデプロイしてみたよ</a></span></li>
         <li><strong>07/18/2019:</strong><span><a href="https://basebook.binc.jp/entry/2019/07/18/150000" target="_blank">BASEに入社して1か月の軌跡</a></span></li>
@@ -366,6 +397,10 @@
     <h3><span>RECENT ACTIVITIES</span></h3>
     <div class="contents">
       <ul class="list flex short">
+        <li><strong>04/16/2020:</strong><span>I joined <strong>Torana Inc.</strong></span></li>
+        <li><strong>03/11/2020:</strong><span>I joined <strong>Togetter Inc.</strong></span></li>
+        <li><strong>03/10/2020:</strong><span>I leave <strong>BASE Inc.</strong></span></li>
+        <li><strong>02/09/2020:</strong><span>I made a speech at <strong>PHPerKaigi 2020</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/php-de-jvm-woshi-zhuang-site-helloworld-wochu-li-sitemiru" target="_blank">PHP で JVM を実装して、 HelloWorld を出力してみる</a>&quot;</strong></span></li>
         <li><strong>12/01/2019:</strong><span>I made a speech at <strong>PHP Conference Japan 2019</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/php-niokerubing-lie-chu-li-tofei-tong-qi-chu-li-ru-men" target="_blank">PHP における並列処理と非同期処理入門</a>&quot;</strong></span></li>
         <li><strong>11/22/2019:</strong><span>I made a speech at <strong>Kichijoji.pm</strong>. The title is <strong>&quot;<a href="https://phpcon.okinawa.jp/" target="_blank">PHP で AST 解析をして Java のオペコードを生成する</a>&quot;</strong></span></li>
         <li><strong>10/12/2019:</strong><span>I made a speech at <strong>PHP Conference Okinawa 2019</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/phper-falsetamefalse-phpunit-to-selenium-woshi-tuta-burauzatesutofalsesu-me-a066ef2e-6ce9-45fb-9cb9-50fd609ab943" target="_blank">PHPer のための PHPUnit と Selenium を使ったブラウザテストのすゝめ</a>&quot;</strong></span></li>
