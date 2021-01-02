@@ -2,438 +2,838 @@
 <html>
 <head>
   <title>memory' portfolio</title>
-  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP|M+PLUS+1p|Roboto" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
   <meta charset="utf-8">
-  <style>
+  <style type="text/css">
+    * {
+      font-family: "M PLUS 1", sans-serif;
+    }
+
     body, html {
-      width: 100%;
-      height: 100%;
       padding: 0;
       margin: 0;
       font-size: 14px;
-      font-family: "Noto Sans JP", sans-serif;
-    }
-
-    h3 span {
-      background-color: #d81b60;
-      color: #FFFFFF;
-      padding: 4px 8px;
-      font-size: 12px;
-      line-height: 24px;
-      border-radius: 4px;
-      display: inline-block;
-      letter-spacing: 0.05rem;
-    }
-    h3 {
-      margin: 0;
-    }
-
-    .contents {
-      margin-top: 8px;
-      margin-bottom: 32px;
-      font-size: 14px;
-    }
-
-    .list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .list li {
-      line-height: 30px;
-      margin: 14px 0;
-    }
-
-    .list strong {
-      width: 130px;
-      min-width: 130px;
-      max-width: 130px;
-    }
-
-    .list.list-min span {
-      width: 60px;
-    }
-    .translated {
-      margin-left: 20px;
-      font-size: 12px;
-      color: #666666;
-    }
-
-    p {
-      line-height: 30px;
+      background-color: #222222;
     }
 
     a {
-      color: #c2185b;
+      color: #ffffff;
     }
 
-    .small {
-      font-size: 12px;
+    .c {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .c-1 {
+      display: flex;
+      box-shadow: 0 0 5px #111111;
+      width: 800px;
+    }
+
+    button {
+      padding: 0;
+      font-size: 14px;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      font-family: "Roboto", sans-serif;
+      text-transform: uppercase;
       color: #888888;
+      outline: none;
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: 400px;
+      flex: 1;
     }
 
-    .email:after {
-      content: '@gmail.com';
-    }
-
-    .line-1 {
-      animation-name: slide-in-left-to-right;
-      animation-duration: 0.5s;
-      animation-delay: 1s;
-      animation-iteration-count: 1;
-      animation-fill-mode: forwards;
-    }
-
-    .line-2 {
-      animation-name: slide-in-top-to-bottom;
-      animation-duration: 0.5s;
-      animation-delay: 0.5s;
-      animation-iteration-count: 1;
-      animation-fill-mode: forwards;
-    }
-
-    .line-3 {
-      animation-name: slide-in-right-to-left;
-      animation-duration: 0.5s;
-      width: 0;
-      animation-iteration-count: 1;
-      animation-fill-mode: forwards;
-    }
-
-    .line-4 {
-      animation-name: slide-in-bottom-to-top;
-      animation-duration: 0.5s;
-      animation-delay: 1.5s;
-      animation-iteration-count: 1;
-      animation-fill-mode: forwards;
-    }
-
-    .line-1.size {
-      height: 50px;
-    }
-
-    .line-2.size {
-      width: 50px;
-    }
-
-    .line-3.size {
-      height: 50px;
-    }
-
-    .line-4.size {
-      width: 50px;
-    }
-
-    .main-contents {
-      opacity: 0;
-      animation-name: show-main-contents;
-      animation-duration: 1s;
-      animation-delay: 2s;
-      animation-iteration-count: 1;
-      animation-fill-mode: forwards;
-      position: absolute;
-      top: 50px;
-      left: 50px;
-      width: calc(100% - 100px);
-      height: calc(100% - 100px);
-    }
-
-    .ex-companies li p {
+    .l {
+      box-sizing: border-box;
+      padding: 0;
       margin: 0;
+      display: flex;
+      width: 100%;
+      height: 100%;
+      font-size: 18px;
+      justify-content: center;
+      align-items: center;
+      min-width: 0;
+      cursor: pointer;
+      background-color: rgba(0, 0, 0, 0.75);
+      border: transparent 5px;
+      transition: background-color 0.2s ease,
+                  color 0.2s ease,
+                  text-shadow 0.2s ease,
+                  min-width 0.2s ease;
+      position: relative;
     }
 
-    @keyframes slide-in-right-to-left {
-      from {
-        width: 0;
+    .l:hover {
+      background-color: rgba(0, 0, 0, 0.0);
+      color: #FFFFFF;
+      text-shadow: 0 0 5px #222222;
+      min-width: 240px;
+    }
+
+    .dc {
+      position: absolute;
+      left: -100px;
+    }
+
+    .dc + .do {
+      animation-name: dialog-reverse;
+      animation-duration: 0.3s;
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
+      animation-direction: normal;
+      background-color: rgba(0, 0, 0, 0.8);
+      opacity: 0;
+    }
+
+    .dc:checked + .do {
+      animation-name: dialog;
+      animation-duration: 0.3s;
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
+      animation-direction: normal;
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .do {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      opacity: 0;
+    }
+
+    .w {
+      background-color: #222222;
+      position: absolute;
+      left: 0;
+      top: 0;
+      animation-name: init;
+      animation-delay: 1s;
+      animation-duration: 0s;
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
+      animation-direction: normal;
+      z-index: 15;
+    }
+
+    h2 {
+      font-size: 32px;
+      text-transform: uppercase;
+      margin: 0;
+      padding: 0;
+    }
+
+    h3 {
+      margin: 0;
+      padding: 0;
+
+      font-size: 16px;
+      text-transform: uppercase;
+    }
+
+    .d-cl {
+      font-size: 32px;
+      cursor: pointer;
+    }
+
+    .d-w {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #FFFFFF;
+    }
+
+    .d-b {
+      width: 800px;
+    }
+
+    .d-c {
+
+    }
+
+    .d-sr {
+      display: flex;
+      width: 100%;
+    }
+
+
+    .d-sr-l,
+    .d-sr-r,
+    .d-sr-f {
+      flex: 1;
+    }
+
+    .d-sr-r,
+    .d-sr-f {
+      height: 400px;
+      overflow-y: scroll;
+      padding-right: 20px;
+    }
+
+    .d-h {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 3px solid #d81b60;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+
+    .u-a-l {
+      position: relative;
+      height: 400px;
+    }
+
+    .u-a {
+      width: 200px;
+      height: 200px;
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      background-size: cover;
+      border-radius: 50%;
+      position: absolute;
+      box-shadow: 0 0 10px #222222;
+    }
+
+    .u-a-1 {
+      background-image: url('./assets/logical_memory.jpg');
+      left: calc(50% - 100px - 50px);
+      top: calc(50% - 100px - 50px);
+    }
+
+    .u-a-2 {
+      background-image: url('./assets/physical_memory.jpg');
+      left: calc(50% - 100px + 50px);
+      top: calc(50% - 100px + 50px);
+    }
+
+    .d-sr-h {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      white-space: nowrap;
+      margin-bottom: 20px;
+    }
+
+    .--nc {
+      text-transform: initial !important;
+    }
+
+    .d-sr-d {
+      border-top: 2px dotted #333333;
+      width: calc(100% - 20px);
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+
+    .d-sr-r-ta dd {
+      padding: 0;
+      margin: 0;
+      padding-bottom: 10px;
+    }
+
+    .d-sr-r-ta ul {
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .d-sr-r-ta li {
+      list-style: none;
+      display: block;
+      border: 1px solid #3D3D3D;
+      margin-left: 10px;
+      margin-top: 10px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+
+    .d-sr-b {
+      margin-bottom: 30px;
+    }
+
+    .d-sr-b-i {
+      margin-top: 20px;
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      background-size: cover;
+      height: 100px;
+      transition: height 0.3s ease;
+    }
+
+    .d-sr-b-i:hover {
+      height: 300px;
+    }
+
+    .d-sr-b-i:first-child {
+      margin-top: 0;
+    }
+
+    @keyframes init {
+      99% {
+        z-index: 15;
       }
-      to {
-        width: 100%;
+      100% {
+        z-index: 0;
       }
     }
 
-    @keyframes slide-in-top-to-bottom {
-      from {
-        height: 0;
-      }
-      to {
-        height: 100%;
-      }
-    }
-
-    @keyframes slide-in-left-to-right {
-      from {
-        width: 0;
-      }
-      to {
-        width: 100%;
-      }
-    }
-
-    @keyframes slide-in-bottom-to-top {
-      from {
-        height: 0;
-      }
-      to {
-        height: calc(100% - 50px);
-      }
-    }
-
-
-    @keyframes show-main-contents {
+    @keyframes dialog {
       from {
         opacity: 0;
       }
       to {
         opacity: 1;
+        z-index: 10;
       }
     }
 
-    .list.long strong {
-      width: 230px;
-      min-width: 230px;
-      max-width: 230px;
-    }
-
-    .list.short strong {
-      width: 90px;
-      min-width: 90px;
-      max-width: 90px;
-    }
-
-    .list.short-s strong {
-      width: 60px;
-      min-width: 60px;
-      max-width: 60px;
-    }
-
-    .profile-images {
-      position: absolute;
-      top: calc(50% - 100px);
-      left: 100px;
-    }
-
-    .profile-image-figure {
-      width:200px;
-      height:200px;
-      border-radius: 100px;
-      box-shadow: 0 0 20px #BBBBBB;
-    }
-
-    .my-description {
-      position: absolute;
-      top: 25px;
-      right: 25px;
-      width: calc(100% - 100px - 200px - 100px - 50px);
-      height: calc(100% - 50px);
-      overflow: scroll;
-    }
-
-    .flex li, .flex p {
-      display: flex;
-    }
-
-    .image--game img {
-      border-radius: 4px;
-    }
-
-
-    .profile-image--1 {
-      position: absolute;
-      top: -55px;
-      left: -55px;
-    }
-
-    .profile-image--2 {
-      position: absolute;
-      top: 55px;
-      left: 55px;
-    }
-
-    @media screen and (max-width: 650px) {
-      .profile-images {
-        position: static;
-        text-align: center;
+    @keyframes dialog-reverse {
+      from {
+        opacity: 1;
+        z-index: 10;
       }
-
-      .profile-image--1 {
-        position: relative;
-        top: 40px;
-        left: -20px;
-      }
-
-      .profile-image--2 {
-        position: relative;
-        top: -40px;
-        left: 20px;
-      }
-
-      .profile-image-figure {
-        width: 100px;
-        height: 100px;
-        margin: 25px 0;
-      }
-
-      .my-description {
-        position: static;
-        width: 100%;
-        height: calc(100vh - 150px - 15px);
-      }
-
-      .line-1.size {
-        height: 5px;
-      }
-
-      .line-2.size {
-        width: 5px;
-      }
-
-      .line-3.size {
-        height: 5px;
-      }
-
-      .line-4.size {
-        width: 5px;
-        bottom: 5px !important;
-      }
-
-      @keyframes slide-in-bottom-to-top {
-        from {
-          height: 0;
-        }
-        to {
-          height: calc(100% - 5px);
-        }
-      }
-
-      .main-contents {
-        top: 5px;
-        left: 10px;
-        width: calc(100% - 10px - 10px);
-        height: calc(100vh - 15px);
-      }
-
-      .contents {
-        padding-left: 5px;
+      to {
+        opacity: 0;
+        z-index: -1;
       }
     }
   </style>
 </head>
 <body>
-<div class="line-1 size" style="position: absolute; left: 0; bottom: 0; width: 0; background-color:#c2185b"></div>
-<div class="line-2 size" style="position: absolute; top: 0; height: 0; background-color:#d81b60;"></div>
-<div class="line-3 size" style="position: absolute; right: 0; top: 0; width: 100%; background-color:#e91e63"></div>
-<div class="line-4 size" style="position: absolute; right: 0; bottom: 50px; height: 0; background-color:#ad1457"></div>
-<div class="main-contents">
-  <div class="profile-images">
-    <div class="profile-image profile-image--1"><img src="./assets/logical_memory.jpg" class="profile-image-figure"></div>
-    <div class="profile-image profile-image--2"><img src="./assets/physical_memory.jpg" class="profile-image-figure"></div>
-  </div>
-  <div class="my-description">
-    <h3><span>NAME</span></h3>
-    <div class="contents">
-      <p>memory</p>
-    </div>
-    <h3><span>JOB</span></h3>
-    <div class="contents">
-      <p>A Tech Lead and Engineering Manager at <a href="https://torana.us/">Torana Inc.</a></p>
-      <p>A backend and frontend engineer at <a href="https://www.togetter.co.jp/">Togetter Inc.</a> (A part-time engineer)</p>
-      <div>
-        <ul class="ex-companies">
-          <li>
-            <p>ex- <strong>BASE, Inc.</strong></p>
-          </li>
-          <li>
-            <p>ex- <strong>GameWith, Inc.</strong></p>
-          </li>
-          <li>
-            <p>ex- <strong>Synapse, Inc.</strong> <span class="small">(Currently, DMM.com LLC.)</span></p>
-          </li>
-        </ul>
+  <div class="w">
+    <div class="c">
+      <div class="c-1">
+        <button style="background-image: url(./assets/logical_memory.jpg)">
+          <label for="d-1" class="l">About me</label>
+        </button>
+        <button style="background-image: url(./assets/products.jpeg)">
+          <label for="d-2" class="l">Products</label>
+        </button>
+        <button style="background-image: url(./assets/conference.jpeg)">
+          <label for="d-3" class="l">Activities</label>
+        </button>
+        <button style="background-image: url(./assets/sdvx_cover.png)">
+          <label for="d-4" class="l">Music Games</label>
+        </button>
+        <button style="background-image: url(./assets/contact_me.png)">
+          <label for="d-5" class="l">Contact Me</label>
+        </button>
       </div>
     </div>
-    <h3><span>AGE</span></h3>
-    <div class="contents">25 (05/26/1994)</div>
-    <h3><span>SKILLS</span></h3>
-    <div class="contents">
-      <ul class="list flex">
-        <li><strong>Backend: </strong><span>PHP, Node.js, Go, Java</span></li>
-        <li><strong>Frontend: </strong><span>JavaScript, TypeScript, HTML, CSS, Scss, Less</span></li>
-        <li><strong>Apps: </strong><span>React Native, Objective-C</span></li>
-        <li><strong>Frameworks: </strong><span>Laravel, Lumen, CakePHP, FuelPHP, React(with Redux), Vue, Nuxt, jQuery, Bootstrap, Tailwind, Material UI, WordPress, PHPUnit, PHP CodeSniffer, Jest</span></li>
-        <li><strong>Infrastructures: </strong><span>CentOS, Ubuntu, AWS, MySQL, SQLite, Apache, Nginx, Elasticsearch, Docker, Vagrant, memcached, Redis, Firebase, New Relic</span></li>
-        <li><strong>Payment services: </strong><span>Stripe, GMO Payment Gateway, pay.jp</span></li>
-      </ul>
-    </div>
-    <h3><span>PRODUCTS</span></h3>
-    <div class="contents">
-      <ul class="list flex">
-        <li><strong>PHPJava:</strong><span>Implement JVM (Java Virtual Machine) by PHP. <a href="https://github.com/php-java/php-java" target="_blank">[See more]</a></span></li>
-        <li><strong>JS-JVM:</strong><span>Implement JVM (Java Virtual Machine) by JavaScript. This is simply implementation. <a href="https://github.com/memory-agape/js-jvm" target="_blank">[See more]</a></span></li>
-        <li><strong>GitHub-PHP-Function-Jumper:</strong><span>Allows to pop-up functions, classes and dynamic methods on GitHub. And allows to jump to the PHP Manual. <a href="https://github.com/memory-agape/github-php-function-jumper" target="_blank">[See more]</a></span></li>
-        <li><strong>Magnolia:</strong><span>Implement streaming camera for Hamster. <a href="https://github.com/memory-agape/magnolia-server" target="_blank">[Backend]</a>, <a href="https://github.com/memory-agape/magnolia-client" target="_blank">[Frontend]</a>, <a href="https://github.com/memory-agape/magnolia-raspberrypi" target="_blank">[RaspberryPi]</a></span></li>
-      </ul>
-    </div>
-    <h3><span>ARTICLES</span></h3>
-    <div class="contents">
-      <ul class="list flex short">
-        <li><strong>02/19/2020:</strong><span><a href="https://note.com/m3m0r7/n/n0f062c3f944b" target="_blank">ファイルアップローダーサービスをローンチしました</a></span></li>
-        <li><strong>02/11/2020:</strong><span><a href="https://note.com/m3m0r7/n/nc8b3e105ec12" target="_blank">PHPerKaigi 2020 にスピーカーとして登壇しました</a></span></li>
-        <li><strong>08/15/2019:</strong><span><a href="https://note.mu/m3m0r7/n/neda17b15feeb" target="_blank">ストリーミングでハムスターの監視ができるシステムを RaspberryPi と PHP でつくったので仕組みとかを公開してみます</a></span></li>
-        <li><strong>07/21/2019:</strong><span><a href="https://note.mu/m3m0r7/n/nccb3039caf6b" target="_blank">ロリポップマネージドクラウドの 10 万円分クーポンをもらったのでハムスター監視システムをサクッとデプロイしてみたよ</a></span></li>
-        <li><strong>07/18/2019:</strong><span><a href="https://basebook.binc.jp/entry/2019/07/18/150000" target="_blank">BASEに入社して1か月の軌跡</a></span></li>
-        <li><strong>07/01/2019:</strong><span><a href="https://note.mu/m3m0r7/n/n057fa3437c0e" target="_blank">足をケガして車イス生活を 3 週間くらい続けたので感想を書きます</a></span></li>
-        <li><strong>06/15/2019:</strong><span><a href="https://note.mu/m3m0r7/n/n4009ae9ad002" target="_blank">株式会社 GameWith を退職しました。 そして…</a></span></li>
-      </ul>
-    </div>
-    <h3><span>WROTE BOOKS</span></h3>
-    <div class="contents">
-      <ul class="list flex short">
-        <li><strong>12/06/2019:</strong><span><a href="https://www.amazon.co.jp/o/ASIN/4297110555/gihyojp-22" target="_blank">みんなのPHP</a>, <strong>「PHPで学ぶバイナリファイルの読み方」</strong></span></li>
-        <li><strong>11/18/2019:</strong><span><a href="https://www.amazon.co.jp/o/ASIN/B07Z74Q3BD/gihyojp-22" target="_blank">ソフトウェアデザイン 2019年12月号</a>, <strong>「SwooleのCoroutineで非同期処理サーバを作ってみる」</strong>, <strong>「PHPの野良ビルドに挑戦する」</strong></span></li>
-      </ul>
-    </div>
-    <h3><span>RECENT ACTIVITIES</span></h3>
-    <div class="contents">
-      <ul class="list flex short">
-        <li><strong>04/16/2020:</strong><span>I joined <strong>Torana Inc.</strong></span></li>
-        <li><strong>03/11/2020:</strong><span>I joined <strong>Togetter Inc.</strong></span></li>
-        <li><strong>03/10/2020:</strong><span>I leave <strong>BASE Inc.</strong></span></li>
-        <li><strong>02/09/2020:</strong><span>I made a speech at <strong>PHPerKaigi 2020</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/php-de-jvm-woshi-zhuang-site-helloworld-wochu-li-sitemiru" target="_blank">PHP で JVM を実装して、 HelloWorld を出力してみる</a>&quot;</strong></span></li>
-        <li><strong>12/01/2019:</strong><span>I made a speech at <strong>PHP Conference Japan 2019</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/php-niokerubing-lie-chu-li-tofei-tong-qi-chu-li-ru-men" target="_blank">PHP における並列処理と非同期処理入門</a>&quot;</strong></span></li>
-        <li><strong>11/22/2019:</strong><span>I made a speech at <strong>Kichijoji.pm</strong>. The title is <strong>&quot;<a href="https://phpcon.okinawa.jp/" target="_blank">PHP で AST 解析をして Java のオペコードを生成する</a>&quot;</strong></span></li>
-        <li><strong>10/12/2019:</strong><span>I made a speech at <strong>PHP Conference Okinawa 2019</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/phper-falsetamefalse-phpunit-to-selenium-woshi-tuta-burauzatesutofalsesu-me-a066ef2e-6ce9-45fb-9cb9-50fd609ab943" target="_blank">PHPer のための PHPUnit と Selenium を使ったブラウザテストのすゝめ</a>&quot;</strong></span></li>
-        <li><strong>09/21/2019:</strong><span>I made a speech at <strong>PHP Conference Hokkaido 2019</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/phper-falsetamefalse-phpunit-to-selenium-woshi-tuta-burauzatesutofalsesu-me" target="_blank">PHPer のための PHPUnit と Selenium を使ったブラウザテストのすゝめ</a>&quot;</strong></span></li>
-        <li><strong>08/31/2019:</strong><span>I made a speech at <strong>Builderscon</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/php-de-jvm-woshi-zhuang-site-hello-world-wochu-li-surumade" target="_blank">How to implement JVM by PHP, And until output Hello World.</a>&quot;</strong></span></li>
-        <li><strong>06/29/2019:</strong><span>I got first place in the CodeGolf event at <strong>PHP Conference Fukuoka 2019</strong>. <a href="https://note.mu/mclolipopjp/n/n836e89cd81f2" target="_blank">[See more]</a></span></li>
-        <li><strong>06/01/2019:</strong><span>I joined <strong>BASE, Inc.</strong></span></li>
-        <li><strong>05/31/2019:</strong><span>I leave <strong>GameWith, Inc.</strong></span></li>
-        <li><strong>04/24/2019:</strong><span>I made a speech at <strong>PHP Study</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/hamusutawojian-shi-surusisutemuwo-raspberry-pi-to-php-false-swoole-tezuo-tutahua" target="_blank">ハムスターを監視するシステムを Raspberry Pi と PHP の Swoole で作った話</a>&quot;</strong></span></li>
-        <li><strong>03/29/2019:</strong><span>I made a speech at <strong>PHPerKaigi 2019</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/phperkaigi-2019" target="_blank">PHP で JVM に入門する</a>&quot;</strong></span></li>
-        <li><strong>02/20/2019:</strong><span>I made a speech at <strong>Elasticsearch Study Meeting 2019</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/elasticsearch-mian-qiang-hui-2019-gamewithtejian-suo-sisutemukashi-warerumate" target="_blank">GameWith で検索システムが使われるまで</a>&quot;</strong></span></li>
-        <li><strong>02/16/2019:</strong><span>I made a speech at <strong>LaravelJP Conference 2019</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/laravel-jp-conference-2019-lt" target="_blank">PHP で Java を動かす</a>&quot;</strong></span></li>
-        <li><strong>01/26/2019:</strong><span>I made a speech at <strong>PHP Conference Sendai 2019</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/php-conference-sendai-2019-presentation-slides" target="_blank">開発期間 2 ヶ月で Elasticsearch をプロダクトに使ってリリースした話</a>&quot;</strong></span></li>
-        <li><strong>04/16/2018:</strong><span>I joined <strong>GameWith, Inc</strong>.</span></li>
-        <li><strong>10/01/2017:</strong><span><a href="https://www.jstage.jst.go.jp/article/transinf/E100.D/10/E100.D_2016OFP0001/_pdf">The paper [PDF]</a> quoted my library &quot;<a href="https://github.com/memory-agape/php-websocket-server" target="_blank">php-websocket-server</a>&quot;.</span></li>
-        <li><strong>01/30/2013:</strong><span><a href="https://www.amazon.co.jp/HTML5%E3%81%AB%E3%82%88%E3%82%8B%E3%83%9E%E3%83%AB%E3%83%81%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E5%9E%8B%E6%AC%A1%E4%B8%96%E4%BB%A3Web%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E9%96%8B%E7%99%BA-%E5%B0%8F%E6%9E%97-%E9%80%8F/dp/4798129542" target="_blank">The book</a> quoted my library &quot;<a href="https://github.com/memory-agape/php-websocket-server">php-websocket-server</a>&quot;</span></li>
-      </ul>
-    </div>
-    <h3><span>ENJOY</span></h3>
-    <div class="contents">
-      <p>SOUND VOLTEX, Dance Dance Revolution, Deemo, VOEZ, BanG Dream!, Cytus II, Read binary file, NLP</p>
-      <p><span class="image--game"><img src="assets/sdvx.png" width="80%" /></span></p>
-    </div>
-    <h3><span>CONTACT ME</span></h3>
-    <div class="contents">
-      <ul class="list flex short-s">
-        <li><strong>E-mail: </strong><span><span class="email">memory.agape.works</span></span></li>
-        <li><strong>GitHub: </strong><span><a href="https://github.com/m3m0r7">https://github.com/m3m0r7</a></span></li>
-        <li><strong>Twitter: </strong><span><a href="https://twitter.com/m3m0r7">https://twitter.com/m3m0r7</a></span></li>
-      </ul>
+  </div>
+
+  <div class="d">
+    <input type="checkbox" class="dc" id="d-1" autocomplete="false" />
+    <div class="do">
+      <div class="d-w">
+        <div class="d-b">
+          <div class="d-h">
+            <h2>About me</h2>
+            <label class="d-cl" for="d-1">&times;</label>
+          </div>
+          <div class="d-c">
+            <div class="d-sr">
+              <div class="d-sr-l">
+                <div class="u-a-l">
+                  <div class="u-a u-a-1"></div>
+                  <div class="u-a u-a-2"></div>
+                </div>
+              </div>
+              <div class="d-sr-r">
+                <div class="d-sr-h">
+                  <h3>Nick Name</h3>
+                  <div class="d-sr-d"></div>
+                  <div>memory (めもりー)</div>
+                </div>
+
+                <div class="d-sr-h">
+                  <h3>Experiences</h3>
+                  <div class="d-sr-d"></div>
+                </div>
+                <div class="d-sr-b">
+                  <p>A Tech Lead and Engineering Manager at <a href="https://torana.us/">Torana Inc.</a></p>
+                  <p>A backend and frontend engineer at <a href="https://www.togetter.co.jp/">Togetter Inc.</a> (A part-time engineer)</p>
+                  <ul>
+                    <li>ex- BASE, Inc.</li>
+                    <li>ex- GameWith, Inc.</li>
+                    <li>ex- Synapse, Inc. (DMM)</li>
+                  </ul>
+                </div>
+
+                <div class="d-sr-h">
+                  <h3>Skills</h3>
+                  <div class="d-sr-d"></div>
+                </div>
+                <div class="d-sr-b d-sr-r-ta">
+                  <dl>
+                    <dt>Backend</dt>
+                    <dd>
+                      <ul>
+                        <li>PHP</li>
+                        <li>Node.js</li>
+                        <li>Go</li>
+                      </ul>
+                    </dd>
+                    <dt>Frontend</dt>
+                    <dd>
+                      <ul>
+                        <li>TypeScript</li>
+                        <li>JavaScript</li>
+                        <li>HTML</li>
+                        <li>CSS</li>
+                        <li>SaSS</li>
+                        <li>Less</li>
+                      </ul>
+                    </dd>
+                    <dt>Framework</dt>
+                    <dd>
+                      <ul>
+                        <li>Laravel</li>
+                        <li>Lumen</li>
+                        <li>CakePHP</li>
+                        <li>FuelPHP</li>
+                        <li>React.js</li>
+                        <li>Next.js</li>
+                        <li>Emotion</li>
+                        <li>jQuery</li>
+                        <li>Bootstrap</li>
+                        <li>Material UI</li>
+                        <li>WordPress</li>
+                        <li>PHPUnit</li>
+                      </ul>
+                    </dd>
+                    <dt>Infra</dt>
+                    <dd>
+                      <ul>
+                        <li>AWS</li>
+                        <li>Amazon Linux</li>
+                        <li>CentOS</li>
+                        <li>Ubuntu</li>
+                        <li>MySQL/Aurora</li>
+                        <li>SQLite</li>
+                        <li>Apache</li>
+                        <li>Nginx</li>
+                        <li>Elasticsearch</li>
+                        <li>Docker</li>
+                        <li>Vagrant</li>
+                        <li>memcached</li>
+                        <li>Redis</li>
+                      </ul>
+                    </dd>
+                    <dt>Apps</dt>
+                    <dd>
+                      <ul>
+                        <li>React Native</li>
+                        <li>Objective-C</li>
+                      </ul>
+                    </dd>
+                    <dt>Other</dt>
+                    <dd>
+                      <ul>
+                        <li>Swoole</li>
+                        <li>Stripe</li>
+                        <li>GMO PaymentGateway</li>
+                      </ul>
+                    </dd>
+                  </dl>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
+    <input type="checkbox" class="dc" id="d-2" autocomplete="false" />
+    <div class="do">
+      <div class="d-w">
+        <div class="d-b">
+          <div class="d-h">
+            <h2>Products</h2>
+            <label class="d-cl" for="d-2">&times;</label>
+          </div>
+          <div class="d-c">
+            <div class="d-sr">
+              <div class="d-sr-f">
+                <div class="d-sr-h">
+                  <h3 class="--nc">PHPJava</h3>
+                  <div class="d-sr-d"></div>
+                  <div><a href="https://github.com/php-java/php-java">https://github.com/php-java/php-java</a></div>
+                </div>
+
+                <div class="d-sr-b">
+                  <ul>
+                    <li>The Java Virtual Machine written in PHP</li>
+                  </ul>
+                </div>
+
+                <div class="d-sr-h">
+                  <h3 class="--nc">GitHub-PHP-Function-Jumper</h3>
+                  <div class="d-sr-d"></div>
+                  <div><a href="https://github.com/m3m0r7/github-php-function-jumper">https://github.com/m3m0r7/github-php-function-jumper</a></div>
+                </div>
+
+                <div class="d-sr-b">
+                  <ul>
+                    <li>Jump to the PHP Manual on GitHub source codes viewer.</li>
+                  </ul>
+                </div>
+
+                <div class="d-sr-h">
+                  <h3 class="--nc">php-deferrable</h3>
+                  <div class="d-sr-d"></div>
+                  <div><a href="https://github.com/m3m0r7/php-deferrable">https://github.com/m3m0r7/php-deferrable</a></div>
+                </div>
+
+                <div class="d-sr-b">
+                  <ul>
+                    <li>Implementation of deferrable processing in PHP.</li>
+                  </ul>
+                </div>
+
+                <div class="d-sr-h">
+                  <h3 class="--nc">method-injector</h3>
+                  <div class="d-sr-d"></div>
+                  <div><a href="https://github.com/m3m0r7/method-injector">https://github.com/m3m0r7/method-injector</a></div>
+                </div>
+
+                <div class="d-sr-b">
+                  <ul>
+                    <li>Inject built-in functions or make mocks in your code for tests. It is not required to install PHP extensions.</li>
+                  </ul>
+                </div>
+
+                <div class="d-sr-h">
+                  <h3 class="--nc">Magnolia &lt;Backend&gt;</h3>
+                  <div class="d-sr-d"></div>
+                  <div><a href="https://github.com/m3m0r7/magnolia-server">https://github.com/m3m0r7/magnolia-server</a></div>
+                </div>
+
+                <div class="d-sr-h">
+                  <h3 class="--nc">Magnolia &lt;Frontend&gt;</h3>
+                  <div class="d-sr-d"></div>
+                  <div><a href="https://github.com/m3m0r7/magnolia-client">https://github.com/m3m0r7/magnolia-client</a></div>
+                </div>
+
+                <div class="d-sr-h">
+                  <h3 class="--nc">Magnolia &lt;RaspberryPi&gt;</h3>
+                  <div class="d-sr-d"></div>
+                  <div><a href="https://github.com/m3m0r7/magnolia-raspberrypi">https://github.com/m3m0r7/magnolia-raspberrypi</a></div>
+                </div>
+
+                <div class="d-sr-b">
+                  <ul>
+                    <li>Implementation of the streaming camera server, viewer and camera itself written in PHP.</li>
+                  </ul>
+                </div>
+
+                <div class="d-sr-h">
+                  <h3 class="--nc">Lupinus</h3>
+                  <div class="d-sr-d"></div>
+                  <div><a href="https://github.com/m3m0r7/lupinus">https://github.com/m3m0r7/lupinus</a></div>
+                </div>
+
+                <div class="d-sr-b">
+                  <ul>
+                    <li>Implementation of the streaming camera server written in Go</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <input type="checkbox" class="dc" id="d-3" autocomplete="false" />
+    <div class="do">
+      <div class="d-w">
+        <div class="d-b">
+          <div class="d-h">
+            <h2>Activities</h2>
+            <label class="d-cl" for="d-3">&times;</label>
+          </div>
+          <div class="d-c">
+            <div class="d-sr">
+              <div class="d-sr-f">
+
+                <div class="d-sr-h">
+                  <h3 class="--nc">PHP Conference 2020 (Speaker)</h3>
+                  <div class="d-sr-d"></div>
+                  <div>12/12/2020</div>
+                </div>
+
+                <div class="d-sr-b">
+                  <ul>
+                    <li><a href="https://speakerdeck.com/memory1994/zerobesukara-laravel-woyong-ita-api-shi-zhuang-otomesiyon" target="_blank">ゼロベースから Laravel を用いた  API 実装オートメーション</a></li>
+                  </ul>
+                </div>
+
+                <div class="d-sr-h">
+                  <h3 class="--nc">Torana, Inc. (Join)</h3>
+                  <div class="d-sr-d"></div>
+                  <div>04/16/2020</div>
+                </div>
+
+                <div class="d-sr-h">
+                  <h3 class="--nc">Togetter, Inc. (Join)</h3>
+                  <div class="d-sr-d"></div>
+                  <div>03/11/2020</div>
+                </div>
+
+                <div class="d-sr-h">
+                  <h3 class="--nc">BASE, Inc. (Leave)</h3>
+                  <div class="d-sr-d"></div>
+                  <div>03/10/2020</div>
+                </div>
+
+                <div class="d-sr-h">
+                  <h3 class="--nc">PHPerKaigi 2020 (Speaker)</h3>
+                  <div class="d-sr-d"></div>
+                  <div>02/09/2020</div>
+                </div>
+                <div class="d-sr-b">
+                  <ul>
+                    <li><a href="https://speakerdeck.com/memory1994/php-de-jvm-woshi-zhuang-site-helloworld-wochu-li-sitemiru" target="_blank">PHP で JVM を実装して、 HelloWorld を出力してみる</a></li>
+                  </ul>
+                </div>
+
+                <div class="d-sr-h">
+                  <h3 class="--nc">PHP Conference 2019 (Speaker)</h3>
+                  <div class="d-sr-d"></div>
+                  <div>12/01/2020</div>
+                </div>
+                <div class="d-sr-b">
+                  <ul>
+                    <li><a href="https://speakerdeck.com/memory1994/php-niokerubing-lie-chu-li-tofei-tong-qi-chu-li-ru-men" target="_blank">PHP における並列処理と非同期処理入門</a></li>
+                  </ul>
+                </div>
+
+                <div class="d-sr-h">
+                  <h3 class="--nc">Kichijoji.pm (Speaker)</h3>
+                  <div class="d-sr-d"></div>
+                  <div>11/22/2019</div>
+                </div>
+                <div class="d-sr-b">
+                  <ul>
+                    <li><a href="https://speakerdeck.com/memory1994/php-de-ast-jie-xi-wosite-java-falseopekodowosheng-cheng-suru" target="_blank">PHP で AST 解析をして Java のオペコードを生成する</a></li>
+                  </ul>
+                </div>
+
+                <div class="d-sr-h">
+                  <h3 class="--nc">PHP Conference Okinawa 2019 (Speaker)</h3>
+                  <div class="d-sr-d"></div>
+                  <div>10/12/2019</div>
+                </div>
+                <div class="d-sr-b">
+                  <ul>
+                    <li><a href="https://speakerdeck.com/memory1994/phper-falsetamefalse-phpunit-to-selenium-woshi-tuta-burauzatesutofalsesu-me-a066ef2e-6ce9-45fb-9cb9-50fd609ab943" target="_blank">PHPer のための PHPUnit と Selenium を使ったブラウザテストのすゝめ</a></li>
+                  </ul>
+                </div>
+
+                <div class="d-sr-h">
+                  <h3 class="--nc">PHP Conference Hokkaido 2019 (Speaker)</h3>
+                  <div class="d-sr-d"></div>
+                  <div>09/21/2019</div>
+                </div>
+                <div class="d-sr-b">
+                  <ul>
+                    <li><a href="https://speakerdeck.com/memory1994/phper-falsetamefalse-phpunit-to-selenium-woshi-tuta-burauzatesutofalsesu-me" target="_blank">PHPer のための PHPUnit と Selenium を使ったブラウザテストのすゝめ</a></li>
+                  </ul>
+                </div>
+
+                <div class="d-sr-h">
+                  <h3 class="--nc">Builderscon 2019 (Speaker)</h3>
+                  <div class="d-sr-d"></div>
+                  <div>08/31/2019</div>
+                </div>
+                <div class="d-sr-b">
+                  <ul>
+                    <li><a href="https://speakerdeck.com/memory1994/php-de-jvm-woshi-zhuang-site-hello-world-wochu-li-surumade" target="_blank">How to implement JVM by PHP, And until output Hello World.</a></li>
+                  </ul>
+                </div>
+
+                <div class="d-sr-h">
+                  <h3 class="--nc">PHP Conference Fukuoka 2019 (CodeGolf Challenge)</h3>
+                  <div class="d-sr-d"></div>
+                  <div>06/29/2019</div>
+                </div>
+                <div class="d-sr-b">
+                  <ul>
+                    <li><a href="https://note.mu/mclolipopjp/n/n836e89cd81f2" target="_blank">I am a champ for Code Golf.</a></li>
+                  </ul>
+                </div>
+
+                <div class="d-sr-h">
+                  <h3 class="--nc">BASE, Inc. (Join)</h3>
+                  <div class="d-sr-d"></div>
+                  <div>06/01/2019</div>
+                </div>
+
+                <div class="d-sr-h">
+                  <h3 class="--nc">GameWith, Inc. (Leave)</h3>
+                  <div class="d-sr-d"></div>
+                  <div>05/31/2019</div>
+                </div>
+
+                <div class="d-sr-h">
+                  <h3 class="--nc">PHP Study (Speaker)</h3>
+                  <div class="d-sr-d"></div>
+                  <div>04/24/2019</div>
+                </div>
+                <div class="d-sr-b">
+                  <ul>
+                    <li><a href="https://speakerdeck.com/memory1994/hamusutawojian-shi-surusisutemuwo-raspberry-pi-to-php-false-swoole-tezuo-tutahua" target="_blank">ハムスターを監視するシステムを Raspberry Pi と PHP の Swoole で作った話</a></li>
+                  </ul>
+                </div>
+
+                <div class="d-sr-h">
+                  <h3 class="--nc">PHPerKaigi 2019 (Speaker)</h3>
+                  <div class="d-sr-d"></div>
+                  <div>03/29/2019</div>
+                </div>
+                <div class="d-sr-b">
+                  <ul>
+                    <li><a href="https://speakerdeck.com/memory1994/phperkaigi-2019" target="_blank">PHP で JVM に入門する</a></li>
+                  </ul>
+                </div>
+
+                <div class="d-sr-h">
+                  <h3 class="--nc">Elasticsearch Study Meeting 2019 (Speaker)</h3>
+                  <div class="d-sr-d"></div>
+                  <div>03/29/2019</div>
+                </div>
+                <div class="d-sr-b">
+                  <ul>
+                    <li><a href="https://speakerdeck.com/memory1994/elasticsearch-mian-qiang-hui-2019-gamewithtejian-suo-sisutemukashi-warerumate" target="_blank">GameWith で検索システムが使われるまで</a></li>
+                  </ul>
+                </div>
+
+                <div class="d-sr-h">
+                  <h3 class="--nc">PHP Conference Sendai 2019 (Speaker)</h3>
+                  <div class="d-sr-d"></div>
+                  <div>03/29/2019</div>
+                </div>
+                <div class="d-sr-b">
+                  <ul>
+                    <li><a href="https://speakerdeck.com/memory1994/php-conference-sendai-2019-presentation-slides" target="_blank">開発期間 2 ヶ月で Elasticsearch をプロダクトに使ってリリースした話</a></li>
+                  </ul>
+                </div>
+
+                <div class="d-sr-h">
+                  <h3 class="--nc">GameWith, Inc. (Join)</h3>
+                  <div class="d-sr-d"></div>
+                  <div>04/16/2019</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <input type="checkbox" class="dc" id="d-4" autocomplete="false" />
+    <div class="do">
+      <div class="d-w">
+        <div class="d-b">
+          <div class="d-h">
+            <h2>Music Games</h2>
+            <label class="d-cl" for="d-4">&times;</label>
+          </div>
+          <div class="d-c">
+            <div class="d-sr">
+              <div class="d-sr-f">
+
+                <div class="d-sr-h">
+                  <h3 class="--nc">SoundVoltex</h3>
+                  <div class="d-sr-d"></div>
+                </div>
+
+                <div class="d-sr-b">
+                  <div class="d-sr-b-i" style="background-image: url(./assets/sdvx.png)"></div>
+                </div>
+
+                <div class="d-sr-h">
+                  <h3 class="--nc">Deemo</h3>
+                  <div class="d-sr-d"></div>
+                </div>
+
+                <div class="d-sr-b">
+                  <div class="d-sr-b-i" style="background-image: url(./assets/deemo-1.jpeg)"></div>
+                  <div class="d-sr-b-i" style="background-image: url(./assets/deemo-2.jpeg)"></div>
+                  <div class="d-sr-b-i" style="background-image: url(./assets/deemo-3.jpeg)"></div>
+                  <div class="d-sr-b-i" style="background-image: url(./assets/deemo-4.jpeg)"></div>
+                </div>
+
+                <div class="d-sr-h">
+                  <h3 class="--nc">バンドリ!</h3>
+                  <div class="d-sr-d"></div>
+                </div>
+                <div class="d-sr-b">
+                  <div class="d-sr-b-i" style="background-image: url(./assets/bandori-1.jpeg)"></div>
+                </div>
+
+
+                <div class="d-sr-h">
+                  <h3 class="--nc">プロセカ</h3>
+                  <div class="d-sr-d"></div>
+                </div>
+                <div class="d-sr-b">
+                  <div class="d-sr-b-i" style="background-image: url(./assets/proseka-1.jpeg)"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <input type="checkbox" class="dc" id="d-5" autocomplete="false" />
+    <div class="do">
+      <div class="d-w">
+        <div class="d-b">
+          <div class="d-h">
+            <h2>Music Games</h2>
+            <label class="d-cl" for="d-5">&times;</label>
+          </div>
+          <div class="d-c">
+            <div class="d-sr">
+              <div class="d-sr-f">
+                <div class="d-sr-h">
+                  <h3 class="--nc">Twitter</h3>
+                  <div class="d-sr-d"></div>
+                  <div><a href="https://twitter.com/m3m0r7">https://twitter.com/m3m0r7</a></div>
+                </div>
+
+                <div class="d-sr-h">
+                  <h3 class="--nc">GitHub</h3>
+                  <div class="d-sr-d"></div>
+                  <div><a href="https://github.com/m3m0r7">https://github.com/m3m0r7</a></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
 </body>
 </html>

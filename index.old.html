@@ -1,0 +1,439 @@
+<!DOCType html>
+<html>
+<head>
+  <title>memory' portfolio</title>
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta charset="utf-8">
+  <style>
+    body, html {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      font-size: 14px;
+      font-family: "Noto Sans JP", sans-serif;
+    }
+
+    h3 span {
+      background-color: #d81b60;
+      color: #FFFFFF;
+      padding: 4px 8px;
+      font-size: 12px;
+      line-height: 24px;
+      border-radius: 4px;
+      display: inline-block;
+      letter-spacing: 0.05rem;
+    }
+    h3 {
+      margin: 0;
+    }
+
+    .contents {
+      margin-top: 8px;
+      margin-bottom: 32px;
+      font-size: 14px;
+    }
+
+    .list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .list li {
+      line-height: 30px;
+      margin: 14px 0;
+    }
+
+    .list strong {
+      width: 130px;
+      min-width: 130px;
+      max-width: 130px;
+    }
+
+    .list.list-min span {
+      width: 60px;
+    }
+    .translated {
+      margin-left: 20px;
+      font-size: 12px;
+      color: #666666;
+    }
+
+    p {
+      line-height: 30px;
+    }
+
+    a {
+      color: #c2185b;
+    }
+
+    .small {
+      font-size: 12px;
+      color: #888888;
+    }
+
+    .email:after {
+      content: '@gmail.com';
+    }
+
+    .line-1 {
+      animation-name: slide-in-left-to-right;
+      animation-duration: 0.5s;
+      animation-delay: 1s;
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
+    }
+
+    .line-2 {
+      animation-name: slide-in-top-to-bottom;
+      animation-duration: 0.5s;
+      animation-delay: 0.5s;
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
+    }
+
+    .line-3 {
+      animation-name: slide-in-right-to-left;
+      animation-duration: 0.5s;
+      width: 0;
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
+    }
+
+    .line-4 {
+      animation-name: slide-in-bottom-to-top;
+      animation-duration: 0.5s;
+      animation-delay: 1.5s;
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
+    }
+
+    .line-1.size {
+      height: 50px;
+    }
+
+    .line-2.size {
+      width: 50px;
+    }
+
+    .line-3.size {
+      height: 50px;
+    }
+
+    .line-4.size {
+      width: 50px;
+    }
+
+    .main-contents {
+      opacity: 0;
+      animation-name: show-main-contents;
+      animation-duration: 1s;
+      animation-delay: 2s;
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
+      position: absolute;
+      top: 50px;
+      left: 50px;
+      width: calc(100% - 100px);
+      height: calc(100% - 100px);
+    }
+
+    .ex-companies li p {
+      margin: 0;
+    }
+
+    @keyframes slide-in-right-to-left {
+      from {
+        width: 0;
+      }
+      to {
+        width: 100%;
+      }
+    }
+
+    @keyframes slide-in-top-to-bottom {
+      from {
+        height: 0;
+      }
+      to {
+        height: 100%;
+      }
+    }
+
+    @keyframes slide-in-left-to-right {
+      from {
+        width: 0;
+      }
+      to {
+        width: 100%;
+      }
+    }
+
+    @keyframes slide-in-bottom-to-top {
+      from {
+        height: 0;
+      }
+      to {
+        height: calc(100% - 50px);
+      }
+    }
+
+
+    @keyframes show-main-contents {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    .list.long strong {
+      width: 230px;
+      min-width: 230px;
+      max-width: 230px;
+    }
+
+    .list.short strong {
+      width: 90px;
+      min-width: 90px;
+      max-width: 90px;
+    }
+
+    .list.short-s strong {
+      width: 60px;
+      min-width: 60px;
+      max-width: 60px;
+    }
+
+    .profile-images {
+      position: absolute;
+      top: calc(50% - 100px);
+      left: 100px;
+    }
+
+    .profile-image-figure {
+      width:200px;
+      height:200px;
+      border-radius: 100px;
+      box-shadow: 0 0 20px #BBBBBB;
+    }
+
+    .my-description {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+      width: calc(100% - 100px - 200px - 100px - 50px);
+      height: calc(100% - 50px);
+      overflow: scroll;
+    }
+
+    .flex li, .flex p {
+      display: flex;
+    }
+
+    .image--game img {
+      border-radius: 4px;
+    }
+
+
+    .profile-image--1 {
+      position: absolute;
+      top: -55px;
+      left: -55px;
+    }
+
+    .profile-image--2 {
+      position: absolute;
+      top: 55px;
+      left: 55px;
+    }
+
+    @media screen and (max-width: 650px) {
+      .profile-images {
+        position: static;
+        text-align: center;
+      }
+
+      .profile-image--1 {
+        position: relative;
+        top: 40px;
+        left: -20px;
+      }
+
+      .profile-image--2 {
+        position: relative;
+        top: -40px;
+        left: 20px;
+      }
+
+      .profile-image-figure {
+        width: 100px;
+        height: 100px;
+        margin: 25px 0;
+      }
+
+      .my-description {
+        position: static;
+        width: 100%;
+        height: calc(100vh - 150px - 15px);
+      }
+
+      .line-1.size {
+        height: 5px;
+      }
+
+      .line-2.size {
+        width: 5px;
+      }
+
+      .line-3.size {
+        height: 5px;
+      }
+
+      .line-4.size {
+        width: 5px;
+        bottom: 5px !important;
+      }
+
+      @keyframes slide-in-bottom-to-top {
+        from {
+          height: 0;
+        }
+        to {
+          height: calc(100% - 5px);
+        }
+      }
+
+      .main-contents {
+        top: 5px;
+        left: 10px;
+        width: calc(100% - 10px - 10px);
+        height: calc(100vh - 15px);
+      }
+
+      .contents {
+        padding-left: 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="line-1 size" style="position: absolute; left: 0; bottom: 0; width: 0; background-color:#c2185b"></div>
+<div class="line-2 size" style="position: absolute; top: 0; height: 0; background-color:#d81b60;"></div>
+<div class="line-3 size" style="position: absolute; right: 0; top: 0; width: 100%; background-color:#e91e63"></div>
+<div class="line-4 size" style="position: absolute; right: 0; bottom: 50px; height: 0; background-color:#ad1457"></div>
+<div class="main-contents">
+  <div class="profile-images">
+    <div class="profile-image profile-image--1"><img src="./assets/logical_memory.jpg" class="profile-image-figure"></div>
+    <div class="profile-image profile-image--2"><img src="./assets/physical_memory.jpg" class="profile-image-figure"></div>
+  </div>
+  <div class="my-description">
+    <h3><span>NAME</span></h3>
+    <div class="contents">
+      <p>memory</p>
+    </div>
+    <h3><span>JOB</span></h3>
+    <div class="contents">
+      <p>A Tech Lead and Engineering Manager at <a href="https://torana.us/">Torana Inc.</a></p>
+      <p>A backend and frontend engineer at <a href="https://www.togetter.co.jp/">Togetter Inc.</a> (A part-time engineer)</p>
+      <div>
+        <ul class="ex-companies">
+          <li>
+            <p>ex- <strong>BASE, Inc.</strong></p>
+          </li>
+          <li>
+            <p>ex- <strong>GameWith, Inc.</strong></p>
+          </li>
+          <li>
+            <p>ex- <strong>Synapse, Inc.</strong> <span class="small">(Currently, DMM.com LLC.)</span></p>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <h3><span>AGE</span></h3>
+    <div class="contents">25 (05/26/1994)</div>
+    <h3><span>SKILLS</span></h3>
+    <div class="contents">
+      <ul class="list flex">
+        <li><strong>Backend: </strong><span>PHP, Node.js, Go, Java</span></li>
+        <li><strong>Frontend: </strong><span>JavaScript, TypeScript, HTML, CSS, Scss, Less</span></li>
+        <li><strong>Apps: </strong><span>React Native, Objective-C</span></li>
+        <li><strong>Frameworks: </strong><span>Laravel, Lumen, CakePHP, FuelPHP, React(with Redux), Vue, Nuxt, jQuery, Bootstrap, Tailwind, Material UI, WordPress, PHPUnit, PHP CodeSniffer, Jest</span></li>
+        <li><strong>Infrastructures: </strong><span>CentOS, Ubuntu, AWS, MySQL, SQLite, Apache, Nginx, Elasticsearch, Docker, Vagrant, memcached, Redis, Firebase, New Relic</span></li>
+        <li><strong>Payment services: </strong><span>Stripe, GMO Payment Gateway, pay.jp</span></li>
+      </ul>
+    </div>
+    <h3><span>PRODUCTS</span></h3>
+    <div class="contents">
+      <ul class="list flex">
+        <li><strong>PHPJava:</strong><span>Implement JVM (Java Virtual Machine) by PHP. <a href="https://github.com/php-java/php-java" target="_blank">[See more]</a></span></li>
+        <li><strong>JS-JVM:</strong><span>Implement JVM (Java Virtual Machine) by JavaScript. This is simply implementation. <a href="https://github.com/memory-agape/js-jvm" target="_blank">[See more]</a></span></li>
+        <li><strong>GitHub-PHP-Function-Jumper:</strong><span>Allows to pop-up functions, classes and dynamic methods on GitHub. And allows to jump to the PHP Manual. <a href="https://github.com/memory-agape/github-php-function-jumper" target="_blank">[See more]</a></span></li>
+        <li><strong>Magnolia:</strong><span>Implement streaming camera for Hamster. <a href="https://github.com/memory-agape/magnolia-server" target="_blank">[Backend]</a>, <a href="https://github.com/memory-agape/magnolia-client" target="_blank">[Frontend]</a>, <a href="https://github.com/memory-agape/magnolia-raspberrypi" target="_blank">[RaspberryPi]</a></span></li>
+      </ul>
+    </div>
+    <h3><span>ARTICLES</span></h3>
+    <div class="contents">
+      <ul class="list flex short">
+        <li><strong>02/19/2020:</strong><span><a href="https://note.com/m3m0r7/n/n0f062c3f944b" target="_blank">ファイルアップローダーサービスをローンチしました</a></span></li>
+        <li><strong>02/11/2020:</strong><span><a href="https://note.com/m3m0r7/n/nc8b3e105ec12" target="_blank">PHPerKaigi 2020 にスピーカーとして登壇しました</a></span></li>
+        <li><strong>08/15/2019:</strong><span><a href="https://note.mu/m3m0r7/n/neda17b15feeb" target="_blank">ストリーミングでハムスターの監視ができるシステムを RaspberryPi と PHP でつくったので仕組みとかを公開してみます</a></span></li>
+        <li><strong>07/21/2019:</strong><span><a href="https://note.mu/m3m0r7/n/nccb3039caf6b" target="_blank">ロリポップマネージドクラウドの 10 万円分クーポンをもらったのでハムスター監視システムをサクッとデプロイしてみたよ</a></span></li>
+        <li><strong>07/18/2019:</strong><span><a href="https://basebook.binc.jp/entry/2019/07/18/150000" target="_blank">BASEに入社して1か月の軌跡</a></span></li>
+        <li><strong>07/01/2019:</strong><span><a href="https://note.mu/m3m0r7/n/n057fa3437c0e" target="_blank">足をケガして車イス生活を 3 週間くらい続けたので感想を書きます</a></span></li>
+        <li><strong>06/15/2019:</strong><span><a href="https://note.mu/m3m0r7/n/n4009ae9ad002" target="_blank">株式会社 GameWith を退職しました。 そして…</a></span></li>
+      </ul>
+    </div>
+    <h3><span>WROTE BOOKS</span></h3>
+    <div class="contents">
+      <ul class="list flex short">
+        <li><strong>12/06/2019:</strong><span><a href="https://www.amazon.co.jp/o/ASIN/4297110555/gihyojp-22" target="_blank">みんなのPHP</a>, <strong>「PHPで学ぶバイナリファイルの読み方」</strong></span></li>
+        <li><strong>11/18/2019:</strong><span><a href="https://www.amazon.co.jp/o/ASIN/B07Z74Q3BD/gihyojp-22" target="_blank">ソフトウェアデザイン 2019年12月号</a>, <strong>「SwooleのCoroutineで非同期処理サーバを作ってみる」</strong>, <strong>「PHPの野良ビルドに挑戦する」</strong></span></li>
+      </ul>
+    </div>
+    <h3><span>RECENT ACTIVITIES</span></h3>
+    <div class="contents">
+      <ul class="list flex short">
+        <li><strong>04/16/2020:</strong><span>I joined <strong>Torana Inc.</strong></span></li>
+        <li><strong>03/11/2020:</strong><span>I joined <strong>Togetter Inc.</strong></span></li>
+        <li><strong>03/10/2020:</strong><span>I leave <strong>BASE Inc.</strong></span></li>
+        <li><strong>02/09/2020:</strong><span>I made a speech at <strong>PHPerKaigi 2020</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/php-de-jvm-woshi-zhuang-site-helloworld-wochu-li-sitemiru" target="_blank">PHP で JVM を実装して、 HelloWorld を出力してみる</a>&quot;</strong></span></li>
+        <li><strong>12/01/2019:</strong><span>I made a speech at <strong>PHP Conference Japan 2019</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/php-niokerubing-lie-chu-li-tofei-tong-qi-chu-li-ru-men" target="_blank">PHP における並列処理と非同期処理入門</a>&quot;</strong></span></li>
+        <li><strong>11/22/2019:</strong><span>I made a speech at <strong>Kichijoji.pm</strong>. The title is <strong>&quot;<a href="https://phpcon.okinawa.jp/" target="_blank">PHP で AST 解析をして Java のオペコードを生成する</a>&quot;</strong></span></li>
+        <li><strong>10/12/2019:</strong><span>I made a speech at <strong>PHP Conference Okinawa 2019</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/phper-falsetamefalse-phpunit-to-selenium-woshi-tuta-burauzatesutofalsesu-me-a066ef2e-6ce9-45fb-9cb9-50fd609ab943" target="_blank">PHPer のための PHPUnit と Selenium を使ったブラウザテストのすゝめ</a>&quot;</strong></span></li>
+        <li><strong>09/21/2019:</strong><span>I made a speech at <strong>PHP Conference Hokkaido 2019</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/phper-falsetamefalse-phpunit-to-selenium-woshi-tuta-burauzatesutofalsesu-me" target="_blank">PHPer のための PHPUnit と Selenium を使ったブラウザテストのすゝめ</a>&quot;</strong></span></li>
+        <li><strong>08/31/2019:</strong><span>I made a speech at <strong>Builderscon</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/php-de-jvm-woshi-zhuang-site-hello-world-wochu-li-surumade" target="_blank">How to implement JVM by PHP, And until output Hello World.</a>&quot;</strong></span></li>
+        <li><strong>06/29/2019:</strong><span>I got first place in the CodeGolf event at <strong>PHP Conference Fukuoka 2019</strong>. <a href="https://note.mu/mclolipopjp/n/n836e89cd81f2" target="_blank">[See more]</a></span></li>
+        <li><strong>06/01/2019:</strong><span>I joined <strong>BASE, Inc.</strong></span></li>
+        <li><strong>05/31/2019:</strong><span>I leave <strong>GameWith, Inc.</strong></span></li>
+        <li><strong>04/24/2019:</strong><span>I made a speech at <strong>PHP Study</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/hamusutawojian-shi-surusisutemuwo-raspberry-pi-to-php-false-swoole-tezuo-tutahua" target="_blank">ハムスターを監視するシステムを Raspberry Pi と PHP の Swoole で作った話</a>&quot;</strong></span></li>
+        <li><strong>03/29/2019:</strong><span>I made a speech at <strong>PHPerKaigi 2019</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/phperkaigi-2019" target="_blank">PHP で JVM に入門する</a>&quot;</strong></span></li>
+        <li><strong>02/20/2019:</strong><span>I made a speech at <strong>Elasticsearch Study Meeting 2019</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/elasticsearch-mian-qiang-hui-2019-gamewithtejian-suo-sisutemukashi-warerumate" target="_blank">GameWith で検索システムが使われるまで</a>&quot;</strong></span></li>
+        <li><strong>02/16/2019:</strong><span>I made a speech at <strong>LaravelJP Conference 2019</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/laravel-jp-conference-2019-lt" target="_blank">PHP で Java を動かす</a>&quot;</strong></span></li>
+        <li><strong>01/26/2019:</strong><span>I made a speech at <strong>PHP Conference Sendai 2019</strong>. The title is <strong>&quot;<a href="https://speakerdeck.com/memory1994/php-conference-sendai-2019-presentation-slides" target="_blank">開発期間 2 ヶ月で Elasticsearch をプロダクトに使ってリリースした話</a>&quot;</strong></span></li>
+        <li><strong>04/16/2018:</strong><span>I joined <strong>GameWith, Inc</strong>.</span></li>
+        <li><strong>10/01/2017:</strong><span><a href="https://www.jstage.jst.go.jp/article/transinf/E100.D/10/E100.D_2016OFP0001/_pdf">The paper [PDF]</a> quoted my library &quot;<a href="https://github.com/memory-agape/php-websocket-server" target="_blank">php-websocket-server</a>&quot;.</span></li>
+        <li><strong>01/30/2013:</strong><span><a href="https://www.amazon.co.jp/HTML5%E3%81%AB%E3%82%88%E3%82%8B%E3%83%9E%E3%83%AB%E3%83%81%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E5%9E%8B%E6%AC%A1%E4%B8%96%E4%BB%A3Web%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E9%96%8B%E7%99%BA-%E5%B0%8F%E6%9E%97-%E9%80%8F/dp/4798129542" target="_blank">The book</a> quoted my library &quot;<a href="https://github.com/memory-agape/php-websocket-server">php-websocket-server</a>&quot;</span></li>
+      </ul>
+    </div>
+    <h3><span>ENJOY</span></h3>
+    <div class="contents">
+      <p>SOUND VOLTEX, Dance Dance Revolution, Deemo, VOEZ, BanG Dream!, Cytus II, Read binary file, NLP</p>
+      <p><span class="image--game"><img src="assets/sdvx.png" width="80%" /></span></p>
+    </div>
+    <h3><span>CONTACT ME</span></h3>
+    <div class="contents">
+      <ul class="list flex short-s">
+        <li><strong>E-mail: </strong><span><span class="email">memory.agape.works</span></span></li>
+        <li><strong>GitHub: </strong><span><a href="https://github.com/m3m0r7">https://github.com/m3m0r7</a></span></li>
+        <li><strong>Twitter: </strong><span><a href="https://twitter.com/m3m0r7">https://twitter.com/m3m0r7</a></span></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
