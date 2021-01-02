@@ -105,7 +105,7 @@
     }
 
     .do {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
@@ -314,6 +314,84 @@
         z-index: -1;
       }
     }
+
+    @media (max-width: 800px) {
+      .c-1 {
+        flex-wrap: wrap;
+        flex-direction: column;
+        height: 100vh;
+      }
+
+      button {
+        width: 100%;
+        height: calc(100% / 5);
+      }
+
+      .d-sr {
+        flex-wrap: wrap;
+        flex-direction: column;
+      }
+
+      .d-b {
+        overflow: scroll;
+        height: 100vh;
+        width: 100%;
+      }
+
+      .d-sr-r, .d-sr-f {
+        height: initial;
+      }
+
+      .d-sr-r, .d-sr-f {
+        height: initial;
+        overflow: initial;
+        padding: 20px;
+        padding-top: 0;
+      }
+
+      .d-h {
+        box-sizing: border-box;
+        padding: 20px;
+      }
+
+      .l {
+        transition: initial;
+      }
+
+      .l:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+        color: initial;
+        text-shadow: initial;
+      }
+
+      .d-cl {
+        margin-top: -5px;
+      }
+
+      .d-sr-h {
+        flex-wrap: wrap;
+        white-space: nowrap;
+      }
+
+      .d-sr-d {
+        width: 100%;
+        margin: 0;
+        margin-top: 10px;
+      }
+      .d-sr-h-r {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        white-space: initial;
+      }
+
+      .d-sr-b-i {
+        background-size: cover;
+      }
+
+      .d-sr-b-i:hover {
+        background-size: contain;
+      }
+    }
   </style>
 </head>
 <body>
@@ -360,7 +438,7 @@
                 <div class="d-sr-h">
                   <h3>Nick Name</h3>
                   <div class="d-sr-d"></div>
-                  <div>memory (めもりー)</div>
+                  <div class="d-sr-h-r">memory (めもりー)</div>
                 </div>
 
                 <div class="d-sr-h">
@@ -476,7 +554,7 @@
                 <div class="d-sr-h">
                   <h3 class="--nc">PHPJava</h3>
                   <div class="d-sr-d"></div>
-                  <div><a href="https://github.com/php-java/php-java">https://github.com/php-java/php-java</a></div>
+                  <div class="d-sr-h-r"><a href="https://github.com/php-java/php-java">https://github.com/php-java/php-java</a></div>
                 </div>
 
                 <div class="d-sr-b">
@@ -488,7 +566,7 @@
                 <div class="d-sr-h">
                   <h3 class="--nc">GitHub-PHP-Function-Jumper</h3>
                   <div class="d-sr-d"></div>
-                  <div><a href="https://github.com/m3m0r7/github-php-function-jumper">https://github.com/m3m0r7/github-php-function-jumper</a></div>
+                  <div class="d-sr-h-r"><a href="https://github.com/m3m0r7/github-php-function-jumper">https://github.com/m3m0r7/github-php-function-jumper</a></div>
                 </div>
 
                 <div class="d-sr-b">
@@ -500,7 +578,7 @@
                 <div class="d-sr-h">
                   <h3 class="--nc">php-deferrable</h3>
                   <div class="d-sr-d"></div>
-                  <div><a href="https://github.com/m3m0r7/php-deferrable">https://github.com/m3m0r7/php-deferrable</a></div>
+                  <div class="d-sr-h-r"><a href="https://github.com/m3m0r7/php-deferrable">https://github.com/m3m0r7/php-deferrable</a></div>
                 </div>
 
                 <div class="d-sr-b">
@@ -512,7 +590,7 @@
                 <div class="d-sr-h">
                   <h3 class="--nc">method-injector</h3>
                   <div class="d-sr-d"></div>
-                  <div><a href="https://github.com/m3m0r7/method-injector">https://github.com/m3m0r7/method-injector</a></div>
+                  <div class="d-sr-h-r"><a href="https://github.com/m3m0r7/method-injector">https://github.com/m3m0r7/method-injector</a></div>
                 </div>
 
                 <div class="d-sr-b">
@@ -524,19 +602,19 @@
                 <div class="d-sr-h">
                   <h3 class="--nc">Magnolia &lt;Backend&gt;</h3>
                   <div class="d-sr-d"></div>
-                  <div><a href="https://github.com/m3m0r7/magnolia-server">https://github.com/m3m0r7/magnolia-server</a></div>
+                  <div class="d-sr-h-r"><a href="https://github.com/m3m0r7/magnolia-server">https://github.com/m3m0r7/magnolia-server</a></div>
                 </div>
 
                 <div class="d-sr-h">
                   <h3 class="--nc">Magnolia &lt;Frontend&gt;</h3>
                   <div class="d-sr-d"></div>
-                  <div><a href="https://github.com/m3m0r7/magnolia-client">https://github.com/m3m0r7/magnolia-client</a></div>
+                  <div class="d-sr-h-r"><a href="https://github.com/m3m0r7/magnolia-client">https://github.com/m3m0r7/magnolia-client</a></div>
                 </div>
 
                 <div class="d-sr-h">
                   <h3 class="--nc">Magnolia &lt;RaspberryPi&gt;</h3>
                   <div class="d-sr-d"></div>
-                  <div><a href="https://github.com/m3m0r7/magnolia-raspberrypi">https://github.com/m3m0r7/magnolia-raspberrypi</a></div>
+                  <div class="d-sr-h-r"><a href="https://github.com/m3m0r7/magnolia-raspberrypi">https://github.com/m3m0r7/magnolia-raspberrypi</a></div>
                 </div>
 
                 <div class="d-sr-b">
@@ -548,7 +626,7 @@
                 <div class="d-sr-h">
                   <h3 class="--nc">Lupinus</h3>
                   <div class="d-sr-d"></div>
-                  <div><a href="https://github.com/m3m0r7/lupinus">https://github.com/m3m0r7/lupinus</a></div>
+                  <div class="d-sr-h-r"><a href="https://github.com/m3m0r7/lupinus">https://github.com/m3m0r7/lupinus</a></div>
                 </div>
 
                 <div class="d-sr-b">
@@ -578,7 +656,7 @@
                 <div class="d-sr-h">
                   <h3 class="--nc">PHP Conference 2020 (Speaker)</h3>
                   <div class="d-sr-d"></div>
-                  <div>12/12/2020</div>
+                  <div class="d-sr-h-r">12/12/2020</div>
                 </div>
 
                 <div class="d-sr-b">
@@ -590,25 +668,25 @@
                 <div class="d-sr-h">
                   <h3 class="--nc">Torana, Inc. (Join)</h3>
                   <div class="d-sr-d"></div>
-                  <div>04/16/2020</div>
+                  <div class="d-sr-h-r">04/16/2020</div>
                 </div>
 
                 <div class="d-sr-h">
                   <h3 class="--nc">Togetter, Inc. (Join)</h3>
                   <div class="d-sr-d"></div>
-                  <div>03/11/2020</div>
+                  <div class="d-sr-h-r">03/11/2020</div>
                 </div>
 
                 <div class="d-sr-h">
                   <h3 class="--nc">BASE, Inc. (Leave)</h3>
                   <div class="d-sr-d"></div>
-                  <div>03/10/2020</div>
+                  <div class="d-sr-h-r">03/10/2020</div>
                 </div>
 
                 <div class="d-sr-h">
                   <h3 class="--nc">PHPerKaigi 2020 (Speaker)</h3>
                   <div class="d-sr-d"></div>
-                  <div>02/09/2020</div>
+                  <div class="d-sr-h-r">02/09/2020</div>
                 </div>
                 <div class="d-sr-b">
                   <ul>
@@ -619,7 +697,7 @@
                 <div class="d-sr-h">
                   <h3 class="--nc">PHP Conference 2019 (Speaker)</h3>
                   <div class="d-sr-d"></div>
-                  <div>12/01/2020</div>
+                  <div class="d-sr-h-r">12/01/2020</div>
                 </div>
                 <div class="d-sr-b">
                   <ul>
@@ -630,7 +708,7 @@
                 <div class="d-sr-h">
                   <h3 class="--nc">Kichijoji.pm (Speaker)</h3>
                   <div class="d-sr-d"></div>
-                  <div>11/22/2019</div>
+                  <div class="d-sr-h-r">11/22/2019</div>
                 </div>
                 <div class="d-sr-b">
                   <ul>
@@ -641,7 +719,7 @@
                 <div class="d-sr-h">
                   <h3 class="--nc">PHP Conference Okinawa 2019 (Speaker)</h3>
                   <div class="d-sr-d"></div>
-                  <div>10/12/2019</div>
+                  <div class="d-sr-h-r">10/12/2019</div>
                 </div>
                 <div class="d-sr-b">
                   <ul>
@@ -652,7 +730,7 @@
                 <div class="d-sr-h">
                   <h3 class="--nc">PHP Conference Hokkaido 2019 (Speaker)</h3>
                   <div class="d-sr-d"></div>
-                  <div>09/21/2019</div>
+                  <div class="d-sr-h-r">09/21/2019</div>
                 </div>
                 <div class="d-sr-b">
                   <ul>
@@ -663,7 +741,7 @@
                 <div class="d-sr-h">
                   <h3 class="--nc">Builderscon 2019 (Speaker)</h3>
                   <div class="d-sr-d"></div>
-                  <div>08/31/2019</div>
+                  <div class="d-sr-h-r">08/31/2019</div>
                 </div>
                 <div class="d-sr-b">
                   <ul>
@@ -674,7 +752,7 @@
                 <div class="d-sr-h">
                   <h3 class="--nc">PHP Conference Fukuoka 2019 (CodeGolf Challenge)</h3>
                   <div class="d-sr-d"></div>
-                  <div>06/29/2019</div>
+                  <div class="d-sr-h-r">06/29/2019</div>
                 </div>
                 <div class="d-sr-b">
                   <ul>
@@ -685,19 +763,19 @@
                 <div class="d-sr-h">
                   <h3 class="--nc">BASE, Inc. (Join)</h3>
                   <div class="d-sr-d"></div>
-                  <div>06/01/2019</div>
+                  <div class="d-sr-h-r">06/01/2019</div>
                 </div>
 
                 <div class="d-sr-h">
                   <h3 class="--nc">GameWith, Inc. (Leave)</h3>
                   <div class="d-sr-d"></div>
-                  <div>05/31/2019</div>
+                  <div class="d-sr-h-r">05/31/2019</div>
                 </div>
 
                 <div class="d-sr-h">
                   <h3 class="--nc">PHP Study (Speaker)</h3>
                   <div class="d-sr-d"></div>
-                  <div>04/24/2019</div>
+                  <div class="d-sr-h-r">04/24/2019</div>
                 </div>
                 <div class="d-sr-b">
                   <ul>
@@ -708,7 +786,7 @@
                 <div class="d-sr-h">
                   <h3 class="--nc">PHPerKaigi 2019 (Speaker)</h3>
                   <div class="d-sr-d"></div>
-                  <div>03/29/2019</div>
+                  <div class="d-sr-h-r">03/29/2019</div>
                 </div>
                 <div class="d-sr-b">
                   <ul>
@@ -719,7 +797,7 @@
                 <div class="d-sr-h">
                   <h3 class="--nc">Elasticsearch Study Meeting 2019 (Speaker)</h3>
                   <div class="d-sr-d"></div>
-                  <div>03/29/2019</div>
+                  <div class="d-sr-h-r">03/29/2019</div>
                 </div>
                 <div class="d-sr-b">
                   <ul>
@@ -730,7 +808,7 @@
                 <div class="d-sr-h">
                   <h3 class="--nc">PHP Conference Sendai 2019 (Speaker)</h3>
                   <div class="d-sr-d"></div>
-                  <div>03/29/2019</div>
+                  <div class="d-sr-h-r">03/29/2019</div>
                 </div>
                 <div class="d-sr-b">
                   <ul>
@@ -741,7 +819,7 @@
                 <div class="d-sr-h">
                   <h3 class="--nc">GameWith, Inc. (Join)</h3>
                   <div class="d-sr-d"></div>
-                  <div>04/16/2019</div>
+                  <div class="d-sr-h-r">04/16/2019</div>
                 </div>
               </div>
             </div>
@@ -820,13 +898,13 @@
                 <div class="d-sr-h">
                   <h3 class="--nc">Twitter</h3>
                   <div class="d-sr-d"></div>
-                  <div><a href="https://twitter.com/m3m0r7">https://twitter.com/m3m0r7</a></div>
+                  <div class="d-sr-h-r"><a href="https://twitter.com/m3m0r7">https://twitter.com/m3m0r7</a></div>
                 </div>
 
                 <div class="d-sr-h">
                   <h3 class="--nc">GitHub</h3>
                   <div class="d-sr-d"></div>
-                  <div><a href="https://github.com/m3m0r7">https://github.com/m3m0r7</a></div>
+                  <div class="d-sr-h-r"><a href="https://github.com/m3m0r7">https://github.com/m3m0r7</a></div>
                 </div>
               </div>
             </div>
