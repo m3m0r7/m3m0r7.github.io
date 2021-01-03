@@ -35,7 +35,7 @@
       width: 800px;
     }
 
-    button {
+    .a-i {
       padding: 0;
       font-size: 14px;
       background-color: transparent;
@@ -50,6 +50,7 @@
       background-size: cover;
       height: 400px;
       flex: 1;
+      position: relative;
     }
 
     .l {
@@ -60,24 +61,36 @@
       width: 100%;
       height: 100%;
       font-size: 18px;
-      justify-content: center;
-      align-items: center;
       min-width: 0;
       cursor: pointer;
       background-color: rgba(0, 0, 0, 0.75);
       border: transparent 5px;
       transition: background-color 0.2s ease,
                   color 0.2s ease,
-                  text-shadow 0.2s ease,
                   min-width 0.2s ease;
       position: relative;
     }
 
     .l:hover {
       background-color: rgba(0, 0, 0, 0.0);
-      color: #FFFFFF;
-      text-shadow: 0 0 5px #222222;
       min-width: 240px;
+    }
+
+    .a-i-l {
+      position: absolute;
+      left: -57px;
+      top: 68px;
+      width: 150px;
+      transform: rotate(90deg);
+    }
+
+    .text {
+      background-color: rgba(216, 27, 96, 0.8);
+      color: #ffffff;
+      padding: 4px 8px;
+      white-space: nowrap;
+      font-family: 'Roboto', sans-serif;
+      font-size: 18px;
     }
 
     .dc {
@@ -316,13 +329,19 @@
     }
 
     @media (max-width: 800px) {
+      .a-i-l {
+        transform: initial;
+        left: 8px;
+        top: 12px
+      }
+
       .c-1 {
         flex-wrap: wrap;
         flex-direction: column;
         height: 100vh;
       }
 
-      button {
+      .a-i {
         width: 100%;
         height: calc(100% / 5);
       }
@@ -356,10 +375,10 @@
 
       .l {
         transition: initial;
+        background-color: transparent;
       }
 
       .l:hover {
-        background-color: rgba(0, 0, 0, 0.8);
         color: initial;
         text-shadow: initial;
       }
@@ -398,21 +417,26 @@
   <div class="w">
     <div class="c">
       <div class="c-1">
-        <button style="background-image: url(./assets/logical_memory.jpg)">
-          <label for="d-1" class="l">About me</label>
-        </button>
-        <button style="background-image: url(./assets/products.jpeg)">
-          <label for="d-2" class="l">Products</label>
-        </button>
-        <button style="background-image: url(./assets/conference.jpeg)">
-          <label for="d-3" class="l">Activities</label>
-        </button>
-        <button style="background-image: url(./assets/sdvx_cover.png)">
-          <label for="d-4" class="l">Music Games</label>
-        </button>
-        <button style="background-image: url(./assets/contact_me.png)">
-          <label for="d-5" class="l">Contact Me</label>
-        </button>
+        <div class="a-i" style="background-image: url(./assets/logical_memory.jpg)">
+          <div class="a-i-l"><span class="text">About me</span></div>
+          <label for="d-1" class="l"></label>
+        </div>
+        <div class="a-i" style="background-image: url(./assets/products.jpeg)">
+          <div class="a-i-l"><span class="text">Products</span></div>
+          <label for="d-2" class="l"></label>
+        </div>
+        <div class="a-i" style="background-image: url(./assets/conference.jpeg)">
+          <div class="a-i-l"><span class="text">Activities</span></div>
+          <label for="d-3" class="l"></label>
+        </div>
+        <div class="a-i" style="background-image: url(./assets/sdvx_cover.png)">
+          <div class="a-i-l"><span class="text">Music Games</span></div>
+          <label for="d-4" class="l"></label>
+        </div>
+        <div class="a-i" style="background-image: url(./assets/contact_me.png)">
+          <div class="a-i-l"><span class="text">Contact Me</span></div>
+          <label for="d-5" class="l"></label>
+        </div>
       </div>
     </div>
   </div>
