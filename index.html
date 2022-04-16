@@ -228,6 +228,44 @@
       height: 100%;
     }
 
+    .e-tags {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .e-tags dt {
+      width: 100px;
+      border-top: none;
+      padding-top: 0;
+      margin-top: 0;
+      font-size: 14px;
+      margin-bottom: 34px;
+    }
+
+    .e-tags dd {
+      width: calc(100% - 100px);
+      padding-top: 0;
+      margin-top: 0;
+      margin-bottom: 34px;
+    }
+
+    .e-tags dd ul {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: -14px;
+
+    }
+
+    .e-tags dd li {
+      margin-top: 10px;
+      font-size: 14px;
+      padding: 4px 8px;
+      background-color: rgba(20, 20, 20, 0.8);
+      margin-right: 4px;
+      border-radius: 4px;
+      box-shadow: 0 0 5px rgba(20, 20, 20, 0.4);
+    }
+
 
     @media (max-width: 500px) {
       .e-info-body {
@@ -262,25 +300,65 @@
       <div class="w-1"></div>
       <div class="w-2">
         <div class="e-w">
-          <div class="e-name">めもりー</div>
+          <div class="e-name">めもりー (memory)</div>
           <div class="e-info">
             <div class="e-info-body">
               <div class="e-container">
                 <div>
-                  <h2>About me</h2>
+                  <h2>Summary</h2>
+                  <p>I am a CTO at Torana, Inc. I had the position of an engineering manager and a tech lead before promoting my position.</p>
+                  <p>I developed/architected a service for employees that is including technical strategies, programming, architect an infrastructure, and so on. And designing an engineering organization, recruiting more engineers, and planning technical strategies at Torana, Inc.</p>
+                </div>
+                <div class="mt">
+                  <h2>Work Experiences</h2>
                   <ul class="e-working-company">
-                    <li class="icon icon-company">CTO at Torana, Inc.</li>
+                    <li class="icon icon-company">CTO (Chief Technology Officer) at Torana, Inc.</li>
+                    <li class="icon icon-ex-company">ex- Togetter, Inc. (Freelance/Side-work)</li>
                     <li class="icon icon-ex-company">ex- BASE, Inc.</li>
                     <li class="icon icon-ex-company">ex- GameWith, Inc.</li>
                     <li class="icon icon-ex-company">ex- Synapse, Inc.</li>
                   </ul>
-
-                  <ul class="e-contact">
-                    <li><a target="_blank" class="no-arrow" href="https://twitter.com/m3m0r7"><i class="fab fa-twitter"></i></a></li>
-                    <li><a target="_blank" class="no-arrow" href="https://github.com/m3m0r7"><i class="fab fa-github-alt"></i></a></li>
-                    <li><a target="_blank" class="no-arrow" href="https://keybase.io/m3m0r7"><i class="fab fa-keybase"></i></a></li>
-                    <li><a target="_blank" class="no-arrow" href="https://speakerdeck.com/memory1994"><i class="fab fa-speaker-deck"></i></a></li>
-                  </ul>
+                </div>
+                <div class="mt">
+                  <h2>Technical Skills</h2>
+                  <dl class="e-tags">
+                    <dt>Management skills</dt>
+                    <dd>
+                      <ul>
+                        <li>Design an engineering organization</li>
+                        <li>Technical strategies</li>
+                        <li>Strategy of recruiting engineers</li>
+                      </ul>
+                    </dd>
+                    <dt>Main skills</dt>
+                    <dd>
+                      <ul>
+                        <li>PHP</li>
+                        <li>Laravel</li>
+                        <li>Swoole</li>
+                        <li>Go</li>
+                        <li>TypeScript</li>
+                        <li>React</li>
+                        <li>Next.js</li>
+                        <li>JavaScript</li>
+                        <li>AWS</li>
+                        <li>Elasticsearch</li>
+                      </ul>
+                    </dd>
+                    <dt>Other skills</dt>
+                    <dd>
+                      <ul>
+                        <li>CakePHP</li>
+                        <li>WordPress</li>
+                        <li>Terraform</li>
+                        <li>Apache</li>
+                        <li>nginx</li>
+                        <li>Selenium</li>
+                        <li>Java</li>
+                        <li>JVM</li>
+                      </ul>
+                    </dd>
+                  </dl>
                 </div>
                 <div class="mt">
                   <h2>Books</h2>
@@ -289,6 +367,15 @@
                     <li><a target="_blank" class="no-arrow" href="https://www.amazon.co.jp/dp/B07Z74Q3BD"><img src="./assets/books/sd201912.png" width="100%" alt="Software Design 2019年12月号" /></a></li>
                     <li><a target="_blank" class="no-arrow" href="https://www.amazon.co.jp/dp/B09CRLXD3S"><img src="./assets/books/sd202110.jpg" width="100%" alt="Software Design 2021年09月号" /></a></li>
                     <li><div class="book-no-image"></div></li>
+                  </ul>
+                </div>
+                <div class="mt">
+                  <h2>Contact me</h2>
+                  <ul class="e-contact">
+                    <li><a target="_blank" class="no-arrow" href="https://twitter.com/m3m0r7"><i class="fab fa-twitter"></i></a></li>
+                    <li><a target="_blank" class="no-arrow" href="https://github.com/m3m0r7"><i class="fab fa-github-alt"></i></a></li>
+                    <li><a target="_blank" class="no-arrow" href="https://keybase.io/m3m0r7"><i class="fab fa-keybase"></i></a></li>
+                    <li><a target="_blank" class="no-arrow" href="https://speakerdeck.com/memory1994"><i class="fab fa-speaker-deck"></i></a></li>
                   </ul>
                 </div>
                 <div class="mt">
@@ -301,7 +388,7 @@
               <div class="e-container">
                 <div>
                   <h2>Activities</h2>
-                  <dl>                    
+                  <dl>
                     <dt><time>2022/04/10</time><span>PHPerKaigi 2022</span></dt>
                     <dd><a target="_blank" href="https://speakerdeck.com/memory1994/php-de-nfc-ridawoshi-zhuang-suru-php-tohadowoxi-gu">PHP で NFC リーダーを実装する 〜 PHP とハードを繋ぐ 〜</a></dd>
                     <dt><time>2022/03/04</time><span>YAPC::Japan::Online 2022</span></dt>
