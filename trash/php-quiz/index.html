@@ -1,0 +1,353 @@
+<!DOCType html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Fill the function name in PHP | memory' portfolio</title>
+  <script src="../php-functions.js"></script>
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      font-size: 14px;
+    }
+    .c-w {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+    }
+    .c {
+      margin-top: -10%;
+    }
+    .a {
+      margin-top: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .b {
+      font-size: 16px;
+      background: #673ab7;
+      border: 0;
+      padding: 10px 20px;
+      box-sizing: border-box;
+      height: 40px;
+      border-radius: 20px;
+      color: #E0E0E0;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 10px #CCCCCC;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    span.char {
+      font-size: 24px;
+    }
+
+    input.char {
+      width: 24px;
+      margin-left: 4px;
+      margin-right: 4px;
+      text-align: center;
+      border: none;
+      border-bottom: 3px solid #673ab7;
+      outline: none;
+      font-size: 24px;
+      padding: 0;
+      background-color: #EFEFEF;
+    }
+
+    .r, .r-e {
+      margin-top: 10px;
+      font-size: 14px;
+      text-align: center;
+      color: #673ab7;
+    }
+
+    .r-e {
+      color: #e91e63;
+    }
+
+    h2 {
+      text-align: center;
+      font-weight: bolder;
+    }
+
+    .r-d {
+      text-align: center;
+    }
+
+    .r-g {
+      color: #888888;
+      font-size: 10px;
+      max-width: 300px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+<div class="c-w">
+  <div class="c" data-section="first-view">
+    <h1>Fill the function name in PHP</h1>
+    <div>
+      <h3>ゲーム説明</h3>
+      <ul>
+        <li>このゲームは，PHP の関数名の補完をどれくらいできるかを競うゲームです。</li>
+        <li>例えば「array_□□□□□□」のように表示されたら「reduce」または「filter」を入力する必要があります。</li>
+        <li>入力して，正解の場合，自動で次の問題に進みます。不正解の場合は，全ての入力フィールドがクリアされて入力再開になります。</li>
+        <li>1 問あたり 16 秒の時間制限があります。ゲームが進むと，開始時点の時間制限が徐々に減っていきます。</li>
+        <li>文字を入力すると自動で次の入力欄に進みます。また，Backspace/Delete キーを入力すると，一つ前の入力欄が初期化され入力できるようになります。</li>
+        <li>進行できた数だけ，得点が加算されます。ツイッターでシェアして競いましょう！</li>
+      </ul>
+    </div>
+    <div class="a">
+      <button class="b" data-action="play-game" data-type="easy">Game Start!</button>
+    </div>
+  </div>
+  <div class="c hidden" data-section="game">
+    <div class="r-d" data-section="display"></div>
+    <div class="r-e hidden" data-section="error">入力された関数が正しくありません</div>
+    <div class="r" data-section="remaining-time">残り <span data-section="remaining-sec">-</span> 秒</div>
+  </div>
+  <div class="c hidden" data-section="gameover">
+    <h2>Game Over!</h2>
+    <div class="r-e">あなたは <span data-section="your-missing">-</span> が答えられませんでした</div>
+    <div class="r">あなたのスコアは <span data-section="your-score">-</span> です</div>
+    <div class="a">
+      <button class="b" data-action="tweet">Tweet!</button>
+    </div>
+    <div class="r-g">あなたが答えた関数: <span data-section="your-answered">-</span></div>
+  </div>
+</div>
+<script>
+
+  var error = function (e, s) {
+    document.querySelectorAll('[data-section="error"]').forEach(function (e) {
+      if (!s) {
+        e.classList.add('hidden');
+      } else {
+        e.classList.remove('hidden');
+      }
+    });
+  }
+
+  var tweet = function (type, playedGames, score, lastQuestion) {
+    var text = 'ゲームモードは「' + type + '」で，ゲーム回数は「' + playedGames + '回」，スコアは 「' + score + '」 でした！\n あなたは 「' + lastQuestion + '」 を答えられませんでした。\nあなたも PHP の関数名をどれだけ埋められるか試してみませんか？ \nhttps://i.mem.ooo/trash/php-quiz/';
+    window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + '&hashtags=php_quiz');
+  }
+
+  var gotoGoal = function (type, playedGames, before, lastQuestion) {
+    var parameter = 1;
+    if (type === 'easy') {
+      parameter = 0.5;
+    }
+
+    var score = Math.ceil(playedGames * parameter);
+
+    var tweetAction = function () {
+      tweet(type, playedGames, score, lastQuestion);
+    };
+
+    document.querySelector('[data-action="tweet"]').removeEventListener('click', tweetAction);
+    document.querySelector('[data-action="tweet"]').addEventListener('click', tweetAction);
+
+    document.querySelectorAll('[data-section="game"]').forEach(function (e) {
+      e.classList.add('hidden');
+      document.querySelectorAll('[data-section="gameover"]').forEach(function (e) {
+        e.classList.remove('hidden');
+
+        e.querySelectorAll('[data-section="your-score"]').forEach(function (e) {
+          e.innerText = score;
+        });
+
+        e.querySelectorAll('[data-section="your-missing"]').forEach(function (e) {
+          e.innerText = lastQuestion;
+        });
+
+        e.querySelectorAll('[data-section="your-answered"]').forEach(function (e) {
+          if (before.length === 0) {
+            before.push('なし');
+          }
+          e.innerText = before.join(', ');
+        });
+      });
+    })
+  }
+
+  var playGame = function (type, playedGames, before) {
+    before = before || [];
+    var timerRemaining = Math.max(4, Math.floor(16 / Math.max(1, Math.ceil(Math.log2(playedGames)))));
+
+    var functionNames = Object.keys(functions).filter(function (v) {
+      if (type === 'easy') {
+        return !v.includes('::');
+      }
+      return true;
+    });
+
+    var targetFunction = functionNames[Math.floor(Math.random() * functionNames.length)];
+    if (before.includes(targetFunction)) {
+      do {
+        targetFunction = functionNames[Math.floor(Math.random() * functionNames.length)];
+      } while (before.includes(targetFunction));
+    }
+    if (type === 'easy') {
+      var parameterAdjustment = Math.floor(Math.random() * 100) >= 10;
+      if (parameterAdjustment) {
+        do {
+          var retryChosen = functionNames[Math.floor(Math.random() * functionNames.length)];
+          if (retryChosen.startsWith('str') ||
+            retryChosen.startsWith('array_') ||
+            retryChosen.startsWith('image') ||
+            retryChosen.startsWith('file') ||
+            retryChosen.startsWith('stream') ||
+            retryChosen.startsWith('json') ||
+            retryChosen.startsWith('base64') ||
+            retryChosen.startsWith('mysql') ||
+            retryChosen.startsWith('pg_') ||
+            retryChosen.startsWith('mb_') ||
+            retryChosen.startsWith('curl_') ||
+            retryChosen.startsWith('curl_') ||
+            retryChosen.startsWith('date_') ||
+            retryChosen.startsWith('posix_') ||
+            retryChosen.startsWith('session') ||
+            retryChosen.startsWith('gmp_') ||
+            retryChosen.startsWith('pcntl_')
+          ) {
+            if (!before.includes(retryChosen)) {
+              targetFunction = retryChosen;
+              break;
+            }
+          }
+        } while (true);
+      }
+    }
+
+    var parameter = 0.1 * Math.sqrt(playedGames);
+    var hiddenCount = Math.max(1, Math.floor(Math.random() * (targetFunction.length * parameter)));
+    var remainingHiddenCount = hiddenCount;
+    var hiddenPositions = [];
+
+    do {
+      var pos = Math.floor(Math.random() * targetFunction.length);
+      if (!hiddenPositions.includes(pos)) {
+        hiddenPositions.push(pos);
+        remainingHiddenCount--;
+        if (remainingHiddenCount === 0) {
+          break;
+        }
+      }
+    } while (true);
+
+    var contexts = '';
+
+    for (var i = 0, n = 0; i < targetFunction.length; i++) {
+      if (hiddenPositions.includes(i)) {
+        contexts += '<input data-input-index="' + n + '" class="char" type="text" value="" maxlength="1" />';
+        n++;
+      } else {
+        contexts += '<span class="char">' + targetFunction[i] + '</span>';
+      }
+    }
+
+    var timerAction = function () {
+      document.querySelectorAll('[data-section="remaining-sec"]').forEach(function (e) {
+        if (timerRemaining === 0) {
+          clearInterval(timerId);
+          gotoGoal(type, playedGames, before, targetFunction);
+          return;
+        }
+        e.innerText = timerRemaining;
+        timerRemaining--;
+      });
+    };
+
+    timerAction();
+    var timerId = setInterval(timerAction, 1000);
+    var beforePushed = 0;
+
+    document.querySelectorAll('[data-section="display"]').forEach(function (e) {
+      e.innerHTML = contexts;
+      var wrapper = e;
+      error(wrapper, false);
+      wrapper.querySelector('input.char[data-input-index="0"]').focus();
+
+      e.querySelectorAll('input.char').forEach(function (e) {
+        e.addEventListener('keyup', function (e) {
+          var time = e.timeStamp;
+          var currentIndex = parseInt(e.target.getAttribute('data-input-index'));
+          var chars = '';
+
+          if (e.key === 'Backspace') {
+            var prevInput = wrapper.querySelector('input.char[data-input-index="' + (currentIndex - 1) + '"]');
+            if (prevInput) {
+              prevInput.focus();
+              prevInput.value = '';
+            }
+            e.stopImmediatePropagation();
+            return;
+          }
+          if (e.key === 'Tab') {
+            e.stopImmediatePropagation();
+            return;
+          }
+          if (e.shiftKey || e.metaKey || e.ctrlKey) {
+            e.stopImmediatePropagation();
+            return;
+          }
+
+          for (var i = 0, n = 0; i < targetFunction.length; i++) {
+            if (hiddenPositions.includes(i)) {
+              chars += wrapper.querySelector('input.char[data-input-index="' + n + '"]').value || '';
+              n++;
+            } else {
+              chars += targetFunction[i];
+            }
+          }
+
+          if (functions[chars]) {
+            // Then correct
+            clearInterval(timerId);
+            playGame(type, playedGames + 1, before.concat([chars]));
+          } else {
+            var nextInput = wrapper.querySelector('input.char[data-input-index="' + (currentIndex + 1) + '"]');
+            if (nextInput && (time - beforePushed) > 1) {
+              nextInput.focus();
+            }
+
+            // Not correct
+            if (chars.length >= targetFunction.length) {
+              wrapper.querySelectorAll('input.char').forEach(function (e) {
+                e.value = '';
+              });
+
+              error(wrapper, true);
+
+              wrapper.querySelector('input.char[data-input-index="0"]').focus();
+            }
+          }
+
+          beforePushed = time;
+        });
+      })
+    })
+  };
+
+  document.querySelector('[data-action="play-game"]').addEventListener('click', function (e) {
+    var type = this.getAttribute('data-type');
+
+    document.querySelectorAll('[data-section="first-view"]').forEach(function (e) {
+      e.classList.add('hidden');
+    });
+    document.querySelectorAll('[data-section="game"]').forEach(function (e) {
+      e.classList.remove('hidden');
+      playGame(type, 1);
+    });
+  });
+</script>
+</body>
