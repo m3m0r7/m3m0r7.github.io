@@ -5,117 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Fill the function name in PHP | memory' portfolio</title>
   <script src="../php-functions.js"></script>
-  <style>
-    * {
-      font-family: sans-serif;
-    }
-    html, body {
-      width: 100%;
-      height: 100%;
-      font-size: 14px;
-    }
-    .c-w {
-      display: flex;
-      width: 100%;
-      height: 100%;
-      justify-content: center;
-      align-items: center;
-    }
-    .c {
-      margin-top: -10%;
-    }
-    @media screen and (max-width: 600px) {
-      .c {
-        width: calc(100vw - 20px);
-      }
-    }
-    .a {
-      margin-top: 40px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .b {
-      font-size: 16px;
-      background: #673ab7;
-      border: 0;
-      padding: 10px 20px;
-      box-sizing: border-box;
-      height: 40px;
-      border-radius: 20px;
-      color: #E0E0E0;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 0 10px #CCCCCC;
-    }
-
-    .b.__g {
-      background: transparent;
-      color: #673ab7;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    span.char {
-      font-size: 24px;
-    }
-
-    input.char {
-      width: 24px;
-      margin-left: 4px;
-      margin-right: 4px;
-      text-align: center;
-      border: none;
-      border-bottom: 3px solid #673ab7;
-      outline: none;
-      font-size: 24px;
-      padding: 0;
-      background-color: #EFEFEF;
-      ime-mode: disabled;
-    }
-
-    .r, .r-e {
-      margin-top: 10px;
-      font-size: 14px;
-      text-align: center;
-      color: #673ab7;
-    }
-
-    .r-e {
-      color: #e91e63;
-    }
-
-    .r-w {
-      margin-top: 10px;
-      color: #888888;
-      font-size: 12px;
-      text-align: center;
-    }
-
-    h2 {
-      text-align: center;
-      font-weight: bolder;
-    }
-
-    .r-d {
-      text-align: center;
-    }
-
-    .r-g {
-      color: #888888;
-      font-size: 10px;
-      max-width: 300px;
-      margin-top: 20px;
-    }
-
-    strong {
-      font-weight: bolder;
-    }
-  </style>
+  <link href="./styles.css" rel="stylesheet" />
 </head>
 <body>
 <div class="c-w">
@@ -129,7 +19,8 @@
         <li>入力して，正解の場合，自動で次の問題に進みます。不正解の場合は，全ての入力フィールドがクリアされて入力再開になります。</li>
         <li>1 問あたりの解答時間に制限があります（Easy=16 秒, Hard=8 秒, Crazy=4 秒）。Easy 以外，ゲーム数を重ねるごとに解答の猶予時間が減っていきます。</li>
         <li>文字を入力すると自動で次の入力欄に進みます。また，Backspace/Delete キーを入力すると，一つ前の入力欄が初期化され入力できるようになります。</li>
-        <li>進行できた数かつ難しいモードを選ぶことで得点が加算されます。ツイッターでシェアして競いましょう！</li>
+        <li>進行できた数かつ難しいモードを選ぶことでスコアが加算されます。ツイッターでシェアして競いましょう！</li>
+        <li>English: <a href="./index.en.html">Please play here</a></li>
       </ul>
     </div>
     <div class="a">
@@ -137,12 +28,18 @@
       <button class="b __g" data-action="play-game" data-type="hard">Hard mode</button>
       <button class="b __g" data-action="play-game" data-type="crazy">Crazy mode</button>
     </div>
+    <footer>
+      ご意見ご感想がある場合は，<a href="https://github.com/m3m0r7/m3m0r7.github.io" target="_blank">こちら</a>からおねがいします。
+    </footer>
   </div>
   <div class="c hidden" data-section="game">
     <div class="r-d" data-section="display"></div>
     <div class="r-e hidden" data-section="error">入力された関数が正しくありません</div>
     <div class="r" data-section="remaining-time">残り <span data-section="remaining-sec">-</span> 秒</div>
     <div class="r-w">次の関数は <span data-section="next-function">表示できません</span> </div>
+    <footer>
+      ご意見ご感想がある場合は，<a href="https://github.com/m3m0r7/m3m0r7.github.io" target="_blank">こちら</a>からおねがいします。
+    </footer>
   </div>
   <div class="c hidden" data-section="gameover">
     <h2>Game Over!</h2>
@@ -152,7 +49,16 @@
       <button class="b" data-action="tweet">Tweet!</button>
     </div>
     <div class="r-g">あなたが答えた関数: <span data-section="your-answered">-</span></div>
+    <footer>
+      ご意見ご感想がある場合は，<a href="https://github.com/m3m0r7/m3m0r7.github.io" target="_blank">こちら</a>からおねがいします。
+    </footer>
   </div>
 </div>
+<script>
+  var tweet = function (type, playedGames, score, lastQuestion) {
+    var text = 'ゲームモードは「' + type + '」で，ゲーム回数は「' + playedGames + '回」，スコアは 「' + score + '」 でした！\n あなたは 「' + lastQuestion + '」 を答えられませんでした。\nあなたも PHP の関数名をどれだけ埋められるか試してみませんか？ \nhttps://i.mem.ooo/trash/php-quiz/';
+    window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + '&hashtags=php_quiz');
+  }
+</script>
 <script src="./runtime.js"></script>
 </body>

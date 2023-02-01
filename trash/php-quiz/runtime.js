@@ -8,11 +8,6 @@ var error = function (e, s) {
   });
 }
 
-var tweet = function (type, playedGames, score, lastQuestion) {
-  var text = 'ゲームモードは「' + type + '」で，ゲーム回数は「' + playedGames + '回」，スコアは 「' + score + '」 でした！\n あなたは 「' + lastQuestion + '」 を答えられませんでした。\nあなたも PHP の関数名をどれだけ埋められるか試してみませんか？ \nhttps://i.mem.ooo/trash/php-quiz/';
-  window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + '&hashtags=php_quiz');
-}
-
 var gotoGoal = function (type, playedGames, before, lastQuestion) {
   var parameter = 1;
   if (type === 'easy') {

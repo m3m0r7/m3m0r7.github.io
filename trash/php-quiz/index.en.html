@@ -1,0 +1,64 @@
+<!DOCType html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Fill the function name in PHP | memory' portfolio</title>
+  <script src="../php-functions.js"></script>
+  <link href="./styles.css" rel="stylesheet" />
+</head>
+<body>
+<div class="c-w">
+  <div class="c" data-section="first-view">
+    <h1>Fill the function name in PHP</h1>
+    <div>
+      <h3>About this game</h3>
+      <ul>
+        <li>This game is racing to fill the empty input in PHP functions. Please careful at <strong>disables an IME</strong> when playing.</li>
+        <li>For example, please enter "reduce" or "filter" when showing "array_[_][_][_][_][_][_]".</li>
+        <li>Move to next question when your input is correcting but if incorrect your input, erasing field and restarted to input.</li>
+        <li>Each questions are having limited times(Easy=16sec, Hard=8sec, Crazy=4sec), and decreasing this time on this game play by play but ignoring easy mode.</li>
+        <li>Move to next input when you input a character, and initializing previous input when you enter Backspace key or Delete key.</li>
+        <li>Your score increasing by choosing more hard mode and going to next game. Just share your score on Twitter!</li>
+        <li>日本語版: <a href="./">こちらからプレイしてください</a></li>
+      </ul>
+    </div>
+    <div class="a">
+      <button class="b" data-action="play-game" data-type="easy">Easy mode</button>
+      <button class="b __g" data-action="play-game" data-type="hard">Hard mode</button>
+      <button class="b __g" data-action="play-game" data-type="crazy">Crazy mode</button>
+    </div>
+    <footer>
+      If you want to commit or discuss? <a href="https://github.com/m3m0r7/m3m0r7.github.io" target="_blank">click here</a>.
+    </footer>
+  </div>
+  <div class="c hidden" data-section="game">
+    <div class="r-d" data-section="display"></div>
+    <div class="r-e hidden" data-section="error">Entered characters are invalid</div>
+    <div class="r" data-section="remaining-time">Remaining <span data-section="remaining-sec">-</span> sec</div>
+    <div class="r-w">Next function is <span data-section="next-function">unknown</span> </div>
+    <footer>
+      If you want to commit or discuss? <a href="https://github.com/m3m0r7/m3m0r7.github.io" target="_blank">click here</a>.
+    </footer>
+  </div>
+  <div class="c hidden" data-section="gameover">
+    <h2>Game Over!</h2>
+    <div class="r-e">You did not answer <span data-section="your-missing">-</span></div>
+    <div class="r">Your score is <span data-section="your-score">-</span></div>
+    <div class="a">
+      <button class="b" data-action="tweet">Tweet!</button>
+    </div>
+    <div class="r-g">Your answered functions: <span data-section="your-answered">-</span></div>
+    <footer>
+      If you want to commit or discuss? <a href="https://github.com/m3m0r7/m3m0r7.github.io" target="_blank">click here</a>.
+    </footer>
+  </div>
+</div>
+<script>
+  var tweet = function (type, playedGames, score, lastQuestion) {
+    var text = 'Played game mode is ' + type + '，Played games is ' + playedGames + '，My score is ' + score + '\n You did not answer ' + lastQuestion + '.\nPlease try to fill function names in PHP!\nhttps://i.mem.ooo/trash/php-quiz/';
+    window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + '&hashtags=php_quiz');
+  }
+</script>
+<script src="./runtime.js"></script>
+</body>
