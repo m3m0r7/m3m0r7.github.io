@@ -26,13 +26,13 @@ var gotoGoal = function (type, playedGames, before, lastQuestion) {
   var tweetAction = function () {
     var typeName = type;
     if (typeName === 'easy') {
-      typeName === 'Easy';
+      typeName = 'Easy';
     } else if (typeName === 'hard') {
-      typeName === 'Hard';
+      typeName = 'Hard';
     } else if (typeName === 'crazy') {
-      typeName === 'Crazy';
+      typeName = 'Crazy';
     }
-    tweet(type, playedGames, score, lastQuestion);
+    tweet(typeName, playedGames, score, lastQuestion);
   };
 
   document.querySelector('[data-action="tweet"]').removeEventListener('click', tweetAction);
