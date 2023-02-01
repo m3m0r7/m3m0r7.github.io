@@ -24,6 +24,14 @@ var gotoGoal = function (type, playedGames, before, lastQuestion) {
   var score = Math.ceil(playedGames * parameter);
 
   var tweetAction = function () {
+    var typeName = type;
+    if (typeName === 'easy') {
+      typeName === 'Easy';
+    } else if (typeName === 'hard') {
+      typeName === 'Hard';
+    } else if (typeName === 'crazy') {
+      typeName === 'Crazy';
+    }
     tweet(type, playedGames, score, lastQuestion);
   };
 
@@ -45,7 +53,7 @@ var gotoGoal = function (type, playedGames, before, lastQuestion) {
 
       e.querySelectorAll('[data-section="your-answered"]').forEach(function (e) {
         if (before.length === 0) {
-          before.push('なし');
+          before.push('-');
         }
         e.innerText = before.join(', ');
       });
