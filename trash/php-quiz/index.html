@@ -2,9 +2,13 @@
 <html>
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Fill the function name in PHP | memory' portfolio</title>
   <script src="../php-functions.js"></script>
   <style>
+    * {
+      font-family: sans-serif;
+    }
     html, body {
       width: 100%;
       height: 100%;
@@ -19,6 +23,11 @@
     }
     .c {
       margin-top: -10%;
+    }
+    @media screen and (max-width: 600px) {
+      .c {
+        width: calc(100vw - 20px);
+      }
     }
     .a {
       margin-top: 40px;
@@ -60,6 +69,7 @@
       font-size: 24px;
       padding: 0;
       background-color: #EFEFEF;
+      ime-mode: disabled;
     }
 
     .r, .r-e {
@@ -88,6 +98,10 @@
       max-width: 300px;
       margin-top: 20px;
     }
+
+    strong {
+      font-weight: bolder;
+    }
   </style>
 </head>
 <body>
@@ -97,11 +111,12 @@
     <div>
       <h3>ゲーム説明</h3>
       <ul>
-        <li>このゲームは，PHP の関数名の補完をどれくらいできるかを競うゲームです。</li>
+        <li>このゲームは，PHP の関数名の補完をどれくらいできるかを競うゲームです。<strong>IME をオフにして</strong>お楽しみください。</li>
         <li>例えば「array_□□□□□□」のように表示されたら「reduce」または「filter」を入力する必要があります。</li>
         <li>入力して，正解の場合，自動で次の問題に進みます。不正解の場合は，全ての入力フィールドがクリアされて入力再開になります。</li>
-        <li>1 問あたり 16 秒の時間制限があります。ゲームが進むと，開始時点の時間制限が徐々に減っていきます。</li>
+        <li>1 問あたり 16 秒の時間制限があります。Easy 以外の場合ゲームが進むと，開始時点の時間制限が徐々に減っていきます。</li>
         <li>文字を入力すると自動で次の入力欄に進みます。また，Backspace/Delete キーを入力すると，一つ前の入力欄が初期化され入力できるようになります。</li>
+        <li>現状は Easy モードのみで，デフォルトで選択されます。</li>
         <li>進行できた数だけ，得点が加算されます。ツイッターでシェアして競いましょう！</li>
       </ul>
     </div>
@@ -182,6 +197,9 @@
   var playGame = function (type, playedGames, before) {
     before = before || [];
     var timerRemaining = Math.max(4, Math.floor(16 / Math.max(1, Math.ceil(Math.log2(playedGames)))));
+    if (type === 'easy') {
+      timerRemaining = 16;
+    }
 
     var functionNames = Object.keys(functions).filter(function (v) {
       if (type === 'easy') {
@@ -292,7 +310,8 @@
             e.stopImmediatePropagation();
             return;
           }
-          if (e.key === 'Tab') {
+
+          if (e.key === 'Tab' || e.key === 'Process') {
             e.stopImmediatePropagation();
             return;
           }
