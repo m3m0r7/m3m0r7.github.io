@@ -677,7 +677,7 @@
 
     do {
       var pos = Math.floor(Math.random() * targetFunction.length);
-      if (!hiddenPositions.includes(pos)) {
+      if (!hiddenPositions.includes(pos) && (targetFunction[pos] !== '_' && targetFunction[pos] !== ':')) {
         hiddenPositions.push(pos);
         remainingHiddenCount--;
         if (remainingHiddenCount === 0) {
