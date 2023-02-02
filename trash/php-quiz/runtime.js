@@ -573,6 +573,8 @@ var playGame = function (targetFunction, hiddenPositions, type, playedGames, bef
     timerRemaining = Math.max(4, timerRemaining)
   }
 
+  timerRemaining = Math.floor(timerRemaining + hiddenPositions.length * 1.5);
+
   var [nextTargetFunction, nextHiddenPositions] = createFunctionNameAndHiddenPositions(type, before, 0.1 * Math.sqrt(playedGames));
 
   var contexts = '';
