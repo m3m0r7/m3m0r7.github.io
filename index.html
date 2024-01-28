@@ -1,1134 +1,491 @@
 <!DOCType html>
 <html>
 <head>
-  <title>A fragment of memories</title>
-  <meta charset="UTF-8" />
+  <title>memory' portfolio</title>
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP|M+PLUS+1p|Roboto" rel="stylesheet">
   <link href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" rel="stylesheet" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&family=Noto+Sans+Mono&display=swap" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
-  <style>
+  <meta charset="utf-8">
+  <style type="text/css">
+    * {
+      font-family: "M PLUS 1", sans-serif;
+    }
 
     body, html {
       padding: 0;
       margin: 0;
-      width: 100vw;
-      height: 100vh;
-      font-size: 12px;
-      font-family: 'Noto Sans Mono', 'Noto Sans JP', monospace;
     }
 
-    .image {
-      width: calc(100vw + 60px);
-      height: calc(100vh + 60px);
-      background-image: url('./assets/pc.jpg');
-      background-repeat: no-repeat;
-      background-position-x: 50%;
-      background-position-y: 50%;
-      background-size: cover;
-      position: relative;
-      top: -30px;
-      left: -30px;
-
-      filter: blur(4px);
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
     }
 
-    .image-wrapper {
+    li {
+      margin: 0;
+      margin-top: 10px;
+      padding: 0;
+      padding-top: 10px;
+    }
+
+    .e-working-company li:first-child {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .w-w {
       width: 100vw;
-      height: 100vh;
       overflow: hidden;
     }
 
-    .window-background-overlay {
+    .m-w {
+      margin-top: 200px;
+    }
+
+    .b {
       position: absolute;
+      top: -16px;
+      left: -16px;
 
-      width: 50vw;
-      height: 50vh;
-      overflow: hidden;
-      left: calc(50% - 25vw);
-      top: calc(50% - 25vh + 32px);
-      border-radius: 0 0 8px 8px;
-    }
-
-    .window-background-overlay-inner {
-      position: relative;
-      width: calc(100vw + 60px);
-      height: calc(100vh + 60px);
-      background-image: url('./assets/pc.jpg');
-      background-repeat: no-repeat;
+      width: calc(100vw + 32px);
+      height: 300px;
+      background: url("./assets/pc.jpg");
       background-size: cover;
-      background-position-x: calc(50% - 25vw);
-      background-position-y: calc(50% - 25vh - 32px);
-      top: -30px;
-      left: -30px;
+      background-position: 50% 65%;
+      background-repeat: no-repeat;
+      z-index: -1;
       filter: blur(8px);
     }
 
-    .overlay {
+
+    .b-o {
       position: absolute;
       top: 0;
       left: 0;
-      background: rgba(0, 0, 0, 0.65);
+
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, .65);
+    }
+
+    .w-1 {
+      background-color: #1F1F1F;
+      width: calc(100vw + 20px);
+      position: relative;
+      left: -10px;
+      height: 150px;
+      border-radius: 50% 50% 0 0 ;
+    }
+
+    .w-2 {
+      background-color: #1F1F1F;
       width: 100vw;
-      height: 100vh;
-      z-index: 5;
+      min-height: calc(100vh - 150px - 200px);
+      padding-bottom: 100px;
     }
 
-    .window {
+    .i-w {
+      border-radius: 50%;
+      background-color: #1F1F1F;
+      width: 200px;
+      height: 200px;
       position: absolute;
-      left: calc(50% - 25vw);
-      top: calc(50% - 25vh);
-      box-shadow: 0 0 30px #000000;
-      color: #fff;
-      width: 50vw;
-      border-radius: 8px;
-      z-index: 10;
+      left: calc(50% - 100px);
     }
 
-    .window-contents {
-      background-color: rgba(0, 0, 0, 0.75);
-      width: 100%;
-      box-sizing: border-box;
-      overflow: scroll;
-      border-radius: 0 0 8px 8px;
-      height: 50vh;
-      padding: 8px;
+    .i-m {
+      border-radius: 50%;
+      background: transparent url("./assets/logical_memory.jpg");
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      background-size: contain;
+      width: 180px;
+      height: 180px;
+
+      position: relative;
+      top: 10px;
+      left: 10px;
     }
 
-    .window-contents > *,
-    .bios-contents > *,
-    .mobile-contents > * {
-      animation-name: command-animation;
-      animation-duration: 0.25s;
-      animation-timing-function: linear;
-      animation-fill-mode: forwards;
-      margin: 0;
-      margin-top: 4px;
-      color: #00ff00;
-      overflow: hidden;
-      width: 0;
-      line-height: 1.5em;
-    }
-
-    .bios-contents {
-      animation-name: bios-animation;
-      animation-delay: 2s;
-
-      animation-timing-function: ease-in-out;
-      animation-fill-mode: forwards;
-      margin: 0;
-      margin-top: 4px;
-      color: #00ff00;
-      overflow: hidden;
-      width: 0;
-      line-height: 1.5em;
-    }
-
-    .bios-contents > p,
-    .mobile-contents > p {
-      height: 1.5em;
-    }
-
-    .mobile-contents a {
-      color: #00ff00;
-    }
-
-    .window-contents > *[data-display-when-animation-finished="1"] {
-      animation-name: command-animation-display;
-      width: 100%;
-      height: 0;
-    }
-
-    .window-contents > * > span,
-    .bios-contents > * > span {
-      animation-name: command-animation-opacity;
-      animation-duration: 0.25s;
-      animation-timing-function: linear;
-      animation-fill-mode: forwards;
-      overflow: hidden;
-      display: inline-block;
-      margin: 0;
-      padding: 0;
-      opacity: 0;
-      vertical-align: top;
-    }
-
-    .window-contents > p {
-      white-space: nowrap;
-      line-height: 1.25em;
-    }
-
-    .window-contents div.out,
-    .bios-contents div.out,
-    .mobile-contents div.out {
-      white-space: pre-wrap;
-      color: #00ff00;
-    }
-
-    .animate-contents > *[data-no-dulation="1"] {
-      animation-duration: 0s;
-    }
-
-    .animate-contents[data-delay="1"],
-    .animate-contents > *[data-delay="1"],
-    .animate-contents > * > span[data-delay="1"] {
-      animation-delay: 0.25s;
-    }
-
-    .animate-contents[data-delay="2"],
-    .animate-contents > *[data-delay="2"],
-    .animate-contents > * > span[data-delay="2"] {
-      animation-delay: 0.5s;
-    }
-
-    .animate-contents[data-delay="3"],
-    .animate-contents > *[data-delay="3"],
-    .animate-contents > * > span[data-delay="3"] {
-      animation-delay: 0.75s;
-    }
-
-    .animate-contents[data-delay="4"],
-    .animate-contents > *[data-delay="4"],
-    .animate-contents > * > span[data-delay="4"] {
-      animation-delay: 1s;
-    }
-
-    .animate-contents[data-delay="5"],
-    .animate-contents > *[data-delay="5"],
-    .animate-contents > * > span[data-delay="5"] {
-      animation-delay: 1.25s;
-    }
-
-    .animate-contents[data-delay="6"],
-    .animate-contents > *[data-delay="6"],
-    .animate-contents > * > span[data-delay="6"] {
-      animation-delay: 1.5s;
-    }
-
-    .animate-contents[data-delay="7"],
-    .animate-contents > *[data-delay="7"],
-    .animate-contents > * > span[data-delay="7"] {
-      animation-delay: 1.75s;
-    }
-
-    .animate-contents[data-delay="8"],
-    .animate-contents > *[data-delay="8"],
-    .animate-contents > * > span[data-delay="8"] {
-      animation-delay: 2s;
-    }
-
-    .animate-contents[data-delay="9"],
-    .animate-contents > *[data-delay="9"],
-    .animate-contents > * > span[data-delay="9"] {
-      animation-delay: 2.25s;
-    }
-
-    .animate-contents[data-delay="10"],
-    .animate-contents > *[data-delay="10"],
-    .animate-contents > * > span[data-delay="10"] {
-      animation-delay: 2.5s;
-    }
-
-    .animate-contents[data-delay="11"],
-    .animate-contents > *[data-delay="11"],
-    .animate-contents > * > span[data-delay="11"] {
-      animation-delay: 2.75s;
-    }
-
-    .animate-contents[data-delay="12"],
-    .animate-contents > *[data-delay="12"],
-    .animate-contents > * > span[data-delay="12"] {
-      animation-delay: 3s;
-    }
-
-    .animate-contents[data-delay="13"],
-    .animate-contents > *[data-delay="13"],
-    .animate-contents > * > span[data-delay="13"] {
-      animation-delay: 3.25s;
-    }
-
-    .animate-contents[data-delay="14"],
-    .animate-contents > *[data-delay="14"],
-    .animate-contents > * > span[data-delay="14"] {
-      animation-delay: 3.5s;
-    }
-
-    .animate-contents[data-delay="15"],
-    .animate-contents > *[data-delay="15"],
-    .animate-contents > * > span[data-delay="15"] {
-      animation-delay: 3.75s;
-    }
-
-    .animate-contents[data-delay="16"],
-    .animate-contents > *[data-delay="16"],
-    .animate-contents > * > span[data-delay="16"] {
-      animation-delay: 4s;
-    }
-
-    .animate-contents[data-delay="17"],
-    .animate-contents > *[data-delay="17"],
-    .animate-contents > * > span[data-delay="17"] {
-      animation-delay: 4.25s;
-    }
-
-    .animate-contents[data-delay="18"],
-    .animate-contents > *[data-delay="18"],
-    .animate-contents > * > span[data-delay="18"] {
-      animation-delay: 4.5s;
-    }
-
-    .animate-contents[data-delay="19"],
-    .animate-contents > *[data-delay="19"],
-    .animate-contents > * > span[data-delay="19"] {
-      animation-delay: 4.75s;
-    }
-
-    .animate-contents[data-delay="20"],
-    .animate-contents > *[data-delay="20"],
-    .animate-contents > * > span[data-delay="20"] {
-      animation-delay: 5s;
-    }
-
-    .animate-contents[data-duration="1"],
-    .animate-contents > *[data-duration="1"],
-    .animate-contents > * > span[data-duration="1"] {
-      animation-duration: 0.25s;
-    }
-
-    .animate-contents[data-duration="2"],
-    .animate-contents > *[data-duration="2"],
-    .animate-contents > * > span[data-duration="2"] {
-      animation-duration: 0.5s;
-    }
-
-    .animate-contents[data-duration="3"],
-    .animate-contents > *[data-delay="3"],
-    .animate-contents > * > span[data-delay="3"] {
-      animation-duration: 0.75s;
-    }
-
-    .animate-contents[data-duration="4"],
-    .animate-contents > *[data-duration="4"],
-    .animate-contents > * > span[data-duration="4"] {
-      animation-duration: 1s;
-    }
-
-    .animate-contents[data-duration="5"],
-    .animate-contents > *[data-duration="5"],
-    .animate-contents > * > span[data-duration="5"] {
-      animation-duration: 1.25s;
-    }
-
-    .animate-contents[data-duration="6"],
-    .animate-contents > *[data-duration="6"],
-    .animate-contents > * > span[data-duration="6"] {
-      animation-duration: 1.5s;
-    }
-
-    .animate-contents[data-duration="7"],
-    .animate-contents > *[data-duration="7"],
-    .animate-contents > * > span[data-duration="7"] {
-      animation-duration: 1.75s;
-    }
-
-
-    .animate-contents[data-duration="8"],
-    .animate-contents > *[data-duration="8"],
-    .animate-contents > * > span[data-duration="8"] {
-      animation-duration: 2s;
-    }
-
-    .animate-contents[data-duration="9"],
-    .animate-contents > *[data-duration="9"],
-    .animate-contents > * > span[data-duration="9"] {
-      animation-duration: 2.25s;
-    }
-
-    .animate-contents[data-duration="10"],
-    .animate-contents > *[data-duration="10"],
-    .animate-contents > * > span[data-duration="10"] {
-      animation-duration: 2.5s;
-    }
-
-    .animate-contents[data-duration="11"],
-    .animate-contents > *[data-duration="11"],
-    .animate-contents > * > span[data-duration="11"] {
-      animation-duration: 2.75s;
-    }
-
-    .animate-contents[data-duration="12"],
-    .animate-contents > *[data-duration="12"],
-    .animate-contents > * > span[data-duration="12"] {
-      animation-duration: 3s;
-    }
-
-    @keyframes bios-animation {
-      0% {
-        opacity: 1;
-      }
-      99% {
-
-        display: block;
-      }
-      100% {
-        display: none;
-        opacity: 0;
-      }
-    }
-
-    @keyframes command-animation {
-      0% {
-        width: 0;
-      }
-      100% {
-        width: 100%;
-      }
-    }
-
-    @keyframes command-animation-opacity {
-      0% {
-        opacity: 0;
-      }
-      99% {
-        opacity: 0;
-      }
-      100% {
-        opacity: 1;
-      }
-    }
-
-    @keyframes command-animation-display {
-      0% {
-        height: 0;
-      }
-      99% {
-
-        height: 100%;
-      }
-      100% {
-        height: auto;
-      }
-    }
-
-    .window-contents > p:first-child {
-      margin-top: 0;
-    }
-
-    .window-contents > p.no-user-sign::before {
-      content: "";
-    }
-
-    .window-contents > p::before {
-      content: "$ ";
-    }
-
-    .window-title {
-      width: 100%;
-      height: 32px;
-      line-height: 32px;
-      text-align: center;
-      background-color: rgba(0, 0, 0, 0.8);
-      border-radius: 8px 8px 0 0;
-      font-size: 12px;
+    .e-name {
+      font-size: 32px;
       font-weight: bold;
+      color: #E0E0E0;
+      text-align: center;
+    }
+
+    .r-w {
+      top: 120px;
+      position: absolute;
+      width: 100vw;
+    }
+    .e-info {
+      width: 80vw;
+      margin: 0 auto;
+    }
+
+    .e-info-body {
+      display: grid;
+      grid-gap: 80px;
+      grid-template-columns: 1fr 1fr;
+      margin-top: 40px;
+    }
+
+    .e-info-body * {
+      color: #E0E0E0;
+    }
+
+    .e-info-body h3 {
+      margin-top: 40px;
+      margin-bottom: 0;
+    }
+
+    .e-info-body h2, .e-info-body h3 {
+      color: #E0E0E0;
+      font-weight: bold;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .e-info-body dt {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #000000;
+      margin-bottom: 5px;
+      font-size: 12px;
       display: flex;
       justify-content: space-between;
     }
 
-    .window-title-left-action,
-    .window-title-right-action {
-      width: 10%;
-      box-sizing: border-box;
-    }
-
-
-    .window-title-left-action a,
-    .window-title-right-action a {
-      text-decoration: none;
-    }
-
-    .window-title-left-action {
-      text-align: left;
-      padding-left: 10px;
-    }
-
-    .window-title-right-action {
-      text-align: right;
-      padding-right: 10px;
-    }
-
-    .flex {
-      display: flex;
-      flex-grow: 2;
-    }
-
-    .profile {
-      margin-top: 4em;
-    }
-
-    .profile-image-figure {
-      background: url('./assets/logical_memory.png');
-      border-radius: 50%;
-      width: 128px;
-      height: 128px;
-      background-size: cover;
-      margin: 0 auto;
-    }
-
-    .profile-name {
-      text-align: center;
-      color: #ffffff;
-      font-size: 14px;
-    }
-
-    .profile-intro {
-      display: flex;
-      margin-top: 2em;
-    }
-
-    .profile-intro dl {
-      flex-wrap: wrap;
-      width: 100%;
-      margin: 0 auto;
-    }
-
-    .profile-intro dl dt::before {
-      content: '[';
-    }
-
-    .profile-intro dl dt::after {
-      content: ']';
-    }
-
-    .profile-intro dl {
-    }
-
-    .profile-intro dl dt {
-      padding: 0;
-      margin: 0;
-      box-sizing: border-box;
-      margin-top: 4em;
-      margin-bottom: 2em;
-      font-size: 12px;
-      padding-bottom: 1em;
-      border-bottom: 1px dashed #00ff00;
-    }
-
-    .profile-intro dl dd {
-      padding: 0 4px;
-      margin: 0;
-      box-sizing: border-box;
-      margin-top: 1em;
-      text-align: left;
-      font-size: 12px;
-      color: #ffffff;
-    }
-
-    .profile-intro dl dd p {
-      text-align: left;
-    }
-
-    .profile-intro dl dd p:last-child {
-      margin-bottom: 0;
-    }
-
-    .profile-intro dl dd ul {
-      text-align: left;
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .profile-intro dl dd ul li {
-      margin-top: 0.25em
-    }
-
-    .icon::before {
-      content: '- ';
-    }
-
-    .ascii-profile-wrapper {
-      width: 300px;
-      height: 250px;
-      white-space: nowrap;
-      overflow: hidden;
-      margin: 0 auto;
-    }
-
-    .ascii-profile {
-      font-size: 10px;
-      white-space: pre-wrap;
-      transform: scale(0.4);
-      width: calc(300px * 1.6 * 1.4);
-      height: calc(250px * 1.6 * 1.4);
-      transform-origin: left top;
-      line-height: 1em;
-      margin-left: 20px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    table thead tr th {
-      color: #AAAAAA;
-    }
-
-    table thead tr th {
+    .e-info-body dt:first-child {
+      margin-top: 0;
+      padding-top: 0;
       border-top: 0;
     }
 
-    table thead tr th {
-      padding-top: 0;
+    .e-info-body dt span, .e-info-body dt time {
+      color: #999999;
     }
 
-    table tr td,
-    table tr th {
-      padding: 1em;
-      border: 1px dashed #AAAAAA;
-      border-left: 0;
-    }
-
-
-    table tr td:last-child,
-    table tr th:last-child {
-      border-right: 0;
-    }
-
-    table tbody tr:last-child td {
-      border-bottom: 0;
-      padding-bottom: 0;
-    }
-
-    table tbody tr a {
-      color: #ffffff;
-      text-decoration: underline;
-    }
-
-    .tr {
-      text-align: right;
-    }
-
-    .action-button {
-      color: #ffffff;
-      cursor: pointer;
-      position: relative;
-    }
-
-    .action-button:hover .tooltip {
-      animation-name: tooltip-animation;
-      animation-duration: 0.25s;
-      animation-timing-function: ease-in;
-      animation-fill-mode: both;
-      animation-direction: alternate;
-    }
-
-    .tooltip {
-      opacity: 0;
-      position: absolute;
-      top: 30px;
-      right: -20px;
-      white-space: nowrap;
-      background-color: rgba(233, 30, 99, 0.8);
-      text-align: left;
-      padding: 8px;
+    .e-info-body dd {
+      padding: 0;
       margin: 0;
-      line-height: 16px;
-      border-radius: 2px;
     }
 
-    .tooltip::after {
-      content: '';
-      position: absolute;
-      border: 5px solid transparent;
-      border-bottom: 10px solid rgba(233, 30, 99, 0.8);
-      background-color: transparent;
-      width: 0;
-      height: 0;
-      top: -15px;
-      right: 21px;
+    .e-contact {
+      list-style: none;
+      padding: 0;
+      text-align: center;
+      margin: 20px auto 40px auto;
+      display: grid;
+      grid-gap: 20px;
+      grid-template-columns: repeat(5, 32px);
+      width: calc(32px * 5 + 20px * 4)
     }
 
-    @keyframes tooltip-animation {
-      0% {
-        opacity: 0;
-      }
-      100% {
-        opacity: 1;
+    .e-contact .fab, .e-contact .fas {
+      font-size: 32px;
+    }
+
+    .mt {
+      margin-top: 80px;
+    }
+
+    a {
+      text-decoration: none;
+      transition: color ease 0.2s;
+    }
+
+    a:hover {
+      color: #888888;
+    }
+
+    a:not(.no-arrow)::before {
+      font-family: "Font Awesome 5 Free", sans-serif;
+      content: '\f105';
+      font-weight: 900;
+      margin-right: 5px;
+    }
+
+    .icon {
+      font-family: "Font Awesome 5 Free", sans-serif;
+      font-weight: 900;
+    }
+
+    .icon::before {
+      padding-right: 5px;
+    }
+
+    .icon-company::before {
+      content: '\f1ad';
+    }
+
+    .icon-ex-company::before {
+      content: '\f1da';
+    }
+
+    .books {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 20px;
+    }
+
+    .book-no-image {
+      background-color: #353535;
+      width: 100%;
+      height: 100%;
+    }
+
+    .e-tags {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .e-tags dt {
+      width: 100px;
+      border-top: none;
+      padding-top: 0;
+      margin-top: 0;
+      font-size: 14px;
+      margin-bottom: 34px;
+    }
+
+    .e-tags dd {
+      width: calc(100% - 100px);
+      padding-top: 0;
+      margin-top: 0;
+      margin-bottom: 34px;
+    }
+
+    .e-tags dd ul {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: -14px;
+
+    }
+
+    .e-tags dd li {
+      margin-top: 10px;
+      font-size: 14px;
+      padding: 4px 8px;
+      background-color: rgba(20, 20, 20, 0.8);
+      margin-right: 4px;
+      border-radius: 4px;
+      box-shadow: 0 0 5px rgba(20, 20, 20, 0.4);
+    }
+
+
+    @media (max-width: 500px) {
+      .e-info-body {
         display: block;
       }
-    }
 
-    @media screen and (max-width: 1600px) {
-      .window-background-overlay {
-        width: 800px;
-        left: calc(50% - 400px);
-      }
-      .window {
-        width: 800px;
-        left: calc(50% - 400px);
+      .books {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
       }
 
-      .window-background-overlay-inner {
-        background-position-x: calc(50% - ((100vw - 800px) / 2));
+      .mt {
+        margin-top: 0;
       }
-    }
 
-    @media screen and (max-height: 1200px) {
-      .window-background-overlay {
-        height: 600px;
-        top: calc(50% - 300px + 32px);
+      h2, h3 {
+        margin-top: 40px;
+        border-top: 1px solid #000000;
+        padding-top: 40px;
       }
-      .window {
-        top: calc(50% - 300px);
-      }
-      .window-contents {
-        height: 600px;
-      }
-      .window-background-overlay-inner {
-        background-position-y: calc(50% - ((100vh - 600px) / 2) - 32px);
+
+      .books li {
+        margin: 0;
+        padding: 0;
       }
     }
-
-    .bios-contents,
-    .mobile-contents {
-      position: absolute;
-      width: 100vw;
-      height: 100vh;
-      background-color: #000000;
-      top: 0;
-      left: 0;
-      z-index: 100;
-      box-sizing: border-box;
-      padding: 10px;
-      margin: 0;
-    }
-
-    .t4em {
-      margin-top: 4em;
-    }
-
-    .contact-me {
-      text-align: center;
-      color: #ffffff;
-    }
-
-    .contact-me a {
-      color: #ffffff;
-    }
-
-    @media screen and (min-width: 601px) {
-      .mobile-contents {
-        display: none;
-      }
-    }
-
-    @media screen and (max-width: 600px) {
-      .mobile-contents {
-        z-index: 1000;
-        position: absolute;
-        top: 0;
-        left: 0;
-        box-sizing: border-box;
-        width: 100vw;
-        height: 100vh;
-        background-color: #000000;
-      }
-
-      .pc-only {
-        display: none;
-      }
-    }
-
   </style>
 </head>
 <body>
-
-
-<div class="mobile-contents">
-  <p>このウェブサイトはスマートフォンに対応していません.</p>
-  <p>PC で開くか, <a href="./old_index.html" target="_blank">過去のポートフォリオ</a>を参照してください.</p>
-  <div class="out">
-　　　　　　　＿＿
-　　　　　／＞　   フ　　＿人人＿
-　　　　　| 　_　 _|　　 ＞ ご ＜
-　 　　　／`ミ _x 彡　　 ＞ め ＜
-　　 　 /　　　 　 |　　 ＞ ん ＜
-　　　 /　 ヽ　　 ﾉ　　　＞ ね ＜
-　／￣|　　 |　|　|　　　＞ ！ ＜
-　| (￣ヽ＿_ヽ_)_)　　　 ￣Y^Y^￣
-　＼二つ
-  </div>
+<div class="b">
+  <div class="b-o"></div>
 </div>
-
-<div class="bios-contents animate-contents pc-only" data-delay="10" data-no-duration="1">
-  <p data-no-dulation="1">注意: このウェブサイトは余興の一環として作成されているため, あなたのコンピュータに危害を加えることは一切ありません. アニメーションをお楽しみください.</p>
-  <p data-no-dulation="1">Notice: This website is joking. this website is safety because this website is not effected on your machine. enjoy the entertainment in this website.</p>
-  <p data-delay="3" class="no-user-sign t4em">Welcome to a fragment of memories server</p>
-  <div data-delay="3" class="out">
-_  _  ___  _    _    __    _   _   __   ___  _    __   _
-| || || __|| |  | |  /__\  | | | | /__\ | _ \| |  | _\ / \
-| >< || _| | |_ | |_| \/ | | 'V' || \/ || v /| |_ | v |\_/
-|_||_||___||___||___|\__/  !_/ \_! \__/ |_|_\|___||__/ (_)
-  </div>
-  <p data-delay="5" data-duration="3">Load the fragment of memories bios. Please wait a few minutes<span data-delay="6">.</span><span data-delay="7">.</span><span data-delay="8">.</span></p>
-</div>
-
-<div class="image-wrapper pc-only">
-  <div class="image"></div>
-</div>
-<div class="overlay pc-only"></div>
-<div class="window-background-overlay pc-only">
-  <div class="window-background-overlay-inner"></div>
-</div>
-<div class="window pc-only">
-  <div class="window-title">
-    <div class="window-title-left-action">&nbsp;</div>
-    <div class="window-title-loc">127.0.0.1@m3m0r7</div>
-    <div class="window-title-right-action">
-      <a class="action-button" href="./old_index.html" target="_blank">
-        <i class="fas fa-undo"></i>
-        <div class="tooltip">以前のポートフォリオを参照</div>
-      </a>
-    </div>
-  </div>
-  <div class="window-contents animate-contents">
-    <p data-delay="12">fetch --user m3m0r7 --host 127.0.0.1</p>
-    <p class="no-user-sign" data-delay="14">Fetching data<span data-delay="15">.</span><span data-delay="16">.</span><span data-delay="17">.</span> <span data-delay="18"> completed!</span></p>
-
-    <div data-delay="19" data-display-when-animation-finished="1">
-      <div class="profile">
-        <div class="profile-image">
-          <div class="ascii-profile-wrapper">
-            <div class="ascii-profile">
-                        vt                                              wy
-                     zrr                                                    tx
-                  qq                                                           pw
-               ww                                           sr            sx      r
-              t                                               zvs          zur      w
-            wz                                                   wux          tt      w
-           t                                                        rw          sw     t
-         p                                                            qv          n      s
-       q                                                                rx         zo   y s
-      r                                                         yz    zo zp          q   xwzw
-     s                                        z                  xxz    py ty         p    xqs
-   wmz                                      zyxpw                 xwxz   pw            ny    tm
-  pq                  z                      zxwsn                 yvvx   rz            pv     kp
- ou                  wu                        yvvmt                ywux   l    y  x     tq     vz p
-tuz                  su                          xtumz               ywuvz  m    r  w     ym      r
- q                  zso                           zuvnr               yvuvz  n    p zy     ym   z  s
-p                   yte                             wsoq               xvuv  zu    nzx      zn   t
-o                   xvkn                             xsplzzz            wvuv  n     mxw xz   wp  zt
-z                   yvipx                             yrrjzzy           yxvux m      lvvwtz   oz  wm
-                     ujxl     zx                       yuukzyy           xxuuzlzyz    lptssx   o   z
-                     xqlzs     ww                    ts zuslwyy           yphwlywxz    sjsrrv  ptx
-      w               thzpx    zvw                    omytnomuxy           tjmlvtnxz    wkopjsz kvu
-      t               won nz    wtw              ywvuttzzyz  mvx            jlixsonwy     pmqjnwvlst
-                       thz l     tsw          yorz   zzwnr   vjwy           fzz uqhuvy      msqmvrmr
-       r  z            zrm  j     vqwx     zmv    zpc0kz zzz  kyx         zkz    solvux       kytlsn
-       t  x             xmn  pw     oktrovzz  xlcbbcdhuty     rsx     ypnwz      yqgutux   vhy zpszr
-ys      mkxx             xmmyzuq     zzz  ztkgkacddegu  zs    zlvz pqsvywvy       ujlusux   ojn  xqv
-qq      plmxy              pnzzzsumyz   ztlqx ubcdhkmosvutq  zzlknsjk z xtt        mgutuvx   momx  v
-mxw      lfsxz           zwvov   zz           ycefmkghmtvxsx zzpj   isxwyurw       skrtvvwy  zjqlr
-l l    z wmcvz         zpx                     ghjqqiefrxzzm  zzs    bttxxrsz      znltuwxx   zhorl
-txqz   yx sojr       ntz   z                    jrvvvvvyz  o         lhrtztqv       jitswyy   zwfntm
- o m    yx opsp   wtzz  zkcdz                    us zzz   pz         phsuyzuw       kksty     zzzivk
- p qy    xwzopvvqsz zqicabflwz                     zqvyxuuz       z  mijvx zy      xmlssx      y qqm
-  q mv    wwznrxzw rfllccejx  qw                      zzz   y        cngwx  z      srkury      y qi
-p s wuq    wvznus  z  zbdhjjmpuss                     zzyzzzy        dmoxy  qxuw   jxmtt       wueop
- w n l m    wvzl qz    idlmgglvxsv                   zzzzz           ckyx   osss  on ktz     pkv
-  x t m px   xvyvt  z   ksvnioxzzn                   zz             y0tzz   qoqqyjs  pxzxrvz
-  yyx  o vq   zvwxqz     suzzzzz ww                                 hh      snpqkrx kpyx
-    wr  sx tt   yyrjy     zzxz  wt   z                             qaz      tonkrotvv
-     so  zu  wuttlagy        yvw                                  qcu       ooeow        yxwwxyzzzzz
-      ti    q      lawzz        z                                lho        fiwzz    zzolv   zvoovyz
-                     dwzz zz zz z                     rgintvxzyxnpn         kxyyz  lpz             x
-                     rozz zz  z              tqz   vrjrwusrqmkmnyp         twzzyynjy
-                      avzz z                z    xtnprrutnspotvxo        z m  ulqow
-                      tby                       rykpnryumrpuusupv        zzswigsxm
-                       zeoz                    p inmq spqzwrpttu         yqghctwov
-                        n ojiq                q lonqypquxwsrw p         zzm mswwjz
-                       u zeotqjostrppsvz     s rmqrvuirwwttyth          yn qvxxxl
-                       guzyzxjhjorqpqsndglrpkzxkrrtxmlyvvusrsz      y  zxlssyxxym
-                      lu uvshlrz    xsrwf   k lvsswypmvuunu o      zz  yonnszyyzs
-                    zix tuxfijw       uv q  k mzutzzonurvk zx     x   zlhwjz zz
-                    uoztszgggmvv      vsxu  m p xtz mptpwl p      r   wbszm     r                  p
-                   ovvtqvtefgjiegol   wrt o jwj yuy onvry np      n  ztbxz t    p                rz
-                   tpvppxqgfilecekj  zustzn gvss xz on uv ux      n  whtkzzyq    q              p  p
-                  xzounoxphdgiccekmt usuuxm etvm     kq xwk       n  nnwvjxzxq   n             q   o
+<div class="m-w">
+  <div class="w-w">
+    <div class="w-1"></div>
+    <div class="w-2">
+      <div class="e-w">
+        <div class="e-name">めもりー<br />(memory, m3m0r7)</div>
+        <div class="e-info">
+          <div class="e-info-body">
+            <div class="e-container">
+              <div>
+                <h2>Summary</h2>
+                <p>1994年生まれ。大学の情報系学部でネットワーク・コンピューター工学を専攻するも、実務への関心が高まり、高校時代Webエンジニアとしてアルバイトをしていた会社にそのまま入社。
+                  その後、複数のベンチャー企業やスタートアップ企業，上場企業でソフトウェアエンジニアや執行役員 CTO として活動。2023 年 7 月に株式会社エンペイに入社。2023 年 10 月よりエンジニアリングマネージャー。</p>
+                <p>開発業務・技術顧問業務・登壇依頼・執筆などのお仕事依頼等はお気軽にご連絡ください。</p>
+              </div>
+              <div class="mt">
+                <h2>Work Experiences</h2>
+                <ul class="e-working-company">
+                  <li class="icon icon-company">株式会社エンペイ</li>
+                  <li class="icon icon-ex-company">ex- Torana, Inc.</li>
+                  <li class="icon icon-ex-company">ex- Togetter, Inc. (Freelance/Side-work)</li>
+                  <li class="icon icon-ex-company">ex- BASE, Inc.</li>
+                  <li class="icon icon-ex-company">ex- GameWith, Inc.</li>
+                  <li class="icon icon-ex-company">ex- Synapse, Inc.</li>
+                  <li class="icon icon-ex-company">その他複数社で業務委託や正社員での経験あり</li>
+                </ul>
+              </div>
+              <div class="mt">
+                <h2>Technical Skills</h2>
+                <dl class="e-tags">
+                  <dt>Management skills</dt>
+                  <dd>
+                    <ul>
+                      <li>技術組織戦略</li>
+                      <li>技術戦略</li>
+                      <li>エンジニア採用戦略</li>
+                    </ul>
+                  </dd>
+                  <dt>Main skills</dt>
+                  <dd>
+                    <ul>
+                      <li>PHP</li>
+                      <li>Laravel</li>
+                      <li>Swoole</li>
+                      <li>Go</li>
+                      <li>TypeScript</li>
+                      <li>React</li>
+                      <li>Next.js</li>
+                      <li>JavaScript</li>
+                      <li>AWS</li>
+                      <li>Elasticsearch</li>
+                    </ul>
+                  </dd>
+                  <dt>Other skills</dt>
+                  <dd>
+                    <ul>
+                      <li>Ruby</li>
+                      <li>Ruby on Rails</li>
+                      <li>Docker</li>
+                      <li>Redis</li>
+                      <li>CakePHP</li>
+                      <li>Vue</li>
+                      <li>WordPress</li>
+                      <li>Terraform</li>
+                      <li>Selenium</li>
+                      <li>Java</li>
+                      <li>JVM</li>
+                      <li>RubyVM</li>
+                      <li>...</li>
+                    </ul>
+                  </dd>
+                </dl>
+              </div>
+              <div class="mt">
+                <h2>Books</h2>
+                <h3>C&R 研究所</h3>
+                <ul class="books">
+                  <li><a target="_blank" class="no-arrow" href="https://www.amazon.co.jp/dp/4863544103"><img src="./assets/books/legacy_code.jpg" width="100%" alt="レガシーコードとどう付き合うか" /></a></li>
+                  <li><div class="book-no-image"></div></li>
+                  <li><div class="book-no-image"></div></li>
+                  <li><div class="book-no-image"></div></li>
+                </ul>
+                <h3>技術評論社</h3>
+                <ul class="books">
+                  <li><a target="_blank" class="no-arrow" href="https://www.amazon.co.jp/dp/B0BV69C24M"><img src="./assets/books/swoole.jpg" width="100%" alt="Swooleで学ぶPHP非同期処理" /></a></li>
+                  <li><a target="_blank" class="no-arrow" href="https://www.amazon.co.jp/dp/B08238P624"><img src="./assets/books/minnano_php.png" width="100%" alt="みんなのPHP" /></a></li>
+                  <li><a target="_blank" class="no-arrow" href="https://www.amazon.co.jp/dp/B07Z74Q3BD"><img src="./assets/books/sd201912.png" width="100%" alt="Software Design 2019年12月号" /></a></li>
+                  <li><a target="_blank" class="no-arrow" href="https://www.amazon.co.jp/dp/B09CRLXD3S"><img src="./assets/books/sd202110.jpg" width="100%" alt="Software Design 2021年09月号" /></a></li>
+                </ul>
+              </div>
+              <div class="mt">
+                <h2>Contact me</h2>
+                <ul class="e-contact">
+                  <li><a target="_blank" class="no-arrow" href="https://twitter.com/m3m0r7"><i class="fab fa-twitter"></i></a></li>
+                  <li><a target="_blank" class="no-arrow" href="https://github.com/m3m0r7"><i class="fab fa-github-alt"></i></a></li>
+                  <li><a target="_blank" class="no-arrow" href="https://keybase.io/m3m0r7"><i class="fab fa-keybase"></i></a></li>
+                  <li><a target="_blank" class="no-arrow" href="https://speakerdeck.com/memory1994"><i class="fab fa-speaker-deck"></i></a></li>
+                  <li><a target="_blank" class="no-arrow" href="https://www.linkedin.com/in/m3m0r7"><i class="fab fa-linkedin"></i></a></li>
+                </ul>
+              </div>
+              <div class="mt">
+                <h2>Sound Voltex</h2>
+                <ul>
+                  <li><img src="./assets/sdvx.png" width="100%" /></li>
+                </ul>
+              </div>
+            </div>
+            <div class="e-container">
+              <div>
+                <h2>Activities</h2>
+                <dl>
+                  <dt><time>2023/11/21</time><span>技術的負債に向き合う Online Conference</span></dt>
+                  <dd><a href="https://speakerdeck.com/memory1994/understanding-why-built-tech-debts-and-thinking-approaches-for-startup-on-early-to-later-stage">技術的負債が生まれる背景を理解して，アーリーからレイター向けの根本的なアプローチを考える</a></dd>
+                  <dt><time>2023/10/08</time><span>After Party at PHP Conference 2023</span></dt>
+                  <dd><a href="https://speakerdeck.com/memory1994/show-maji-of-fizzbuzz">本当の FizzBuzz をお見せします</a></dd>
+                  <dt><time>2023/10/08</time><span>PHP Conference 2023</span></dt>
+                  <dd><a href="https://speakerdeck.com/memory1994/how-to-implement-rubyvm-written-in-php">RubyVM を PHP で実装する 〜Hello World を出力するまで〜</a></dd>
+                  <dt><time>2023/09/02</time><span>Findy Engineer Lab オフ会</span></dt>
+                  <dd><a href="https://speakerdeck.com/memory1994/you-can-run-away-you-are-engaging-hard-things">千尋の谷に突き落とされても辛ければ逃げていい</a></dd>
+                  <dt><time>2023/09/02</time><span>AWS Startup Day 2023</span></dt>
+                  <dd><a href="https://speakerdeck.com/memory1994/introduction-of-my-careers-and-changing-my-mind">CTO までのキャリアと転職活動における考え方の変化</a></dd>
+                  <dt><time>2023/06/14</time><span>Forkwell Library #25</span></dt>
+                  <dd><a href="https://speakerdeck.com/memory1994/why-we-must-do-engineering">エンジニアリングを推進する必要性</a></dd>
+                  <dt><time>2023/05/22</time><span>University of Tokyo</span></dt>
+                  <dd><a href="https://speakerdeck.com/memory1994/the-environment-surrounding-startups-with-engineering">スタートアップを取り巻く環境について 〜スタートアップとエンジニアリング〜</a></dd>
+                  <dt><time>2023/01/25</time><span>Forkwell Library #14</span></dt>
+                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/why-the-application-design-is-breaking-sometimes-at-a-startup-company">CTO から見た，なぜスタートアップ初期のソフトウェア設計は壊れがちなのか</a></dd>
+                  <dt><time>2022/09/24</time><span>PHP Conference 2022</span></dt>
+                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/php-conference-japan-2022">PHP メモリ管理術</a></dd>
+                  <dt><time>2022/08/27</time><span>PHP Conference Okinawa 2022</span></dt>
+                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/php-conference-okinawa-2022">PHP で NFC リーダーを実装する</a></dd>
+                  <dt><time>2022/08/26</time><span>AWS Startup Community Conference 2022</span></dt>
+                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/aws-startup-community-conference-2022">知育玩具サブスク「トイサブ！」におけるエンジニア組織立ち上げの事例</a></dd>
+                  <dt><time>2022/06/28</time><span>Forkwell Library #3</span></dt>
+                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/introduction-to-an-example-of-making-a-product-development-division-with-psychological-safety-at-torana-inc">株式会社トラーナにおける 心理的安全性が高い組織づくりの事例</a></dd>
+                  <dt><time>2022/04/10</time><span>PHPerKaigi 2022</span></dt>
+                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/php-de-nfc-ridawoshi-zhuang-suru-php-tohadowoxi-gu">PHP で NFC リーダーを実装する 〜 PHP とハードを繋ぐ 〜</a></dd>
+                  <dt><time>2022/03/04</time><span>YAPC::Japan::Online 2022</span></dt>
+                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/php-de-nfc-ridawoshi-zhuang-suru">PHP で NFC リーダーを実装する</a></dd>
+                  <dt><time>2021/10/03</time><span>PHP Conference 2021</span></dt>
+                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/laravel-demofei-tong-qi-chu-li-gaxi-eru-php-8-karachu-merufei-tong-qi-chu-li-laravel-octane">Laravel でも非同期処理が扱える！？ PHP 8 から初める非同期処理 〜Laravel Octane〜</a></dd>
+                  <dt><time>2021/05/27</time><span>PHP Conference Okinawa 2021</span></dt>
+                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/li-jie-siteokubeki-php-falsebaridesiyon">理解しておくべき PHP のバリデーション</a></dd>
+                  <dt><time>2021/03/10</time><span>PHPerKaigi 2021</span></dt>
+                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/swoole-to-laravel-swoole-woyong-itahaipahuomansuapurikesiyongou-zhu">swoole と laravel-swoole を用いたハイパフォーマンスアプリケーション構築</a></dd>
+                  <dt><time>2020/12/12</time><span>PHP Conference 2020</span></dt>
+                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/zerobesukara-laravel-woyong-ita-api-shi-zhuang-otomesiyon">ゼロベースから Laravel を用いた API 実装オートメーション</a></dd>
+                  <dt><time>2020/02/09</time><span>PHPerKaigi 2020</span></dt>
+                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/php-de-jvm-woshi-zhuang-site-helloworld-wochu-li-sitemiru">PHP で JVM を実装して、 HelloWorld を出力してみる</a></dd>
+                  <dt><time>2019/12/01</time><span>PHP Conference 2019</span></dt>
+                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/php-niokerubing-lie-chu-li-tofei-tong-qi-chu-li-ru-men">PHP における並列処理と非同期処理入門</a></dd>
+                  <dt><time>2019/11/22</time><span>Kichijoji.pm</span></dt>
+                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/php-de-ast-jie-xi-wosite-java-falseopekodowosheng-cheng-suru">PHP で AST 解析をして Java のオペコードを生成する</a></dd>
+                  <dt><time>2019/10/12</time><span>PHP Conference Okinawa 2019</span></dt>
+                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/phper-falsetamefalse-phpunit-to-selenium-woshi-tuta-burauzatesutofalsesu-me-a066ef2e-6ce9-45fb-9cb9-50fd609ab943">PHPer のための PHPUnit と Selenium を使ったブラウザテストのすゝめ</a></dd>
+                  <dt><time>2019/09/21</time><span>PHP Conference Hokkaido 2019</span></dt>
+                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/phper-falsetamefalse-phpunit-to-selenium-woshi-tuta-burauzatesutofalsesu-me">PHPer のための PHPUnit と Selenium を使ったブラウザテストのすゝめ</a></dd>
+                  <dt><time>2019/08/31</time><span>Builderscon 2019</span></dt>
+                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/php-de-jvm-woshi-zhuang-site-hello-world-wochu-li-surumade">How to implement JVM by PHP, And until output Hello World.</a></dd>
+                  <dt><time>2019/04/24</time><span>PHP 勉強会</span></dt>
+                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/hamusutawojian-shi-surusisutemuwo-raspberry-pi-to-php-false-swoole-tezuo-tutahua">ハムスターを監視するシステムを Raspberry Pi と PHP の Swoole で作った話</a></dd>
+                  <dt><time>2019/03/29</time><span>PHPerKaigi 2019</span></dt>
+                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/phperkaigi-2019">PHP で JVM に入門する</a></dd>
+                  <dt><time>2019/02/20</time><span>Elasticsearch Study Meeting 2019</span></dt>
+                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/elasticsearch-mian-qiang-hui-2019-gamewithtejian-suo-sisutemukashi-warerumate">GameWith で検索システムが使われるまで</a></dd>
+                  <dt><time>2019/01/26</time><span>PHP Conference Sendai 2019</span></dt>
+                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/php-conference-sendai-2019-presentation-slides">開発期間 2 ヶ月で Elasticsearch をプロダクトに使ってリリースした話</a></dd>
+                </dl>
+              </div>
             </div>
           </div>
-          <p class="profile-name">めもりー (memory, m3m0r7)</p>
-          <div class="contact-me">
-            <a href="https://twitter.com/m3m0r7" target="_blank">X (Twitter)</a> / <a href="https://github.com/m3m0r7" target="_blank">GitHub</a> / <a href="https://speakerdeck.com/memory1994" target="_blank">Speaker Deck</a> / <a href="https://www.linkedin.com/in/m3m0r7" target="_blank">LinkedIn</a>
-          </div>
-        </div>
-        <div class="profile-intro">
-          <dl>
-            <dt>Summary</dt>
-            <dd>
-              <p>1994年生まれ。大学の情報系学部でネットワーク・コンピューター工学を専攻するも、実務への関心が高まり、高校時代Webエンジニアとしてアルバイトをしていた会社にそのまま入社。
-                その後、複数のベンチャー企業やスタートアップ企業，上場企業でソフトウェアエンジニアや執行役員 CTO として活動。2023 年 7 月に株式会社エンペイに入社。2023 年 10 月よりエンジニアリングマネージャー。</p>
-              <p>開発業務・技術顧問業務・登壇依頼・執筆などのお仕事依頼等はお気軽にご連絡ください。</p>
-            </dd>
-            <dt>Work experience</dt>
-            <dd>
-              <ul>
-                <li class="icon icon-ex-company">enpay, Inc.</li>
-                <li class="icon icon-ex-company">ex- Torana, Inc.</li>
-                <li class="icon icon-ex-company">ex- Togetter, Inc. (Freelance)</li>
-                <li class="icon icon-ex-company">ex- BASE, Inc.</li>
-                <li class="icon icon-ex-company">ex- GameWith, Inc.</li>
-                <li class="icon icon-ex-company">その他複数社で業務委託や正社員での経験あり</li>
-              </ul>
-            </dd>
-            <dt>Experimental implementation</dt>
-            <dd>
-              <table>
-                <thead>
-                <tr>
-                  <th>名前</th>
-                  <th>概要</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td><a href="https://github.com/php-java/php-java">PHPJava</a></td>
-                  <td>Implement a JVM written in PHP</td>
-                </tr>
-                <tr>
-                  <td><a href="https://github.com/m3m0r7/rubyvm-on-php">RubyVM on PHP</a></td>
-                  <td>Implement a RubyVM written in PHP</td>
-                </tr>
-                <tr>
-                  <td><a href="https://github.com/m3m0r7/PHPPython">PHPPython</a></td>
-                  <td>Implement a PYC executor written in PHP</td>
-                </tr>
-                <tr>
-                  <td><a href="https://github.com/m3m0r7/nfc-for-php">NFC for PHP</a></td>
-                  <td>Communicate to a NFC device which is written in PHP</td>
-                </tr>
-                </tbody>
-              </table>
-            </dd>
-            <dt>Books</dt>
-            <dd>
-              <table>
-                <thead>
-                <tr>
-                  <th>著書名</th>
-                  <th>出版月</th>
-                  <th>出版社名</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td><a href="https://www.amazon.co.jp/dp/4863544103">レガシーコードとどう付き合うか</a></td>
-                  <td><time>2023/5</time></td>
-                  <td>C&R 研究所</td>
-                </tr>
-                <tr>
-                  <td><a href="https://www.amazon.co.jp/dp/B0BV69C24M">Swoole で学ぶ PHP 非同期処理</a></td>
-                  <td><time>2023/2</time></td>
-                  <td>技術評論社</td>
-                </tr>
-                <tr>
-                  <td><a href="https://www.amazon.co.jp/dp/B09CRLXD3S">Software Design 10 月号</a></td>
-                  <td><time>2021/9</time></td>
-                  <td>技術評論社</td>
-                </tr>
-                <tr>
-                  <td><a href="https://www.amazon.co.jp/dp/B08238P624">みんなの PHP</a></td>
-                  <td><time>2019/12</time></td>
-                  <td>技術評論社</td>
-                </tr>
-                <tr>
-                  <td><a href="https://www.amazon.co.jp/dp/B07Z74Q3BD">Software Design 12 月号</a></td>
-                  <td><time>2019/11</time></td>
-                  <td>技術評論社</td>
-                </tr>
-                </tbody>
-              </table>
-            </dd>
-            <dt>Activities</dt>
-            <dd>
-              <table>
-                <thead>
-                <tr>
-                  <th>タイトル</th>
-                  <th>登壇日</th>
-                  <th>イベント名</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                <td><a href="https://speakerdeck.com/memory1994/show-maji-of-fizzbuzz">本当の FizzBuzz をお見せします</a></td>
-                <td><time>2023/10/08</time></td>
-                <td>After Party at PHP Conference 2023</td>
-                </tr>
-
-                <tr>
-                <td><a href="https://speakerdeck.com/memory1994/how-to-implement-rubyvm-written-in-php">RubyVM を PHP で実装する 〜Hello World を出力するまで〜</a></td>
-                <td><time>2023/10/08</time></td>
-                <td>PHP Conference 2023</td>
-                </tr>
-
-                <tr>
-                <td><a href="https://speakerdeck.com/memory1994/you-can-run-away-you-are-engaging-hard-things">千尋の谷に突き落とされても辛ければ逃げていい</a></td>
-                <td><time>2023/09/02</time></td>
-                <td>Findy Engineer Lab オフ会</td>
-                </tr>
-
-                <tr>
-                <td><a href="https://speakerdeck.com/memory1994/introduction-of-my-careers-and-changing-my-mind">CTO までのキャリアと転職活動における考え方の変化</a></td>
-                <td><time>2023/09/02</time></td>
-                <td>AWS Startup Day 2023</td>
-                </tr>
-
-                <tr>
-                <td><a href="https://speakerdeck.com/memory1994/why-we-must-do-engineering">エンジニアリングを推進する必要性</a></td>
-                <td><time>2023/06/14</time></td>
-                <td>Forkwell Library #25</td>
-                </tr>
-
-                <tr>
-                <td><a href="https://speakerdeck.com/memory1994/the-environment-surrounding-startups-with-engineering">スタートアップを取り巻く環境について 〜スタートアップとエンジニアリング〜</a></td>
-                <td><time>2023/05/22</time></td>
-                <td>University of Tokyo</td>
-                </tr>
-
-                <tr>
-                <td><a target="_blank" href="https://speakerdeck.com/memory1994/why-the-application-design-is-breaking-sometimes-at-a-startup-company">CTO から見た，なぜスタートアップ初期のソフトウェア設計は壊れがちなのか</a></td>
-                <td><time>2023/01/25</time></td>
-                <td>Forkwell Library #14</td>
-                </tr>
-
-                <tr>
-                <td><a target="_blank" href="https://speakerdeck.com/memory1994/php-conference-japan-2022">PHP メモリ管理術</a></td>
-                <td><time>2022/09/24</time></td>
-                <td>PHP Conference 2022</td>
-                </tr>
-
-                <tr>
-                <td><a target="_blank" href="https://speakerdeck.com/memory1994/php-conference-okinawa-2022">PHP で NFC リーダーを実装する</a></td>
-                <td><time>2022/08/27</time></td>
-                <td>PHP Conference Okinawa 2022</td>
-                </tr>
-
-                <tr>
-                <td><a target="_blank" href="https://speakerdeck.com/memory1994/aws-startup-community-conference-2022">知育玩具サブスク「トイサブ！」におけるエンジニア組織立ち上げの事例</a></td>
-                <td><time>2022/08/26</time></td>
-                <td>AWS Startup Community Conference 2022</td>
-                </tr>
-
-                <tr>
-                <td><a target="_blank" href="https://speakerdeck.com/memory1994/introduction-to-an-example-of-making-a-product-development-division-with-psychological-safety-at-torana-inc">株式会社トラーナにおける 心理的安全性が高い組織づくりの事例</a></td>
-                <td><time>2022/06/28</time></td>
-                <td>Forkwell Library #3</td>
-                </tr>
-
-                <tr>
-                <td><a target="_blank" href="https://speakerdeck.com/memory1994/php-de-nfc-ridawoshi-zhuang-suru-php-tohadowoxi-gu">PHP で NFC リーダーを実装する 〜 PHP とハードを繋ぐ 〜</a></td>
-                <td><time>2022/04/10</time></td>
-                <td>PHPerKaigi 2022</td>
-                </tr>
-
-                <tr>
-                <td><a target="_blank" href="https://speakerdeck.com/memory1994/php-de-nfc-ridawoshi-zhuang-suru">PHP で NFC リーダーを実装する</a></td>
-                <td><time>2022/03/04</time></td>
-                <td>YAPC::Japan::Online 2022</td>
-                </tr>
-
-                <tr>
-                <td><a target="_blank" href="https://speakerdeck.com/memory1994/laravel-demofei-tong-qi-chu-li-gaxi-eru-php-8-karachu-merufei-tong-qi-chu-li-laravel-octane">Laravel でも非同期処理が扱える！？ PHP 8 から初める非同期処理 〜Laravel Octane〜</a></td>
-                <td><time>2021/10/03</time></td>
-                <td>PHP Conference 2021</td>
-                </tr>
-
-                <tr>
-                <td><a target="_blank" href="https://speakerdeck.com/memory1994/li-jie-siteokubeki-php-falsebaridesiyon">理解しておくべき PHP のバリデーション</a></td>
-                <td><time>2021/05/27</time></td>
-                <td>PHP Conference Okinawa 2021</td>
-                </tr>
-
-                <tr>
-                <td><a target="_blank" href="https://speakerdeck.com/memory1994/swoole-to-laravel-swoole-woyong-itahaipahuomansuapurikesiyongou-zhu">swoole と laravel-swoole を用いたハイパフォーマンスアプリケーション構築</a></td>
-                <td><time>2021/03/10</time></td>
-                <td>PHPerKaigi 2021</td>
-                </tr>
-
-                <tr>
-                <td><a target="_blank" href="https://speakerdeck.com/memory1994/zerobesukara-laravel-woyong-ita-api-shi-zhuang-otomesiyon">ゼロベースから Laravel を用いた API 実装オートメーション</a></td>
-                <td><time>2020/12/12</time></td>
-                <td>PHP Conference 2020</td>
-                </tr>
-
-                <tr>
-                <td><a target="_blank" href="https://speakerdeck.com/memory1994/php-de-jvm-woshi-zhuang-site-helloworld-wochu-li-sitemiru">PHP で JVM を実装して、 HelloWorld を出力してみる</a></td>
-                <td><time>2020/02/09</time></td>
-                <td>PHPerKaigi 2020</td>
-                </tr>
-
-                <tr>
-                <td><a target="_blank" href="https://speakerdeck.com/memory1994/php-niokerubing-lie-chu-li-tofei-tong-qi-chu-li-ru-men">PHP における並列処理と非同期処理入門</a></td>
-                <td><time>2019/12/01</time></td>
-                <td>PHP Conference 2019</td>
-                </tr>
-
-                <tr>
-                <td><a target="_blank" href="https://speakerdeck.com/memory1994/php-de-ast-jie-xi-wosite-java-falseopekodowosheng-cheng-suru">PHP で AST 解析をして Java のオペコードを生成する</a></td>
-                <td><time>2019/11/22</time></td>
-                <td>Kichijoji.pm</td>
-                </tr>
-
-                <tr>
-                <td><a target="_blank" href="https://speakerdeck.com/memory1994/phper-falsetamefalse-phpunit-to-selenium-woshi-tuta-burauzatesutofalsesu-me-a066ef2e-6ce9-45fb-9cb9-50fd609ab943">PHPer のための PHPUnit と Selenium を使ったブラウザテストのすゝめ</a></td>
-                <td><time>2019/10/12</time></td>
-                <td>PHP Conference Okinawa 2019</td>
-                </tr>
-
-                <tr>
-                <td><a target="_blank" href="https://speakerdeck.com/memory1994/phper-falsetamefalse-phpunit-to-selenium-woshi-tuta-burauzatesutofalsesu-me">PHPer のための PHPUnit と Selenium を使ったブラウザテストのすゝめ</a></td>
-                <td><time>2019/09/21</time></td>
-                <td>PHP Conference Hokkaido 2019</td>
-                </tr>
-
-                <tr>
-                <td><a target="_blank" href="https://speakerdeck.com/memory1994/php-de-jvm-woshi-zhuang-site-hello-world-wochu-li-surumade">How to implement JVM by PHP, And until output Hello World.</a></td>
-                <td><time>2019/08/31</time></td>
-                <td>Builderscon 2019</td>
-                </tr>
-
-                <tr>
-                <td><a target="_blank" href="https://speakerdeck.com/memory1994/hamusutawojian-shi-surusisutemuwo-raspberry-pi-to-php-false-swoole-tezuo-tutahua">ハムスターを監視するシステムを Raspberry Pi と PHP の Swoole で作った話</a></td>
-                <td><time>2019/04/24</time></td>
-                <td>PHP 勉強会</td>
-                </tr>
-
-                <tr>
-                <td><a target="_blank" href="https://speakerdeck.com/memory1994/phperkaigi-2019">PHP で JVM に入門する</a></td>
-                <td><time>2019/03/29</time></td>
-                <td>PHPerKaigi 2019</td>
-                </tr>
-
-                <tr>
-                <td><a target="_blank" href="https://speakerdeck.com/memory1994/elasticsearch-mian-qiang-hui-2019-gamewithtejian-suo-sisutemukashi-warerumate">GameWith で検索システムが使われるまで</a></td>
-                <td><time>2019/02/20</time></td>
-                <td>Elasticsearch Study Meeting 2019</td>
-                </tr>
-
-                <tr>
-                <td><a target="_blank" href="https://speakerdeck.com/memory1994/php-conference-sendai-2019-presentation-slides">開発期間 2 ヶ月で Elasticsearch をプロダクトに使ってリリースした話</a></td>
-                <td><time>2019/01/26</time></td>
-                <td>PHP Conference Sendai 2019</td>
-                </tr>
-                </tbody>
-              </table>
-            </dd>
-          </dl>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="r-w">
+    <div class="i-w">
+      <div class="i-m"></div>
     </div>
   </div>
 </div>
