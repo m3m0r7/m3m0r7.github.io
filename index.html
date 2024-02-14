@@ -32,10 +32,82 @@
       padding-top: 10px;
     }
 
-    .e-working-company li:first-child {
-      margin-top: 0;
+    .e-mes-w {
+      position: relative;
+      display: flex;
+    }
+
+    .e-mes-vbar {
+      width: 6px;
+      background: rgba(20, 20, 20, 0.8);
+      border-radius: 3px;
+    }
+
+    .e-mes {
+      display: grid;
+    }
+
+    .e-mes > li {
       padding-top: 0;
-      border-top: 0;
+      margin-bottom: 10px;
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .e-mes > li::before {
+      content: '';
+      position: absolute;
+      top: 5px;
+      left: calc(-12px + 2px);
+      background: rgba(120, 120, 120, 0.8);
+      width: 14px;
+      height: 14px;
+      display: block;
+      border-radius: 7px;
+    }
+
+    .e-mes-c-n {
+      font-weight: bold;
+      font-size: 16px;
+      display: flex;
+    }
+
+    .e-mes > li:first-child::before {
+      background: rgba(233, 30, 99, 0.8);
+    }
+
+    .e-mes-c-p-l {
+      padding: 5px;
+      padding-left: 0;
+    }
+
+    .e-mes-c-p-l > li:first-child {
+      margin-top: 0;
+    }
+
+    .e-mes-c-p {
+      margin-top: 10px;
+    }
+
+    .e-mes-c-p.active {
+
+    }
+
+    .e-mes-c-p div {
+      font-size: 14px;
+    }
+
+    .e-mes-c-p time {
+      font-size: 12px;
+      color: #999999;
+    }
+
+    .e-mes-c-p time:before {
+      content: '(';
+    }
+
+    .e-mes-c-p time:after {
+      content: ')';
     }
 
     .w-w {
@@ -344,16 +416,74 @@
                 <p>開発業務・技術顧問業務・登壇依頼・執筆などのお仕事依頼等はお気軽にご連絡ください。</p>
               </div>
               <div class="mt">
-                <h2>Work Experiences</h2>
-                <ul class="e-working-company">
-                  <li class="icon icon-company">株式会社エンペイ</li>
-                  <li class="icon icon-ex-company">ex- Torana, Inc.</li>
-                  <li class="icon icon-ex-company">ex- Togetter, Inc. (Freelance/Side-work)</li>
-                  <li class="icon icon-ex-company">ex- BASE, Inc.</li>
-                  <li class="icon icon-ex-company">ex- GameWith, Inc.</li>
-                  <li class="icon icon-ex-company">ex- Synapse, Inc.</li>
-                  <li class="icon icon-ex-company">その他複数社で業務委託や正社員での経験あり</li>
-                </ul>
+                <h2>My Experience story</h2>
+                <div class="e-mes-w">
+                  <div class="e-mes-vbar"></div>
+                  <ul class="e-mes">
+                    <li>
+                      <div class="e-mes-c-n">enpay, Inc.</div>
+                      <div class="e-mes-c-p-l">
+                        <div class="e-mes-c-p">
+                          <div class="e-mes-c-p-t">エンジニアリングマネージャー</div>
+                          <time>2023年10月</time>
+                        </div>
+                        <div class="e-mes-c-p">
+                          <div class="e-mes-c-p-t">ソフトウェアエンジニア</div>
+                          <time>2023年7月〜2023年9月</time>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="e-mes-c-n">Torana, Inc.</div>
+                      <div class="e-mes-c-p-l">
+                        <div class="e-mes-c-p">
+                          <div class="e-mes-c-p-t">執行役員 CTO</div>
+                          <time>2022年1月〜2023年5月</time>
+                        </div>
+                        <div class="e-mes-c-p">
+                          <div class="e-mes-c-p-t">エンジニアリングマネージャー兼テックリード</div>
+                          <time>2020年4月〜2021年12月</time>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="e-mes-c-n">Togetter, Inc.</div>
+                      <div class="e-mes-c-p-l">
+                        <div class="e-mes-c-p">
+                          <div class="e-mes-c-p-t">フリーランス</div>
+                          <time>2023年5月〜2023年6月</time>
+                        </div>
+                        <div class="e-mes-c-p">
+                          <div class="e-mes-c-p-t">フリーランス (副業)</div>
+                          <time>2019年4月〜2022年1月</time>
+                        </div>
+                        <div class="e-mes-c-p">
+                          <div class="e-mes-c-p-t">フリーランス (フルタイム)</div>
+                          <time>2019年3月〜2019年4月</time>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="e-mes-c-n">BASE, Inc.</div>
+                      <div class="e-mes-c-p-l">
+                        <div class="e-mes-c-p">
+                          <div class="e-mes-c-p-t">バックエンドエンジニア</div>
+                          <time>2019年6月〜2020年3月</time>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="e-mes-c-n">GameWith, Inc.</div>
+                      <div class="e-mes-c-p-l">
+                        <div class="e-mes-c-p">
+                          <div class="e-mes-c-p-t">バックエンドエンジニア</div>
+                          <time>2018年4月〜2019年6月</time>
+                        </div>
+                      </div>
+                    </li>
+                    <li>その他複数社で業務委託や正社員での経験あり</li>
+                  </ul>
+                </div>
               </div>
               <div class="mt">
                 <h2>Technical Skills</h2>
