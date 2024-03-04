@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>memory' portfolio</title>
-  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP|M+PLUS+1p|Roboto" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP|M+PLUS+1p|Roboto|Cabin" rel="stylesheet">
   <link href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" rel="stylesheet" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
   <meta charset="utf-8">
@@ -173,7 +173,6 @@
       background-color: #1F1F1F;
       width: 100vw;
       min-height: calc(100vh - 150px - 200px);
-      padding-bottom: 100px;
     }
 
     .i-w {
@@ -367,9 +366,33 @@
     }
 
 
+    .f-cc {
+      margin-top: 100px;
+      background-color: #101011;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .f-cc div {
+      font-family: "Cabin", sans-serif;
+      color: #E3E3E3;
+      font-size: 64px;
+    }
+
     @media (max-width: 500px) {
       .e-info-body {
         display: block;
+      }
+
+      .f-cc {
+        height: 0;
+      }
+
+      .f-cc div {
+        display: none;
       }
 
       .books {
@@ -632,6 +655,9 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="f-cc">
+        <div>memory' portfolio</div>
       </div>
     </div>
   </div>
