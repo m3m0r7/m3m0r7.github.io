@@ -3,8 +3,8 @@
 <head>
   <title>memory' portfolio</title>
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP|M+PLUS+1p|Roboto|Cabin" rel="stylesheet">
-  <link href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" rel="stylesheet" />
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <script src="https://kit.fontawesome.com/b88d781de7.js" crossorigin="anonymous"></script>
   <meta charset="utf-8">
   <style type="text/css">
     * {
@@ -140,7 +140,7 @@
       left: -16px;
 
       width: calc(100vw + 32px);
-      height: 100%;
+      height: calc(100% + 40px);
       background: url("./assets/pc.jpg");
       background-size: cover;
       background-position: 50% 65%;
@@ -160,6 +160,11 @@
       background-color: rgba(0, 0, 0, .65);
     }
 
+
+    .lightmode:not(:checked) ~ .b .b-o {
+      background-color: rgba(255, 255, 255, .65);
+    }
+
     .w-1 {
       background-color: #1F1F1F;
       width: calc(100vw + 20px);
@@ -173,6 +178,12 @@
       background-color: #1F1F1F;
       width: 100vw;
       min-height: calc(100vh - 150px - 200px);
+    }
+
+    .lightmode:not(:checked) ~ .m-w .w-1,
+    .lightmode:not(:checked) ~ .m-w .w-2,
+    .lightmode:not(:checked) ~ .m-w .i-w {
+      background-color: #F1F1F1;
     }
 
     .i-w {
@@ -205,6 +216,10 @@
       text-align: center;
     }
 
+    .lightmode:not(:checked) ~ .m-w .e-name {
+      color: #0E0E0E;
+    }
+
     .r-w {
       top: calc(50vh - 200px);
       position: absolute;
@@ -225,6 +240,9 @@
     .e-info-body * {
       color: #E0E0E0;
     }
+    .lightmode:not(:checked) ~ .m-w .e-info-body * {
+      color: #0E0E0E;
+    }
 
     .e-info-body h3 {
       margin-top: 40px;
@@ -238,6 +256,12 @@
       text-transform: uppercase;
     }
 
+    .lightmode:not(:checked) ~ .m-w .e-info-body h2,
+    .lightmode:not(:checked) ~ .m-w .e-info-body h3 {
+      color: #0E0E0E;
+    }
+
+
     .e-info-body dt {
       margin-top: 20px;
       padding-top: 20px;
@@ -248,6 +272,11 @@
       justify-content: space-between;
     }
 
+    .lightmode:not(:checked) ~ .m-w .e-info-body dt:not(:first-child) {
+      border-top: 1px solid #FFFFFF;
+    }
+
+
     .e-info-body dt:first-child {
       margin-top: 0;
       padding-top: 0;
@@ -256,6 +285,10 @@
 
     .e-info-body dt span, .e-info-body dt time {
       color: #999999;
+    }
+    .lightmode:not(:checked) ~ .m-w .e-info-body dt span,
+    .lightmode:not(:checked) ~ .m-w .e-info-body dt time {
+      color: #777777;
     }
 
     .e-info-body dd {
@@ -267,14 +300,14 @@
       list-style: none;
       padding: 0;
       text-align: center;
-      margin: 20px auto 40px auto;
+      margin: 5px auto 40px auto;
       display: grid;
       grid-gap: 20px;
       grid-template-columns: repeat(5, 32px);
       width: calc(32px * 5 + 20px * 4)
     }
 
-    .e-contact .fab, .e-contact .fas {
+    .e-contact .fa-brands {
       font-size: 32px;
     }
 
@@ -291,28 +324,8 @@
       color: #888888;
     }
 
-    a:not(.no-arrow)::before {
-      font-family: "Font Awesome 5 Free", sans-serif;
-      content: '\f105';
-      font-weight: 900;
-      margin-right: 5px;
-    }
-
-    .icon {
-      font-family: "Font Awesome 5 Free", sans-serif;
-      font-weight: 900;
-    }
-
-    .icon::before {
-      padding-right: 5px;
-    }
-
-    .icon-company::before {
-      content: '\f1ad';
-    }
-
-    .icon-ex-company::before {
-      content: '\f1da';
+    .lightmode:not(:checked) ~ .m-w a:hover {
+      color: #666666;
     }
 
     .books {
@@ -327,6 +340,10 @@
       height: 100%;
     }
 
+    .lightmode:not(:checked) ~ .m-w .book-no-image {
+      background-color: #D5D5D5;
+    }
+
     .e-tags {
       display: flex;
       flex-wrap: wrap;
@@ -339,6 +356,7 @@
       margin-top: 0;
       font-size: 14px;
       margin-bottom: 34px;
+      border-top: none !important;
     }
 
     .e-tags dd {
@@ -359,10 +377,15 @@
       margin-top: 10px;
       font-size: 14px;
       padding: 4px 8px;
-      background-color: rgba(20, 20, 20, 0.8);
       margin-right: 4px;
       border-radius: 4px;
+      background-color: rgba(20, 20, 20, 0.8);
       box-shadow: 0 0 5px rgba(20, 20, 20, 0.4);
+    }
+
+    .lightmode:not(:checked) ~ .m-w .e-tags dd li {
+      background-color: rgba(230, 230, 230, 0.8);
+      box-shadow: 0 0 5px rgba(230, 230, 230, 0.4);
     }
 
 
@@ -380,6 +403,129 @@
       font-family: "Cabin", sans-serif;
       color: #E3E3E3;
       font-size: 64px;
+    }
+
+    .e-mail-address {
+      text-align: center;
+      margin-bottom: 0;
+    }
+
+    .e-mail-address > span::after {
+      content: '@gmail.com';
+      z-index: 1;
+    }
+
+    .e-a-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      padding: 0;
+      margin-top: 15px;
+      margin-bottom: 0;
+    }
+
+    .e-a-tags > li,
+    .lightmode:not(:checked) ~ .m-w .e-a-tags > li{
+      margin: 0;
+      padding: 2px 4px;
+      font-size: 11px;
+      background-color: rgba(60, 64, 72, 0.8);
+      border-radius: 3px;
+      color: #FFFFFF;
+    }
+
+    .e-a-tags > li.new {
+      background-color: rgba(233, 30, 99, 0.8);
+    }
+
+    .e-a-tags > li.pickup {
+      background-color: rgba(255, 175, 69, 0.8);
+    }
+
+    .e-a-tags > li.abandoned {
+      background-color: rgba(156, 175, 170, 0.8);
+    }
+
+    .activity-area {
+      height: 2450px;
+      overflow: hidden;
+    }
+
+    .activity-opener {
+      position: absolute;
+      left: -9999px;
+      top: 2450px;
+    }
+
+    .activity-opener:checked + .activity-area {
+      height: auto;
+    }
+
+    .activity-opener:checked ~ label.e-expand-btn--open {
+      display: none;
+    }
+
+    .activity-opener ~ label.e-expand-btn--close {
+      display: none;
+    }
+    .activity-opener:checked ~ label.e-expand-btn--close {
+      display: block;
+    }
+
+    .e-expand-btn {
+      background-color: rgba(20, 20, 20, 0.8);
+      font-size: 14px;
+      text-align: center;
+      padding: 10px 0;
+      border-radius: 4px;
+      cursor: pointer;
+      line-height: 22px;
+      display: block;
+    }
+
+
+    .lightmode:not(:checked) ~ .m-w .e-expand-btn {
+      background-color: rgba(215, 215, 215, 0.8);
+    }
+
+
+
+    .e-container-activity-opener {
+      position: relative;
+    }
+    .e-expand-btn .fa-caret-down,
+    .e-expand-btn .fa-caret-up {
+      font-size: 22px;
+      vertical-align: middle;
+      margin-right: 5px;
+      position: relative;
+      top: -2px;
+    }
+
+    .e-expand-btn .fa-caret-up {
+      top: 0;
+    }
+
+    .e-navigator {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      box-sizing: border-box;
+      width: 100%;
+      display: flex;
+      flex-direction: revert;
+      justify-content: right;
+    }
+
+    .activity-area > dd:nth-of-type(1) .e-a-tags::after,
+    .activity-area > dd:nth-of-type(2) .e-a-tags::after,
+    .activity-area > dd:nth-of-type(3) .e-a-tags::after {
+      content: "New!";
+      padding: 2px 4px;
+      font-size: 11px;
+      background-color: rgba(233, 30, 99, 0.8);
+      border-radius: 3px;
+      color: #FFFFFF;
     }
 
     @media (max-width: 500px) {
@@ -415,15 +561,75 @@
         padding: 0;
       }
     }
+
+    .e-navigator {
+      padding: 10px;
+    }
+    .e-navigator i {
+      font-size: 32px;
+      cursor: pointer;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .lightmode:not(:checked) ~ .m-w .to-darkmode {
+      display: none;
+    }
+    .lightmode:checked ~ .m-w .to-lightmode {
+      display: none;
+    }
+
+    .to-lightmode,
+    .to-darkmode {
+    }
+
+    .to-lightmode i {
+      color: #673ab7;
+      text-shadow: 0 0 5px #FFFFFF, 0 0 5px #FFFFFF;
+    }
+
+    .to-darkmode i {
+      color: #FFCA61;
+      text-shadow: 0 0 5px #000000, 0 0 5px #000000;
+    }
+
+    .lightmode {
+      position: absolute;
+      left: -9999px;
+    }
+
   </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
+      if (darkThemeMq.matches) {
+        // For Using system appearance
+        document.querySelector('.lightmode').checked = true;
+      }
+    });
+  </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-C58KTWP5CR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-C58KTWP5CR');
+  </script>
 </head>
 <body>
+<input class="lightmode" type="checkbox" id="lightmode" autocomplete="on" tabindex="-1" />
+
 <div class="b">
   <div class="b-i">
     <div class="b-o"></div>
   </div>
 </div>
 <div class="m-w">
+  <div class="e-navigator">
+    <label class="to-lightmode" for="lightmode"><i class="fa-solid fa-moon"></i></label>
+    <label class="to-darkmode" for="lightmode"><i class="fa-solid fa-sun"></i></label>
+  </div>
   <div class="w-w">
     <div class="w-1"></div>
     <div class="w-2">
@@ -573,86 +779,336 @@
               </div>
               <div class="mt">
                 <h2>Contact me</h2>
+                <div>
+                  <p class="e-mail-address"><span>memory.style.serv</span></p>
+                </div>
                 <ul class="e-contact">
-                  <li><a target="_blank" class="no-arrow" href="https://twitter.com/m3m0r7"><i class="fab fa-twitter"></i></a></li>
-                  <li><a target="_blank" class="no-arrow" href="https://github.com/m3m0r7"><i class="fab fa-github-alt"></i></a></li>
-                  <li><a target="_blank" class="no-arrow" href="https://keybase.io/m3m0r7"><i class="fab fa-keybase"></i></a></li>
-                  <li><a target="_blank" class="no-arrow" href="https://speakerdeck.com/memory1994"><i class="fab fa-speaker-deck"></i></a></li>
-                  <li><a target="_blank" class="no-arrow" href="https://www.linkedin.com/in/m3m0r7"><i class="fab fa-linkedin"></i></a></li>
-                </ul>
-              </div>
-              <div class="mt">
-                <h2>Sound Voltex</h2>
-                <ul>
-                  <li><img src="./assets/sdvx.png" width="100%" /></li>
+                  <li><a target="_blank" class="no-arrow" href="https://x.com/m3m0r7"><i class="fa-brands fa-x-twitter"></i></a></li>
+                  <li><a target="_blank" class="no-arrow" href="https://github.com/m3m0r7"><i class="fa-brands fa-github"></i></a></li>
+                  <li><a target="_blank" class="no-arrow" href="https://keybase.io/m3m0r7"><i class="fa-brands fa-keybase"></i></a></li>
+                  <li><a target="_blank" class="no-arrow" href="https://speakerdeck.com/memory1994"><i class="fa-brands fa-speaker-deck"></i></a></li>
+                  <li><a target="_blank" class="no-arrow" href="https://www.linkedin.com/in/m3m0r7"><i class="fa-brands fa-linkedin-in"></i></a></li>
                 </ul>
               </div>
             </div>
-            <div class="e-container">
+            <div class="e-container e-container-activity-opener">
               <div>
                 <h2>Activities</h2>
-                <dl>
+                <input class="activity-opener" type="checkbox" id="activity-listing" tabindex="-1" />
+                <dl class="activity-area">
+                  <dt><time>2024/03/22</time><span>GitHub</span></dt>
+                  <dd>
+                    <a href="https://github.com/m3m0r7/ez-door-sign">m3m0r7/ez-door-sign - The EZ Door Sign (an IoT device) controller written in PHP</a>
+
+                    <ul class="e-a-tags">
+                      <li class="oss">OSS</li>
+                      <li class="tech">Tech</li>
+                    </ul>
+                  </dd>
+                  <dt><time>2024/03/14</time><span>GitHub</span></dt>
+                  <dd>
+                    <a href="https://github.com/m3m0r7/php-libusb">m3m0r7/php-libusb - A libusb wrapper written in PHP FFI</a>
+                    <ul class="e-a-tags">
+                      <li class="oss">OSS</li>
+                      <li class="tech">Tech</li>
+                    </ul>
+                  </dd>
                   <dt><time>2024/03/09</time><span>PHPerKaigi 2024</span></dt>
-                  <dd><a href="https://speakerdeck.com/memory1994/how-to-implement-rubyvm-with-php-at-phperkaigi2024">[Ruby 3.3 対応] RubyVM を PHP で実装する 〜Hello World を出力するまで〜</a></dd>
+                  <dd>
+                    <a href="https://speakerdeck.com/memory1994/how-to-implement-rubyvm-with-php-at-phperkaigi2024">[Ruby 3.3 対応] RubyVM を PHP で実装する 〜Hello World を出力するまで〜</a>
+                    <ul class="e-a-tags">
+                      <li class="talk">Talk</li>
+                      <li class="tech">Tech</li>
+                    </ul>
+                  </dd>
                   <dt><time>2024/02/11</time><span>PHP カンファレンス関西 2024</span></dt>
-                  <dd><a href="https://speakerdeck.com/memory1994/php-memory-management-in-reiwa">令和最新版 PHP メモリ管理術</a></dd>
+                  <dd>
+                    <a href="https://speakerdeck.com/memory1994/php-memory-management-in-reiwa">令和最新版 PHP メモリ管理術</a>
+                    <ul class="e-a-tags">
+                      <li class="talk">Talk</li>
+                      <li class="tech">Tech</li>
+                    </ul>
+                  </dd>
                   <dt><time>2023/11/21</time><span>技術的負債に向き合う Online Conference</span></dt>
-                  <dd><a href="https://speakerdeck.com/memory1994/understanding-why-built-tech-debts-and-thinking-approaches-for-startup-on-early-to-later-stage">技術的負債が生まれる背景を理解して，アーリーからレイター向けの根本的なアプローチを考える</a></dd>
-                  <dt><time>2023/10/08</time><span>After Party at PHP Conference 2023</span></dt>
-                  <dd><a href="https://speakerdeck.com/memory1994/show-maji-of-fizzbuzz">本当の FizzBuzz をお見せします</a></dd>
+                  <dd>
+                    <a href="https://speakerdeck.com/memory1994/understanding-why-built-tech-debts-and-thinking-approaches-for-startup-on-early-to-later-stage">技術的負債が生まれる背景を理解して，アーリーからレイター向けの根本的なアプローチを考える</a>
+                    <ul class="e-a-tags">
+                      <li class="talk">Talk</li>
+                      <li class="business">Business</li>
+                      <li class="pickup">Pickup</li>
+                    </ul>
+                  </dd>
+                  <dt>
+                    <time>2023/10/08</time><span>After Party at PHP Conference 2023</span>
+                  </dt>
+                  <dd>
+                    <a href="https://speakerdeck.com/memory1994/show-maji-of-fizzbuzz">本当の FizzBuzz をお見せします</a>
+                    <ul class="e-a-tags">
+                      <li class="talk">Talk</li>
+                      <li class="tech">Tech</li>
+                    </ul>
+                  </dd>
                   <dt><time>2023/10/08</time><span>PHP Conference 2023</span></dt>
-                  <dd><a href="https://speakerdeck.com/memory1994/how-to-implement-rubyvm-written-in-php">RubyVM を PHP で実装する 〜Hello World を出力するまで〜</a></dd>
+                  <dd>
+                    <a href="https://speakerdeck.com/memory1994/how-to-implement-rubyvm-written-in-php">RubyVM を PHP で実装する 〜Hello World を出力するまで〜</a>
+                    <ul class="e-a-tags">
+                      <li class="talk">Talk</li>
+                      <li class="tech">Tech</li>
+                      <li class="pickup">Pickup</li>
+                    </ul>
+                  </dd>
                   <dt><time>2023/09/02</time><span>Findy Engineer Lab オフ会</span></dt>
-                  <dd><a href="https://speakerdeck.com/memory1994/you-can-run-away-you-are-engaging-hard-things">千尋の谷に突き落とされても辛ければ逃げていい</a></dd>
+                  <dd>
+                    <a href="https://speakerdeck.com/memory1994/you-can-run-away-you-are-engaging-hard-things">千尋の谷に突き落とされても辛ければ逃げていい</a>
+                    <ul class="e-a-tags">
+                      <li class="talk">Talk</li>
+                      <li class="carrier">Carrier</li>
+                    </ul>
+                  </dd>
                   <dt><time>2023/09/02</time><span>AWS Startup Day 2023</span></dt>
-                  <dd><a href="https://speakerdeck.com/memory1994/introduction-of-my-careers-and-changing-my-mind">CTO までのキャリアと転職活動における考え方の変化</a></dd>
+                  <dd>
+                    <a href="https://speakerdeck.com/memory1994/introduction-of-my-careers-and-changing-my-mind">CTO までのキャリアと転職活動における考え方の変化</a>
+                    <ul class="e-a-tags">
+                      <li class="talk">Talk</li>
+                      <li class="carrier">Carrier</li>
+                    </ul>
+                  </dd>
+
+                  <dt><time>2023/07/12</time><span>GitHub</span></dt>
+                  <dd>
+                    <a href="https://github.com/m3m0r7/ez-door-sign">m3m0r7/rubyvm-on-php - A RubyVM written in PHP</a>
+                    <ul class="e-a-tags">
+                      <li class="oss">OSS</li>
+                      <li class="tech">Tech</li>
+                    </ul>
+                  </dd>
                   <dt><time>2023/06/14</time><span>Forkwell Library #25</span></dt>
-                  <dd><a href="https://speakerdeck.com/memory1994/why-we-must-do-engineering">エンジニアリングを推進する必要性</a></dd>
+                  <dd>
+                    <a href="https://speakerdeck.com/memory1994/why-we-must-do-engineering">エンジニアリングを推進する必要性</a>
+                    <ul class="e-a-tags">
+                      <li class="talk">Talk</li>
+                      <li class="tech">Bussiness</li>
+                    </ul>
+                  </dd>
                   <dt><time>2023/05/22</time><span>University of Tokyo</span></dt>
-                  <dd><a href="https://speakerdeck.com/memory1994/the-environment-surrounding-startups-with-engineering">スタートアップを取り巻く環境について 〜スタートアップとエンジニアリング〜</a></dd>
+                  <dd>
+                    <a href="https://speakerdeck.com/memory1994/the-environment-surrounding-startups-with-engineering">スタートアップを取り巻く環境について 〜スタートアップとエンジニアリング〜</a>
+                    <ul class="e-a-tags">
+                      <li class="talk">Talk</li>
+                      <li class="tech">Business</li>
+                      <li class="pickup">Pickup</li>
+                    </ul>
+                  </dd>
                   <dt><time>2023/01/25</time><span>Forkwell Library #14</span></dt>
-                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/why-the-application-design-is-breaking-sometimes-at-a-startup-company">CTO から見た，なぜスタートアップ初期のソフトウェア設計は壊れがちなのか</a></dd>
+                  <dd>
+                    <a target="_blank" href="https://speakerdeck.com/memory1994/why-the-application-design-is-breaking-sometimes-at-a-startup-company">CTO から見た，なぜスタートアップ初期のソフトウェア設計は壊れがちなのか</a>
+                    <ul class="e-a-tags">
+                      <li class="talk">Talk</li>
+                      <li class="tech">Tech</li>
+                      <li class="tech">Business</li>
+                      <li class="abandoned">Abandoned</li>
+                    </ul>
+                  </dd>
                   <dt><time>2022/09/24</time><span>PHP Conference 2022</span></dt>
-                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/php-conference-japan-2022">PHP メモリ管理術</a></dd>
+                  <dd>
+                    <a target="_blank" href="https://speakerdeck.com/memory1994/php-conference-japan-2022">PHP メモリ管理術</a>
+                    <ul class="e-a-tags">
+                      <li class="talk">Talk</li>
+                      <li class="tech">Tech</li>
+                      <li class="abandoned">Abandoned</li>
+                    </ul>
+                  </dd>
                   <dt><time>2022/08/27</time><span>PHP Conference Okinawa 2022</span></dt>
-                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/php-conference-okinawa-2022">PHP で NFC リーダーを実装する</a></dd>
+                  <dd>
+                    <a target="_blank" href="https://speakerdeck.com/memory1994/php-conference-okinawa-2022">PHP で NFC リーダーを実装する</a>
+                    <ul class="e-a-tags">
+                      <li class="talk">Talk</li>
+                      <li class="tech">Tech</li>
+                      <li class="iot">IoT</li>
+                      <li class="abandoned">Abandoned</li>
+                    </ul>
+                  </dd>
                   <dt><time>2022/08/26</time><span>AWS Startup Community Conference 2022</span></dt>
-                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/aws-startup-community-conference-2022">知育玩具サブスク「トイサブ！」におけるエンジニア組織立ち上げの事例</a></dd>
+                  <dd>
+                    <a target="_blank" href="https://speakerdeck.com/memory1994/aws-startup-community-conference-2022">知育玩具サブスク「トイサブ！」におけるエンジニア組織立ち上げの事例</a>
+                    <ul class="e-a-tags">
+                      <li class="talk">Talk</li>
+                      <li class="culture">Culture</li>
+                      <li class="abandoned">Abandoned</li>
+                    </ul>
+                  </dd>
                   <dt><time>2022/06/28</time><span>Forkwell Library #3</span></dt>
-                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/introduction-to-an-example-of-making-a-product-development-division-with-psychological-safety-at-torana-inc">株式会社トラーナにおける 心理的安全性が高い組織づくりの事例</a></dd>
+                  <dd>
+                    <a target="_blank" href="https://speakerdeck.com/memory1994/introduction-to-an-example-of-making-a-product-development-division-with-psychological-safety-at-torana-inc">株式会社トラーナにおける 心理的安全性が高い組織づくりの事例</a>
+                    <ul class="e-a-tags">
+                      <li class="talk">Talk</li>
+                      <li class="culture">Culture</li>
+                      <li class="abandoned">Abandoned</li>
+                    </ul>
+                  </dd>
                   <dt><time>2022/04/10</time><span>PHPerKaigi 2022</span></dt>
-                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/php-de-nfc-ridawoshi-zhuang-suru-php-tohadowoxi-gu">PHP で NFC リーダーを実装する 〜 PHP とハードを繋ぐ 〜</a></dd>
+                  <dd>
+                    <a target="_blank" href="https://speakerdeck.com/memory1994/php-de-nfc-ridawoshi-zhuang-suru-php-tohadowoxi-gu">PHP で NFC リーダーを実装する 〜 PHP とハードを繋ぐ 〜</a>
+                    <ul class="e-a-tags">
+                      <li class="talk">Talk</li>
+                      <li class="tech">Tech</li>
+                      <li class="iot">IoT</li>
+                      <li class="abandoned">Abandoned</li>
+                    </ul>
+                  </dd>
                   <dt><time>2022/03/04</time><span>YAPC::Japan::Online 2022</span></dt>
-                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/php-de-nfc-ridawoshi-zhuang-suru">PHP で NFC リーダーを実装する</a></dd>
+                  <dd>
+                    <a target="_blank" href="https://speakerdeck.com/memory1994/php-de-nfc-ridawoshi-zhuang-suru">PHP で NFC リーダーを実装する</a>
+                    <ul class="e-a-tags">
+                      <li class="talk">Talk</li>
+                      <li class="tech">Tech</li>
+                      <li class="iot">IoT</li>
+                      <li class="abandoned">Abandoned</li>
+                    </ul>
+                  </dd>
+
+                  <dt><time>2021/10/08</time><span>GitHub</span></dt>
+                  <dd>
+                    <a href="https://github.com/m3m0r7/nfc-for-php">m3m0r7/nfc-for-php - NFC Reader written in PHP</a>
+                    <ul class="e-a-tags">
+                      <li class="oss">OSS</li>
+                      <li class="tech">Tech</li>
+                      <li class="iot">IoT</li>
+                    </ul>
+                  </dd>
                   <dt><time>2021/10/03</time><span>PHP Conference 2021</span></dt>
-                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/laravel-demofei-tong-qi-chu-li-gaxi-eru-php-8-karachu-merufei-tong-qi-chu-li-laravel-octane">Laravel でも非同期処理が扱える！？ PHP 8 から初める非同期処理 〜Laravel Octane〜</a></dd>
+                  <dd>
+                    <a target="_blank" href="https://speakerdeck.com/memory1994/laravel-demofei-tong-qi-chu-li-gaxi-eru-php-8-karachu-merufei-tong-qi-chu-li-laravel-octane">Laravel でも非同期処理が扱える！？ PHP 8 から初める非同期処理 〜Laravel Octane〜</a>
+                    <ul class="e-a-tags">
+                      <li class="talk">Talk</li>
+                      <li class="tech">Tech</li>
+                      <li class="concurrency">Concurrency</li>
+                      <li class="abandoned">Abandoned</li>
+                    </ul>
+                  </dd>
                   <dt><time>2021/05/27</time><span>PHP Conference Okinawa 2021</span></dt>
-                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/li-jie-siteokubeki-php-falsebaridesiyon">理解しておくべき PHP のバリデーション</a></dd>
+                  <dd>
+                    <a target="_blank" href="https://speakerdeck.com/memory1994/li-jie-siteokubeki-php-falsebaridesiyon">理解しておくべき PHP のバリデーション</a>
+                    <ul class="e-a-tags">
+                      <li class="talk">Talk</li>
+                      <li class="tech">Tech</li>
+                      <li class="abandoned">Abandoned</li>
+                    </ul>
+                  </dd>
                   <dt><time>2021/03/10</time><span>PHPerKaigi 2021</span></dt>
-                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/swoole-to-laravel-swoole-woyong-itahaipahuomansuapurikesiyongou-zhu">swoole と laravel-swoole を用いたハイパフォーマンスアプリケーション構築</a></dd>
+                  <dd>
+                    <a target="_blank" href="https://speakerdeck.com/memory1994/swoole-to-laravel-swoole-woyong-itahaipahuomansuapurikesiyongou-zhu">swoole と laravel-swoole を用いたハイパフォーマンスアプリケーション構築</a></dd>
+                  <ul class="e-a-tags">
+                    <li class="talk">Talk</li>
+                    <li class="tech">Tech</li>
+                    <li class="abandoned">Abandoned</li>
+                  </ul>
                   <dt><time>2020/12/12</time><span>PHP Conference 2020</span></dt>
-                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/zerobesukara-laravel-woyong-ita-api-shi-zhuang-otomesiyon">ゼロベースから Laravel を用いた API 実装オートメーション</a></dd>
+                  <dd>
+                    <a target="_blank" href="https://speakerdeck.com/memory1994/zerobesukara-laravel-woyong-ita-api-shi-zhuang-otomesiyon">ゼロベースから Laravel を用いた API 実装オートメーション</a>
+                    <ul class="e-a-tags">
+                      <li class="talk">Talk</li>
+                      <li class="tech">Tech</li>
+                      <li class="abandoned">Abandoned</li>
+                    </ul>
+                  </dd>
                   <dt><time>2020/02/09</time><span>PHPerKaigi 2020</span></dt>
-                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/php-de-jvm-woshi-zhuang-site-helloworld-wochu-li-sitemiru">PHP で JVM を実装して、 HelloWorld を出力してみる</a></dd>
+                  <dd>
+                    <a target="_blank" href="https://speakerdeck.com/memory1994/php-de-jvm-woshi-zhuang-site-helloworld-wochu-li-sitemiru">PHP で JVM を実装して、 HelloWorld を出力してみる</a>
+                    <ul class="e-a-tags">
+                      <li class="talk">Talk</li>
+                      <li class="tech">Tech</li>
+                    </ul>
+                  </dd>
                   <dt><time>2019/12/01</time><span>PHP Conference 2019</span></dt>
-                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/php-niokerubing-lie-chu-li-tofei-tong-qi-chu-li-ru-men">PHP における並列処理と非同期処理入門</a></dd>
+                  <dd>
+                    <a target="_blank" href="https://speakerdeck.com/memory1994/php-niokerubing-lie-chu-li-tofei-tong-qi-chu-li-ru-men">PHP における並列処理と非同期処理入門</a>
+                    <ul class="e-a-tags">
+                      <li class="talk">Talk</li>
+                      <li class="tech">tech</li>
+                      <li class="concurrency">Concurrency</li>
+                    </ul>
+                  </dd>
                   <dt><time>2019/11/22</time><span>Kichijoji.pm</span></dt>
-                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/php-de-ast-jie-xi-wosite-java-falseopekodowosheng-cheng-suru">PHP で AST 解析をして Java のオペコードを生成する</a></dd>
+                  <dd>
+                    <a target="_blank" href="https://speakerdeck.com/memory1994/php-de-ast-jie-xi-wosite-java-falseopekodowosheng-cheng-suru">PHP で AST 解析をして Java のオペコードを生成する</a>
+                    <ul class="e-a-tags">
+                      <li class="talk">Talk</li>
+                      <li class="tech">Tech</li>
+                    </ul>
+                  </dd>
                   <dt><time>2019/10/12</time><span>PHP Conference Okinawa 2019</span></dt>
-                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/phper-falsetamefalse-phpunit-to-selenium-woshi-tuta-burauzatesutofalsesu-me-a066ef2e-6ce9-45fb-9cb9-50fd609ab943">PHPer のための PHPUnit と Selenium を使ったブラウザテストのすゝめ</a></dd>
+                  <dd>
+                    <a target="_blank" href="https://speakerdeck.com/memory1994/phper-falsetamefalse-phpunit-to-selenium-woshi-tuta-burauzatesutofalsesu-me-a066ef2e-6ce9-45fb-9cb9-50fd609ab943">PHPer のための PHPUnit と Selenium を使ったブラウザテストのすゝめ</a>
+                    <ul class="e-a-tags">
+                      <li class="talk">Talk</li>
+                      <li class="tech">Tech</li>
+                    </ul>
+                  </dd>
                   <dt><time>2019/09/21</time><span>PHP Conference Hokkaido 2019</span></dt>
-                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/phper-falsetamefalse-phpunit-to-selenium-woshi-tuta-burauzatesutofalsesu-me">PHPer のための PHPUnit と Selenium を使ったブラウザテストのすゝめ</a></dd>
+                  <dd>
+                    <a target="_blank" href="https://speakerdeck.com/memory1994/phper-falsetamefalse-phpunit-to-selenium-woshi-tuta-burauzatesutofalsesu-me">PHPer のための PHPUnit と Selenium を使ったブラウザテストのすゝめ</a>
+                    <ul class="e-a-tags">
+                      <li class="talk">Talk</li>
+                      <li class="talk">Talk</li>
+                      <li class="tech">Tech</li>
+                    </ul>
+                  </dd>
                   <dt><time>2019/08/31</time><span>Builderscon 2019</span></dt>
-                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/php-de-jvm-woshi-zhuang-site-hello-world-wochu-li-surumade">How to implement JVM by PHP, And until output Hello World.</a></dd>
+                  <dd>
+                    <a target="_blank" href="https://speakerdeck.com/memory1994/php-de-jvm-woshi-zhuang-site-hello-world-wochu-li-surumade">How to implement JVM by PHP, And until output Hello World.</a>
+                    <ul class="e-a-tags">
+                      <li class="talk">Talk</li>
+                      <li class="tech">Tech</li>
+                    </ul>
+                  </dd>
                   <dt><time>2019/04/24</time><span>PHP 勉強会</span></dt>
-                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/hamusutawojian-shi-surusisutemuwo-raspberry-pi-to-php-false-swoole-tezuo-tutahua">ハムスターを監視するシステムを Raspberry Pi と PHP の Swoole で作った話</a></dd>
+                  <dd>
+                    <a target="_blank" href="https://speakerdeck.com/memory1994/hamusutawojian-shi-surusisutemuwo-raspberry-pi-to-php-false-swoole-tezuo-tutahua">ハムスターを監視するシステムを Raspberry Pi と PHP の Swoole で作った話</a>
+                    <ul class="e-a-tags">
+                      <li class="talk">Talk</li>
+                      <li class="tech">Tech</li>
+                    </ul>
+                  </dd>
                   <dt><time>2019/03/29</time><span>PHPerKaigi 2019</span></dt>
-                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/phperkaigi-2019">PHP で JVM に入門する</a></dd>
+                  <dd>
+                    <a target="_blank" href="https://speakerdeck.com/memory1994/phperkaigi-2019">PHP で JVM に入門する</a>
+                    <ul class="e-a-tags">
+                      <li class="talk">Talk</li>
+                      <li class="tech">Tech</li>
+                    </ul>
+                  </dd>
                   <dt><time>2019/02/20</time><span>Elasticsearch Study Meeting 2019</span></dt>
-                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/elasticsearch-mian-qiang-hui-2019-gamewithtejian-suo-sisutemukashi-warerumate">GameWith で検索システムが使われるまで</a></dd>
+                  <dd>
+                    <a target="_blank" href="https://speakerdeck.com/memory1994/elasticsearch-mian-qiang-hui-2019-gamewithtejian-suo-sisutemukashi-warerumate">GameWith で検索システムが使われるまで</a>
+                    <ul class="e-a-tags">
+                      <li class="talk">Talk</li>
+                      <li class="tech">Tech</li>
+                    </ul>
+                  </dd>
                   <dt><time>2019/01/26</time><span>PHP Conference Sendai 2019</span></dt>
-                  <dd><a target="_blank" href="https://speakerdeck.com/memory1994/php-conference-sendai-2019-presentation-slides">開発期間 2 ヶ月で Elasticsearch をプロダクトに使ってリリースした話</a></dd>
+                  <dd>
+                    <a target="_blank" href="https://speakerdeck.com/memory1994/php-conference-sendai-2019-presentation-slides">開発期間 2 ヶ月で Elasticsearch をプロダクトに使ってリリースした話</a>
+                    <ul class="e-a-tags">
+                      <li class="talk">Talk</li>
+                      <li class="tech">Tech</li>
+                    </ul>
+                  </dd>
+                  <dt><time>2015/01/30</time><span>GitHub</span></dt>
+                  <dd>
+                    <a href="https://github.com/php-java/php-java">php-java/php-java - Implement JVM by PHP</a>
+                    <ul class="e-a-tags">
+                      <li class="oss">OSS</li>
+                      <li class="tech">Tech</li>
+                    </ul>
+                  </dd>
                 </dl>
+                <label class="e-expand-btn e-expand-btn--open" for="activity-listing">
+                  <span><i class="fa-solid fa-caret-down"></i> 過去のアクティビティを参照</span>
+                </label>
+                <label class="e-expand-btn e-expand-btn--close" for="activity-listing">
+                  <span><i class="fa-solid fa-caret-up"></i> 過去のアクティビティを閉じる</span>
+                </label>
               </div>
             </div>
           </div>
