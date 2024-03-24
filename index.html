@@ -608,13 +608,13 @@
     });
   </script>
   <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G49Y6PFK5J"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9ML40PK6KJ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
-    gtag('config', 'G-G49Y6PFK5J');
+    gtag('config', 'G-9ML40PK6KJ');
   </script>
 </head>
 <body>
@@ -627,8 +627,8 @@
 </div>
 <div class="m-w">
   <div class="e-navigator">
-    <label class="to-lightmode" for="lightmode"><i class="fa-solid fa-moon"></i></label>
-    <label class="to-darkmode" for="lightmode"><i class="fa-solid fa-sun"></i></label>
+    <label class="to-lightmode" for="lightmode" onclick="gtag('event','click_darkmode_to_lightmode')"><i class="fa-solid fa-moon"></i></label>
+    <label class="to-darkmode" for="lightmode" onclick="gtag('event','click_lightmode_to_darkmode')"><i class="fa-solid fa-sun"></i></label>
   </div>
   <div class="w-w">
     <div class="w-1"></div>
@@ -1103,10 +1103,10 @@
                     </ul>
                   </dd>
                 </dl>
-                <label class="e-expand-btn e-expand-btn--open" for="activity-listing">
+                <label class="e-expand-btn e-expand-btn--open" for="activity-listing" onclick="gtag('event','click_activities_expander')">
                   <span><i class="fa-solid fa-caret-down"></i> 過去のアクティビティを参照</span>
                 </label>
-                <label class="e-expand-btn e-expand-btn--close" for="activity-listing">
+                <label class="e-expand-btn e-expand-btn--close" for="activity-listing"">
                   <span><i class="fa-solid fa-caret-up"></i> 過去のアクティビティを閉じる</span>
                 </label>
               </div>
