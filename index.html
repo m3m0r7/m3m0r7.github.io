@@ -316,8 +316,19 @@
       display: grid;
       grid-gap: 20px;
       grid-template-columns: repeat(5, 32px);
-      width: calc(32px * 5 + 20px * 4)
+      width: calc(32px * 5 + 20px * 4);
+      height: 54px;
     }
+
+    .e-contact-area * {
+      color: #E0E0E0;
+      transition: color 0.25s ease-in;
+    }
+
+    .appearance:not(:checked) ~ .m-w .e-contact-area * {
+      color: #0E0E0E;
+    }
+
 
     .e-contact .fa-brands {
       font-size: 32px;
@@ -414,7 +425,7 @@
       overflow: hidden;
     }
 
-    .f-cc div {
+    .f-cc h3 {
       font-family: "Cabin", sans-serif;
       color: #E3E3E3;
       font-size: 64px;
@@ -462,7 +473,8 @@
     }
 
     .activity-area {
-      height: 2450px;
+      /*height: 2450px;*/
+      height: 1225px;
       overflow: hidden;
     }
 
@@ -500,6 +512,11 @@
       transition: background-color 0.25s ease-in;
     }
 
+    .appearance:checked ~ .m-w .e-expand-btn {
+      border: 1px solid rgba(100, 100, 100, 0.8);
+      box-shadow: 0 0 5px rgba(100, 100, 100, 0.4);
+    }
+
 
     .appearance:not(:checked) ~ .m-w .e-expand-btn {
     }
@@ -531,6 +548,8 @@
       justify-content: right;
     }
 
+    .article-area > dd:nth-of-type(1) .e-a-tags::after,
+    .article-area > dd:nth-of-type(2) .e-a-tags::after,
     .activity-area > dd:nth-of-type(1) .e-a-tags::after,
     .activity-area > dd:nth-of-type(2) .e-a-tags::after,
     .activity-area > dd:nth-of-type(3) .e-a-tags::after {
@@ -654,15 +673,87 @@
   </script>
   <script>
     function load(path, identifier, headers = {}) {
+      const key = 'cache:fetch:v1:' + path + ':' + identifier;
+      const switchLoading = () => {
+        document.querySelector('[data-loader="' + identifier + '"]').style.display = 'none';
+        document.querySelector('[data-loaded="' + identifier + '"]').style.display = 'block';
+      }
+
+      const retrievedData = localStorage.getItem(key);
+      const cachedData = JSON.parse(retrievedData ? retrievedData : {});
+      if (retrievedData &&  (new Date()).getTime() <= cachedData.ttl) {
+        return new Promise((resolve) => {
+          switchLoading();
+          resolve(cachedData.body);
+        });
+      }
       return fetch(path, {
         mode: 'cors',
         cache: 'default',
         headers: headers,
       }).then((response) => {
-        document.querySelector('[data-loader="' + identifier + '"]').style.display = 'none';
-        document.querySelector('[data-loaded="' + identifier + '"]').style.display = 'block';
         return response.json();
+      }).then((json) => {
+        localStorage.setItem(
+          key,
+          JSON.stringify({
+            ttl: (new Date()).getTime() + (24 * 3600 * 1000),
+            body: json,
+          })
+        );
+
+        switchLoading();
+
+        return new Promise((resolve) => {
+          resolve(json);
+        });
       });
+    }
+
+    function renderListItem(query, options) {
+      const data = Object.assign({
+        published_at: undefined,
+        subtitle: undefined,
+        title: undefined,
+        tags: [],
+        url: undefined,
+      }, options);
+
+      const dt = document.createElement('dt');
+      const dd = document.createElement('dd');
+
+      const time = document.createElement('time');
+      const publishedAt = new Date(data.published_at)
+      const month = publishedAt.getMonth() + 1;
+      const date = publishedAt.getDate();
+      time.innerText = publishedAt.getFullYear() + "/" + (month <= 9 ? "0" : "") + month + "/" + (date <= 9 ? "0" : "") + date;
+      dt.appendChild(time);
+
+      const subtitle = document.createElement('span');
+      subtitle.innerText = data.subtitle;
+      dt.appendChild(subtitle);
+
+      // Specify details into dd DOM
+      const link = document.createElement('a');
+      link.setAttribute('target', '_blank');
+      link.setAttribute('href', data.url);
+      link.innerText = data.title;
+      dd.appendChild(link)
+
+      const tags = document.createElement('ul');
+      tags.setAttribute('class', 'e-a-tags');
+      data.tags.forEach((tagName) => {
+        const tag = document.createElement('li');
+        tag.setAttribute('class', tagName.toLowerCase())
+        tag.innerText = tagName;
+        tags.appendChild(tag);
+      });
+
+      dd.appendChild(tags);
+
+      const target = document.querySelector(query);
+      target.appendChild(dt);
+      target.appendChild(dd);
     }
   </script>
 </head>
@@ -684,6 +775,18 @@
     <div class="w-2">
       <div class="e-w">
         <div class="e-name">めもりー<br />(memory, m3m0r7)</div>
+        <div class="e-contact-area">
+          <div>
+            <p class="e-mail-address"><span>memory.style.serv</span></p>
+          </div>
+          <ul class="e-contact">
+            <li><a target="_blank" class="no-arrow" href="https://x.com/m3m0r7"><i class="fa-brands fa-x-twitter"></i></a></li>
+            <li><a target="_blank" class="no-arrow" href="https://github.com/m3m0r7"><i class="fa-brands fa-github"></i></a></li>
+            <li><a target="_blank" class="no-arrow" href="https://keybase.io/m3m0r7"><i class="fa-brands fa-keybase"></i></a></li>
+            <li><a target="_blank" class="no-arrow" href="https://speakerdeck.com/memory1994"><i class="fa-brands fa-speaker-deck"></i></a></li>
+            <li><a target="_blank" class="no-arrow" href="https://www.linkedin.com/in/m3m0r7"><i class="fa-brands fa-linkedin-in"></i></a></li>
+          </ul>
+        </div>
         <div class="e-info">
           <div class="e-info-body">
             <div class="e-container">
@@ -826,41 +929,32 @@
                   <li><a target="_blank" class="no-arrow" href="https://www.amazon.co.jp/dp/B09CRLXD3S"><img src="./assets/books/sd202110.jpg" width="100%" alt="Software Design 2021年09月号" /></a></li>
                 </ul>
               </div>
-<!--              <div class="mt">-->
-<!--                <h2>Articles</h2>-->
-<!--                <script>-->
-<!--                  document.addEventListener('DOMContentLoaded',  function () {-->
-<!--                    // TODO: use localstorage-->
-<!--                    fetch('https://sizu.me/api/v1/posts', {-->
-<!--                      method: "GET",-->
-<!--                      mode: 'cors',-->
-<!--                      cache: 'default',-->
-<!--                      headers: {-->
-<!--                        Authorization: "Bearer sk-ZgjCP19Kr3sNb5mbPxnuc",-->
-<!--                      },-->
-<!--                    }).then((v) => {-->
-<!--                      console.log(v);-->
-<!--                    });-->
-<!--                  })-->
-<!--                </script>-->
-<!--                <div class="articles"></div>-->
-<!--              </div>-->
-              <div class="mt">
-                <h2>Contact me</h2>
-                <div>
-                  <p class="e-mail-address"><span>memory.style.serv</span></p>
-                </div>
-                <ul class="e-contact">
-                  <li><a target="_blank" class="no-arrow" href="https://x.com/m3m0r7"><i class="fa-brands fa-x-twitter"></i></a></li>
-                  <li><a target="_blank" class="no-arrow" href="https://github.com/m3m0r7"><i class="fa-brands fa-github"></i></a></li>
-                  <li><a target="_blank" class="no-arrow" href="https://keybase.io/m3m0r7"><i class="fa-brands fa-keybase"></i></a></li>
-                  <li><a target="_blank" class="no-arrow" href="https://speakerdeck.com/memory1994"><i class="fa-brands fa-speaker-deck"></i></a></li>
-                  <li><a target="_blank" class="no-arrow" href="https://www.linkedin.com/in/m3m0r7"><i class="fa-brands fa-linkedin-in"></i></a></li>
-                </ul>
-              </div>
             </div>
             <div class="e-container e-container-activity-opener">
               <div>
+                <h2>Articles</h2>
+                <div data-loader="articles">
+                  <p class="loading-message"><img class="loading-spinner" src="./loading.svg" width="32" alt="" /></p>
+                </div>
+                <div data-loaded="articles">
+                  <dl class="article-area">
+                  </dl>
+                </div>
+                <script>
+                  load('./articles.json', 'articles').then((json) => {
+                    json.posts.slice(0, 5).forEach((value) => {
+                      renderListItem('.article-area', {
+                        published_at: value.createdAt,
+                        subtitle: value.bodyCharacterCount.toLocaleString('en-US') + " 文字",
+                        title: value.title,
+                        tags: value.tags,
+                        url: value.url,
+                      });
+                    });
+                  })
+                </script>
+              </div>
+              <div class="mt">
                 <h2>Activities</h2>
                 <input class="activity-opener" type="checkbox" id="activity-listing" tabindex="-1" />
                 <div data-loader="activities">
@@ -879,45 +973,16 @@
                 <script>
                   load('./activities.json', 'activities').then((json) => {
                     json.forEach((value) => {
-                      const dt = document.createElement('dt');
-                      const dd = document.createElement('dd');
-
-                      // Specify time and location into dt DOM
-                      const time = document.createElement('time');
-                      const publishedAt = new Date(value.published_at)
-                      const month = publishedAt.getMonth() + 1;
-                      const date = publishedAt.getDate();
-                      time.innerText = publishedAt.getFullYear() + "/" + (month <= 9 ? "0" : "") + month + "/" + (date <= 9 ? "0" : "") + date;
-                      dt.appendChild(time);
-
-                      const location = document.createElement('span');
-                      location.innerText = value.is_oss
-                        ? "Open Source Software"
-                        : value.location;
-                      dt.appendChild(location);
-
-                      // Specify details into dd DOM
-                      const link = document.createElement('a');
-                      link.setAttribute('target', '_blank');
-                      link.setAttribute('href', value.url);
-                      link.innerText = value.title;
-                      dd.appendChild(link)
-
-                      const tags = document.createElement('ul');
-                      tags.setAttribute('class', 'e-a-tags');
-                      value.tags.forEach((tagName) => {
-                        const tag = document.createElement('li');
-                        tag.setAttribute('class', tagName.toLowerCase())
-                        tag.innerText = tagName;
-                        tags.appendChild(tag);
+                      renderListItem('.activity-area', {
+                        published_at: value.published_at,
+                        subtitle: value.is_oss
+                          ? "Open Source Software"
+                          : value.location,
+                        title: value.title,
+                        tags: value.tags,
+                        url: value.url,
                       });
-
-                      dd.appendChild(tags);
-
-                      const target = document.querySelector('.activity-area');
-                      target.appendChild(dt);
-                      target.appendChild(dd);
-                    })
+                    });
                   })
                 </script>
               </div>
@@ -926,7 +991,13 @@
         </div>
       </div>
       <div class="f-cc">
-        <div>memory' portfolio</div>
+        <div>
+          <h3>memory' portfolio</h3>
+          <div>
+            <div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
