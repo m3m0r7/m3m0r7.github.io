@@ -6,10 +6,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
+          git remote set-url origin https://github-actions:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}
+          git config --global user.name "${GITHUB_ACTOR}"
+          git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+
           curl -sS -H "Authorization: Bearer ${{ secrets.SIZUME_API_KEY }}" https://sizu.me/api/v1/posts > articles.json
           file_changes=$(git diff --shortstat | awk "{ print $1 }")
           if [[ file_changes != 0 ]]; then
             git add articles.json
             git commit -m "Update articles"
-            git push origin master
+            git push origin HEAD:${GITHUB_REF}
           fi
