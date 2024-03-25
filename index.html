@@ -680,7 +680,7 @@
       }
 
       const retrievedData = localStorage.getItem(key);
-      const cachedData = JSON.parse(retrievedData ? retrievedData : {});
+      const cachedData = JSON.parse(retrievedData ? retrievedData : "{}");
       if (retrievedData &&  (new Date()).getTime() <= cachedData.ttl) {
         return new Promise((resolve) => {
           switchLoading();
