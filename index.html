@@ -512,6 +512,12 @@
       transition: background-color 0.25s ease-in;
     }
 
+
+    .e-expand-btn a {
+      display: block;
+      line-height: 22px;
+    }
+
     .appearance:checked ~ .m-w .e-expand-btn {
       border: 1px solid rgba(100, 100, 100, 0.8);
       box-shadow: 0 0 5px rgba(100, 100, 100, 0.4);
@@ -939,6 +945,9 @@
                 <div data-loaded="articles">
                   <dl class="article-area">
                   </dl>
+                  <div class="e-expand-btn e-expand-btn--open"  onclick="gtag('event','click_open_weblog')">
+                    <a target="_blank" href="https://sizu.me/memory">続きを見る</a>
+                  </div>
                 </div>
                 <script>
                   load('./articles.json', 'articles').then((json) => {
@@ -948,7 +957,7 @@
                         subtitle: value.bodyCharacterCount.toLocaleString('en-US') + " 文字",
                         title: value.title,
                         tags: value.tags,
-                        url: value.url,
+                        url: "https://sizu.me/memory/posts/" + value.slug,
                       });
                     });
                   })
