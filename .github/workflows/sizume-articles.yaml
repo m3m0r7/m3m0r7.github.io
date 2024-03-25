@@ -1,0 +1,10 @@
+name: sizume-articles
+on: [push]
+jobs:
+  check-bats-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          curl -sS -H "Authorization: Bearer $SIZUME_API_KEY" https://sizu.me/api/v1/posts > articles.json
+          cat articles.json
