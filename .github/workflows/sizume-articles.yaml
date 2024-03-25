@@ -16,7 +16,7 @@ jobs:
 
           curl -sS -H "Authorization: Bearer ${{ secrets.SIZUME_API_KEY }}" https://sizu.me/api/v1/posts > articles.json
           if (git diff --shortstat | grep '[0-9]'); then \
-            git add articles.json \
-            git commit -m "Update articles" \
-            git push origin HEAD:${GITHUB_REF} \
+            git add articles.json; \
+            git commit -m "Update articles"; \
+            git push origin HEAD:${GITHUB_REF}; \
           fi
