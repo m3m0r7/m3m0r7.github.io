@@ -472,23 +472,24 @@
       top: 2450px;
     }
 
-    .activity-opener:checked + .activity-area {
+    .activity-opener:checked ~ * .activity-area {
       height: auto;
     }
 
-    .activity-opener:checked ~ label.e-expand-btn--open {
+    .activity-opener:checked ~ * label.e-expand-btn--open {
       display: none;
     }
 
-    .activity-opener ~ label.e-expand-btn--close {
+    .activity-opener ~ * label.e-expand-btn--close {
       display: none;
     }
-    .activity-opener:checked ~ label.e-expand-btn--close {
+    .activity-opener:checked ~ * label.e-expand-btn--close {
       display: block;
     }
 
     .e-expand-btn {
-      background-color: rgba(20, 20, 20, 0.8);
+      border: 1px solid rgba(225, 225, 225, 0.8);
+      box-shadow: 0 0 5px rgba(225, 225, 225, 0.4);
       font-size: 14px;
       text-align: center;
       padding: 10px 0;
@@ -501,10 +502,7 @@
 
 
     .appearance:not(:checked) ~ .m-w .e-expand-btn {
-      background-color: rgba(215, 215, 215, 0.8);
     }
-
-
 
     .e-container-activity-opener {
       position: relative;
@@ -596,17 +594,26 @@
 
     .to-lightmode i {
       color: #673ab7;
-      text-shadow: 0 0 5px #FFFFFF, 0 0 5px #FFFFFF;
+      text-shadow: 0 0 10px #EEEEEE;
     }
 
     .to-darkmode i {
       color: #FFCA61;
-      text-shadow: 0 0 5px #000000, 0 0 5px #000000;
+      text-shadow: 0 0 10px #000000;
     }
 
     .appearance {
       position: absolute;
       left: -9999px;
+    }
+
+    .loading-message {
+      font-size: 14px;
+      text-align: center;
+    }
+
+    [data-loaded] {
+      display: none;
     }
 
   </style>
@@ -622,12 +629,12 @@
     gtag('config', 'G-9ML40PK6KJ');
   </script>
   <script>
-    document.addEventListener('DOMContentLoaded',  () => {
+    document.addEventListener('DOMContentLoaded', () => {
       const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
       // For Using system appearance
       const isDarkTheme = !!darkThemeMq.matches;
 
-      document.querySelector('.appearance').addEventListener('change', function () {
+      document.querySelector('.appearance').addEventListener('change', () => {
         localStorage.setItem(
           'appearance',
           document.querySelector('.appearance').checked
@@ -644,6 +651,19 @@
         ? isDarkTheme
         : !!localStorage.getItem('appearance');
     })
+  </script>
+  <script>
+    function load(path, identifier, headers = {}) {
+      return fetch(path, {
+        mode: 'cors',
+        cache: 'default',
+        headers: headers,
+      }).then((response) => {
+        document.querySelector('[data-loader="' + identifier + '"]').style.display = 'none';
+        document.querySelector('[data-loaded="' + identifier + '"]').style.display = 'block';
+        return response.json();
+      });
+    }
   </script>
 </head>
 <body>
@@ -843,320 +863,63 @@
               <div>
                 <h2>Activities</h2>
                 <input class="activity-opener" type="checkbox" id="activity-listing" tabindex="-1" />
-                <dl class="activity-area">
-                  <dt><time>2024/03/22</time><span>Open Source Software</span></dt>
-                  <dd>
-                    <a target="_blank" href="https://github.com/m3m0r7/ez-door-sign">m3m0r7/ez-door-sign - The EZ Door Sign (an IoT device) controller written in PHP</a>
+                <div data-loader="activities">
+                  <p class="loading-message"><img class="loading-spinner" src="./loading.svg" width="32" alt="" /></p>
+                </div>
+                <div data-loaded="activities">
+                  <dl class="activity-area">
+                  </dl>
+                  <label class="e-expand-btn e-expand-btn--open" for="activity-listing" onclick="gtag('event','click_activities_expander')">
+                    <span><i class="fa-solid fa-caret-down"></i> 過去のアクティビティを開く</span>
+                  </label>
+                  <label class="e-expand-btn e-expand-btn--close" for="activity-listing">
+                    <span><i class="fa-solid fa-caret-up"></i> 過去のアクティビティを閉じる</span>
+                  </label>
+                </div>
+                <script>
+                  load('./activities.json', 'activities').then((json) => {
+                    json.forEach((value) => {
+                      const dt = document.createElement('dt');
+                      const dd = document.createElement('dd');
 
-                    <ul class="e-a-tags">
-                      <li class="oss">OSS</li>
-                      <li class="tech">Tech</li>
-                    </ul>
-                  </dd>
-                  <dt><time>2024/03/14</time><span>Open Source Software</span></dt>
-                  <dd>
-                    <a target="_blank" href="https://github.com/m3m0r7/php-libusb">m3m0r7/php-libusb - A libusb wrapper written in PHP FFI</a>
-                    <ul class="e-a-tags">
-                      <li class="oss">OSS</li>
-                      <li class="tech">Tech</li>
-                    </ul>
-                  </dd>
-                  <dt><time>2024/03/09</time><span>PHPerKaigi 2024</span></dt>
-                  <dd>
-                    <a target="_blank" href="https://speakerdeck.com/memory1994/how-to-implement-rubyvm-with-php-at-phperkaigi2024">[Ruby 3.3 対応] RubyVM を PHP で実装する 〜Hello World を出力するまで〜</a>
-                    <ul class="e-a-tags">
-                      <li class="talk">Talk</li>
-                      <li class="tech">Tech</li>
-                    </ul>
-                  </dd>
-                  <dt><time>2024/02/11</time><span>PHP カンファレンス関西 2024</span></dt>
-                  <dd>
-                    <a target="_blank" href="https://speakerdeck.com/memory1994/php-memory-management-in-reiwa">令和最新版 PHP メモリ管理術</a>
-                    <ul class="e-a-tags">
-                      <li class="talk">Talk</li>
-                      <li class="tech">Tech</li>
-                    </ul>
-                  </dd>
-                  <dt><time>2023/11/21</time><span>技術的負債に向き合う Online Conference</span></dt>
-                  <dd>
-                    <a target="_blank" href="https://speakerdeck.com/memory1994/understanding-why-built-tech-debts-and-thinking-approaches-for-startup-on-early-to-later-stage">技術的負債が生まれる背景を理解して，アーリーからレイター向けの根本的なアプローチを考える</a>
-                    <ul class="e-a-tags">
-                      <li class="talk">Talk</li>
-                      <li class="business">Business</li>
-                      <li class="pickup">Pickup</li>
-                    </ul>
-                  </dd>
-                  <dt>
-                    <time>2023/10/08</time><span>After Party at PHP Conference 2023</span>
-                  </dt>
-                  <dd>
-                    <a target="_blank" href="https://speakerdeck.com/memory1994/show-maji-of-fizzbuzz">本当の FizzBuzz をお見せします</a>
-                    <ul class="e-a-tags">
-                      <li class="talk">Talk</li>
-                      <li class="tech">Tech</li>
-                    </ul>
-                  </dd>
-                  <dt><time>2023/10/08</time><span>PHP Conference 2023</span></dt>
-                  <dd>
-                    <a target="_blank" href="https://speakerdeck.com/memory1994/how-to-implement-rubyvm-written-in-php">RubyVM を PHP で実装する 〜Hello World を出力するまで〜</a>
-                    <ul class="e-a-tags">
-                      <li class="talk">Talk</li>
-                      <li class="tech">Tech</li>
-                      <li class="pickup">Pickup</li>
-                    </ul>
-                  </dd>
-                  <dt><time>2023/09/02</time><span>Findy Engineer Lab オフ会</span></dt>
-                  <dd>
-                    <a target="_blank" href="https://speakerdeck.com/memory1994/you-can-run-away-you-are-engaging-hard-things">千尋の谷に突き落とされても辛ければ逃げていい</a>
-                    <ul class="e-a-tags">
-                      <li class="talk">Talk</li>
-                      <li class="carrier">Carrier</li>
-                    </ul>
-                  </dd>
-                  <dt><time>2023/09/02</time><span>AWS Startup Day 2023</span></dt>
-                  <dd>
-                    <a target="_blank" href="https://speakerdeck.com/memory1994/introduction-of-my-careers-and-changing-my-mind">CTO までのキャリアと転職活動における考え方の変化</a>
-                    <ul class="e-a-tags">
-                      <li class="talk">Talk</li>
-                      <li class="carrier">Carrier</li>
-                    </ul>
-                  </dd>
+                      // Specify time and location into dt DOM
+                      const time = document.createElement('time');
+                      const publishedAt = new Date(value.published_at)
+                      const month = publishedAt.getMonth() + 1;
+                      const date = publishedAt.getDate();
+                      time.innerText = publishedAt.getFullYear() + "/" + (month <= 9 ? "0" : "") + month + "/" + (date <= 9 ? "0" : "") + date;
+                      dt.appendChild(time);
 
-                  <dt><time>2023/07/12</time><span>Open Source Software</span></dt>
-                  <dd>
-                    <a target="_blank" href="https://github.com/m3m0r7/ez-door-sign">m3m0r7/rubyvm-on-php - A RubyVM written in PHP</a>
-                    <ul class="e-a-tags">
-                      <li class="oss">OSS</li>
-                      <li class="tech">Tech</li>
-                    </ul>
-                  </dd>
-                  <dt><time>2023/06/14</time><span>Forkwell Library #25</span></dt>
-                  <dd>
-                    <a target="_blank" href="https://speakerdeck.com/memory1994/why-we-must-do-engineering">エンジニアリングを推進する必要性</a>
-                    <ul class="e-a-tags">
-                      <li class="talk">Talk</li>
-                      <li class="business">Business</li>
-                    </ul>
-                  </dd>
-                  <dt><time>2023/05/22</time><span>University of Tokyo</span></dt>
-                  <dd>
-                    <a target="_blank" href="https://speakerdeck.com/memory1994/the-environment-surrounding-startups-with-engineering">スタートアップを取り巻く環境について 〜スタートアップとエンジニアリング〜</a>
-                    <ul class="e-a-tags">
-                      <li class="talk">Talk</li>
-                      <li class="business">Business</li>
-                      <li class="pickup">Pickup</li>
-                    </ul>
-                  </dd>
-                  <dt><time>2023/01/25</time><span>Forkwell Library #14</span></dt>
-                  <dd>
-                    <a target="_blank" href="https://speakerdeck.com/memory1994/why-the-application-design-is-breaking-sometimes-at-a-startup-company">CTO から見た，なぜスタートアップ初期のソフトウェア設計は壊れがちなのか</a>
-                    <ul class="e-a-tags">
-                      <li class="talk">Talk</li>
-                      <li class="tech">Tech</li>
-                      <li class="business">Business</li>
-                      <li class="abandoned">Abandoned</li>
-                    </ul>
-                  </dd>
-                  <dt><time>2022/09/24</time><span>PHP Conference 2022</span></dt>
-                  <dd>
-                    <a target="_blank" href="https://speakerdeck.com/memory1994/php-conference-japan-2022">PHP メモリ管理術</a>
-                    <ul class="e-a-tags">
-                      <li class="talk">Talk</li>
-                      <li class="tech">Tech</li>
-                      <li class="abandoned">Abandoned</li>
-                    </ul>
-                  </dd>
-                  <dt><time>2022/08/27</time><span>PHP Conference Okinawa 2022</span></dt>
-                  <dd>
-                    <a target="_blank" href="https://speakerdeck.com/memory1994/php-conference-okinawa-2022">PHP で NFC リーダーを実装する</a>
-                    <ul class="e-a-tags">
-                      <li class="talk">Talk</li>
-                      <li class="tech">Tech</li>
-                      <li class="iot">IoT</li>
-                      <li class="abandoned">Abandoned</li>
-                    </ul>
-                  </dd>
-                  <dt><time>2022/08/26</time><span>AWS Startup Community Conference 2022</span></dt>
-                  <dd>
-                    <a target="_blank" href="https://speakerdeck.com/memory1994/aws-startup-community-conference-2022">知育玩具サブスク「トイサブ！」におけるエンジニア組織立ち上げの事例</a>
-                    <ul class="e-a-tags">
-                      <li class="talk">Talk</li>
-                      <li class="culture">Culture</li>
-                      <li class="abandoned">Abandoned</li>
-                    </ul>
-                  </dd>
-                  <dt><time>2022/06/28</time><span>Forkwell Library #3</span></dt>
-                  <dd>
-                    <a target="_blank" href="https://speakerdeck.com/memory1994/introduction-to-an-example-of-making-a-product-development-division-with-psychological-safety-at-torana-inc">株式会社トラーナにおける 心理的安全性が高い組織づくりの事例</a>
-                    <ul class="e-a-tags">
-                      <li class="talk">Talk</li>
-                      <li class="culture">Culture</li>
-                      <li class="abandoned">Abandoned</li>
-                    </ul>
-                  </dd>
-                  <dt><time>2022/04/10</time><span>PHPerKaigi 2022</span></dt>
-                  <dd>
-                    <a target="_blank" href="https://speakerdeck.com/memory1994/php-de-nfc-ridawoshi-zhuang-suru-php-tohadowoxi-gu">PHP で NFC リーダーを実装する 〜 PHP とハードを繋ぐ 〜</a>
-                    <ul class="e-a-tags">
-                      <li class="talk">Talk</li>
-                      <li class="tech">Tech</li>
-                      <li class="iot">IoT</li>
-                      <li class="abandoned">Abandoned</li>
-                    </ul>
-                  </dd>
-                  <dt><time>2022/03/04</time><span>YAPC::Japan::Online 2022</span></dt>
-                  <dd>
-                    <a target="_blank" href="https://speakerdeck.com/memory1994/php-de-nfc-ridawoshi-zhuang-suru">PHP で NFC リーダーを実装する</a>
-                    <ul class="e-a-tags">
-                      <li class="talk">Talk</li>
-                      <li class="tech">Tech</li>
-                      <li class="iot">IoT</li>
-                      <li class="abandoned">Abandoned</li>
-                    </ul>
-                  </dd>
+                      const location = document.createElement('span');
+                      location.innerText = value.is_oss
+                        ? "Open Source Software"
+                        : value.location;
+                      dt.appendChild(location);
 
-                  <dt><time>2021/10/08</time><span>Open Source Software</span></dt>
-                  <dd>
-                    <a href="https://github.com/m3m0r7/nfc-for-php">m3m0r7/nfc-for-php - NFC Reader written in PHP</a>
-                    <ul class="e-a-tags">
-                      <li class="oss">OSS</li>
-                      <li class="tech">Tech</li>
-                      <li class="iot">IoT</li>
-                    </ul>
-                  </dd>
-                  <dt><time>2021/10/03</time><span>PHP Conference 2021</span></dt>
-                  <dd>
-                    <a target="_blank" href="https://speakerdeck.com/memory1994/laravel-demofei-tong-qi-chu-li-gaxi-eru-php-8-karachu-merufei-tong-qi-chu-li-laravel-octane">Laravel でも非同期処理が扱える！？ PHP 8 から初める非同期処理 〜Laravel Octane〜</a>
-                    <ul class="e-a-tags">
-                      <li class="talk">Talk</li>
-                      <li class="tech">Tech</li>
-                      <li class="concurrency">Concurrency</li>
-                      <li class="abandoned">Abandoned</li>
-                    </ul>
-                  </dd>
-                  <dt><time>2021/05/27</time><span>PHP Conference Okinawa 2021</span></dt>
-                  <dd>
-                    <a target="_blank" href="https://speakerdeck.com/memory1994/li-jie-siteokubeki-php-falsebaridesiyon">理解しておくべき PHP のバリデーション</a>
-                    <ul class="e-a-tags">
-                      <li class="talk">Talk</li>
-                      <li class="tech">Tech</li>
-                      <li class="abandoned">Abandoned</li>
-                    </ul>
-                  </dd>
-                  <dt><time>2021/03/10</time><span>PHPerKaigi 2021</span></dt>
-                  <dd>
-                    <a target="_blank" href="https://speakerdeck.com/memory1994/swoole-to-laravel-swoole-woyong-itahaipahuomansuapurikesiyongou-zhu">swoole と laravel-swoole を用いたハイパフォーマンスアプリケーション構築</a></dd>
-                  <ul class="e-a-tags">
-                    <li class="talk">Talk</li>
-                    <li class="tech">Tech</li>
-                    <li class="abandoned">Abandoned</li>
-                  </ul>
-                  <dt><time>2020/12/12</time><span>PHP Conference 2020</span></dt>
-                  <dd>
-                    <a target="_blank" href="https://speakerdeck.com/memory1994/zerobesukara-laravel-woyong-ita-api-shi-zhuang-otomesiyon">ゼロベースから Laravel を用いた API 実装オートメーション</a>
-                    <ul class="e-a-tags">
-                      <li class="talk">Talk</li>
-                      <li class="tech">Tech</li>
-                      <li class="abandoned">Abandoned</li>
-                    </ul>
-                  </dd>
-                  <dt><time>2020/02/09</time><span>PHPerKaigi 2020</span></dt>
-                  <dd>
-                    <a target="_blank" href="https://speakerdeck.com/memory1994/php-de-jvm-woshi-zhuang-site-helloworld-wochu-li-sitemiru">PHP で JVM を実装して、 HelloWorld を出力してみる</a>
-                    <ul class="e-a-tags">
-                      <li class="talk">Talk</li>
-                      <li class="tech">Tech</li>
-                    </ul>
-                  </dd>
-                  <dt><time>2019/12/01</time><span>PHP Conference 2019</span></dt>
-                  <dd>
-                    <a target="_blank" href="https://speakerdeck.com/memory1994/php-niokerubing-lie-chu-li-tofei-tong-qi-chu-li-ru-men">PHP における並列処理と非同期処理入門</a>
-                    <ul class="e-a-tags">
-                      <li class="talk">Talk</li>
-                      <li class="tech">tech</li>
-                      <li class="concurrency">Concurrency</li>
-                    </ul>
-                  </dd>
-                  <dt><time>2019/11/22</time><span>Kichijoji.pm</span></dt>
-                  <dd>
-                    <a target="_blank" href="https://speakerdeck.com/memory1994/php-de-ast-jie-xi-wosite-java-falseopekodowosheng-cheng-suru">PHP で AST 解析をして Java のオペコードを生成する</a>
-                    <ul class="e-a-tags">
-                      <li class="talk">Talk</li>
-                      <li class="tech">Tech</li>
-                    </ul>
-                  </dd>
-                  <dt><time>2019/10/12</time><span>PHP Conference Okinawa 2019</span></dt>
-                  <dd>
-                    <a target="_blank" href="https://speakerdeck.com/memory1994/phper-falsetamefalse-phpunit-to-selenium-woshi-tuta-burauzatesutofalsesu-me-a066ef2e-6ce9-45fb-9cb9-50fd609ab943">PHPer のための PHPUnit と Selenium を使ったブラウザテストのすゝめ</a>
-                    <ul class="e-a-tags">
-                      <li class="talk">Talk</li>
-                      <li class="tech">Tech</li>
-                    </ul>
-                  </dd>
-                  <dt><time>2019/09/21</time><span>PHP Conference Hokkaido 2019</span></dt>
-                  <dd>
-                    <a target="_blank" href="https://speakerdeck.com/memory1994/phper-falsetamefalse-phpunit-to-selenium-woshi-tuta-burauzatesutofalsesu-me">PHPer のための PHPUnit と Selenium を使ったブラウザテストのすゝめ</a>
-                    <ul class="e-a-tags">
-                      <li class="talk">Talk</li>
-                      <li class="talk">Talk</li>
-                      <li class="tech">Tech</li>
-                    </ul>
-                  </dd>
-                  <dt><time>2019/08/31</time><span>Builderscon 2019</span></dt>
-                  <dd>
-                    <a target="_blank" href="https://speakerdeck.com/memory1994/php-de-jvm-woshi-zhuang-site-hello-world-wochu-li-surumade">How to implement JVM by PHP, And until output Hello World.</a>
-                    <ul class="e-a-tags">
-                      <li class="talk">Talk</li>
-                      <li class="tech">Tech</li>
-                    </ul>
-                  </dd>
-                  <dt><time>2019/04/24</time><span>PHP 勉強会</span></dt>
-                  <dd>
-                    <a target="_blank" href="https://speakerdeck.com/memory1994/hamusutawojian-shi-surusisutemuwo-raspberry-pi-to-php-false-swoole-tezuo-tutahua">ハムスターを監視するシステムを Raspberry Pi と PHP の Swoole で作った話</a>
-                    <ul class="e-a-tags">
-                      <li class="talk">Talk</li>
-                      <li class="tech">Tech</li>
-                    </ul>
-                  </dd>
-                  <dt><time>2019/03/29</time><span>PHPerKaigi 2019</span></dt>
-                  <dd>
-                    <a target="_blank" href="https://speakerdeck.com/memory1994/phperkaigi-2019">PHP で JVM に入門する</a>
-                    <ul class="e-a-tags">
-                      <li class="talk">Talk</li>
-                      <li class="tech">Tech</li>
-                    </ul>
-                  </dd>
-                  <dt><time>2019/02/20</time><span>Elasticsearch Study Meeting 2019</span></dt>
-                  <dd>
-                    <a target="_blank" href="https://speakerdeck.com/memory1994/elasticsearch-mian-qiang-hui-2019-gamewithtejian-suo-sisutemukashi-warerumate">GameWith で検索システムが使われるまで</a>
-                    <ul class="e-a-tags">
-                      <li class="talk">Talk</li>
-                      <li class="tech">Tech</li>
-                    </ul>
-                  </dd>
-                  <dt><time>2019/01/26</time><span>PHP Conference Sendai 2019</span></dt>
-                  <dd>
-                    <a target="_blank" href="https://speakerdeck.com/memory1994/php-conference-sendai-2019-presentation-slides">開発期間 2 ヶ月で Elasticsearch をプロダクトに使ってリリースした話</a>
-                    <ul class="e-a-tags">
-                      <li class="talk">Talk</li>
-                      <li class="tech">Tech</li>
-                    </ul>
-                  </dd>
-                  <dt><time>2015/01/30</time><span>Open Source Software</span></dt>
-                  <dd>
-                    <a href="https://github.com/php-java/php-java">php-java/php-java - Implement JVM by PHP</a>
-                    <ul class="e-a-tags">
-                      <li class="oss">OSS</li>
-                      <li class="tech">Tech</li>
-                    </ul>
-                  </dd>
-                </dl>
-                <label class="e-expand-btn e-expand-btn--open" for="activity-listing" onclick="gtag('event','click_activities_expander')">
-                  <span><i class="fa-solid fa-caret-down"></i> 過去のアクティビティを参照</span>
-                </label>
-                <label class="e-expand-btn e-expand-btn--close" for="activity-listing">
-                  <span><i class="fa-solid fa-caret-up"></i> 過去のアクティビティを閉じる</span>
-                </label>
+                      // Specify details into dd DOM
+                      const link = document.createElement('a');
+                      link.setAttribute('target', '_blank');
+                      link.setAttribute('href', value.url);
+                      link.innerText = value.title;
+                      dd.appendChild(link)
+
+                      const tags = document.createElement('ul');
+                      tags.setAttribute('class', 'e-a-tags');
+                      value.tags.forEach((tagName) => {
+                        const tag = document.createElement('li');
+                        tag.setAttribute('class', tagName.toLowerCase())
+                        tag.innerText = tagName;
+                        tags.appendChild(tag);
+                      });
+
+                      dd.appendChild(tags);
+
+                      const target = document.querySelector('.activity-area');
+                      target.appendChild(dt);
+                      target.appendChild(dd);
+                    })
+                  })
+                </script>
               </div>
             </div>
           </div>
