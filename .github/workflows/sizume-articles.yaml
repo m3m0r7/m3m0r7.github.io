@@ -7,4 +7,9 @@ jobs:
       - uses: actions/checkout@v4
       - run: |
           curl -sS -H "Authorization: Bearer ${{ secrets.SIZUME_API_KEY }}" https://sizu.me/api/v1/posts > articles.json
-          cat articles.json
+          file_changes=$(git diff --shortstat | awk "{ print $1 }")
+          if [[ file_changes != 0 ]]; then
+            git add articles.json
+            git commit -m "Update articles"
+            git push origin master
+          fi
