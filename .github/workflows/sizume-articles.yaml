@@ -14,7 +14,7 @@ jobs:
           git config --global user.name "${GITHUB_ACTOR}"
           git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 
-          curl -sS -H "Authorization: Bearer ${{ secrets.SIZUME_API_KEY }}" https://sizu.me/api/v1/posts > articles.json
+          curl -sS -H "Authorization: Bearer ${{ secrets.SIZUME_API_KEY }}" https://sizu.me/api/v1/posts?visibility=ANYONE > articles.json
 
           if (git diff --shortstat | grep '[0-9]'); then \
             git add articles.json; \
