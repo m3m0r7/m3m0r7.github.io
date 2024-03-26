@@ -6,9 +6,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
   <script src="https://kit.fontawesome.com/b88d781de7.js" crossorigin="anonymous"></script>
   <meta charset="utf-8">
-  <style type="text/css">
+  <style>
     * {
       font-family: "M PLUS 1", sans-serif;
+    }
+
+    :root {
+      --darkmode-text-color: #E0E0E0;
+      --lightmode-text-color: #0E0E0E;
+
+      --darkmode-text-sub-color: #999999;
+      --lightmode-text-sub-color: #777777;
+
+      --darkmode-background-color: #F1F1F1;
+      --lightmode-background-color: #1F1F1F;
+
+      --darkmode-link-hovered-color: #888888;
+      --lightmode-link-hovered-color: #666666;
+
+      --darkmode-button-border-color: rgba(100, 100, 100, 0.8);
+      --darkmode-button-shadow-color: rgba(100, 100, 100, 0.2);
+
+      --lightmode-button-border-color: rgba(205, 205, 205, 0.8);
+      --lightmode-button-shadow-color: rgba(225, 225, 225, 0.2);
     }
 
     body, html {
@@ -92,10 +112,6 @@
 
     .e-mes-c-p {
       margin-top: 10px;
-    }
-
-    .e-mes-c-p.active {
-
     }
 
     .e-mes-c-p div {
@@ -182,7 +198,7 @@
     }
 
     .w-2 {
-      background-color: #1F1F1F;
+      background-color: var(--lightmode-background-color);
       width: 100vw;
       min-height: calc(100vh - 150px - 200px);
       transition: background-color 0.25s ease-in;
@@ -191,7 +207,7 @@
     .appearance:not(:checked) ~ .m-w .w-1,
     .appearance:not(:checked) ~ .m-w .w-2,
     .appearance:not(:checked) ~ .m-w .i-w {
-      background-color: #F1F1F1;
+      background-color: var(--darkmode-background-color);
     }
 
     .i-w {
@@ -221,13 +237,13 @@
     .e-name {
       font-size: 32px;
       font-weight: bold;
-      color: #E0E0E0;
+      color: var(--darkmode-text-color);
       text-align: center;
       transition: color 0.25s ease-in;
     }
 
     .appearance:not(:checked) ~ .m-w .e-name {
-      color: #0E0E0E;
+      color: var(--lightmode-text-color);
     }
 
     .r-w {
@@ -248,11 +264,11 @@
     }
 
     .e-info-body * {
-      color: #E0E0E0;
+      color: var(--darkmode-text-color);
       transition: color 0.25s ease-in;
     }
     .appearance:not(:checked) ~ .m-w .e-info-body * {
-      color: #0E0E0E;
+      color: var(--lightmode-text-color);
     }
 
     .e-info-body h3 {
@@ -261,7 +277,7 @@
     }
 
     .e-info-body h2, .e-info-body h3 {
-      color: #E0E0E0;
+      color: var(--darkmode-text-color);
       font-weight: bold;
       text-align: center;
       text-transform: uppercase;
@@ -296,11 +312,11 @@
     }
 
     .e-info-body dt span, .e-info-body dt time {
-      color: #999999;
+      color: var(--darkmode-text-sub-color);
     }
     .appearance:not(:checked) ~ .m-w .e-info-body dt span,
     .appearance:not(:checked) ~ .m-w .e-info-body dt time {
-      color: #777777;
+      color: var(--lightmode-text-sub-color);
     }
 
     .e-info-body dd {
@@ -321,12 +337,12 @@
     }
 
     .e-contact-area * {
-      color: #E0E0E0;
+      color: var(--darkmode-text-color);
       transition: color 0.25s ease-in;
     }
 
     .appearance:not(:checked) ~ .m-w .e-contact-area * {
-      color: #0E0E0E;
+      color: var(--lightmode-text-color);
     }
 
 
@@ -344,11 +360,11 @@
     }
 
     a:hover {
-      color: #888888;
+      color: var(--darkmode-link-hovered-color);
     }
 
     .appearance:not(:checked) ~ .m-w a:hover {
-      color: #666666;
+      color: var(--lightmode-link-hovered-color);
     }
 
     .books {
@@ -411,7 +427,6 @@
     .appearance:not(:checked) ~ .m-w .e-tags dd li {
       background-color: rgba(230, 230, 230, 0.8);
       box-shadow: 0 0 5px rgba(230, 230, 230, 0.4);
-
     }
 
 
@@ -500,11 +515,10 @@
     }
 
     .e-expand-btn {
-      border: 1px solid rgba(225, 225, 225, 0.8);
-      box-shadow: 0 0 5px rgba(225, 225, 225, 0.4);
+      border: 1px solid var(--lightmode-button-border-color);
+      box-shadow: 0 0 5px var(--lightmode-button-shadow-color);
       font-size: 14px;
       text-align: center;
-      padding: 10px 0;
       border-radius: 4px;
       cursor: pointer;
       line-height: 22px;
@@ -512,19 +526,15 @@
       transition: background-color 0.25s ease-in;
     }
 
-
-    .e-expand-btn a {
+    .e-expand-btn a,
+    .e-expand-btn span {
       display: block;
-      line-height: 22px;
+      line-height: 42px;
     }
 
     .appearance:checked ~ .m-w .e-expand-btn {
-      border: 1px solid rgba(100, 100, 100, 0.8);
-      box-shadow: 0 0 5px rgba(100, 100, 100, 0.4);
-    }
-
-
-    .appearance:not(:checked) ~ .m-w .e-expand-btn {
+      border: 1px solid var(--darkmode-button-border-color);
+      box-shadow: 0 0 5px var(--darkmode-button-shadow-color);
     }
 
     .e-container-activity-opener {
@@ -643,15 +653,36 @@
 
   </style>
   <script>
+    window.ANEMONE = {
+      cache: {
+        fetch: {
+          lifetime: 24 * 3600,
+        },
+      },
+      gtag: 'G-9ML40PK6KJ',
+      data: {
+        api: {
+          articles: './articles.json',
+          activities: './activities.json',
+        },
+      },
+    }
   </script>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9ML40PK6KJ"></script>
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+    document.addEventListener('DOMContentLoaded', () => {
+      const script = document.createElement('script');
+      script.setAttribute('src', 'https://www.googletagmanager.com/gtag/js?id=' + window.ANEMONE.gtag);
 
-    gtag('config', 'G-9ML40PK6KJ');
+      document.querySelector('body').appendChild(script);
+
+      script.addEventListener('load', () => {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', window.ANEMONE.gtag);
+      })
+    })
   </script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -680,7 +711,7 @@
   <script>
     function load(path, identifier, headers = {}) {
       const key = 'cache:fetch:v1:' + path + ':' + identifier;
-      const switchLoading = () => {
+      const switchLoadingMessage = () => {
         document.querySelector('[data-loader="' + identifier + '"]').style.display = 'none';
         document.querySelector('[data-loaded="' + identifier + '"]').style.display = 'block';
       }
@@ -689,7 +720,7 @@
       const cachedData = JSON.parse(retrievedData ? retrievedData : "{}");
       if (retrievedData &&  (new Date()).getTime() <= cachedData.ttl) {
         return new Promise((resolve) => {
-          switchLoading();
+          switchLoadingMessage();
           resolve(cachedData.body);
         });
       }
@@ -703,12 +734,12 @@
         localStorage.setItem(
           key,
           JSON.stringify({
-            ttl: (new Date()).getTime() + (24 * 3600 * 1000),
+            ttl: (new Date()).getTime() + (window.ANEMONE.cache.fetch.lifetime * 1000),
             body: json,
           })
         );
 
-        switchLoading();
+        switchLoadingMessage();
 
         return new Promise((resolve) => {
           resolve(json);
@@ -950,7 +981,7 @@
                   </div>
                 </div>
                 <script>
-                  load('./articles.json', 'articles').then((json) => {
+                  load(window.ANEMONE.data.api.articles, 'articles').then((json) => {
                     json.posts.slice(0, 5).forEach((value) => {
                       renderListItem('.article-area', {
                         published_at: value.createdAt,
@@ -980,7 +1011,7 @@
                   </label>
                 </div>
                 <script>
-                  load('./activities.json', 'activities').then((json) => {
+                  load(window.ANEMONE.data.api.activities, 'activities').then((json) => {
                     json.forEach((value) => {
                       renderListItem('.activity-area', {
                         published_at: value.published_at,
