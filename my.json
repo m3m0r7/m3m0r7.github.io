@@ -1,0 +1,306 @@
+{
+  "name": {
+    "en": "memory\n(m3m0r7)",
+    "ja": "めもりー\n(memory, m3m0r7)"
+  },
+  "summary": {
+    "en": [
+      "I majored in computer engineering at the university but I dropped out because I was interested in working.",
+      "I joined a venture company as a software engineer when I have worked part-time since high school.",
+      "Then, I have working experience in various venture/start-up/listed companies as a software engineer, an engineering manager, a tech lead and a CTO.",
+      null,
+      "Feel free to contact me for consultation developing, technical advisories and interviews."
+    ],
+    "ja": [
+      "1994年生まれ。大学の情報系学部でネットワーク・コンピューター工学を専攻するも、実務への関心が高まり、高校時代Webエンジニアとしてアルバイトをしていた会社にそのまま入社。",
+      "その後、複数のベンチャー企業やスタートアップ企業，上場企業でソフトウェアエンジニアや執行役員 CTO として活動。",
+      null,
+      "開発業務・技術顧問業務・登壇依頼・執筆などのお仕事依頼等はお気軽にご連絡ください。"
+    ]
+  },
+  "technicalSkills": [
+    {
+      "name": {
+        "en": "Management skills",
+        "ja": "Management skills"
+      },
+      "skills": {
+        "en": [
+          "Management of technology",
+          "Developer Relations",
+          "Recruitment strategy"
+        ],
+        "ja": [
+          "技術経営戦略 (MOT)",
+          "エンジニア組織/採用戦略"
+        ]
+      }
+    },
+    {
+      "name": {
+        "en": "Main skills",
+        "ja": "Main skills"
+      },
+      "skills": {
+        "en": [
+          "PHP",
+          "Laravel",
+          "Swoole",
+          "Go",
+          "TypeScript",
+          "React",
+          "Next.js",
+          "JavaScript",
+          "AWS",
+          "Elasticsearch"
+        ],
+        "ja": [
+          "PHP",
+          "Laravel",
+          "Swoole",
+          "Go",
+          "TypeScript",
+          "React",
+          "Next.js",
+          "JavaScript",
+          "AWS",
+          "Elasticsearch"
+        ]
+      }
+    },
+    {
+      "name": {
+        "en": "Other skills",
+        "ja": "Other skills"
+      },
+      "skills": {
+        "en": [
+          "Ruby",
+          "Ruby on Rails",
+          "Docker",
+          "Redis",
+          "CakePHP",
+          "Vue",
+          "WordPress",
+          "Terraform",
+          "Selenium",
+          "Java",
+          "JVM",
+          "RubyVM",
+          "..."
+        ],
+        "ja": [
+          "Ruby",
+          "Ruby on Rails",
+          "Docker",
+          "Redis",
+          "CakePHP",
+          "Vue",
+          "WordPress",
+          "Terraform",
+          "Selenium",
+          "Java",
+          "JVM",
+          "RubyVM",
+          "..."
+        ]
+      }
+    }
+  ],
+  "experiences": [
+    {
+      "name": {
+        "en": "enpay, Inc.",
+        "ja": "enpay, Inc."
+      },
+      "positions": [
+        {
+          "name": {
+            "en": "Engineering Manager",
+            "ja": "エンジニアリングマネージャー"
+          },
+          "start": "2023/10",
+          "end": "2024/4"
+        },
+        {
+          "name": {
+            "en": "Software Engineer",
+            "ja": "ソフトウェアエンジニア"
+          },
+          "start": "2023/7",
+          "end": "2023/9"
+        }
+      ]
+    },
+    {
+      "name": {
+        "en": "Torana, Inc.",
+        "ja": "Torana, Inc."
+      },
+      "positions": [
+        {
+          "name": {
+            "en": "Chief Technology Officer",
+            "ja": "執行役員 CTO"
+          },
+          "start": "2022/1",
+          "end": "2023/5"
+        },
+        {
+          "name": {
+            "en": "Engineering Manager and Tech Lead",
+            "ja": "エンジニアリングマネージャー兼テックリード"
+          },
+          "start": "2020/4",
+          "end": "2021/12"
+        }
+      ]
+    },
+    {
+      "name": {
+        "en": "Togetter, Inc.",
+        "ja": "Togetter, Inc."
+      },
+      "positions": [
+        {
+          "name": {
+            "en": "Freelance",
+            "ja": "フリーランス"
+          },
+          "start": "2023/5",
+          "end": "2023/6"
+        },
+        {
+          "name": {
+            "en": "Side-work",
+            "ja": "フリーランス (副業)"
+          },
+          "start": "2019/4",
+          "end": "2022/1"
+        },
+        {
+          "name": {
+            "en": "Freelance",
+            "ja": "フリーランス (フルタイム)"
+          },
+          "start": "2019/4",
+          "end": "2019/4"
+        }
+      ]
+    },
+    {
+      "name": {
+        "en": "BASE, Inc.",
+        "ja": "BASE, Inc."
+      },
+      "positions": [
+        {
+          "name": {
+            "en": "Back-end Engineer",
+            "ja": "バックエンドエンジニア"
+          },
+          "start": "2019/6",
+          "end": "2020/3"
+        }
+      ]
+    },
+    {
+      "name": {
+        "en": "GameWith, Inc.",
+        "ja": "GameWith, Inc."
+      },
+      "positions": [
+        {
+          "name": {
+            "en": "Back-end Engineer",
+            "ja": "バックエンドエンジニア"
+          },
+          "start": "2018/4",
+          "end": "2019/6"
+        }
+      ]
+    },
+    {
+      "name": {
+        "en": "I have many working experience both freelance and full-time worker",
+        "ja": "その他複数社で業務委託や正社員での経験あり"
+      }
+    }
+  ],
+  "books": [
+    {
+      "publisher": {
+        "en": "C&R",
+        "ja": "C&R 研究所"
+      },
+      "authors": [
+        {
+          "title": {
+            "en": "レガシーコードとどう付き合うか",
+            "ja": "レガシーコードとどう付き合うか"
+          },
+          "image": "legacy_code.jpg",
+          "link": "https://www.amazon.co.jp/dp/4863544103"
+        }
+      ]
+    },
+    {
+      "publisher": {
+        "en": "Gihyo",
+        "ja": "技術評論社"
+      },
+      "authors": [
+        {
+          "title": {
+            "en": "Swooleで学ぶPHP非同期処理",
+            "ja": "Swooleで学ぶPHP非同期処理"
+          },
+          "image": "swoole.jpg",
+          "link": "https://www.amazon.co.jp/dp/B0BV69C24M"
+        },
+        {
+          "title": {
+            "en": "みんなのPHP",
+            "ja": "みんなのPHP"
+          },
+          "image": "minnano_php.png",
+          "link": "https://www.amazon.co.jp/dp/B08238P624"
+        },
+        {
+          "title": {
+            "en": "Software Design 2019年12月号",
+            "ja": "Software Design 2019年12月号"
+          },
+          "image": "sd201912.png",
+          "link": "https://www.amazon.co.jp/dp/B07Z74Q3BD"
+        },
+        {
+          "title": {
+            "en": "Software Design 2021年09月号",
+            "ja": "Software Design 2021年09月号"
+          },
+          "image": "sd202110.jpg",
+          "link": "https://www.amazon.co.jp/dp/B09CRLXD3S"
+        }
+      ]
+    }
+  ],
+  "lang": {
+    "blog": {
+      "link": {
+        "en": "Read more",
+        "ja": "続きを見る"
+      }
+    },
+    "activity": {
+      "open": {
+        "en": "Open more activities",
+        "ja": "過去のアクティビティを開く"
+      },
+      "close": {
+        "en": "Close more activities",
+        "ja": "過去のアクティビティを閉じる"
+      }
+    }
+  }
+}
