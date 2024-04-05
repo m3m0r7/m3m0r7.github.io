@@ -725,7 +725,7 @@
           lifetime: 60 * 5,
         },
       },
-      lang: url.get('lang') === 'ja' ? 'ja' : 'en',
+      lang: url.get('lang') === 'en' ? 'en' : 'ja',
       gtag: 'G-9ML40PK6KJ',
       data: {
         api: {
@@ -794,16 +794,12 @@
     function load(path, identifier, headers = {}) {
       const key = 'cache:fetch:v1:' + path + ':' + identifier;
       const switchLoadingMessage = () => {
-        const loader = document.querySelector('[data-loader="' + identifier + '"]');
-        const loaded = document.querySelector('[data-loaded="' + identifier + '"]');
-
-        if (loader) {
+        document.querySelectorAll('[data-loader="' + identifier + '"]').forEach((loader) => {
           loader.style.display = 'none';
-        }
-
-        if (loaded) {
+        });
+        document.querySelectorAll('[data-loaded="' + identifier + '"]').forEach((loaded) => {
           loaded.style.display = 'block';
-        }
+        });
       }
 
       const retrievedData = localStorage.getItem(key);
@@ -981,7 +977,7 @@
 <div class="m-w">
   <div class="e-navigator">
     <ul class="e-lang">
-      <li class="e-lang[en]"><a href="./">EN</a></li>
+      <li class="e-lang[en]"><a href="./?lang=en">EN</a></li>
       <li class="e-lang[ja]"><a href="./?lang=ja">JA</a></li>
     </ul>
     <label class="change-appearance-button to-lightmode" for="appearance" onclick="gtag('event','click_appearance_changed_to_light')"><i class="fa-solid fa-moon"></i></label>
@@ -992,9 +988,14 @@
     <div class="w-2">
       <div class="e-w">
         <div class="e-name">
-          <script data-value="name">
-            render(renderString('div'));
-          </script>
+          <span data-loader="my">
+            <img class="loading-spinner" src="./loading.svg" width="32" alt="" />
+          </span>
+          <span data-loaded="my">
+            <script data-value="name">
+              render(renderString('div'));
+            </script>
+          </span>
         </div>
         <div class="e-contact-area">
           <div>
@@ -1013,120 +1014,140 @@
             <div class="e-container">
               <div>
                 <h2>Summary</h2>
-                <script data-value="summary">render(renderArray('p'))</script>
+                <div data-loader="my">
+                  <p class="loading-message"><img class="loading-spinner" src="./loading.svg" width="32" alt="" /></p>
+                </div>
+                <div data-loaded="my">
+                  <script data-value="summary">render(renderArray('p'))</script>
+                </div>
               </div>
               <div class="mt">
                 <h2>My Experiences story</h2>
-                <div class="e-mes-w">
-                  <div class="e-mes-vbar"></div>
-                  <script data-value="experiences">
-                    render((e) => {
-                      const ul = ce('ul', 'e-mes');
+                <div data-loader="my">
+                  <p class="loading-message"><img class="loading-spinner" src="./loading.svg" width="32" alt="" /></p>
+                </div>
+                <div data-loaded="my">
+                  <div class="e-mes-w">
+                    <div class="e-mes-vbar"></div>
+                    <script data-value="experiences">
+                      render((e) => {
+                        const ul = ce('ul', 'e-mes');
 
-                      e.detail.value.forEach((value, key) => {
-                        const li = ce('li');
-                        const name = ce('div', 'e-mes-c-n' + (!value.positions ? ' e-mes-c-n--plain' : ''), _('experiences.' + key + '.name'));
-                        li.appendChild(name);
+                        e.detail.value.forEach((value, key) => {
+                          const li = ce('li');
+                          const name = ce('div', 'e-mes-c-n' + (!value.positions ? ' e-mes-c-n--plain' : ''), _('experiences.' + key + '.name'));
+                          li.appendChild(name);
 
-                        const positions = ce('div', 'e-mes-c-p-l');
-                        (value.positions || []).forEach((positionInfo, positionKey) => {
-                          const position = ce('div', 'e-mes-c-p');
-                          const positionTitle = ce('div', 'e-mes-c-p-t', _('experiences.' + key + '.positions.' + positionKey + '.name'));
-                          position.appendChild(positionTitle);
-
-
-                          const startAt = _('experiences.' + key + '.positions.' + positionKey + '.start');
-                          const endAt = _('experiences.' + key + '.positions.' + positionKey + '.end');
+                          const positions = ce('div', 'e-mes-c-p-l');
+                          (value.positions || []).forEach((positionInfo, positionKey) => {
+                            const position = ce('div', 'e-mes-c-p');
+                            const positionTitle = ce('div', 'e-mes-c-p-t', _('experiences.' + key + '.positions.' + positionKey + '.name'));
+                            position.appendChild(positionTitle);
 
 
-                          const positionTerm = ce('time', null, startAt + ' - ' + endAt);
-                          position.appendChild(positionTerm);
+                            const startAt = _('experiences.' + key + '.positions.' + positionKey + '.start');
+                            const endAt = _('experiences.' + key + '.positions.' + positionKey + '.end');
 
-                          positions.appendChild(position);
+
+                            const positionTerm = ce('time', null, startAt + ' - ' + endAt);
+                            position.appendChild(positionTerm);
+
+                            positions.appendChild(position);
+                          });
+
+                          if (value.positions) {
+                            li.appendChild(positions);
+                          }
+                          ul.appendChild(li);
                         });
 
-                        if (value.positions) {
-                          li.appendChild(positions);
-                        }
-                        ul.appendChild(li);
+                        return ul;
+                      })
+                    </script>
+                  </div>
+                </div>
+              </div>
+              <div class="mt">
+                <h2>Technical Skills</h2>
+
+                <div data-loader="my">
+                  <p class="loading-message"><img class="loading-spinner" src="./loading.svg" width="32" alt="" /></p>
+                </div>
+                <div data-loaded="my">
+                  <script data-value="technicalSkills">
+                    render((e) => {
+                      const dl = ce('ul', 'e-tags');
+
+                      e.detail.value.forEach((value, key) => {
+                        const dt = ce('dt');
+                        const name = ce('div', null, _('technicalSkills.' + key + '.name'));
+                        dt.appendChild(name);
+                        dl.appendChild(dt);
+
+                        const dd = ce('dd');
+                        const ul = ce('ul');
+
+
+                        _('technicalSkills.' + key + '.skills').forEach((skillName) => {
+                          ul.appendChild(
+                            ce('li', null, skillName),
+                          );
+                        });
+
+                        dd.appendChild(ul);
+
+                        dl.appendChild(dd);
                       });
 
-                      return ul;
+                      return dl;
                     })
                   </script>
                 </div>
               </div>
               <div class="mt">
-                <h2>Technical Skills</h2>
-                <script data-value="technicalSkills">
-                  render((e) => {
-                    const dl = ce('ul', 'e-tags');
-
-                    e.detail.value.forEach((value, key) => {
-                      const dt = ce('dt');
-                      const name = ce('div', null, _('technicalSkills.' + key + '.name'));
-                      dt.appendChild(name);
-                      dl.appendChild(dt);
-
-                      const dd = ce('dd');
-                      const ul = ce('ul');
-
-
-                      _('technicalSkills.' + key + '.skills').forEach((skillName) => {
-                        ul.appendChild(
-                          ce('li', null, skillName),
-                        );
-                      });
-
-                      dd.appendChild(ul);
-
-                      dl.appendChild(dd);
-                    });
-
-                    return dl;
-                  })
-                </script>
-              </div>
-              <div class="mt">
                 <h2>Books</h2>
+                <div data-loader="my">
+                  <p class="loading-message"><img class="loading-spinner" src="./loading.svg" width="32" alt="" /></p>
+                </div>
+                <div data-loaded="my">
+                  <script data-value="books">
+                    render((e) => {
+                      const here = cef();
+                      e.detail.value.forEach((value, key) => {
+                        const h3 = ce('h3', null, _('books.' + key + '.publisher'));
+                        here.appendChild(h3);
 
-                <script data-value="books">
-                  render((e) => {
-                    const here = cef();
-                    e.detail.value.forEach((value, key) => {
-                      const h3 = ce('h3', null, _('books.' + key + '.publisher'));
-                      here.appendChild(h3);
+                        const ul = ce('ul', 'books');
+                        value.authors.forEach((authorInfo, authorKey) => {
+                          const li = ce('li');
+                          const a = ce('a', 'no-arrow');
+                          a.href = authorInfo.link;
 
-                      const ul = ce('ul', 'books');
-                      value.authors.forEach((authorInfo, authorKey) => {
-                        const li = ce('li');
-                        const a = ce('a', 'no-arrow');
-                        a.href = authorInfo.link;
-
-                        const img = ce('img');
-                        img.src = './assets/books/' + authorInfo.image;
-                        img.style.width = '100%';
-                        img.alt = _('books.' + key + '.authors.' + authorKey + '.title');
+                          const img = ce('img');
+                          img.src = './assets/books/' + authorInfo.image;
+                          img.style.width = '100%';
+                          img.alt = _('books.' + key + '.authors.' + authorKey + '.title');
 
 
-                        a.appendChild(img)
-                        li.appendChild(a)
-                        ul.appendChild(li);
+                          a.appendChild(img)
+                          li.appendChild(a)
+                          ul.appendChild(li);
+                        });
+
+                        for (let i = 0; i < (4 - value.authors.length); i++) {
+                          const li = ce('li');
+                          const div = ce('div', 'book-no-image');
+                          li.appendChild(div);
+                          ul.appendChild(li);
+                        }
+
+                        here.appendChild(ul);
                       });
 
-                      for (let i = 0; i < (4 - value.authors.length); i++) {
-                        const li = ce('li');
-                        const div = ce('div', 'book-no-image');
-                        li.appendChild(div);
-                        ul.appendChild(li);
-                      }
-
-                      here.appendChild(ul);
-                    });
-
-                    return here;
-                  })
-                </script>
+                      return here;
+                    })
+                  </script>
+                </div>
               </div>
             </div>
             <div class="e-container e-container-activity-opener">
