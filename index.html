@@ -717,15 +717,13 @@
 
   </style>
   <script>
-    const url = new URLSearchParams(location.search);
-
     window.ANEMONE = {
       cache: {
         fetch: {
           lifetime: 60 * 5,
         },
       },
-      lang: url.get('lang') === 'en' ? 'en' : 'ja',
+      lang: (new URLSearchParams(location.search)).get('lang') === 'en' ? 'en' : 'ja',
       gtag: 'G-9ML40PK6KJ',
       data: {
         api: {
@@ -791,9 +789,9 @@
     })
   </script>
   <script>
-    function load(path, identifier, headers = {}) {
+    const load = (path, identifier, headers = {}) => {
       const key = 'cache:fetch:v1:' + path + ':' + identifier;
-      const switchLoadingMessage = () => {
+      const loadedProcess = () => {
         document.querySelectorAll('[data-loader="' + identifier + '"]').forEach((loader) => {
           loader.style.display = 'none';
         });
@@ -806,14 +804,14 @@
       const cachedData = JSON.parse(retrievedData ? retrievedData : "{}");
       if (retrievedData &&  (new Date()).getTime() <= cachedData.ttl) {
         return new Promise((resolve) => {
-          switchLoadingMessage();
+          loadedProcess();
           resolve(cachedData.body);
         });
       }
       return fetch(path, {
         mode: 'cors',
         cache: 'default',
-        headers: headers,
+        headers: {},
       }).then((response) => {
         return response.json();
       }).then((json) => {
@@ -825,7 +823,7 @@
           })
         );
 
-        switchLoadingMessage();
+        loadedProcess();
 
         return new Promise((resolve) => {
           resolve(json);
@@ -833,42 +831,61 @@
       });
     }
 
-    function renderListItem(query, options) {
-      const data = Object.assign({
-        published_at: undefined,
-        subtitle: undefined,
-        title: undefined,
-        tags: [],
-        url: undefined,
-      }, options);
+    const renderList = (className, payload) => {
+      const dl = ce('dl', className);
+      payload.forEach((props) => {
+        const data = Object.assign({
+          published_at: undefined,
+          subtitle: undefined,
+          title: undefined,
+          tags: [],
+          url: undefined,
+        }, props);
 
-      const dt = ce('dt');
-      const dd = ce('dd');
+        const dt = ce('dt');
+        const dd = ce('dd');
 
-      const time = ce('time');
-      const publishedAt = new Date(data.published_at)
-      const month = publishedAt.getMonth() + 1;
-      const date = publishedAt.getDate();
-      time.innerText = publishedAt.getFullYear() + "/" + (month <= 9 ? "0" : "") + month + "/" + (date <= 9 ? "0" : "") + date;
-      dt.appendChild(time);
+        const time = ce('time');
+        const publishedAt = new Date(data.published_at)
+        const month = publishedAt.getMonth() + 1;
+        const date = publishedAt.getDate();
+        time.innerText = publishedAt.getFullYear() + "/" + (month <= 9 ? "0" : "") + month + "/" + (date <= 9 ? "0" : "") + date;
+        dt.appendChild(time);
 
-      dt.appendChild(ce('span', null, data.subtitle));
+        dt.appendChild(ce('span', null, data.subtitle));
 
-      // Specify details into dd DOM
-      const link = ce('a', null, data.title);
-      link.setAttribute('target', '_blank');
-      link.setAttribute('href', data.url);
-      dd.appendChild(link)
+        // Specify details into dd DOM
+        const link = ce('a', null, data.title);
+        link.setAttribute('target', '_blank');
+        link.setAttribute('href', data.url);
+        dd.appendChild(link)
 
-      const tags = ce('ul', 'e-a-tags');
-      data.tags.forEach((tagName) => tags.appendChild(ce('li', tagName.toLowerCase(), tagName)));
+        const tags = ce('ul', 'e-a-tags');
+        data.tags.forEach((tagName) => tags.appendChild(ce('li', tagName.toLowerCase(), tagName)));
 
-      dd.appendChild(tags);
+        dd.appendChild(tags);
 
-      const target = document.querySelector(query);
-      target.appendChild(dt);
-      target.appendChild(dd);
+        dl.appendChild(dt);
+        dl.appendChild(dd);
+      })
+
+      return dl;
     }
+
+    document.addEventListener('DOMContentLoaded', (e) => {
+      document.querySelectorAll('[data-api-fetch]').forEach((elem) => {
+        const path = elem.getAttribute('data-api-fetch');
+        load(window.ANEMONE.data.api[path], path).then((payload) => {
+          elem.dispatchEvent(new CustomEvent('LoadedData:' + path, {
+            bubbles: true,
+            detail: {
+              name: path,
+              value: payload,
+            },
+          }));
+        });
+      })
+    });
   </script>
   <script>
     const _ = (path) => {
@@ -910,8 +927,7 @@
       });
     }
 
-    const render = (callback) => document.addEventListener('LoadedMyIntro:' + document.currentScript.getAttribute('data-value'), (e) => {
-
+    const render = (callback) => document.addEventListener('LoadedData:' + document.currentScript.getAttribute('data-value'), (e) => {
       const result = callback(e);
 
       if (result instanceof DocumentFragment) {
@@ -940,7 +956,7 @@
 
         document.querySelectorAll('[data-value]').forEach((elem) => {
           const path = elem.getAttribute('data-value');
-          elem.dispatchEvent(new CustomEvent('LoadedMyIntro:' + path, {
+          elem.dispatchEvent(new CustomEvent('LoadedData:' + path, {
             bubbles: true,
             detail: {
               name: path,
@@ -1148,25 +1164,19 @@
                   <p class="loading-message"><img class="loading-spinner" src="./loading.svg" width="32" alt="" /></p>
                 </div>
                 <div data-loaded="articles">
-                  <dl class="article-area">
-                  </dl>
+                  <script data-value="articles" data-api-fetch="articles">
+                    render((e) => renderList('article-area', e.detail.value.posts.slice(0, 5).map((value) => ({
+                      published_at: value.createdAt,
+                      subtitle: value.bodyCharacterCount.toLocaleString('en-US') + " 文字",
+                      title: value.title,
+                      tags: value.tags,
+                      url: "https://sizu.me/memory/posts/" + value.slug,
+                    }))));
+                  </script>
                   <div class="e-expand-btn e-expand-btn--open"  onclick="gtag('event','click_open_weblog')">
                     <a target="_blank" href="https://sizu.me/memory"><script data-value="lang.blog.link">render(renderString(null))</script></a>
                   </div>
                 </div>
-                <script>
-                  load(window.ANEMONE.data.api.articles, 'articles').then((json) => {
-                    json.posts.slice(0, 5).forEach((value) => {
-                      renderListItem('.article-area', {
-                        published_at: value.createdAt,
-                        subtitle: value.bodyCharacterCount.toLocaleString('en-US') + " 文字",
-                        title: value.title,
-                        tags: value.tags,
-                        url: "https://sizu.me/memory/posts/" + value.slug,
-                      });
-                    });
-                  })
-                </script>
               </div>
               <div class="mt">
                 <h2>Activities</h2>
@@ -1175,8 +1185,17 @@
                   <p class="loading-message"><img class="loading-spinner" src="./loading.svg" width="32" alt="" /></p>
                 </div>
                 <div data-loaded="activities">
-                  <dl class="activity-area">
-                  </dl>
+                  <script data-value="activities" data-api-fetch="activities">
+                    render((e) => renderList('activity-area', e.detail.value.map((value) => ({
+                      published_at: value.published_at,
+                      subtitle: value.is_oss
+                        ? "Open Source Software"
+                        : value.location,
+                      title: value.title,
+                      tags: value.tags,
+                      url: value.url,
+                    }))));
+                  </script>
                   <label class="e-expand-btn e-expand-btn--open" for="activity-listing" onclick="gtag('event','click_activities_expander')">
                     <span><i class="fa-solid fa-caret-down"></i><script data-value="lang.activity.open">render(renderString(null))</script></span>
                   </label>
@@ -1184,21 +1203,6 @@
                     <span><i class="fa-solid fa-caret-up"></i> <script data-value="lang.activity.close">render(renderString(null))</script></span>
                   </label>
                 </div>
-                <script>
-                  load(window.ANEMONE.data.api.activities, 'activities').then((json) => {
-                    json.forEach((value) => {
-                      renderListItem('.activity-area', {
-                        published_at: value.published_at,
-                        subtitle: value.is_oss
-                          ? "Open Source Software"
-                          : value.location,
-                        title: value.title,
-                        tags: value.tags,
-                        url: value.url,
-                      });
-                    });
-                  })
-                </script>
               </div>
             </div>
           </div>
