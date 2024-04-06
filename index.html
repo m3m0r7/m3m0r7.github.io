@@ -852,25 +852,16 @@
       time.innerText = publishedAt.getFullYear() + "/" + (month <= 9 ? "0" : "") + month + "/" + (date <= 9 ? "0" : "") + date;
       dt.appendChild(time);
 
-      const subtitle = ce('span');
-      subtitle.innerText = data.subtitle;
-      dt.appendChild(subtitle);
+      dt.appendChild(ce('span', null, data.subtitle));
 
       // Specify details into dd DOM
-      const link = ce('a');
+      const link = ce('a', null, data.title);
       link.setAttribute('target', '_blank');
       link.setAttribute('href', data.url);
-      link.innerText = data.title;
       dd.appendChild(link)
 
-      const tags = ce('ul');
-      tags.setAttribute('class', 'e-a-tags');
-      data.tags.forEach((tagName) => {
-        const tag = ce('li');
-        tag.setAttribute('class', tagName.toLowerCase())
-        tag.innerText = tagName;
-        tags.appendChild(tag);
-      });
+      const tags = ce('ul', 'e-a-tags');
+      data.tags.forEach((tagName) => tags.appendChild(ce('li', tagName.toLowerCase(), tagName)));
 
       dd.appendChild(tags);
 
@@ -920,7 +911,7 @@
     }
 
     const render = (callback) => document.addEventListener('LoadedMyIntro:' + document.currentScript.getAttribute('data-value'), (e) => {
-      // Bind callee script element
+
       const result = callback(e);
 
       if (result instanceof DocumentFragment) {
