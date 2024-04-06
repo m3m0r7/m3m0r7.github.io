@@ -914,10 +914,7 @@
     const renderArray = (childTagName) => (e) => {
       return e.detail.value.map((string) => {
         if (string === null) {
-          e.target.appendChild(
-            ce('br'),
-          );
-          return;
+          return ce('br');
         }
 
         const tag = ce(childTagName);
