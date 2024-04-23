@@ -110,6 +110,22 @@
   "experiences": [
     {
       "name": {
+        "en": "Liiga, Inc.",
+        "ja": "Liiga, Inc."
+      },
+      "positions": [
+        {
+          "name": {
+            "en": "Chief Technology Officer",
+            "ja": "CTO"
+          },
+          "start": "2024/4",
+          "end": "現在"
+        }
+      ]
+    },
+    {
+      "name": {
         "en": "enpay, Inc.",
         "ja": "enpay, Inc."
       },
