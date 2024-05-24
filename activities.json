@@ -1,5 +1,16 @@
 [
   {
+    "published_at": "2024-05-17T00:00:00+09:00",
+    "url": "https://speakerdeck.com/memory1994/how-to-implement-a-rubyvm-with-php-rubykaigi2024",
+    "is_oss": false,
+    "title": "How to implement a RubyVM with PHP?",
+    "tags": [
+      "Talk",
+      "Tech"
+    ],
+    "location": "RubyKaigi 2024"
+  },
+  {
     "published_at": "2024-03-22T00:00:00+09:00",
     "url": "https://github.com/m3m0r7/ez-door-sign",
     "is_oss": true,
