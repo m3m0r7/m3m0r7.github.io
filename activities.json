@@ -11,6 +11,26 @@
     "location": "RubyKaigi 2024"
   },
   {
+    "published_at": "2024-08-03T00:00:00+09:00",
+    "url": "https://github.com/m3m0r7/php-machine-emulator",
+    "is_oss": true,
+    "title": "m3m0r7/php-machine-emulator - A machine emulator written in PHP",
+    "tags": [
+      "OSS",
+      "Tech"
+    ]
+  },
+  {
+    "published_at": "2024-07-12T00:00:00+09:00",
+    "url": "https://github.com/m3m0r7/php-os",
+    "is_oss": true,
+    "title": "m3m0r7/php-os - An operating system written in PHP",
+    "tags": [
+      "OSS",
+      "Tech"
+    ]
+  },
+  {
     "published_at": "2024-05-17T00:00:00+09:00",
     "url": "https://speakerdeck.com/memory1994/how-to-implement-a-rubyvm-with-php-rubykaigi2024",
     "is_oss": false,
