@@ -1,5 +1,16 @@
 [
   {
+    "published_at": "2024-08-19T00:00:00+09:00",
+    "url": "https://globalbrains.connpass.com/event/324893/",
+    "is_oss": false,
+    "title": "プロダクトの正しい「やめ方」〜スタートアップのCTOは大きな決断にどう向き合うか？〜",
+    "tags": [
+      "Panel Discussion",
+      "Business"
+    ],
+    "location": "RubyKaigi 2024"
+  },
+  {
     "published_at": "2024-05-17T00:00:00+09:00",
     "url": "https://speakerdeck.com/memory1994/how-to-implement-a-rubyvm-with-php-rubykaigi2024",
     "is_oss": false,
