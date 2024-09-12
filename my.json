@@ -1,7 +1,7 @@
 {
   "name": {
-    "en": "memory\n(m3m0r7)",
-    "ja": "めもりー\n(memory, m3m0r7)"
+    "en": "memory",
+    "ja": "めもりー"
   },
   "summary": {
     "en": [
@@ -20,95 +20,6 @@
       "開発業務・技術顧問業務・登壇依頼・執筆などのお仕事依頼等はお気軽にご連絡ください。"
     ]
   },
-  "technicalSkills": [
-    {
-      "name": {
-        "en": "Management skills",
-        "ja": "Management skills"
-      },
-      "skills": {
-        "en": [
-          "Management of technology",
-          "Developer Relations",
-          "Recruitment strategy"
-        ],
-        "ja": [
-          "技術経営戦略 (MOT)",
-          "エンジニア組織/採用戦略"
-        ]
-      }
-    },
-    {
-      "name": {
-        "en": "Main skills",
-        "ja": "Main skills"
-      },
-      "skills": {
-        "en": [
-          "PHP",
-          "Laravel",
-          "Swoole",
-          "Go",
-          "TypeScript",
-          "React",
-          "Next.js",
-          "JavaScript",
-          "AWS",
-          "Elasticsearch"
-        ],
-        "ja": [
-          "PHP",
-          "Laravel",
-          "Swoole",
-          "Go",
-          "TypeScript",
-          "React",
-          "Next.js",
-          "JavaScript",
-          "AWS",
-          "Elasticsearch"
-        ]
-      }
-    },
-    {
-      "name": {
-        "en": "Other skills",
-        "ja": "Other skills"
-      },
-      "skills": {
-        "en": [
-          "Ruby",
-          "Ruby on Rails",
-          "Docker",
-          "Redis",
-          "CakePHP",
-          "Vue",
-          "WordPress",
-          "Terraform",
-          "Selenium",
-          "Java",
-          "JVM",
-          "RubyVM",
-          "..."
-        ],
-        "ja": [
-          "Ruby",
-          "Ruby on Rails",
-          "Docker",
-          "Redis",
-          "CakePHP",
-          "Vue",
-          "WordPress",
-          "Terraform",
-          "Selenium",
-          "Java",
-          "JVM",
-          "RubyVM",
-          "..."
-        ]
-      }
-    }
-  ],
   "experiences": [
     {
       "name": {
@@ -122,7 +33,7 @@
             "ja": "CTO"
           },
           "start": "2024/4",
-          "end": "現在"
+          "end": null
         }
       ]
     },
@@ -237,12 +148,6 @@
           "end": "2019/6"
         }
       ]
-    },
-    {
-      "name": {
-        "en": "I have many working experience both freelance and full-time worker",
-        "ja": "その他複数社で業務委託や正社員での経験あり"
-      }
     }
   ],
   "books": [
@@ -258,7 +163,9 @@
             "ja": "レガシーコードとどう付き合うか"
           },
           "image": "legacy_code.jpg",
-          "link": "https://www.amazon.co.jp/dp/4863544103"
+          "published_at": "2023/5/23",
+          "link": "https://www.amazon.co.jp/dp/4863544103",
+          "tags": ["Sole-authored", "PHP"]
         }
       ]
     },
@@ -274,7 +181,9 @@
             "ja": "Swooleで学ぶPHP非同期処理"
           },
           "image": "swoole.jpg",
-          "link": "https://www.amazon.co.jp/dp/B0BV69C24M"
+          "published_at": "2023/2/20",
+          "link": "https://www.amazon.co.jp/dp/B0BV69C24M",
+          "tags": ["Sole-authored", "PHP"]
         },
         {
           "title": {
@@ -282,7 +191,9 @@
             "ja": "みんなのPHP"
           },
           "image": "minnano_php.png",
-          "link": "https://www.amazon.co.jp/dp/B08238P624"
+          "published_at": "2019/12/1",
+          "link": "https://www.amazon.co.jp/dp/B08238P624",
+          "tags": ["Co-authored", "PHP"]
         },
         {
           "title": {
@@ -290,7 +201,9 @@
             "ja": "Software Design 2019年12月号"
           },
           "image": "sd201912.png",
-          "link": "https://www.amazon.co.jp/dp/B07Z74Q3BD"
+          "published_at": "2019/11/18",
+          "link": "https://www.amazon.co.jp/dp/B07Z74Q3BD",
+          "tags": ["Co-authored","PHP"]
         },
         {
           "title": {
@@ -298,27 +211,11 @@
             "ja": "Software Design 2021年09月号"
           },
           "image": "sd202110.jpg",
-          "link": "https://www.amazon.co.jp/dp/B09CRLXD3S"
+          "published_at": "2021/9/18",
+          "link": "https://www.amazon.co.jp/dp/B09CRLXD3S",
+          "tags": ["Co-authored","PHP"]
         }
       ]
     }
-  ],
-  "lang": {
-    "blog": {
-      "link": {
-        "en": "Read more",
-        "ja": "続きを見る"
-      }
-    },
-    "activity": {
-      "open": {
-        "en": "Open more activities",
-        "ja": "過去のアクティビティを開く"
-      },
-      "close": {
-        "en": "Close more activities",
-        "ja": "過去のアクティビティを閉じる"
-      }
-    }
-  }
+  ]
 }

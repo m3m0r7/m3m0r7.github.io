@@ -1,724 +1,521 @@
 <!DOCType html>
-<html>
+<html lang="">
 <head>
+  <meta charset="UTF-8" />
   <title>memory' portfolio</title>
-  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP|M+PLUS+1p|Roboto|Cabin" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&family=Noto+Sans+JP:wght@700&family=Roboto&family=Roboto+Mono" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
   <script src="https://kit.fontawesome.com/b88d781de7.js" crossorigin="anonymous"></script>
-  <meta charset="utf-8">
   <style>
-    * {
-      font-family: "M PLUS 1", sans-serif;
-    }
-
     :root {
-      --darkmode-text-color: #E0E0E0;
-      --lightmode-text-color: #0E0E0E;
-
-      --darkmode-text-sub-color: #999999;
-      --lightmode-text-sub-color: #777777;
-
-      --darkmode-background-color: #F1F1F1;
-      --lightmode-background-color: #1F1F1F;
-
-      --darkmode-link-hovered-color: #888888;
-      --lightmode-link-hovered-color: #666666;
-
-      --darkmode-button-border-color: rgba(100, 100, 100, 0.8);
-      --darkmode-button-shadow-color: rgba(100, 100, 100, 0.2);
-
-      --lightmode-button-border-color: rgba(205, 205, 205, 0.8);
-      --lightmode-button-shadow-color: rgba(225, 225, 225, 0.2);
+      --accent-color-1: #c6379c;
+      --accent-color-2: #3c65aa;
     }
-
-    body, html {
+    html, body {
       padding: 0;
       margin: 0;
-      overflow: hidden;
-      width: 100vw;
-      height: 100vh;
-    }
-
-    ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    li {
-      margin: 0;
-      margin-top: 10px;
-      padding: 0;
-      padding-top: 10px;
-    }
-
-    .e-mes-w {
-      position: relative;
-      display: flex;
-    }
-
-    .e-mes-vbar {
-      width: 6px;
-      background-color: rgba(20, 20, 20, 0.8);
-      border-radius: 3px;
-      transition: background-color 0.25s ease-in;
-    }
-
-    .appearance:not(:checked) ~ .m-w .e-mes-vbar {
-      background-color: rgba(215, 215, 215, 0.8);
-    }
-
-    .e-mes {
-      display: grid;
-    }
-
-    .e-mes > li {
-      padding-top: 0;
-      margin-bottom: 10px;
-      position: relative;
-      padding-left: 20px;
-    }
-
-    .e-mes > li::before {
-      content: '';
-      position: absolute;
-      top: 5px;
-      left: calc(-12px + 2px);
-      background: rgba(120, 120, 120, 0.8);
-      width: 14px;
-      height: 14px;
-      display: block;
-      border-radius: 7px;
-    }
-
-    .e-mes-c-n {
-      font-weight: bold;
-      font-size: 16px;
-      display: flex;
-      word-break: break-all;
-    }
-
-    .e-mes-c-n--plain {
-      font-weight: normal;
-    }
-
-    .e-mes > li:first-child::before {
-      background: rgba(233, 30, 99, 0.8);
-    }
-
-    .e-mes-c-p-l {
-      padding: 5px;
-      padding-left: 0;
-    }
-
-    .e-mes-c-p-l > li:first-child {
-      margin-top: 0;
-    }
-
-    .e-mes-c-p {
-      margin-top: 10px;
-    }
-
-    .e-mes-c-p div {
-      font-size: 14px;
-    }
-
-    .e-mes-c-p time {
-      font-size: 12px;
-      color: #999999;
-    }
-
-    .e-mes-c-p time::before {
-      content: '(';
-    }
-
-    .e-mes-c-p time::after {
-      content: ')';
-    }
-
-    .w-w {
-      width: 100vw;
+      font-family: "Noto Sans JP", sans-serif;
       overflow: hidden;
     }
 
-    .m-w {
-      position: relative;
-      padding-top: calc(50vh - 100px);
-      overflow: scroll;
-      width: 100%;
-      height: 100%;
-      scroll-behavior: smooth;
-      box-sizing: border-box;
-    }
-
-    .b {
+    .contents {
       position: absolute;
-      width: 100vw;
-      height: 50vh;
-      top: 0;
       left: 0;
-      overflow: hidden;
-    }
-
-    .b-i {
-      position: absolute;
-      top: -16px;
-      left: -16px;
-
-      width: calc(100vw + 32px);
-      height: calc(100% + 40px);
-      background: url("./assets/pc.jpg");
-      background-size: cover;
-      background-position: 50% 65%;
-      background-repeat: no-repeat;
-      z-index: -1;
-      filter: blur(8px);
-    }
-
-
-    .b-o {
-      position: absolute;
       top: 0;
-      left: 0;
-
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, .65);
-      transition: background-color 0.25s ease-in;
+      z-index: 5;
     }
 
-
-    .appearance:not(:checked) ~ .b .b-o {
-      background-color: rgba(255, 255, 255, .65);
-    }
-
-    .w-1 {
-      background-color: #1F1F1F;
-      width: calc(100vw + 20px);
-      position: relative;
-      left: -10px;
-      height: 150px;
-      border-radius: 50% 50% 0 0 ;
-      transition: background-color 0.25s ease-in;
-    }
-
-    .w-2 {
-      background-color: var(--lightmode-background-color);
-      width: 100vw;
-      min-height: calc(100vh - 150px - 200px);
-      transition: background-color 0.25s ease-in;
-    }
-
-    .appearance:not(:checked) ~ .m-w .w-1,
-    .appearance:not(:checked) ~ .m-w .w-2,
-    .appearance:not(:checked) ~ .m-w .i-w {
-      background-color: var(--darkmode-background-color);
-    }
-
-    .i-w {
-      border-radius: 50%;
-      background-color: #1F1F1F;
-      width: 200px;
-      height: 200px;
-      position: absolute;
-      left: calc(50% - 100px);
-      transition: background-color 0.25s ease-in;
-    }
-
-    .i-m {
-      border-radius: 50%;
-      background: transparent url("./assets/logical_memory.jpg");
-      background-repeat: no-repeat;
-      background-position: 50% 50%;
-      background-size: contain;
-      width: 180px;
-      height: 180px;
-
-      position: relative;
-      top: 10px;
-      left: 10px;
-    }
-
-    .e-name {
-      font-size: 32px;
-      font-weight: bold;
-      color: var(--darkmode-text-color);
-      text-align: center;
-      transition: color 0.25s ease-in;
-    }
-
-    .appearance:not(:checked) ~ .m-w .e-name {
-      color: var(--lightmode-text-color);
-    }
-
-    .r-w {
-      top: calc(50vh - 200px);
-      position: absolute;
-      width: 100vw;
-    }
-    .e-info {
-      width: 80vw;
-      margin: 0 auto;
-    }
-
-    .e-info-body {
-      display: grid;
-      grid-gap: 80px;
-      grid-template-columns: 1fr 1fr;
-      margin-top: 40px;
-    }
-
-    .e-info-body * {
-      color: var(--darkmode-text-color);
-      transition: color 0.25s ease-in;
-    }
-    .appearance:not(:checked) ~ .m-w .e-info-body * {
-      color: var(--lightmode-text-color);
-    }
-
-    .e-info-body h3 {
-      margin-top: 40px;
-      margin-bottom: 0;
-    }
-
-    .e-info-body h2, .e-info-body h3 {
-      color: var(--darkmode-text-color);
-      font-weight: bold;
-      text-align: center;
-      text-transform: uppercase;
-      transition: color 0.25s ease-in;
-    }
-
-    .appearance:not(:checked) ~ .m-w .e-info-body h2,
-    .appearance:not(:checked) ~ .m-w .e-info-body h3 {
-      color: #0E0E0E;
-    }
-
-    .e-info-body dt {
-      margin-top: 20px;
-      padding-top: 20px;
-      border-top: 1px solid #000000;
-      margin-bottom: 5px;
-      font-size: 12px;
+    section {
       display: flex;
-      justify-content: space-between;
-      transition: border-top 0.25s ease-in;
-    }
-
-    .appearance:not(:checked) ~ .m-w .e-info-body dt:not(:first-child) {
-      border-top: 1px solid #FFFFFF;
-    }
-
-
-    .e-info-body dt:first-child {
-      margin-top: 0;
-      padding-top: 0;
-      border-top: 0;
-    }
-
-    .e-info-body dt span, .e-info-body dt time {
-      color: var(--darkmode-text-sub-color);
-    }
-    .appearance:not(:checked) ~ .m-w .e-info-body dt span,
-    .appearance:not(:checked) ~ .m-w .e-info-body dt time {
-      color: var(--lightmode-text-sub-color);
-    }
-
-    .e-info-body dd {
-      padding: 0;
-      margin: 0;
-    }
-
-    .e-contact {
-      list-style: none;
-      padding: 0;
-      text-align: center;
-      margin: 5px auto 40px auto;
-      display: grid;
-      grid-gap: 20px;
-      grid-template-columns: repeat(5, 32px);
-      width: calc(32px * 5 + 20px * 4);
-      height: 54px;
-    }
-
-    .e-contact-area * {
-      color: var(--darkmode-text-color);
-      transition: color 0.25s ease-in;
-    }
-
-    .appearance:not(:checked) ~ .m-w .e-contact-area * {
-      color: var(--lightmode-text-color);
-    }
-
-
-    .e-contact .fa-brands {
-      font-size: 32px;
-    }
-
-    .mt {
-      margin-top: 80px;
-    }
-
-    a {
-      text-decoration: none;
-      transition: color ease 0.2s;
-    }
-
-    a:hover {
-      color: var(--darkmode-link-hovered-color);
-    }
-
-    .appearance:not(:checked) ~ .m-w a:hover {
-      color: var(--lightmode-link-hovered-color);
-    }
-
-    .books {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-gap: 20px;
-    }
-
-    .book-no-image {
-      background-color: #353535;
-      width: 100%;
-      height: 100%;
-      transition: background-color 0.25s ease-in;
-    }
-
-    .appearance:not(:checked) ~ .m-w .book-no-image {
-      background-color: #D5D5D5;
-    }
-
-    .e-tags {
-      display: flex;
-      flex-wrap: wrap;
-    }
-
-    .e-tags dt {
-      width: 100px;
-      border-top: none;
-      padding-top: 0;
-      margin-top: 0;
-      font-size: 14px;
-      margin-bottom: 34px;
-      border-top: none !important;
-    }
-
-    .e-tags dd {
-      width: calc(100% - 100px);
-      padding-top: 0;
-      margin-top: 0;
-      margin-bottom: 34px;
-    }
-
-    .e-tags dd ul {
-      display: flex;
-      flex-wrap: wrap;
-      margin-top: -14px;
-
-    }
-
-    .e-tags dd li {
-      margin-top: 10px;
-      font-size: 14px;
-      padding: 4px 8px;
-      margin-right: 4px;
-      border-radius: 4px;
-      background-color: rgba(20, 20, 20, 0.8);
-      box-shadow: 0 0 5px rgba(20, 20, 20, 0.4);
-      transition: background-color 0.25s ease-in, box-shadow 0.25s ease-in;
-    }
-
-    .appearance:not(:checked) ~ .m-w .e-tags dd li {
-      background-color: rgba(230, 230, 230, 0.8);
-      box-shadow: 0 0 5px rgba(230, 230, 230, 0.4);
-    }
-
-
-    .f-cc {
-      margin-top: 100px;
-      background-color: #101011;
-      height: 100vh;
-      display: flex;
-      align-items: center;
       justify-content: center;
-      overflow: hidden;
+      align-items: center;
+      height: 100vh;
+      width: 100vw;
     }
 
-    .f-cc h3 {
-      font-family: "Cabin", sans-serif;
-      color: #E3E3E3;
-      font-size: 64px;
+    .container {
+      display: flex;
+      flex-flow: column;
     }
 
-    .e-mail-address {
+    .container div {
       text-align: center;
-      margin-bottom: 0;
     }
 
-    .e-mail-address > span::after {
-      content: '@gmail.com';
+    .contacts {
+      margin: 0;
+      padding: 0;
+      display: grid;
+      grid-gap: 20px;
+      grid-template-columns: repeat(4, calc(((400px - 20px) / 4)));
+      list-style: none;
+      height: 54px;
+      text-align: center;
+      font-size: 54px;
+      line-height: 54px;
+
+      background: linear-gradient(140deg, var(--accent-color-1) 0%, var(--accent-color-2) 100%);
+      background-clip: text;
+
+      animation: animate-background;
+      animation-duration: 20s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+
+    .contacts a {
+      color: transparent;
+    }
+
+    .e-mail, .name {
+      background: linear-gradient(140deg, var(--accent-color-1) 0%, var(--accent-color-2) 100%);
+      background-clip: text;
+      color: transparent;
+      font-size: 24px;
+      margin: 0;
+      padding: 0;
+      margin-bottom: 40px;
+
+      animation: animate-background;
+      animation-duration: 20s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+
+    .name {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .e-mail::after {
+      content: "@gmail.com"
+    }
+
+    .balloon-container {
+      position: fixed;
       z-index: 1;
     }
 
-    .e-a-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-      padding: 0;
-      margin-top: 15px;
-      margin-bottom: 0;
+    .balloon-container img {
+      display: block;
     }
 
-    .e-a-tags > li,
-    .appearance:not(:checked) ~ .m-w .e-a-tags > li {
-      margin: 0;
-      padding: 2px 4px;
-      font-size: 11px;
-      background-color: rgba(60, 64, 72, 0.8);
-      border-radius: 3px;
-      color: #FFFFFF;
+    @keyframes animate-background {
+      0% {
+        background-position: 0 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0 50%;
+      }
     }
 
-    .e-a-tags > li.new {
-      background-color: rgba(233, 30, 99, 0.8) !important;
+    .is-mobile {
+      display: none;
     }
 
-    .e-a-tags > li.pickup {
-      background-color: rgba(255, 175, 69, 0.8) !important;;
+    .\!is-mobile {
+      display: inline;
     }
 
-    .e-a-tags > li.abandoned {
-      background-color: rgba(156, 175, 170, 0.8) !important;;
-    }
-
-    .activity-area {
-      /*height: 2450px;*/
-      height: 1225px;
-      overflow: hidden;
-    }
-
-    .activity-opener {
+    .balloon-container-opener {
       position: absolute;
-      left: -9999px;
-      top: 2450px;
-    }
-
-    .activity-opener:checked ~ * .activity-area {
-      height: auto;
-    }
-
-    .activity-opener:checked ~ * label.e-expand-btn--open {
-      display: none;
-    }
-
-    .activity-opener ~ * label.e-expand-btn--close {
-      display: none;
-    }
-    .activity-opener:checked ~ * label.e-expand-btn--close {
-      display: block;
-    }
-
-    .e-expand-btn {
-      border: 1px solid var(--lightmode-button-border-color);
-      box-shadow: 0 0 5px var(--lightmode-button-shadow-color);
-      font-size: 14px;
-      text-align: center;
-      border-radius: 4px;
-      cursor: pointer;
-      line-height: 22px;
-      display: block;
-      transition: background-color 0.25s ease-in;
-    }
-
-    .e-expand-btn a,
-    .e-expand-btn span {
-      display: block;
-      line-height: 42px;
-    }
-
-    .appearance:checked ~ .m-w .e-expand-btn {
-      border: 1px solid var(--darkmode-button-border-color);
-      box-shadow: 0 0 5px var(--darkmode-button-shadow-color);
-    }
-
-    .e-container-activity-opener {
-      position: relative;
-    }
-    .e-expand-btn .fa-caret-down,
-    .e-expand-btn .fa-caret-up {
-      font-size: 22px;
-      vertical-align: middle;
-      margin-right: 5px;
-      position: relative;
-      top: -2px;
-    }
-
-    .e-expand-btn .fa-caret-up {
       top: 0;
+      right: 0;
+      width: 350px;
+      height: 175px;
+      overflow: hidden;
+      cursor: pointer;
+      z-index: 10;
     }
 
-    .e-navigator {
-      position: absolute;
-      top: 20px;
-      right: 20px;
+    .balloon-container-opener .balloon-container {
+      top: -20px;
+      right: -20px;
+      transition: top ease 0.5s, right ease 0.5s ;
+    }
+
+    .balloon-container-opener:hover .balloon-container {
+      top: 0;
+      right: 0;
+    }
+
+    #opener + .info-contents {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(12px);
+      opacity: 0;
+      transition: opacity ease 0.3s, z-index ease 0.3s;
+      z-index: -1;
+    }
+
+    #opener {
+      display: none;
+    }
+
+    #opener:checked + .info-contents {
+      opacity: 1;
+      z-index: 30;
+    }
+
+    .info-contents {
+      padding: 40px;
       box-sizing: border-box;
-      width: 100%;
-      display: flex;
-      flex-direction: revert;
-      justify-content: right;
-      align-items: center;
     }
 
-    .article-area > dd:nth-of-type(1) .e-a-tags::after,
-    .article-area > dd:nth-of-type(2) .e-a-tags::after,
-    .activity-area > dd:nth-of-type(1) .e-a-tags::after,
-    .activity-area > dd:nth-of-type(2) .e-a-tags::after,
-    .activity-area > dd:nth-of-type(3) .e-a-tags::after {
-      content: "New!";
-      padding: 2px 4px;
-      font-size: 11px;
-      background-color: rgba(233, 30, 99, 0.8);
-      border-radius: 3px;
-      color: #FFFFFF;
+    .info-contents-container-scrollable {
+      height: calc(100% - 40px - 40px);
+      box-sizing: border-box;
+      overflow: scroll;
+      margin-top: 40px;
+    }
+
+    .info-contents-container {
+      display: flex;
+    }
+
+    .close-button {
+      display: inline-block;
+    }
+
+    .close-button i {
+      font-size: 32px;
+      cursor: pointer;
+      color: #888888;
+    }
+
+    h2 {
+      font-size: 32px;
+      background: linear-gradient(140deg, var(--accent-color-1) 0%, var(--accent-color-2) 100%);
+      background-clip: text;
+      color: transparent;
+      animation: animate-background;
+      animation-duration: 20s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+      margin: 0;
+      padding: 0;
+    }
+
+    .info-contents-list {
+      width: 100%;
+    }
+
+    .info-contents-list-bar {
+      margin-left: 152px;
+      background: linear-gradient(140deg, var(--accent-color-1) 0%, var(--accent-color-2) 100%);
+      width: 1px;
+
+    }
+
+    .info-contents-list dt {
+      position: relative;
+    }
+
+    .info-contents-list dt .title {
+      font-size: 24px;
+      display: inline-block;
+      background: linear-gradient(140deg, var(--accent-color-1) 0%, var(--accent-color-2) 100%);
+      font-weight: 700;
+      background-clip: text;
+      color: transparent;
+      animation: animate-background;
+      animation-duration: 20s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+      position: relative;
+      padding-left: 12px;
+    }
+
+    .info-contents-list dt .title a {
+      text-decoration: none;
+      color: transparent;
+    }
+
+    .info-contents-list dt .icon {
+      position: absolute;
+      background: linear-gradient(140deg, var(--accent-color-1) 0%, var(--accent-color-2) 100%);
+      border-radius: 50%;
+      width: 25px;
+      height: 25px;
+      left: -13px;
+      top: calc(7px);
+    }
+
+    .info-contents-list dt .outer-content {
+      position: absolute;
+      left: -154px;
+      top: 1px;
+      width: 134px;
+      text-align: right;
+
+    }
+    .info-contents-list dt .outer-content time {
+      font-size: 24px;
+      text-align: right;
+      background: linear-gradient(140deg, var(--accent-color-1) 0%, var(--accent-color-2) 100%);
+      background-clip: text;
+      font-weight: 700;
+      color: transparent;
+    }
+
+    .info-contents-list dt {
+      padding: 0 0 0 10px;
+    }
+
+    .info-contents-list dd {
+      padding: 10px 10px 20px 20px;
+      margin: 0;
+    }
+
+    .info-contents-list dd a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .info-contents-list ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+    }
+
+    .info-contents-list dd .info-contents-list-subtitle,
+    .info-contents-list dd time {
+      font-size: 14px;
+    }
+
+    .info-contents-list dd .info-contents-list-subtitle {
+      margin-top: 2px;
+    }
+
+
+    .info-contents-list-item .type\[figure\] .info-contents-list-subtitle {
+      font-size: 16px;
+    }
+
+    .info-contents-list-description {
+      font-size: 14px;
+      color: #666666;
+    }
+
+    .info-contents-list ul li {
+      font-size: 12px;
+    }
+
+    .info-contents-list-tags {
+      margin-top: 8px;
+    }
+
+
+    .info-contents-list-tags ul {
+      display: flex;
+    }
+
+    .info-contents-list dd time {
+      color: #666666;
+    }
+
+    .info-contents-list-tags li {
+      border: 1px solid #666666;
+      color: #666666;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-right: 4px;
+    }
+
+    .info-contents-list-item {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .info-contents-list-item.info-contents-list-item\[experience\.position\] time {
+      display: block;
+      width: 170px;
+      text-align: right;
+      left: -205px;
+    }
+
+    .info-contents-list-item a {
+      text-decoration: none;
+    }
+
+    .info-contents-list-item time {
+      position: absolute;
+      text-align: right;
+      left: -90px;
+      top: 1px;
+    }
+
+    .info-contents-list-item .icon {
+      position: absolute;
+      background: #666666;
+      border-radius: 50%;
+      width: 13px;
+      height: 13px;
+      left: -27px;
+      top: calc(6px);
+    }
+
+    .info-contents-list-item .type\[figure\],
+    .info-contents-list-item .type\[activity\] {
+      background: rgba(0, 0, 0, 0.08);
+      border-radius: 4px;
+      padding: 12px 8px;
+      width: 100%;
+      box-sizing: border-box;
+
+      transition: background-color ease 0.3s;
+    }
+
+    .info-contents-list-item .type\[activity\] {
+      padding-left: 12px;
+    }
+
+    .info-contents-list-item .type\[activity\] .info-contents-list-subtitle {
+      margin-top: 0;
+    }
+
+    .info-contents-list-item .type\[figure\] {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      height: 140px;
+      gap: 4px;
+      grid-template-areas: "col1 col2";
+    }
+
+    .info-contents-list-item .type\[figure\]:hover,
+    .info-contents-list-item .type\[activity\]:hover {
+      background: rgba(0, 0, 0, 0.03);
+    }
+
+    .info-contents-list-item .type\[figure\],
+    .info-contents-list-item .type\[activity\] {
+      color: #333333;
+    }
+
+
+    .info-contents-list-item .type\[figure\] time {
+      color: #777777;
+    }
+
+    .info-contents-list-figure {
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+    }
+
+    .info-contents-list-item\[activity\.unpublished\] .info-contents-list-subtitle,
+    .info-contents-list-item\[article\.unpublished\] .info-contents-list-subtitle {
+      text-decoration: line-through;
     }
 
     @media (max-width: 500px) {
-      .e-info-body {
-        display: block;
+
+      .is-mobile {
+        display: inline;
       }
 
-      .f-cc {
-        height: 0;
-      }
-
-      .f-cc div {
+      .\!is-mobile {
         display: none;
       }
 
-      .books {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
+      .intro {
+        padding: 0 20px;
+      }
+      .contacts {
+        grid-template-columns: repeat(4, calc(((100vw - 80px - 40px - 20px) / 4)));
+        font-size: 36px;
+        height: 36px;
+        line-height: 36px;
       }
 
-      .mt {
-        margin-top: 0;
+      .contacts-container, .email-container {
+        background: #FFFFFF;
+        border-radius: 50px;
+        padding: 10px;
       }
 
-      h2, h3 {
-        margin-top: 40px;
-        border-top: 1px solid #000000;
-        padding-top: 40px;
+      .container {
+        position: relative;
+        top: 40px;
       }
 
-      .books li {
-        margin: 0;
+      .e-mail, .name {
+        margin-bottom: 10px;
+      }
+
+      .e-mail {
+        margin-bottom: 0;
+        font-size: 18px;
+        font-weight: 0;
+      }
+
+      .email-container {
+        margin-bottom: 10px;
+      }
+
+      .info-contents-list dt,
+      .info-contents-list dt .title {
         padding: 0;
       }
-    }
+      .info-contents-list dt .icon {
+        display: none;
+      }
 
-    .e-navigator {
-      padding: 10px;
-    }
-    .e-navigator i {
-      text-align: center;
-      min-width: 32px;
-      font-size: 32px;
-      cursor: pointer;
-      color: rgba(255, 255, 255, 0.7);
-    }
+      .info-contents-list dt .outer-content {
+        position: initial;
+        left: initial;
+        top: initial;
+        width: initial;
+        text-align: initial;
+      }
 
-    .change-appearance-button {
-      min-width: 32px;
-      min-height: 36px;
+      .info-contents-list-item .icon {
+        display: none;
+      }
+
+      .info-contents-list-item time {
+        position: initial;
+        left: initial;
+        top: initial;
+      }
+
+      .info-contents-list-item.info-contents-list-item\[experience\.position\] time {
+        width: initial;
+        text-align: initial;
+      }
+
+      .info-contents-list dd {
+        padding: 10px 0 20px 0;
+      }
+
+      .info-contents-list-bar {
+        display: none;
+      }
+
+      .info-contents {
+        padding: 20px;
+      }
     }
-
-    .appearance:not(:checked) ~ .m-w .to-darkmode {
-      display: none;
-    }
-    .appearance:checked ~ .m-w .to-lightmode {
-      display: none;
-    }
-
-    .to-lightmode i {
-      color: #673ab7;
-      text-shadow: 0 0 10px #EEEEEE;
-    }
-
-    .to-darkmode i {
-      color: #FFCA61;
-      text-shadow: 0 0 10px #000000;
-    }
-
-    .appearance {
-      position: absolute;
-      left: -9999px;
-    }
-
-    .loading-message {
-      font-size: 14px;
-      text-align: center;
-    }
-
-    [data-loaded] {
-      display: none;
-    }
-
-    .e-lang {
-      margin: 0;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      align-content: center;
-      margin-right: 10px;
-    }
-
-
-    .e-lang li a,
-    .e-lang li a:hover {
-      display: block;
-      color: #FFFFFF !important;
-      padding: 0 10px;
-      min-width: 40px;
-    }
-
-    .appearance:not(:checked) ~ .m-w .e-lang li,
-    .appearance:checked ~ .m-w .e-lang li {
-      margin: 0;
-      padding: 0;
-      margin-right: 10px;
-      border-radius: 4px;
-      cursor: pointer;
-      text-align: center;
-      border: 1px solid rgba(100, 100, 100, 0.4);
-      color: #FFFFFF;
-      background-color: rgba(100, 100, 100, 0.4);
-    }
-
-    .appearance:checked ~ .m-w .e-lang li {
-      background-color: rgba(100, 100, 100, 0.2);
-    }
-
-    .appearance:not(:checked) ~ .m-w .e-lang li:hover,
-    .appearance:not(:checked) ~ .m-w .e-lang li.active,
-    .appearance:checked ~ .m-w .e-lang li:hover,
-    .appearance:checked ~ .m-w .e-lang li.active {
-      font-weight: bold;
-      background-color: rgba(233, 30, 99, 0.4);
-      color: #FFFFFF;
-    }
-
-
-    .appearance:not(:checked) ~ .m-w .e-lang li:hover,
-    .appearance:not(:checked) ~ .m-w .e-lang li.active {
-      background-color: rgba(233, 30, 99, 0.8);
-    }
-
 
   </style>
   <script>
-    window.ANEMONE = {
+    const CODE_NAME = 'WISTERIA';
+
+    window.WISTERIA = {
       cache: {
+        keyPrefix: 'cache:fetch:v2:',
         fetch: {
           lifetime: 60 * 5,
         },
@@ -732,491 +529,662 @@
           activities: './activities.json',
         },
       },
-    }
-  </script>
-  <script>
-    const cef = () => document.createDocumentFragment();
-    const ce = (name, classList, text) => {
-      const tag = document.createElement(name);
-      if (classList) {
-        tag.setAttribute('class', classList);
-      }
-      if (text) {
-        tag.innerText = text;
-      }
-      return tag;
-    };
-  </script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    document.addEventListener('DOMContentLoaded', () => {
-      const script = ce('script');
-      script.setAttribute('src', 'https://www.googletagmanager.com/gtag/js?id=' + window.ANEMONE.gtag);
-
-      document.querySelector('body').appendChild(script);
-
-      script.addEventListener('load', () => {
-        gtag('js', new Date());
-
-        gtag('config', window.ANEMONE.gtag);
-      })
-    })
-
-    function gtag(){dataLayer.push(arguments);}
-  </script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
-      // For Using system appearance
-      const isDarkTheme = !!darkThemeMq.matches;
-
-      document.querySelector('.appearance').addEventListener('change', () => {
-        localStorage.setItem(
-          'appearance',
-          document.querySelector('.appearance').checked
-            ? 1
-            : 0,
-        );
-
-      })
-
-      if (localStorage.getItem('appearance') === '0') {
-        return;
-      }
-      document.querySelector('.appearance').checked = localStorage.getItem('appearance') === null
-        ? isDarkTheme
-        : !!localStorage.getItem('appearance');
-    })
-  </script>
-  <script>
-    const load = (path, identifier, headers = {}) => {
-      const key = 'cache:fetch:v1:' + path + ':' + identifier;
-      const loadedProcess = () => {
-        document.querySelectorAll('[data-loader="' + identifier + '"]').forEach((loader) => {
-          loader.style.display = 'none';
-        });
-        document.querySelectorAll('[data-loaded="' + identifier + '"]').forEach((loaded) => {
-          loaded.style.display = 'block';
-        });
-      }
-
-      const retrievedData = localStorage.getItem(key);
-      const cachedData = JSON.parse(retrievedData ? retrievedData : "{}");
-      if (retrievedData &&  (new Date()).getTime() <= cachedData.ttl) {
-        return new Promise((resolve) => {
-          loadedProcess();
-          resolve(cachedData.body);
-        });
-      }
-      return fetch(path, {
-        mode: 'cors',
-        cache: 'default',
-        headers: {},
-      }).then((response) => {
-        return response.json();
-      }).then((json) => {
-        localStorage.setItem(
-          key,
-          JSON.stringify({
-            ttl: (new Date()).getTime() + (window.ANEMONE.cache.fetch.lifetime * 1000),
-            body: json,
-          })
-        );
-
-        loadedProcess();
-
-        return new Promise((resolve) => {
-          resolve(json);
-        });
-      });
-    }
-
-    const renderList = (className, payload) => {
-      const dl = ce('dl', className);
-      payload.forEach((props) => {
-        const data = Object.assign({
-          published_at: undefined,
-          subtitle: undefined,
-          title: undefined,
-          tags: [],
-          url: undefined,
-        }, props);
-
-        const dt = ce('dt');
-        const dd = ce('dd');
-
-        const time = ce('time');
-        const publishedAt = new Date(data.published_at)
-        const month = publishedAt.getMonth() + 1;
-        const date = publishedAt.getDate();
-        time.innerText = publishedAt.getFullYear() + "/" + (month <= 9 ? "0" : "") + month + "/" + (date <= 9 ? "0" : "") + date;
-        dt.appendChild(time);
-
-        dt.appendChild(ce('span', null, data.subtitle));
-
-        // Specify details into dd DOM
-        const link = ce('a', null, data.title);
-        link.setAttribute('target', '_blank');
-        link.setAttribute('href', data.url);
-        dd.appendChild(link)
-
-        const tags = ce('ul', 'e-a-tags');
-        data.tags.forEach((tagName) => tags.appendChild(ce('li', tagName.toLowerCase(), tagName)));
-
-        dd.appendChild(tags);
-
-        dl.appendChild(dt);
-        dl.appendChild(dd);
-      })
-
-      return dl;
-    }
-
-    document.addEventListener('DOMContentLoaded', (e) => {
-      document.querySelectorAll('[data-api-fetch]').forEach((elem) => {
-        const path = elem.getAttribute('data-api-fetch');
-        load(window.ANEMONE.data.api[path], path).then((payload) => {
-          elem.dispatchEvent(new CustomEvent('LoadedData:' + path, {
-            bubbles: true,
-            detail: {
-              name: path,
-              value: payload,
-            },
-          }));
-        });
-      })
-    });
-  </script>
-  <script>
-    const _ = (path) => {
-      const lang = window.ANEMONE.lang;
-
-      let itself = window.ANEMONE.my;
-      path.split('.').forEach((path) => {
-        itself = itself[path];
-      });
-
-      return itself[lang] || itself;
-    }
-
-    const renderString = (tagName) => (e) => {
-      if (tagName === null) {
-        const tag = cef();
-        tag.innerText = e.detail.value;
-        return tag;
-      }
-      const tag = ce(tagName);
-      tag.innerText = e.detail.value;
-
-      return tag;
-    }
-
-    const renderArray = (childTagName) => (e) => {
-      return e.detail.value.map((string) => {
-        if (string === null) {
-          return ce('br');
+      i18n: {
+        characters: {
+          ja: "{0} 文字",
+          en: "{0} character(s)",
+        },
+        joinTo: {
+          ja: "{0} にジョイン",
+          en: "Join to {0}",
+        },
+        now: {
+          ja: "現在",
+          en: "Now",
+        },
+        postedNewArticle: {
+          ja: "新しい投稿",
+          en: "Posted a new book",
+        },
+        publishedNewBook: {
+          ja: "新しい著書",
+          en: "Published a new book",
+        },
+        talked: {
+          ja: "登壇",
+          en: "Talked",
+        },
+        unPublished: {
+          ja: "(非公開) ",
+          en: "(Unpublished) ",
+        },
+        createdNewOSS: {
+          ja: "新しい OSS の公開",
+          en: "Created a new OSS"
         }
-
-        const tag = ce(childTagName);
-        tag.innerText = string;
-
-        return tag;
-      });
-    }
-
-    const render = (callback) => document.addEventListener('LoadedData:' + document.currentScript.getAttribute('data-value'), (e) => {
-      const result = callback(e);
-
-      if (result instanceof DocumentFragment) {
-        if (result.innerText) {
-          e.target.after(result.innerText);
-        }
-        Object.entries(result.children).reverse().forEach((part) => {
-          e.target.after(part[1]);
-        });
-      } else if (result instanceof HTMLElement) {
-        e.target.after(result);
-      } else if (Array.isArray(result)) {
-        result.reverse().forEach((part) => {
-          e.target.after(part);
-        });
       }
-
-      // Remove script DOM
-      e.target.remove();
-    });
-
-
-    document.addEventListener('DOMContentLoaded', () => {
-      load(window.ANEMONE.data.api.my, 'my').then((json) => {
-        window.ANEMONE.my = json;
-
-        document.querySelectorAll('[data-value]').forEach((elem) => {
-          const path = elem.getAttribute('data-value');
-          elem.dispatchEvent(new CustomEvent('LoadedData:' + path, {
-            bubbles: true,
-            detail: {
-              name: path,
-              value: _(path),
-            },
-          }));
-        });
-      })
-    });
-  </script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelector('.e-lang .e-lang\\[' + window.ANEMONE.lang + '\\]').classList.add('active');
-    });
+    }
   </script>
 </head>
 <body>
-<input class="appearance" type="checkbox" id="appearance" autocomplete="off" tabindex="-1" />
+<label for="opener" class="balloon-container-opener" >
+  <div class="balloon-container">
+    <img src="./assets/balloon-svg-1.svg" alt=""/>
+  </div>
+</label>
+<div class="balloon-container" style="bottom: 0; left: 0;"><img src="./assets/balloon-svg-2.svg" alt=""/></div>
 
-<div class="b">
-  <div class="b-i">
-    <div class="b-o"></div>
+<input id="opener" type="checkbox" tabindex="-1" />
+<div class="info-contents">
+  <div>
+    <label for="opener" class="close-button"><i class="fa-solid fa-xmark"></i></label>
+  </div>
+  <div class="info-contents-container-scrollable">
+    <div class="info-contents-container">
+      <div class="info-contents-list-bar"></div>
+      <dl class="info-contents-list"></dl>
+    </div>
   </div>
 </div>
-<div class="m-w">
-  <div class="e-navigator">
-    <ul class="e-lang">
-      <li class="e-lang[en]"><a href="./?lang=en">EN</a></li>
-      <li class="e-lang[ja]"><a href="./?lang=ja">JA</a></li>
-    </ul>
-    <label class="change-appearance-button to-lightmode" for="appearance" onclick="gtag('event','click_appearance_changed_to_light')"><i class="fa-solid fa-moon"></i></label>
-    <label class="change-appearance-button to-darkmode" for="appearance" onclick="gtag('event','click_appearance_changed_to_dark')"><i class="fa-solid fa-sun"></i></label>
-  </div>
-  <div class="w-w">
-    <div class="w-1"></div>
-    <div class="w-2">
-      <div class="e-w">
-        <div class="e-name">
-          <span data-loader="my">
-            <img class="loading-spinner" src="./loading.svg" width="32" alt="" />
-          </span>
-          <span data-loaded="my">
-            <script data-value="name">
-              render(renderString('div'));
-            </script>
-          </span>
+
+<div class="contents">
+  <section>
+    <div class="container">
+      <div>
+        <svg class="is-mobile" width="320" height="320" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="svg-gradient" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="100%" y2="0">
+              <stop offset="5%" stop-color="#c6379c" />
+              <stop offset="100%" stop-color="#3c65aa" />
+            </linearGradient>
+            <path id="circlePath" d="M 160,160 m -120,0 a 120,120 0 1,1 240,0 a 120,120 0 1,1 -240,0" />
+            <clipPath id="clipPath">
+              <circle cx="160" cy="160" r="106" fill="url(#svg-gradient)" />
+            </clipPath>
+          </defs>
+          <circle cx="160" cy="160" r="120" fill="none" />
+          <g>
+            <circle cx="160" cy="160" r="116" fill="url(#svg-gradient)" />
+            <animateTransform attributeName="transform"
+                              type="rotate"
+                              from="0 160 160"
+                              to="360 160 160"
+                              dur="10s"
+                              repeatCount="indefinite" />
+          </g>
+          <circle cx="160" cy="160" r="111" fill="white" />
+          <g>
+            <image
+              href="./assets/logical_stylish_memory.png"
+              x="50"
+              y="50"
+              width="221"
+              height="221"
+              clip-path="url(#clipPath)" />
+          </g>
+          <g>
+            <text fill="url(#svg-gradient)" font-size="26" font-family="Roboto Mono, Noto Sans JP">
+              <textPath class="hello-world-text" xlink:href="#circlePath" startOffset="0%" text-anchor="start">
+              </textPath>
+              <animateTransform attributeName="transform"
+                                type="rotate"
+                                from="0 160 160"
+                                to="360 160 160"
+                                dur="20s"
+                                repeatCount="indefinite" />
+            </text>
+          </g>
+        </svg>
+
+        <svg class="!is-mobile" width="400" height="400" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="normally-svg-gradient" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="100%" y2="0">
+              <stop offset="5%" stop-color="#c6379c" />
+              <stop offset="100%" stop-color="#3c65aa" />
+            </linearGradient>
+            <path id="normally-circlePath" d="M 200,200 m -150,0 a 150,150 0 1,1 300,0 a 150,150 0 1,1 -300,0" />
+            <clipPath id="normally-clipPath">
+              <circle cx="200" cy="200" r="132" fill="url(#normally-svg-gradient)" />
+            </clipPath>
+          </defs>
+          <circle cx="200" cy="200" r="150" fill="none" />
+          <g>
+            <circle cx="200" cy="200" r="145" fill="url(#normally-svg-gradient)" />
+            <animateTransform attributeName="transform"
+                              type="rotate"
+                              from="0 200 200"
+                              to="360 200 200"
+                              dur="10s"
+                              repeatCount="indefinite" />
+          </g>
+          <circle cx="200" cy="200" r="138" fill="white" />
+          <g>
+            <image
+              href="./assets/logical_stylish_memory.png"
+              x="62"
+              y="62"
+              width="276"
+              height="276"
+              clip-path="url(#normally-clipPath)"
+            />
+          </g>
+
+          <g>
+            <text fill="url(#normally-svg-gradient)" font-size="32" font-family="Roboto Mono, Noto Sans JP">
+              <textPath class="hello-world-text" xlink:href="#normally-circlePath" startOffset="0%" text-anchor="start">
+              </textPath>
+              <animateTransform attributeName="transform"
+                                type="rotate"
+                                from="0 200 200"
+                                to="360 200 200"
+                                dur="20s"
+                                repeatCount="indefinite" />
+            </text>
+          </g>
+        </svg>
+      </div>
+      <div class="intro">
+        <div>
+          <p class="name"><span>めもりー</span></p>
         </div>
-        <div class="e-contact-area">
-          <div>
-            <p class="e-mail-address"><span>memory.style.serv</span></p>
-          </div>
-          <ul class="e-contact">
+        <div class="email-container">
+          <p class="e-mail"><span>memory.style.serv</span></p>
+        </div>
+        <div class="contacts-container">
+          <ul class="contacts">
             <li><a target="_blank" class="no-arrow" href="https://x.com/m3m0r7"><i class="fa-brands fa-x-twitter"></i></a></li>
             <li><a target="_blank" class="no-arrow" href="https://github.com/m3m0r7"><i class="fa-brands fa-github"></i></a></li>
-            <li><a target="_blank" class="no-arrow" href="https://keybase.io/m3m0r7"><i class="fa-brands fa-keybase"></i></a></li>
             <li><a target="_blank" class="no-arrow" href="https://speakerdeck.com/memory1994"><i class="fa-brands fa-speaker-deck"></i></a></li>
             <li><a target="_blank" class="no-arrow" href="https://www.linkedin.com/in/m3m0r7"><i class="fa-brands fa-linkedin-in"></i></a></li>
           </ul>
         </div>
-        <div class="e-info">
-          <div class="e-info-body">
-            <div class="e-container">
-              <div>
-                <h2>Summary</h2>
-                <div data-loader="my">
-                  <p class="loading-message"><img class="loading-spinner" src="./loading.svg" width="32" alt="" /></p>
-                </div>
-                <div data-loaded="my">
-                  <script data-value="summary">render(renderArray('p'))</script>
-                </div>
-              </div>
-              <div class="mt">
-                <h2>My Experiences story</h2>
-                <div data-loader="my">
-                  <p class="loading-message"><img class="loading-spinner" src="./loading.svg" width="32" alt="" /></p>
-                </div>
-                <div data-loaded="my">
-                  <div class="e-mes-w">
-                    <div class="e-mes-vbar"></div>
-                    <script data-value="experiences">
-                      render((e) => {
-                        const ul = ce('ul', 'e-mes');
+      </div>
+    </div>
+  </section>
+</div>
 
-                        e.detail.value.forEach((value, key) => {
-                          const li = ce('li');
-                          const name = ce('div', 'e-mes-c-n' + (!value.positions ? ' e-mes-c-n--plain' : ''), _('experiences.' + key + '.name'));
-                          li.appendChild(name);
+<script>
+  String.prototype.toHex = function () {
+    return Array.from((new TextEncoder()).encode(this))
+      .map(num => num.toString(16).toUpperCase().padStart(2, '0'))
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    const replaceGreetingMessage = () => {
+      const greetingType = [
+        'en',
+        'ja',
+        'ge',
+        'fr',
+        'it',
+      ];
+      const greetingTexts = {
+        en: 'Hello World!',
+        ja: 'こんにちは、世界！',
+        ge: 'Hallo Welt!',
+        fr: 'Bonjour le monde!',
+        it: 'Ciao mondo!',
+      };
 
-                          const positions = ce('div', 'e-mes-c-p-l');
-                          (value.positions || []).forEach((positionInfo, positionKey) => {
-                            const position = ce('div', 'e-mes-c-p');
-                            const positionTitle = ce('div', 'e-mes-c-p-t', _('experiences.' + key + '.positions.' + positionKey + '.name'));
-                            position.appendChild(positionTitle);
+      const greetingTarget = greetingType[Math.floor(Math.random() * greetingType.length)];
+      const greetingText = greetingTexts[greetingTarget];
+      const greetingMessages = [
+        '&lt;?php echo "' + greetingText + '"; ?&gt;',
+        'puts "' + greetingText + '"',
+        'console.log("' + greetingText + '")',
+        'System.out.print("' + greetingText + '")',
+        'fmt.Print("' + greetingText + '")',
+        'std::cout << "' + greetingText + '"',
+        'print!("' + greetingText + '")',
+      ];
 
+      if (greetingTarget === 'en' || greetingTarget === 'ge' || greetingTarget === 'fr') {
+        greetingMessages.push(
+          'mov esi, text_' + greetingText.replace(/[\!\s]/g, '').toHex().join(''),
+          greetingText.toHex().join(' '),
+        )
+      }
 
-                            const startAt = _('experiences.' + key + '.positions.' + positionKey + '.start');
-                            const endAt = _('experiences.' + key + '.positions.' + positionKey + '.end');
+      document.querySelectorAll('.hello-world-text')
+        .forEach(elem => elem.innerHTML = greetingMessages[Math.floor(Math.random() * greetingMessages.length)])
+    }
 
+    replaceGreetingMessage();
+  })
+</script>
+<script>
+  const open = (target) => {
+    document.querySelector(target).classList.remove('off')
+    document.querySelector(target).classList.add('on')
+  }
+  const close = (target) => {
+    document.querySelector(target).classList.remove('on')
+  }
 
-                            const positionTerm = ce('time', null, startAt + ' - ' + endAt);
-                            position.appendChild(positionTerm);
+  document.addEventListener('DOMContentLoaded', e => {
+    document.querySelectorAll('[data-open-target]').forEach(elem => {
+      elem.addEventListener('click', e => {
+        e.stopImmediatePropagation();
+        open(e.currentTarget.getAttribute('data-open-target'))
+      })
+    })
 
-                            positions.appendChild(position);
-                          });
+    document.querySelectorAll('[data-close-target]').forEach(elem => {
+      elem.addEventListener('click', e => {
+        close(e.currentTarget.getAttribute('data-close-target'))
+      })
+    })
+  })
+</script>
+<script>
+  Object.defineProperty(Date.prototype, 'withDay', {
+    value: true,
+    writable: true,
+  })
 
-                          if (value.positions) {
-                            li.appendChild(positions);
-                          }
-                          ul.appendChild(li);
-                        });
+  Date.prototype.format = function (format) {
+    return format.replace(
+      'YYYY',
+      this.getFullYear(),
+    ).replace(
+      'M',
+      this.getMonth() + 1,
+    ).replace(
+      'D',
+      this.getDate(),
+    )
+  }
+  Node.prototype.loadData = function (path) {
+    const key = window.WISTERIA.cache.keyPrefix + path;
+    const item = localStorage.getItem(key);
+    const data = JSON.parse(item ? item : "{}");
+    const fireEvent = (eventName, payload) => {
+      this.dispatchEvent(new CustomEvent(eventName, {
+        bubbles: true,
+        detail: {
+          name: path,
+          value: payload,
+        },
+      }));
+    };
 
-                        return ul;
-                      })
-                    </script>
-                  </div>
-                </div>
-              </div>
-              <div class="mt">
-                <h2>Technical Skills</h2>
+    const body = {
+      path: path,
+    };
 
-                <div data-loader="my">
-                  <p class="loading-message"><img class="loading-spinner" src="./loading.svg" width="32" alt="" /></p>
-                </div>
-                <div data-loaded="my">
-                  <script data-value="technicalSkills">
-                    render((e) => {
-                      const dl = ce('ul', 'e-tags');
+    fireEvent('LoadData', body);
+    fireEvent('LoadData:' + path, body);
 
-                      e.detail.value.forEach((value, key) => {
-                        const dt = ce('dt');
-                        const name = ce('div', null, _('technicalSkills.' + key + '.name'));
-                        dt.appendChild(name);
-                        dl.appendChild(dt);
+    if (item && (new Date()).getTime() <= data.ttl) {
+      return new Promise(resolve => {
+        const body = {
+          path: path,
+          payload: data.body,
+        };
 
-                        const dd = ce('dd');
-                        const ul = ce('ul');
+        fireEvent('LoadedData', body);
+        fireEvent('LoadedData:' + path, body);
+        resolve(data.body);
+      });
+    }
 
+    return fetch(path, {
+      mode: 'cors',
+      cache: 'default',
+      headers: {},
+    }).then(response => response.json())
+      .then(json => {
+        localStorage.setItem(
+          key,
+          JSON.stringify({
+            ttl: (new Date()).getTime() + (window[CODE_NAME].cache.fetch.lifetime * 1000),
+            body: json,
+          })
+        );
 
-                        _('technicalSkills.' + key + '.skills').forEach((skillName) => {
-                          ul.appendChild(
-                            ce('li', null, skillName),
-                          );
-                        });
+        const body = {
+          path: path,
+          payload: json
+        };
 
-                        dd.appendChild(ul);
+        fireEvent('LoadedData', body);
+        fireEvent('LoadedData:' + path, body);
 
-                        dl.appendChild(dd);
-                      });
+        return new Promise(resolve => resolve(json));
+      })
+  }
 
-                      return dl;
-                    })
-                  </script>
-                </div>
-              </div>
-              <div class="mt">
-                <h2>Books</h2>
-                <div data-loader="my">
-                  <p class="loading-message"><img class="loading-spinner" src="./loading.svg" width="32" alt="" /></p>
-                </div>
-                <div data-loaded="my">
-                  <script data-value="books">
-                    render((e) => {
-                      const here = cef();
-                      e.detail.value.forEach((value, key) => {
-                        const h3 = ce('h3', null, _('books.' + key + '.publisher'));
-                        here.appendChild(h3);
+  const i18n = (name, ...args) => {
+    if (!window[CODE_NAME].i18n[name]) {
+      throw Error('Not found ' + name);
+    }
+    return window[CODE_NAME].i18n[name][window[CODE_NAME].lang].replace(
+      /\{\s*(\d+)\s*\}/g,
+      (_, num) => args[parseInt(num)],
+    );
+  }
 
-                        const ul = ce('ul', 'books');
-                        value.authors.forEach((authorInfo, authorKey) => {
-                          const li = ce('li');
-                          const a = ce('a', 'no-arrow');
-                          a.href = authorInfo.link;
+  const renderActivity = (activity, layout = 'info-contents-item') => {
+    const template = (name, props = {}) => {
+      const target = Array.from(document.querySelectorAll('script[data-template-name]'))
+        .find(elem => elem.getAttribute('data-template-name').replace(/\s{2,}/g, ' ').split(' ').includes(name));
 
-                          const img = ce('img');
-                          img.src = './assets/books/' + authorInfo.image;
-                          img.style.width = '100%';
-                          img.alt = _('books.' + key + '.authors.' + authorKey + '.title');
+      if (!target) {
+        return undefined;
+      }
 
+      return target
+        .innerText
+        .replace(/{([^}]+)}/g, (args, name) => {
+          name = name.replace(/^\s+/, '').replace(/\s+$/, '');
+          return props[name] || '';
+        });
+    }
 
-                          a.appendChild(img)
-                          li.appendChild(a)
-                          ul.appendChild(li);
-                        });
+    const formatDate = (time) => {
+      if (!time) {
+        return '';
+      }
+      if (typeof time === 'string') {
+        return time;
+      }
+      if (time instanceof Date) {
+        return time.format(
+          time.withDay
+            ? 'YYYY/M/D'
+            : 'YYYY/M'
+        );
+      }
 
-                        for (let i = 0; i < (4 - value.authors.length); i++) {
-                          const li = ce('li');
-                          const div = ce('div', 'book-no-image');
-                          li.appendChild(div);
-                          ul.appendChild(li);
-                        }
+      return time.start.format(
+        time.start.withDay
+          ? 'YYYY/M/D'
+          : 'YYYY/M'
+      ) + ' - ' + (time.end ? time.end.format(
+        time.end.withDay
+          ? 'YYYY/M/D'
+          : 'YYYY/M'
+      ) : '現在')
+    }
 
-                        here.appendChild(ul);
-                      });
+    const tags = template('info-contents-tags', {
+      children: activity.tags
+        .map(tag => template('info-contents-tag', {
+          children: tag,
+        })).join('')
+    });
 
-                      return here;
-                    })
-                  </script>
-                </div>
-              </div>
-            </div>
-            <div class="e-container e-container-activity-opener">
-              <div>
-                <h2>Articles</h2>
-                <div data-loader="articles">
-                  <p class="loading-message"><img class="loading-spinner" src="./loading.svg" width="32" alt="" /></p>
-                </div>
-                <div data-loaded="articles">
-                  <script data-value="articles" data-api-fetch="articles">
-                    render((e) => renderList('article-area', e.detail.value.posts.slice(0, 5).map((value) => ({
-                      published_at: value.createdAt,
-                      subtitle: value.bodyCharacterCount.toLocaleString('en-US') + " 文字",
-                      title: value.title,
-                      tags: value.tags,
-                      url: "https://sizu.me/memory/posts/" + value.slug,
-                    }))));
-                  </script>
-                  <div class="e-expand-btn e-expand-btn--open"  onclick="gtag('event','click_open_weblog')">
-                    <a target="_blank" href="https://sizu.me/memory"><script data-value="lang.blog.link">render(renderString(null))</script></a>
-                  </div>
-                </div>
-              </div>
-              <div class="mt">
-                <h2>Activities</h2>
-                <input class="activity-opener" type="checkbox" id="activity-listing" tabindex="-1" />
-                <div data-loader="activities">
-                  <p class="loading-message"><img class="loading-spinner" src="./loading.svg" width="32" alt="" /></p>
-                </div>
-                <div data-loaded="activities">
-                  <script data-value="activities" data-api-fetch="activities">
-                    render((e) => renderList('activity-area', e.detail.value.map((value) => ({
-                      published_at: value.published_at,
-                      subtitle: value.is_oss
-                        ? "Open Source Software"
-                        : value.location,
-                      title: value.title,
-                      tags: value.tags,
-                      url: value.url,
-                    }))));
-                  </script>
-                  <label class="e-expand-btn e-expand-btn--open" for="activity-listing" onclick="gtag('event','click_activities_expander')">
-                    <span><i class="fa-solid fa-caret-down"></i><script data-value="lang.activity.open">render(renderString(null))</script></span>
-                  </label>
-                  <label class="e-expand-btn e-expand-btn--close" for="activity-listing">
-                    <span><i class="fa-solid fa-caret-up"></i> <script data-value="lang.activity.close">render(renderString(null))</script></span>
-                  </label>
-                </div>
-              </div>
-            </div>
+    const date = formatDate(activity.time);
+
+    const unpublished = activity.tags.includes('Unpublished')
+      ? '[unpublished]'
+      : '';
+
+    return template(layout, {
+      type: activity.type,
+      date: activity.time ? template('info-contents-item-date', {
+        children: typeof activity.time === 'string'
+          ? activity.time
+          : (
+            activity.time instanceof Date
+              ? activity.time.format(activity.time.withDay ? 'YYYY/M/D' : 'YYYY/M')
+              : activity.time.start.format(activity.time.start.withDay ? 'YYYY/M/D' : 'YYYY/M')
+          )
+      }) : '',
+      title: activity.link
+        ? template('info-contents-item-title' + unpublished, {
+          link: activity.link,
+          children: activity.title
+        })
+        : activity.title,
+      children: template('info-contents-body[' + activity.type + ']', {
+        type: activity.type,
+        image: activity.image,
+        date: date,
+        link: activity.link,
+        subtitle: activity.subtitle,
+        description: activity.description,
+        tags: tags,
+        children: typeof activity.children === 'string'
+          ? activity.children
+          : (
+            activity.children
+              ? activity.children.map(item => renderActivity(item)).join('')
+              : ''
+          )
+      }),
+    });
+  };
+
+  document.addEventListener('DOMContentLoaded', function (e) {
+    const activities = [];
+    const promises = [];
+
+    promises.push(
+      e.target.loadData(window[CODE_NAME].data.api.my).then((payload) => {
+        activities.push({
+          type: "summary",
+          title: "Summary",
+          children: payload.summary[window[CODE_NAME].lang]
+            .reduce((acc, value) => acc + (value || '') + "<br />", ""),
+          tags: [],
+        });
+
+        payload.books.forEach(book => {
+          book.authors.forEach(author => {
+            activities.push({
+              type: "book",
+              time: new Date(author.published_at),
+              image: author.image,
+              link: author.link,
+              title: i18n("publishedNewBook"),
+              subtitle: author.title[window[CODE_NAME].lang],
+              description: book.publisher[window[CODE_NAME].lang],
+              tags: ["Book", ...author.tags],
+            });
+          })
+        });
+
+        payload.experiences.forEach(experience => {
+          const items = experience.positions.map(position => ({
+            type: "experience.position",
+            subtitle: position.name[window[CODE_NAME].lang],
+            time: {
+              start: new Date(position.start),
+              end: position.end === null
+                ? position.end
+                : new Date(position.end),
+            },
+            tags: [],
+          })).sort(
+            (a, b) => a.time.end === null || b.time.end === null
+              ? 1
+              : a.time.end.getTime() - a.time.start.getTime(),
+          );
+
+          items.forEach(item => {
+            if (item.time.start instanceof Date) {
+              item.time.start.withDay = false;
+            }
+            if (item.time.end instanceof Date) {
+              item.time.end.withDay = false;
+            }
+          })
+
+          activities.push({
+            type: "experience",
+            time: items[0].time.start,
+            title: i18n('joinTo', experience.name[window[CODE_NAME].lang]),
+            children: items,
+            tags: [],
+          });
+        });
+      })
+    );
+
+    promises.push(
+      e.target.loadData(window[CODE_NAME].data.api.articles).then((payload) => {
+        payload.posts.forEach(post => {
+          activities.push({
+            type: "article",
+            time: new Date(post.createdAt),
+            link: "https://sizu.me/memory/posts/" + post.slug,
+            title: i18n("postedNewArticle"),
+            subtitle: post.title,
+            description: i18n('characters', post.bodyCharacterCount.toLocaleString('en-US')),
+            tags: ["Article", ...post.tags],
+          });
+        })
+      })
+    );
+
+    promises.push(
+      e.target.loadData(window[CODE_NAME].data.api.activities).then((payload) => {
+        payload.forEach(activity => {
+          const isOSS = activity.tags.includes('OSS');
+          const isTalk = activity.tags.includes('Talk');
+          const unpublished = activity.tags.includes('Unpublished')
+            ? '.unpublished'
+            : '';
+
+          if (isOSS) {
+            activities.push({
+              type: "activity" + unpublished,
+              time: new Date(activity.published_at),
+              link: activity.url,
+              title: i18n("createdNewOSS"),
+              subtitle: activity.title,
+              description: activity.description,
+              tags: activity.tags,
+            });
+            return;
+          }
+          activities.push({
+            type: "activity" + unpublished,
+            time: new Date(activity.published_at),
+            link: activity.url,
+            title: i18n("talked"),
+            subtitle: (activity.tags.includes('Unpublished') ? i18n("unPublished") : '') + activity.title,
+            description: activity.location,
+            tags: activity.tags,
+          });
+        })
+      })
+    );
+
+    Promise.all(promises).then(() => {
+      const sortedActivities = activities.sort(
+        (a, b) => a.type === 'summary' || b.type === 'summary' || a.time === null || b.time === null
+          ? 1
+          : b.time.getTime() - a.time.getTime(),
+      );
+
+      document.querySelector('.info-contents-list').innerHTML = sortedActivities
+        .map(activity => renderActivity(activity, 'info-contents-item-layout')).join('');
+    });
+  })
+</script>
+<script type="text/plain" data-template-name="info-contents-tags">
+  <ul>{children}</ul>
+</script>
+<script type="text/plain" data-template-name="info-contents-tag">
+  <li>{children}</li>
+</script>
+<script type="text/plain" data-template-name="info-contents-body[book]">
+  <div class="info-contents-list-item">
+    <a href="{link}" target="_blank">
+      <div class="type[figure]">
+        <div class="info-contents-list-figure" style="background-image: url(./assets/books/{image});"></div>
+        <div class="info-contents-list-figure-summary">
+          <div class="info-contents-list-subtitle">
+            {subtitle}
+          </div>
+          <div class="info-contents-list-description">
+            {description}
           </div>
         </div>
       </div>
-      <div class="f-cc">
-        <div>
-          <h3>memory' portfolio</h3>
+    </a>
+    <div class="info-contents-list-tags">
+      {tags}
+    </div>
+  </div>
+</script>
+<script type="text/plain" data-template-name="info-contents-body[activity] info-contents-body[article]">
+  <div class="info-contents-list-item">
+    <a href="{link}" target="_blank">
+      <div class="type[activity]">
+        <div class="info-contents-list-subtitle">
+          {subtitle}
+        </div>
+        <div class="info-contents-list-description">
+          {description}
         </div>
       </div>
+    </a>
+    <div class="info-contents-list-tags">
+      {tags}
     </div>
   </div>
-  <div class="r-w">
-    <div class="i-w">
-      <div class="i-m"></div>
+</script>
+
+<script type="text/plain" data-template-name="info-contents-body[activity.unpublished] info-contents-body[article.unpublished]">
+  <div class="info-contents-list-item">
+    <div class="info-contents-list-item[{type}]">
+      <div class="info-contents-list-subtitle">
+        {subtitle}
+      </div>
+      <div class="info-contents-list-description">
+        {description}
+      </div>
+    </div>
+    <div class="info-contents-list-tags">
+      {tags}
     </div>
   </div>
-</div>
+</script>
+<script type="text/plain" data-template-name="info-contents-body[summary]">
+  <div class="info-contents-list-item">
+    <div>
+      {children}
+    </div>
+  </div>
+</script>
+<script type="text/plain" data-template-name="info-contents-body[experience]">
+  {children}
+</script>
+<script type="text/plain" data-template-name="info-contents-body[experience.position]">
+  <div class="info-contents-list-item info-contents-list-item[experience.position]">
+    <div class="icon"></div>
+    <time>{date}</time>
+    <div>
+      <div class="info-contents-list-subtitle">
+        {subtitle}
+      </div>
+    </div>
+    <div class="info-contents-list-tags">
+      {tags}
+    </div>
+  </div>
+</script>
+<script type="text/plain" data-template-name="info-contents-item-title">
+  <a href="{link}" target="_blank">{children}</a>
+</script>
+<script type="text/plain" data-template-name="info-contents-item-title[unpublished]">
+  {children}
+</script>
+<script type="text/plain" data-template-name="info-contents-item-date">
+  <div class="outer-content"><time>{children}</time></div>
+</script>
+<script type="text/plain" data-template-name="info-contents-item-layout">
+  <dt>
+    <div class="icon"></div>
+    {date}
+    <div class="title">{title}</div>
+  </dt>
+  <dd>{children}</dd>
+</script>
+<script type="text/plain" data-template-name="info-contents-item">
+  {children}
+</script>
 </body>
 </html>

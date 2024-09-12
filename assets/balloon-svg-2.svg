@@ -1,0 +1,17 @@
+<svg width="350" height="175" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="balloon-svg-gradient-2" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="100%" y2="0">
+      <stop offset="5%" stop-color="#c6379c">
+        <animate attributeName="stop-color" values="#c6379c;#3c65aa;#c6379c" dur="20s" repeatCount="indefinite" />
+      </stop>
+      <stop offset="100%" stop-color="#3c65aa">
+        <animate attributeName="stop-color" values="#3c65aa;#c6379c;#3c65aa" dur="20s" repeatCount="indefinite" />
+      </stop>
+    </linearGradient>
+  </defs>
+
+  <g fill="url(#balloon-svg-gradient-2)">
+    <circle cx="0" cy="175" r="150" />
+    <circle cx="125" cy="205" r="100" />
+  </g>
+</svg>

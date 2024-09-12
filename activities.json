@@ -2,19 +2,19 @@
   {
     "published_at": "2024-08-19T00:00:00+09:00",
     "url": "https://globalbrains.connpass.com/event/324893/",
-    "is_oss": false,
     "title": "プロダクトの正しい「やめ方」〜スタートアップのCTOは大きな決断にどう向き合うか？〜",
     "tags": [
+      "Talk",
       "Panel Discussion",
       "Business"
     ],
-    "location": "RubyKaigi 2024"
+    "location": "GBTM#3"
   },
   {
     "published_at": "2024-08-03T00:00:00+09:00",
     "url": "https://github.com/m3m0r7/php-machine-emulator",
-    "is_oss": true,
-    "title": "m3m0r7/php-machine-emulator - A machine emulator written in PHP",
+    "title": "m3m0r7/php-machine-emulator",
+    "description": "A machine emulator written in PHP",
     "tags": [
       "OSS",
       "Tech"
@@ -23,8 +23,8 @@
   {
     "published_at": "2024-07-12T00:00:00+09:00",
     "url": "https://github.com/m3m0r7/php-os",
-    "is_oss": true,
-    "title": "m3m0r7/php-os - An operating system written in PHP",
+    "title": "m3m0r7/php-os",
+    "description": "An operating system written in PHP",
     "tags": [
       "OSS",
       "Tech"
@@ -33,7 +33,6 @@
   {
     "published_at": "2024-05-17T00:00:00+09:00",
     "url": "https://speakerdeck.com/memory1994/how-to-implement-a-rubyvm-with-php-rubykaigi2024",
-    "is_oss": false,
     "title": "How to implement a RubyVM with PHP?",
     "tags": [
       "Talk",
@@ -44,8 +43,8 @@
   {
     "published_at": "2024-03-22T00:00:00+09:00",
     "url": "https://github.com/m3m0r7/ez-door-sign",
-    "is_oss": true,
-    "title": "m3m0r7/ez-door-sign - The EZ Door Sign (an IoT device) controller written in PHP",
+    "title": "m3m0r7/ez-door-sign",
+    "description": "The EZ Door Sign (an IoT device) controller written in PHP",
     "tags": [
       "OSS",
       "Tech"
@@ -54,8 +53,8 @@
   {
     "published_at": "2024-03-14T00:00:00+09:00",
     "url": "https://github.com/m3m0r7/php-libusb",
-    "is_oss": true,
-    "title": "m3m0r7/php-libusb - A libusb wrapper written in PHP FFI",
+    "title": "m3m0r7/php-libusb",
+    "description": "A libusb wrapper written in PHP FFI",
     "tags": [
       "OSS",
       "Tech"
@@ -64,7 +63,6 @@
   {
     "published_at": "2024-03-09T00:00:00+09:00",
     "url": "https://speakerdeck.com/memory1994/how-to-implement-rubyvm-with-php-at-phperkaigi2024",
-    "is_oss": false,
     "title": "[Ruby 3.3 対応] RubyVM を PHP で実装する 〜Hello World を出力するまで〜",
     "tags": [
       "Talk",
@@ -75,7 +73,6 @@
   {
     "published_at": "2024-02-11T00:00:00+09:00",
     "url": "https://speakerdeck.com/memory1994/php-memory-management-in-reiwa",
-    "is_oss": false,
     "title": "令和最新版 PHP メモリ管理術",
     "tags": [
       "Talk",
@@ -86,7 +83,6 @@
   {
     "published_at": "2023-11-21T00:00:00+09:00",
     "url": "https://speakerdeck.com/memory1994/understanding-why-built-tech-debts-and-thinking-approaches-for-startup-on-early-to-later-stage",
-    "is_oss": false,
     "title": "技術的負債が生まれる背景を理解して，アーリーからレイター向けの根本的なアプローチを考える",
     "tags": [
       "Talk",
@@ -98,7 +94,6 @@
   {
     "published_at": "2023-10-08T00:00:00+09:00",
     "url": "https://speakerdeck.com/memory1994/how-to-implement-rubyvm-written-in-php",
-    "is_oss": false,
     "title": "RubyVM を PHP で実装する 〜Hello World を出力するまで〜",
     "tags": [
       "Talk",
@@ -110,7 +105,6 @@
   {
     "published_at": "2023-09-02T00:00:00+09:00",
     "url": "https://speakerdeck.com/memory1994/you-can-run-away-you-are-engaging-hard-things",
-    "is_oss": false,
     "title": "千尋の谷に突き落とされても辛ければ逃げていい",
     "tags": [
       "Talk",
@@ -121,7 +115,6 @@
   {
     "published_at": "2023-09-02T00:00:00+09:00",
     "url": "https://speakerdeck.com/memory1994/introduction-of-my-careers-and-changing-my-mind",
-    "is_oss": false,
     "title": "CTO までのキャリアと転職活動における考え方の変化",
     "tags": [
       "Talk",
@@ -132,7 +125,6 @@
   {
     "published_at": "2023-07-12T00:00:00+09:00",
     "url": "https://github.com/m3m0r7/ez-door-sign",
-    "is_oss": true,
     "title": "m3m0r7/rubyvm-on-php - A RubyVM written in PHP",
     "tags": [
       "OSS",
@@ -142,7 +134,6 @@
   {
     "published_at": "2023-06-14T00:00:00+09:00",
     "url": "https://speakerdeck.com/memory1994/why-we-must-do-engineering",
-    "is_oss": false,
     "title": "エンジニアリングを推進する必要性",
     "tags": [
       "Talk",
@@ -153,7 +144,6 @@
   {
     "published_at": "2023-05-22T00:00:00+09:00",
     "url": "https://speakerdeck.com/memory1994/the-environment-surrounding-startups-with-engineering",
-    "is_oss": false,
     "title": "スタートアップを取り巻く環境について 〜スタートアップとエンジニアリング〜",
     "tags": [
       "Talk",
@@ -165,95 +155,87 @@
   {
     "published_at": "2023-01-25T00:00:00+09:00",
     "url": "https://speakerdeck.com/memory1994/why-the-application-design-is-breaking-sometimes-at-a-startup-company",
-    "is_oss": false,
     "title": "CTO から見た，なぜスタートアップ初期のソフトウェア設計は壊れがちなのか",
     "tags": [
       "Talk",
       "Tech",
       "Business",
-      "Abandoned"
+      "Unpublished"
     ],
     "location": "Forkwell Library #14"
   },
   {
     "published_at": "2022-09-24T00:00:00+09:00",
     "url": "https://speakerdeck.com/memory1994/php-conference-japan-2022",
-    "is_oss": false,
     "title": "PHP メモリ管理術",
     "tags": [
       "Talk",
       "Tech",
-      "Abandoned"
+      "Unpublished"
     ],
     "location": "PHP Conference 2022"
   },
   {
     "published_at": "2022-08-27T00:00:00+09:00",
     "url": "https://speakerdeck.com/memory1994/php-conference-okinawa-2022",
-    "is_oss": false,
     "title": "PHP で NFC リーダーを実装する",
     "tags": [
       "Talk",
       "Tech",
       "IoT",
-      "Abandoned"
+      "Unpublished"
     ],
     "location": "PHP Conference Okinawa 2022"
   },
   {
     "published_at": "2022-08-26T00:00:00+09:00",
     "url": "https://speakerdeck.com/memory1994/aws-startup-community-conference-2022",
-    "is_oss": false,
     "title": "知育玩具サブスク「トイサブ！」におけるエンジニア組織立ち上げの事例",
     "tags": [
       "Talk",
       "Culture",
-      "Abandoned"
+      "Unpublished"
     ],
     "location": "AWS Startup Community Conference 2022"
   },
   {
     "published_at": "2022-06-28T00:00:00+09:00",
     "url": "https://speakerdeck.com/memory1994/introduction-to-an-example-of-making-a-product-development-division-with-psychological-safety-at-torana-inc",
-    "is_oss": false,
     "title": "株式会社トラーナにおける 心理的安全性が高い組織づくりの事例",
     "tags": [
       "Talk",
       "Culture",
-      "Abandoned"
+      "Unpublished"
     ],
     "location": "Forkwell Library #3"
   },
   {
     "published_at": "2022-04-10T00:00:00+09:00",
     "url": "https://speakerdeck.com/memory1994/php-de-nfc-ridawoshi-zhuang-suru-php-tohadowoxi-gu",
-    "is_oss": false,
     "title": "PHP で NFC リーダーを実装する 〜 PHP とハードを繋ぐ 〜",
     "tags": [
       "Talk",
       "Tech",
       "IoT",
-      "Abandoned"
+      "Unpublished"
     ],
     "location": "PHPerKaigi 2022"
   },
   {
     "published_at": "2022-03-04T00:00:00+09:00",
     "url": "https://speakerdeck.com/memory1994/php-de-nfc-ridawoshi-zhuang-suru",
-    "is_oss": false,
     "title": "PHP で NFC リーダーを実装する",
     "tags": [
       "Talk",
       "Tech",
       "IoT",
-      "Abandoned"
+      "Unpublished"
     ],
     "location": "YAPC::Japan::Online 2022"
   },
   {
     "published_at": "2021-10-08T00:00:00+09:00",
     "url": "https://github.com/m3m0r7/nfc-for-php",
-    "is_oss": true,
     "title": "m3m0r7/nfc-for-php - NFC Reader written in PHP",
     "tags": [
       "OSS",
@@ -264,56 +246,51 @@
   {
     "published_at": "2021-10-03T00:00:00+09:00",
     "url": "https://speakerdeck.com/memory1994/laravel-demofei-tong-qi-chu-li-gaxi-eru-php-8-karachu-merufei-tong-qi-chu-li-laravel-octane",
-    "is_oss": false,
     "title": "Laravel でも非同期処理が扱える！？ PHP 8 から初める非同期処理 〜Laravel Octane〜",
     "tags": [
       "Talk",
       "Tech",
       "Concurrency",
-      "Abandoned"
+      "Unpublished"
     ],
     "location": "PHP Conference 2021"
   },
   {
     "published_at": "2021-05-27T00:00:00+09:00",
     "url": "https://speakerdeck.com/memory1994/li-jie-siteokubeki-php-falsebaridesiyon",
-    "is_oss": false,
     "title": "理解しておくべき PHP のバリデーション",
     "tags": [
       "Talk",
       "Tech",
-      "Abandoned"
+      "Unpublished"
     ],
     "location": "PHP Conference Okinawa 2021"
   },
   {
     "published_at": "2021-03-10T00:00:00+09:00",
     "url": "https://speakerdeck.com/memory1994/swoole-to-laravel-swoole-woyong-itahaipahuomansuapurikesiyongou-zhu",
-    "is_oss": false,
     "title": "swoole と laravel-swoole を用いたハイパフォーマンスアプリケーション構築",
     "tags": [
       "Talk",
       "Tech",
-      "Abandoned"
+      "Unpublished"
     ],
     "location": "PHPerKaigi 2021"
   },
   {
     "published_at": "2020-12-12T00:00:00+09:00",
     "url": "https://speakerdeck.com/memory1994/zerobesukara-laravel-woyong-ita-api-shi-zhuang-otomesiyon",
-    "is_oss": false,
     "title": "ゼロベースから Laravel を用いた API 実装オートメーション",
     "tags": [
       "Talk",
       "Tech",
-      "Abandoned"
+      "Unpublished"
     ],
     "location": "PHP Conference 2020"
   },
   {
     "published_at": "2020-02-09T00:00:00+09:00",
     "url": "https://speakerdeck.com/memory1994/php-de-jvm-woshi-zhuang-site-helloworld-wochu-li-sitemiru",
-    "is_oss": false,
     "title": "PHP で JVM を実装して、 HelloWorld を出力してみる",
     "tags": [
       "Talk",
@@ -324,7 +301,6 @@
   {
     "published_at": "2019-12-01T00:00:00+09:00",
     "url": "https://speakerdeck.com/memory1994/php-niokerubing-lie-chu-li-tofei-tong-qi-chu-li-ru-men",
-    "is_oss": false,
     "title": "PHP における並列処理と非同期処理入門",
     "tags": [
       "Talk",
@@ -336,7 +312,6 @@
   {
     "published_at": "2019-11-22T00:00:00+09:00",
     "url": "https://speakerdeck.com/memory1994/php-de-ast-jie-xi-wosite-java-falseopekodowosheng-cheng-suru",
-    "is_oss": false,
     "title": "PHP で AST 解析をして Java のオペコードを生成する",
     "tags": [
       "Talk",
@@ -347,7 +322,6 @@
   {
     "published_at": "2019-10-12T00:00:00+09:00",
     "url": "https://speakerdeck.com/memory1994/phper-falsetamefalse-phpunit-to-selenium-woshi-tuta-burauzatesutofalsesu-me-a066ef2e-6ce9-45fb-9cb9-50fd609ab943",
-    "is_oss": false,
     "title": "PHPer のための PHPUnit と Selenium を使ったブラウザテストのすゝめ",
     "tags": [
       "Talk",
@@ -358,10 +332,8 @@
   {
     "published_at": "2019-09-21T00:00:00+09:00",
     "url": "https://speakerdeck.com/memory1994/phper-falsetamefalse-phpunit-to-selenium-woshi-tuta-burauzatesutofalsesu-me",
-    "is_oss": false,
     "title": "PHPer のための PHPUnit と Selenium を使ったブラウザテストのすゝめ",
     "tags": [
-      "Talk",
       "Talk",
       "Tech"
     ],
@@ -370,7 +342,6 @@
   {
     "published_at": "2019-08-31T00:00:00+09:00",
     "url": "https://speakerdeck.com/memory1994/php-de-jvm-woshi-zhuang-site-hello-world-wochu-li-surumade",
-    "is_oss": false,
     "title": "How to implement JVM by PHP, And until output Hello World.",
     "tags": [
       "Talk",
@@ -381,7 +352,6 @@
   {
     "published_at": "2019-04-24T00:00:00+09:00",
     "url": "https://speakerdeck.com/memory1994/hamusutawojian-shi-surusisutemuwo-raspberry-pi-to-php-false-swoole-tezuo-tutahua",
-    "is_oss": false,
     "title": "ハムスターを監視するシステムを Raspberry Pi と PHP の Swoole で作った話",
     "tags": [
       "Talk",
@@ -392,7 +362,6 @@
   {
     "published_at": "2019-03-29T00:00:00+09:00",
     "url": "https://speakerdeck.com/memory1994/phperkaigi-2019",
-    "is_oss": false,
     "title": "PHP で JVM に入門する",
     "tags": [
       "Talk",
@@ -403,7 +372,6 @@
   {
     "published_at": "2019-02-20T00:00:00+09:00",
     "url": "https://speakerdeck.com/memory1994/elasticsearch-mian-qiang-hui-2019-gamewithtejian-suo-sisutemukashi-warerumate",
-    "is_oss": false,
     "title": "GameWith で検索システムが使われるまで",
     "tags": [
       "Talk",
@@ -414,7 +382,6 @@
   {
     "published_at": "2019-01-26T00:00:00+09:00",
     "url": "https://speakerdeck.com/memory1994/php-conference-sendai-2019-presentation-slides",
-    "is_oss": false,
     "title": "開発期間 2 ヶ月で Elasticsearch をプロダクトに使ってリリースした話",
     "tags": [
       "Talk",
@@ -425,8 +392,8 @@
   {
     "published_at": "2015-01-30T00:00:00+09:00",
     "url": "https://github.com/php-java/php-java",
-    "is_oss": true,
-    "title": "php-java/php-java - Implement JVM by PHP",
+    "title": "php-java/php-java",
+    "description": "Implement JVM by PHP",
     "tags": [
       "OSS",
       "Tech"
