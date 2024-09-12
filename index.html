@@ -1074,9 +1074,14 @@
 
     Promise.all(promises).then(() => {
       const sortedActivities = activities.sort(
-        (a, b) => a.type === 'summary' || b.type === 'summary' || a.time === null || b.time === null
-          ? 1
-          : b.time.getTime() - a.time.getTime(),
+        (a, b) => {
+          if (a.type === 'summary' || b.type === 'summary') {
+            return 1;
+          }
+          return !a.time || !b.time
+            ? 1
+            : b.time.getTime() - a.time.getTime()
+        }
       );
 
       document.querySelector('.info-contents-list').innerHTML = sortedActivities
@@ -1190,15 +1195,15 @@
 <script>
   window.dataLayer = window.dataLayer || [];
   document.addEventListener('DOMContentLoaded', () => {
-    const script = ce('script');
-    script.setAttribute('src', 'https://www.googletagmanager.com/gtag/js?id=' + window.ANEMONE.gtag);
+    const script = document.createElement('script');
+    script.setAttribute('src', 'https://www.googletagmanager.com/gtag/js?id=' + window[CODE_NAME].gtag);
 
     document.querySelector('body').appendChild(script);
 
     script.addEventListener('load', () => {
       gtag('js', new Date());
 
-      gtag('config', window.ANEMONE.gtag);
+      gtag('config', window[CODE_NAME].gtag);
     })
   })
 
