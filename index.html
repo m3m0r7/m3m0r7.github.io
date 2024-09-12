@@ -153,6 +153,7 @@
       width: 100vw;
       height: 100vh;
       background: rgba(255, 255, 255, 0.65);
+      -webkit-backdrop-filter: blur(12px);
       backdrop-filter: blur(12px);
       opacity: 0;
       transition: opacity ease 0.3s, z-index ease 0.3s;
@@ -1185,6 +1186,23 @@
 </script>
 <script type="text/plain" data-template-name="info-contents-item">
   {children}
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  document.addEventListener('DOMContentLoaded', () => {
+    const script = ce('script');
+    script.setAttribute('src', 'https://www.googletagmanager.com/gtag/js?id=' + window.ANEMONE.gtag);
+
+    document.querySelector('body').appendChild(script);
+
+    script.addEventListener('load', () => {
+      gtag('js', new Date());
+
+      gtag('config', window.ANEMONE.gtag);
+    })
+  })
+
+  function gtag(){dataLayer.push(arguments);}
 </script>
 </body>
 </html>
