@@ -957,11 +957,12 @@
   };
 
   document.addEventListener('DOMContentLoaded', function (e) {
-    const activities = [];
     const promises = [];
 
     promises.push(
       e.target.loadData(window[CODE_NAME].data.api.my).then((payload) => {
+        const activities = [];
+
         activities.push({
           type: "summary",
           title: "Summary",
@@ -1019,11 +1020,15 @@
             tags: [],
           });
         });
+
+        return activities;
       })
     );
 
     promises.push(
       e.target.loadData(window[CODE_NAME].data.api.articles).then((payload) => {
+        const activities = [];
+
         payload.posts.forEach(post => {
           activities.push({
             type: "article",
@@ -1035,11 +1040,15 @@
             tags: ["Article", ...post.tags],
           });
         })
+
+        return activities;
       })
     );
 
     promises.push(
       e.target.loadData(window[CODE_NAME].data.api.activities).then((payload) => {
+        const activities = [];
+
         payload.forEach(activity => {
           const isOSS = activity.tags.includes('OSS');
           const isTalk = activity.tags.includes('Talk');
@@ -1069,11 +1078,13 @@
             tags: activity.tags,
           });
         })
+
+        return activities;
       })
     );
 
-    Promise.all(promises).then(() => {
-      const sortedActivities = activities.sort(
+    Promise.all(promises).then((results) => {
+      const sortedActivities = results.reduce((acc, activities) => [...acc, ...activities], []).sort(
         (a, b) => {
           if (a.type === 'summary' || b.type === 'summary') {
             return 1;
