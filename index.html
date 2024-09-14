@@ -196,6 +196,11 @@
 
     .close-button {
       display: inline-block;
+      transition: opacity ease 0.4s;
+    }
+
+    .close-button:hover {
+      opacity: 0.4;
     }
 
     .close-button i {
@@ -747,7 +752,7 @@
         'print!("' + greetingText + '")',
       ];
 
-      if (greetingTarget === 'en' || greetingTarget === 'ge' || greetingTarget === 'fr') {
+      if (greetingTarget === 'en' || greetingTarget === 'ge') {
         greetingMessages.push(
           'mov esi, text_' + greetingText.replace(/[\!\s]/g, '').toHex().join(''),
           greetingText.toHex().join(' '),
