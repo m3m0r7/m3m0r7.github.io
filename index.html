@@ -675,6 +675,7 @@
           <circle cx="200" cy="200" r="138" fill="white" />
           <g>
             <image
+              class="icon-image"
               href="./assets/logical_stylish_memory.png"
               x="62"
               y="62"
@@ -763,8 +764,25 @@
         .forEach(elem => elem.innerHTML = greetingMessages[Math.floor(Math.random() * greetingMessages.length)])
     }
 
-    replaceGreetingMessage();
+    const replaceIconImage = () => {
+      const iconImages = [
+        './assets/cats/1.jpg',
+        './assets/cats/2.jpg',
+        './assets/cats/3.jpg',
+        './assets/cats/4.jpg',
+        './assets/cats/5.jpg',
+        './assets/cats/6.jpg',
+        './assets/cats/7.jpg',
+        './assets/cats/8.jpg',
+      ];
 
+      console.log(document.querySelectorAll('.icon-image'));
+      document.querySelectorAll('.icon-image')
+        .forEach(elem => elem.setAttribute('href', iconImages[Math.floor(Math.random() * iconImages.length)]))
+    }
+
+    replaceGreetingMessage();
+    
     const konamiCommand = [
       'ArrowUp',
       'ArrowUp',
@@ -786,6 +804,7 @@
       } else if (capturedCommands.length === konamiCommand.length) {
         // NOTE: Re-new greeting message when entered the konami command.
         replaceGreetingMessage();
+        replaceIconImage();
 
         // NOTE: Reset captured commands
         capturedCommands = [];
