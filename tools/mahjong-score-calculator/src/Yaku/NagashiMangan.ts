@@ -1,7 +1,7 @@
 import { MahjongOption, Yaku } from "../types";
 import { PaiPairCollection } from "../Collection";
 
-export class RinshanKaiho implements Yaku {
+export class NagashiMangan implements Yaku {
   private paiPairCollection: PaiPairCollection
   private option: MahjongOption
 
@@ -15,10 +15,14 @@ export class RinshanKaiho implements Yaku {
   }
 
   get han(): number {
-    return 1
+    return 4
+  }
+
+  get calculationBasedHan(): number {
+    return 5
   }
 
   get isFulfilled(): boolean {
-    return this.option.hora.fromRinshanPai || false
+    return this.option.additionalSpecialYaku.withNagashiMangan
   }
 }

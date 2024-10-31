@@ -4,7 +4,7 @@ import { PaiCollection, PaiPairCollection } from "./Collection";
 import { Futei } from "./Fu/Futei";
 import { MahjongFulfilledFuValidator } from "./Validator/MahjongFulfilledFuValidator";
 import { MahjongScoreCalculator } from "./MahjongScoreCalculator";
-import { Chanta, Haitei, Honitsu, Houtei, OpenRiichi, Pinfu, Riichi, RinshanKaiho, Tanyao } from "./Yaku";
+import { Chanta, Haitei, Honitsu, Houtei, OpenRiichi, Pinfu, Riichi, RinshanKaihou, Tanyao } from "./Yaku";
 import { Ankan, Ankou, ChanFonPai, MenFonPai, MenzenKafu, Minkan, Minkou, RenFonPai, SangenPai, Tsumo } from "./Fu";
 import { MahjongDefaultOption } from "./MahjongDefaultOption";
 
@@ -22,6 +22,8 @@ export class Mahjong {
         fromRon: false,
         fromTsumo: false,
         fromRinshanPai: false,
+        fromTankiMachi: false,
+        fromKokushiMusou13MenMachi: false,
       },
       honba: 0,
       kaze: "1z",
@@ -47,7 +49,7 @@ export class Mahjong {
         withChanKan: false,
         withTenho: false,
         withChiho: false,
-        withKokushiMusou13MenMachi: false,
+        withNagashiMangan: false
       },
     }, option)
     this.paiCollection = new PaiCollection(paiList)

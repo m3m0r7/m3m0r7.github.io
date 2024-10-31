@@ -9,7 +9,7 @@ import { OpenRiichi } from "./OpenRiichi";
 import { DoubleRiichi } from "./DoubleRiichi";
 import { Haitei } from "./Haitei";
 import { Houtei } from "./Houtei";
-import { RinshanKaiho } from "./RinshanKaiho";
+import { RinshanKaihou } from "./RinshanKaihou";
 import { Ippatsu } from "./Ippatsu";
 import { MenFon } from "./MenFon";
 import { ChanFon } from "./ChanFon";
@@ -40,6 +40,14 @@ import { Tenho } from "./Tenho";
 import { Chiho } from "./Chiho";
 import { KokushiMusou } from "./KokushiMusou";
 import { KokushiMusou13MenMachi } from "./KokushiMusou13MenMachi";
+import { RyuIsou } from "./RyuIsou";
+import { ChurenPoutou } from "./ChurenPoutou";
+import { DaiSanGen } from "./DaiSanGen";
+import { ShouSushi } from "./ShouSushi";
+import { DaiSushi } from "./DaiSushi";
+import { JunseiChurenPoutou } from "./JunseiChurenPoutou";
+import { SuAnkouTankiMachi } from "./SuAnkouTankiMachi";
+import { NagashiMangan } from "./NagashiMangan";
 
 export {
   Tanyao,
@@ -53,7 +61,7 @@ export {
   DoubleRiichi,
   Haitei,
   Houtei,
-  RinshanKaiho,
+  RinshanKaihou,
   Ippatsu,
   MenFon,
   ChanFon,
@@ -84,4 +92,12 @@ export {
   Chiho,
   KokushiMusou,
   KokushiMusou13MenMachi,
+  RyuIsou,
+  ChurenPoutou,
+  DaiSanGen,
+  ShouSushi,
+  DaiSushi,
+  SuAnkouTankiMachi,
+  JunseiChurenPoutou,
+  NagashiMangan,
 }

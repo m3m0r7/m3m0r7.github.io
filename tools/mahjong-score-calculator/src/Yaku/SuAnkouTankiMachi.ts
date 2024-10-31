@@ -1,7 +1,8 @@
 import { MahjongOption, Yaku } from "../types";
 import { PaiPairCollection } from "../Collection";
+import { SuAnkou } from "./SuAnkou";
 
-export class KokushiMusou13MenMachi implements Yaku {
+export class SuAnkouTankiMachi implements Yaku {
   private paiPairCollection: PaiPairCollection
   private option: MahjongOption
 
@@ -15,8 +16,13 @@ export class KokushiMusou13MenMachi implements Yaku {
   }
 
   get isFulfilled(): boolean {
-    return this.option.enableDoubleYakuman
-      && this.paiPairCollection.isKokushiMusou
-      && this.option.hora.fromKokushiMusou13MenMachi
+    if (!this.option.enableDoubleYakuman) {
+      return false
+    }
+    if (!this.option.hora.fromTankiMachi) {
+      return false
+    }
+
+    return (new SuAnkou(this.paiPairCollection, this.option)).isFulfilled
   }
 }

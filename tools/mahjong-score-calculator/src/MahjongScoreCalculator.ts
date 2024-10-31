@@ -101,7 +101,8 @@ export class MahjongScoreCalculator {
               isDoubleYakuman: false,
               isFu: false,
               name: I18n.ja.yaku[score.yaku.constructor.name] ?? score.yaku.constructor.name,
-              score: score.yaku.han ?? 0,
+              score: score.yaku.han ?? score.yaku.han ?? 0,
+              calculationBasedScore: score.yaku.calculationBasedHan ?? score.yaku.han,
             })
           }
         } else {
@@ -126,12 +127,14 @@ export class MahjongScoreCalculator {
         ? tempScoreData.fu
         : Math.ceil(tempScoreData.fu / 10) * 10
 
+      let calculationYaku: ScoreData['yaku'] = tempScoreData.appliedYakuList?.map(yaku => !yaku.isYakuman && !yaku.isDoubleYakuman && (yaku.calculationBasedScore ?? yaku.score)).sum() ?? 0
       tempScoreData.yaku = tempScoreData.appliedYakuList?.map(yaku => !yaku.isYakuman && !yaku.isDoubleYakuman && yaku.score).sum() ?? 0
-      tempScoreData.yaku = tempScoreData.appliedYakuList?.some(yaku => yaku.isYakuman)
+
+      tempScoreData.yaku = calculationYaku = tempScoreData.appliedYakuList?.some(yaku => yaku.isYakuman)
         ? 'FULL'
         : tempScoreData.yaku
 
-      tempScoreData.yaku = tempScoreData.appliedYakuList?.some(yaku => yaku.isDoubleYakuman)
+      tempScoreData.yaku = calculationYaku = tempScoreData.appliedYakuList?.some(yaku => yaku.isDoubleYakuman)
         ? 'DOUBLE_FULL'
         : tempScoreData.yaku
 
@@ -141,22 +144,22 @@ export class MahjongScoreCalculator {
       const isParent = this.mahjong.option.jikaze === '1z'
       const roundUpScore = (score: number): number => Math.ceil(score / 100) * 100
 
-      if (tempScoreData.yaku === 'DOUBLE_FULL') { // NOTE: Double Yakuman
-        baseScore = isParent ? 64000 : 48000;
+      if (calculationYaku === 'DOUBLE_FULL') { // NOTE: Double Yakuman
+        baseScore = isParent ? 96000 : 64000;
         tempScoreData.fu = null
-      } else if (tempScoreData.yaku === 'FULL') { // NOTE: Yakuman
+      } else if (calculationYaku === 'FULL') { // NOTE: Yakuman
         baseScore = isParent ? 48000 : 32000;
         tempScoreData.fu = null
-      } else if (tempScoreData.yaku >= 11 && tempScoreData.yaku <= 12) { // NOTE: Normally scoring
+      } else if (calculationYaku >= 11 && calculationYaku <= 12) { // NOTE: Normally scoring
         baseScore += isParent ? 36000 : 24000;
-      } else if (tempScoreData.yaku >= 8 && tempScoreData.yaku <= 10) { // NOTE: Normally scoring
+      } else if (calculationYaku >= 8 && calculationYaku <= 10) { // NOTE: Normally scoring
         baseScore += isParent ? 24000 : 16000;
-      } else if (tempScoreData.yaku >= 6 && tempScoreData.yaku <= 7) { // NOTE: Normally scoring
+      } else if (calculationYaku >= 6 && calculationYaku <= 7) { // NOTE: Normally scoring
         baseScore += isParent ? 18000 : 12000;
-      } else if (tempScoreData.yaku >= 5) {
+      } else if (calculationYaku >= 5) {
         baseScore += isParent ? 12000 : 8000;
       } else {  // NOTE: under 4 yaku
-        baseScore += this.scoreTable?.[isParent ? 'parent' : 'child']?.[tempScoreData.yaku]?.[tempScoreData.fu] ?? 0
+        baseScore += this.scoreTable?.[isParent ? 'parent' : 'child']?.[calculationYaku]?.[tempScoreData.fu] ?? 0
       }
 
       if (this.mahjong.option.hora.fromTsumo) {

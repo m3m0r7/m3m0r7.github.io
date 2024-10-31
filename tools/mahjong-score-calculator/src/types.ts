@@ -127,6 +127,8 @@ export interface Hora {
   fromRon: boolean
   fromTsumo: boolean
   fromRinshanPai: boolean
+  fromTankiMachi: boolean
+  fromKokushiMusou13MenMachi: boolean
 }
 
 export interface MahjongOption {
@@ -159,13 +161,14 @@ export interface MahjongOption {
     withChanKan: boolean
     withTenho: boolean
     withChiho: boolean
-    withKokushiMusou13MenMachi: boolean
+    withNagashiMangan: boolean
   }
 }
 
 export interface Yaku {
   parent?: Yaku;
   han?: number
+  calculationBasedHan?: number
   type: 'NORMAL' | 'FULL' | 'DOUBLE_FULL'
   availableHora?: boolean
   isFulfilled: boolean
@@ -200,22 +203,26 @@ export type CalculatedScore = {
   isFu: true
   name: string
   score: number
+  calculationBasedScore?: number
 } | {
   isYakuman: false
   isDoubleYakuman: false
   isFu: false
   name: string
   score: number
+  calculationBasedScore?: number
 } | {
   isYakuman: true
   isDoubleYakuman: false
   isFu: false
   name: string
+  calculationBasedScore?: number
 } | {
   isYakuman: false
   isDoubleYakuman: true
   isFu: false
   name: string
+  calculationBasedScore?: number
 }
 
 export type ScoreData = {
