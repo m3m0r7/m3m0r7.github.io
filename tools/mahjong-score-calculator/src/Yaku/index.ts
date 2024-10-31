@@ -23,6 +23,12 @@ import { Chun } from "./Chun";
 import { ChanKan } from "./ChanKan";
 import { IpeiKou } from "./IpeiKou";
 import { RyanPeiKou } from "./RyanPeiKou";
+import { ToiToi } from "./ToiToi";
+import { SanAnkou } from "./SanAnkou";
+import { SanShokuDouKou } from "./SanShokuDouKou";
+import { SanShokuDouJun } from "./SanShokuDouJun";
+import { SanKantsu } from "./SanKantsu";
+import { ChiiToitsu } from "./ChiiToitsu";
 
 export {
   Tanyao,
@@ -50,4 +56,10 @@ export {
   ChanKan,
   IpeiKou,
   RyanPeiKou,
+  ToiToi,
+  SanAnkou,
+  SanShokuDouKou,
+  SanShokuDouJun,
+  SanKantsu,
+  ChiiToitsu,
 }

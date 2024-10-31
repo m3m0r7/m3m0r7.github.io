@@ -12,18 +12,32 @@ import {
   Tsumo
 } from "./Fu";
 import {
-  AkaDora, ChanFon, ChanKan,
-  Chanta, Chun,
+  AkaDora,
+  ChanFon,
+  ChanKan,
+  Chanta,
+  Chun,
   Dora,
-  Haitei, Haku, Hatsu,
+  Haitei,
+  Haku,
+  Hatsu,
   Honitsu,
-  Houtei, IpeiKou,
-  Ippatsu, MenFon,
+  Houtei,
+  IpeiKou,
+  Ippatsu,
+  MenFon,
   OpenRiichi,
-  Pinfu, RenFon,
+  Pinfu,
+  RenFon,
   Riichi,
-  RinshanKaiho, RyanPeiKou,
-  Tanyao, UraDora
+  RinshanKaiho,
+  RyanPeiKou,
+  SanAnkou,
+  SanShokuDouJun,
+  SanShokuDouKou,
+  Tanyao,
+  ToiToi,
+  UraDora
 } from "./Yaku";
 import { MahjongOption } from "./types";
 
@@ -71,5 +85,9 @@ export const MahjongDefaultOption: Partial<MahjongOption> = {
     ChanKan,
     IpeiKou,
     RyanPeiKou,
+    ToiToi,
+    SanAnkou,
+    SanShokuDouKou,
+    SanShokuDouJun,
   ],
 }

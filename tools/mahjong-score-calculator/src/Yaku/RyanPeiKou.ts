@@ -12,7 +12,7 @@ export class RyanPeiKou implements Yaku {
   }
 
   get han(): number {
-    return 2
+    return 3
   }
 
   get isFulfilled(): boolean {
