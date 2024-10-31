@@ -1,6 +1,6 @@
 interface Array<T> {
   chunk(size: number): T[][]
-  includesWithMatrix(items: T[]): boolean
+  includesWithMatrix<U = T>(items: U[], type?: 'OR' | 'AND'): boolean
   sum(): number
 }
 
@@ -10,8 +10,10 @@ Array.prototype.chunk = function (size: number) {
   );
 };
 
-Array.prototype.includesWithMatrix = function (items) {
-  return items.some(item => this.includes(item))
+Array.prototype.includesWithMatrix = function (items, type: 'OR' | 'AND' = 'OR') {
+  return type === 'AND'
+    ? items.every(item => this.includes(item))
+    : items.some(item => this.includes(item))
 };
 
 Array.prototype.sum = function (): number {

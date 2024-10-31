@@ -43,6 +43,7 @@ export class Mahjong {
         withIppatsu: false,
         withHaitei: false,
         withHoutei: false,
+        withChanKan: false,
       },
     }, option)
     this.paiCollection = new PaiCollection(paiList)

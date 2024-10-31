@@ -1,14 +1,14 @@
 import {
-  AkaDora, ChanFon,
-  Chanta, Dora,
-  Haitei,
+  AkaDora, ChanFon, ChanKan,
+  Chanta, Chun, Dora,
+  Haitei, Haku, Hatsu,
   Honitsu,
-  Houtei, Ippatsu, MenFon,
+  Houtei, IpeiKou, Ippatsu, MenFon,
   OpenRiichi,
   Pinfu,
   RenFon,
   Riichi,
-  RinshanKaiho,
+  RinshanKaiho, RyanPeiKou,
   Tanyao, UraDora
 } from "./Yaku";
 import {
@@ -54,6 +54,12 @@ export default {
       [ChanFon.name]: '場風役',
       [MenFon.name]: '自風役',
       [Ippatsu.name]: '一発',
+      [Haku.name]: '白',
+      [Hatsu.name]: '発',
+      [Chun.name]: '中',
+      [ChanKan.name]: '槍槓',
+      [IpeiKou.name]: '一盃口',
+      [RyanPeiKou.name]: '二盃口',
       [Dora.name]: 'ドラ',
       [UraDora.name]: '裏ドラ',
       [AkaDora.name]: '赤ドラ',

@@ -155,6 +155,7 @@ export interface MahjongOption {
     withIppatsu: boolean
     withHaitei: boolean
     withHoutei: boolean
+    withChanKan: boolean
   }
 }
 

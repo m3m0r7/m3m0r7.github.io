@@ -17,6 +17,12 @@ import { RenFon } from "./RenFon";
 import { Dora } from "./Dora";
 import { UraDora } from "./UraDora";
 import { AkaDora } from "./AkaDora";
+import { Haku } from "./Haku";
+import { Hatsu } from "./Hatsu";
+import { Chun } from "./Chun";
+import { ChanKan } from "./ChanKan";
+import { IpeiKou } from "./IpeiKou";
+import { RyanPeiKou } from "./RyanPeiKou";
 
 export {
   Tanyao,
@@ -38,4 +44,10 @@ export {
   Dora,
   UraDora,
   AkaDora,
+  Haku,
+  Hatsu,
+  Chun,
+  ChanKan,
+  IpeiKou,
+  RyanPeiKou,
 }
