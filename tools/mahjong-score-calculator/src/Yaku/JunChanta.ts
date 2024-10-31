@@ -9,6 +9,10 @@ export class JunChanta implements Yaku {
     this.paiPairCollection = paiPairCollection
   }
 
+  get type(): Yaku['type'] {
+    return 'NORMAL'
+  }
+
   get han(): number {
     return this.paiPairCollection.hasFuro
       ? 2

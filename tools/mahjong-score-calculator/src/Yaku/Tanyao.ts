@@ -9,6 +9,10 @@ export class Tanyao implements Yaku {
     this.paiPairCollection = paiPairCollection
   }
 
+  get type(): Yaku['type'] {
+    return 'NORMAL'
+  }
+
   get han(): number {
     return 1
   }

@@ -10,6 +10,10 @@ export class RenFon implements Yaku {
     this.option = option
   }
 
+  get type(): Yaku['type'] {
+    return 'NORMAL'
+  }
+
   get han(): number {
     // NOTE: Here is same of Dabu-Nan|Ton.
     return 2

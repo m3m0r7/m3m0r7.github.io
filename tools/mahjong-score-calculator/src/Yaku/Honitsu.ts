@@ -12,6 +12,10 @@ export class Honitsu implements Yaku {
     this.option = option
   }
 
+  get type(): Yaku['type'] {
+    return 'NORMAL'
+  }
+
   get han(): number {
     return this.paiPairCollection.hasFuro
       ? 2

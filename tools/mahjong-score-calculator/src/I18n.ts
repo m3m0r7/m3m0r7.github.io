@@ -25,7 +25,7 @@ import {
   SanAnkou,
   SanKantsu,
   SanShokuDouJun,
-  SanShokuDouKou,
+  SanShokuDouKou, ShouSanGen, SuAnkou,
   Tanyao,
   ToiToi,
   UraDora
@@ -47,7 +47,7 @@ import {
 export default {
   ja: {
     fu: {
-      [Futei.name]: '副底',
+      [Futei.name]: '基本符',
       [Ankou.name]: '暗刻',
       [Minkou.name]: '明刻',
       [Ankan.name]: '暗槓',
@@ -90,6 +90,8 @@ export default {
       [ChiiToitsu.name]: '七対子',
       [HonRoutou.name]: '混老頭',
       [IkkiTsuukan.name]: '一気通貫',
+      [ShouSanGen.name]: '小三元',
+      [SuAnkou.name]: '四暗刻',
 
       // Dora
       [Dora.name]: 'ドラ',

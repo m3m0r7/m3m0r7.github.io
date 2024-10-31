@@ -1,7 +1,7 @@
 import { MahjongOption, Yaku } from "../types";
 import { PaiPairCollection } from "../Collection";
 
-export class Houtei implements Yaku {
+export class SuAnkou implements Yaku {
   private paiPairCollection: PaiPairCollection
   private option: MahjongOption
 
@@ -11,14 +11,20 @@ export class Houtei implements Yaku {
   }
 
   get type(): Yaku['type'] {
-    return 'NORMAL'
-  }
-
-  get han(): number {
-    return 1
+    return 'FULL'
   }
 
   get isFulfilled(): boolean {
-    return this.option.additionalSpecialYaku.withHoutei
+    for (let i = 0, counter = 0; i < this.paiPairCollection.paiPairs.length; i++) {
+      const paiPair = this.paiPairCollection.paiPairs[i]
+      if (!paiPair.isFuro && (paiPair.isKoutsu || paiPair.isKan)) {
+        counter++
+      }
+
+      if (counter === 4) {
+        return true
+      }
+    }
+    return false
   }
 }

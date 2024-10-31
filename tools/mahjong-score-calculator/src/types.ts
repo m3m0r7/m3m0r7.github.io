@@ -159,21 +159,10 @@ export interface MahjongOption {
   }
 }
 
-export interface Yakuman {
-  isYakuman?: boolean
-}
-
-export interface DoubleYakuman extends Yakuman {
-  isDoubleYakuman?: boolean
-}
-
-export interface KazoeYakuman extends Yakuman {
-  isKazoeYakuman?: boolean
-}
-
 export interface Yaku {
   parent?: Yaku;
-  han: number
+  han?: number
+  type: 'NORMAL' | 'FULL' | 'DOUBLE_FULL'
   availableHora?: boolean
   isFulfilled: boolean
 }
@@ -201,12 +190,34 @@ export interface Validator {
 
 export type PaiGroup<T = PaiName> = { m: T[], p: T[], s: T[], z: T[] }
 
-export type CalculatedScore = { name: string, score: number }
+export type CalculatedScore = {
+  isYakuman: false
+  isDoubleYakuman: false
+  isFu: true
+  name: string
+  score: number
+} | {
+  isYakuman: false
+  isDoubleYakuman: false
+  isFu: false
+  name: string
+  score: number
+} | {
+  isYakuman: true
+  isDoubleYakuman: false
+  isFu: false
+  name: string
+} | {
+  isYakuman: false
+  isDoubleYakuman: true
+  isFu: false
+  name: string
+}
 
 export type ScoreData = {
   score: { base: number, parent?: number, child?: number }
-  fu: number
-  yaku: number
+  fu: number | null
+  yaku: number | 'FULL' | 'DOUBLE_FULL'
   honba: number
   appliedFuList: CalculatedScore[]
   appliedYakuList: CalculatedScore[]

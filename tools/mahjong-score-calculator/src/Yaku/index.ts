@@ -31,6 +31,8 @@ import { SanKantsu } from "./SanKantsu";
 import { ChiiToitsu } from "./ChiiToitsu";
 import { IkkiTsuukan } from "./IkkiTsuukan";
 import { HonRoutou } from "./HonRoutou";
+import { ShouSanGen } from "./ShouSanGen";
+import { SuAnkou } from "./SuAnkou";
 
 export {
   Tanyao,
@@ -66,4 +68,6 @@ export {
   ChiiToitsu,
   IkkiTsuukan,
   HonRoutou,
+  ShouSanGen,
+  SuAnkou,
 }

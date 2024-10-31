@@ -10,6 +10,10 @@ export class ChanKan implements Yaku {
     this.option = option
   }
 
+  get type(): Yaku['type'] {
+    return 'NORMAL'
+  }
+
   get han(): number {
     return 1
   }

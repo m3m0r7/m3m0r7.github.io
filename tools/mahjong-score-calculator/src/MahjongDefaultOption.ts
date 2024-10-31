@@ -34,7 +34,7 @@ import {
   RyanPeiKou,
   SanAnkou,
   SanShokuDouJun,
-  SanShokuDouKou,
+  SanShokuDouKou, SuAnkou,
   Tanyao,
   ToiToi,
   UraDora
@@ -89,5 +89,6 @@ export const MahjongDefaultOption: Partial<MahjongOption> = {
     SanAnkou,
     SanShokuDouKou,
     SanShokuDouJun,
+    SuAnkou,
   ],
 }

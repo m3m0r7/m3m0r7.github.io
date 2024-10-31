@@ -14,6 +14,10 @@ export class SanShokuDouJun implements Yaku {
     this.option = option
   }
 
+  get type(): Yaku['type'] {
+    return 'NORMAL'
+  }
+
   get han(): number {
     return this.includeFuro
       ? 1

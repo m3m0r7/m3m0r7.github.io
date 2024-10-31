@@ -10,6 +10,10 @@ export class UraDora implements Yaku {
     this.option = option
   }
 
+  get type(): Yaku['type'] {
+    return 'NORMAL'
+  }
+
   get availableHora(): boolean {
     // NOTE: A dora is not available hora, if you need to hora, and then you need to have other a yaku.
     return false

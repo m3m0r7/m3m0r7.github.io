@@ -81,12 +81,34 @@ export class MahjongScoreCalculator {
 
       const tempScoreData = yakuAndFu.reduce<Partial<ScoreData>>((carry, score) => {
         if (score.isYaku) {
-          carry.appliedYakuList?.push({
-            name: I18n.ja.yaku[score.yaku.constructor.name] ?? score.yaku.constructor.name,
-            score: score.yaku.han,
-          })
+          if (score.yaku.type === 'FULL') {
+            carry.appliedYakuList?.push({
+              isYakuman: true,
+              isDoubleYakuman: false,
+              isFu: false,
+              name: I18n.ja.yaku[score.yaku.constructor.name] ?? score.yaku.constructor.name,
+            })
+          } else if (score.yaku.type === 'DOUBLE_FULL') {
+            carry.appliedYakuList?.push({
+              isYakuman: false,
+              isDoubleYakuman: true,
+              isFu: false,
+              name: I18n.ja.yaku[score.yaku.constructor.name] ?? score.yaku.constructor.name,
+            })
+          } else {
+            carry.appliedYakuList?.push({
+              isYakuman: false,
+              isDoubleYakuman: false,
+              isFu: false,
+              name: I18n.ja.yaku[score.yaku.constructor.name] ?? score.yaku.constructor.name,
+              score: score.yaku.han ?? 0,
+            })
+          }
         } else {
           carry.appliedFuList?.push({
+            isYakuman: false,
+            isDoubleYakuman: false,
+            isFu: true,
             name: I18n.ja.fu[score.fu.constructor.name] ?? score.fu.constructor.name,
             score: score.fu.value,
           })
@@ -97,14 +119,21 @@ export class MahjongScoreCalculator {
         appliedYakuList: [],
       });
 
-      tempScoreData.fu = tempScoreData.appliedFuList?.map(fu => fu.score).sum() ?? 0
+      tempScoreData.fu = tempScoreData.appliedFuList?.map(fu => fu.isFu && fu.score).sum() ?? 0
 
       // NOTE: The fu must be rounded up to the nearest one
       tempScoreData.fu = tempScoreData.fu === 25
         ? tempScoreData.fu
         : Math.ceil(tempScoreData.fu / 10) * 10
 
-      tempScoreData.yaku = tempScoreData.appliedYakuList?.map(yaku => yaku.score).sum() ?? 0
+      tempScoreData.yaku = tempScoreData.appliedYakuList?.map(yaku => !yaku.isYakuman && !yaku.isDoubleYakuman && yaku.score).sum() ?? 0
+      tempScoreData.yaku = tempScoreData.appliedYakuList?.some(yaku => yaku.isYakuman)
+        ? 'FULL'
+        : tempScoreData.yaku
+
+      tempScoreData.yaku = tempScoreData.appliedYakuList?.some(yaku => yaku.isDoubleYakuman)
+        ? 'DOUBLE_FULL'
+        : tempScoreData.yaku
 
       tempScoreData.honba = this.mahjong.option.honba
 
@@ -112,16 +141,21 @@ export class MahjongScoreCalculator {
       const isParent = this.mahjong.option.jikaze === '1z'
       const roundUpScore = (score: number): number => Math.ceil(score / 100) * 100
 
-      // NOTE: Normally scoring
-      if (tempScoreData.yaku >= 11 && tempScoreData.yaku <= 12) {
+      if (tempScoreData.yaku === 'DOUBLE_FULL') { // NOTE: Double Yakuman
+        baseScore = isParent ? 64000 : 48000;
+        tempScoreData.fu = null
+      } else if (tempScoreData.yaku === 'FULL') { // NOTE: Yakuman
+        baseScore = isParent ? 48000 : 32000;
+        tempScoreData.fu = null
+      } else if (tempScoreData.yaku >= 11 && tempScoreData.yaku <= 12) { // NOTE: Normally scoring
         baseScore += isParent ? 36000 : 24000;
-      } else if (tempScoreData.yaku >= 8 && tempScoreData.yaku <= 10) {
+      } else if (tempScoreData.yaku >= 8 && tempScoreData.yaku <= 10) { // NOTE: Normally scoring
         baseScore += isParent ? 24000 : 16000;
-      } else if (tempScoreData.yaku >= 6 && tempScoreData.yaku <= 7) {
+      } else if (tempScoreData.yaku >= 6 && tempScoreData.yaku <= 7) { // NOTE: Normally scoring
         baseScore += isParent ? 18000 : 12000;
       } else if (tempScoreData.yaku >= 5) {
         baseScore += isParent ? 12000 : 8000;
-      } else {
+      } else {  // NOTE: under 4 yaku
         baseScore += this.scoreTable?.[isParent ? 'parent' : 'child']?.[tempScoreData.yaku]?.[tempScoreData.fu] ?? 0
       }
 

@@ -10,13 +10,17 @@ export class Chun implements Yaku {
     this.option = option
   }
 
+  get type(): Yaku['type'] {
+    return 'NORMAL'
+  }
+
   get han(): number {
     return 1
   }
 
   get isFulfilled(): boolean {
     return this.paiPairCollection.paiPairs.some(
-      paiPair => paiPair.isKoutsu && paiPair.pattern.includes('7z'),
+      paiPair => (paiPair.isKoutsu || paiPair.isKan) && paiPair.pattern.includes('7z'),
     )
   }
 }

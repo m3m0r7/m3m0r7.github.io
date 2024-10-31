@@ -10,6 +10,14 @@ export class Ippatsu implements Yaku {
     this.option = option
   }
 
+  get type(): Yaku['type'] {
+    return 'NORMAL'
+  }
+
+  get availableHora(): boolean {
+    return false
+  }
+
   get han(): number {
     return 1
   }
