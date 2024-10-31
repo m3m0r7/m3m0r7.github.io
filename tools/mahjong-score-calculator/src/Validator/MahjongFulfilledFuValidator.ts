@@ -28,6 +28,11 @@ export class MahjongFulfilledFuValidator implements Validator {
       return false
     }
 
+    // NOTE: No calculate fu when fulfilling each of yakuman
+    if (this.yakuList.find(yaku => yaku.type === 'FULL' || yaku.type === 'DOUBLE_FULL')) {
+      return true
+    }
+
     for (const fuName of this.option.fuList) {
       let processor: Fu = new fuName(this.paiPairCollection, this.yakuList, this.option)
 

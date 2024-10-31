@@ -45,7 +45,14 @@ export class MahjongFulfilledYakuValidator implements Validator {
         record.availableHora = processor.availableHora === undefined || processor.availableHora
 
         this._fulfilled.push(record)
+
       }
+    }
+
+    const yakuman = this._fulfilled.find(yaku => yaku.type === 'FULL' || yaku.type === 'DOUBLE_FULL')
+    if (yakuman) {
+      // NOTE: Clear fulfilled records added before, and add only yakuman
+      this._fulfilled = [yakuman];
     }
 
     return this._fulfilled.length > 0
