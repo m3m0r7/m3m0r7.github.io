@@ -33,6 +33,13 @@ import { IkkiTsuukan } from "./IkkiTsuukan";
 import { HonRoutou } from "./HonRoutou";
 import { ShouSanGen } from "./ShouSanGen";
 import { SuAnkou } from "./SuAnkou";
+import { ChinRoutou } from "./ChinRoutou";
+import { SuKantsu } from "./SuKantsu";
+import { TsuIsou } from "./TsuIsou";
+import { Tenho } from "./Tenho";
+import { Chiho } from "./Chiho";
+import { KokushiMusou } from "./KokushiMusou";
+import { KokushiMusou13MenMachi } from "./KokushiMusou13MenMachi";
 
 export {
   Tanyao,
@@ -70,4 +77,11 @@ export {
   HonRoutou,
   ShouSanGen,
   SuAnkou,
+  ChinRoutou,
+  SuKantsu,
+  TsuIsou,
+  Tenho,
+  Chiho,
+  KokushiMusou,
+  KokushiMusou13MenMachi,
 }

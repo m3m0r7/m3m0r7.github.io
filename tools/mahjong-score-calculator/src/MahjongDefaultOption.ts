@@ -15,7 +15,8 @@ import {
   AkaDora,
   ChanFon,
   ChanKan,
-  Chanta,
+  Chanta, Chiho,
+  ChinRoutou,
   Chun,
   Dora,
   Haitei,
@@ -24,7 +25,7 @@ import {
   Honitsu,
   Houtei,
   IpeiKou,
-  Ippatsu,
+  Ippatsu, KokushiMusou, KokushiMusou13MenMachi,
   MenFon,
   OpenRiichi,
   Pinfu,
@@ -34,9 +35,12 @@ import {
   RyanPeiKou,
   SanAnkou,
   SanShokuDouJun,
-  SanShokuDouKou, SuAnkou,
-  Tanyao,
+  SanShokuDouKou,
+  SuAnkou,
+  SuKantsu,
+  Tanyao, Tenho,
   ToiToi,
+  TsuIsou,
   UraDora
 } from "./Yaku";
 import { MahjongOption } from "./types";
@@ -63,6 +67,20 @@ export const MahjongDefaultOption: Partial<MahjongOption> = {
     RenFonPai,
   ],
   yakuList: [
+    // NOTE: Double Yakuman
+    //       Here order is needed.
+    KokushiMusou13MenMachi,
+
+    // NOTE: Yakuman
+    SuAnkou,
+    ChinRoutou,
+    SuKantsu,
+    TsuIsou,
+    Tenho,
+    Chiho,
+    KokushiMusou,
+
+    // NOTE: Normally yaku
     Tanyao,
     Chanta,
     Honitsu,
@@ -89,6 +107,5 @@ export const MahjongDefaultOption: Partial<MahjongOption> = {
     SanAnkou,
     SanShokuDouKou,
     SanShokuDouJun,
-    SuAnkou,
   ],
 }

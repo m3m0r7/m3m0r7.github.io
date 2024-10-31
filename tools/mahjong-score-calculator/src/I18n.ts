@@ -2,9 +2,9 @@ import {
   AkaDora,
   ChanFon,
   ChanKan,
-  Chanta,
+  Chanta, Chiho,
   ChiiToitsu,
-  Chinitsu,
+  Chinitsu, ChinRoutou,
   Chun,
   Dora,
   Haitei,
@@ -14,7 +14,7 @@ import {
   Houtei, IkkiTsuukan,
   IpeiKou,
   Ippatsu,
-  JunChanta,
+  JunChanta, KokushiMusou, KokushiMusou13MenMachi,
   MenFon,
   OpenRiichi,
   Pinfu,
@@ -25,9 +25,9 @@ import {
   SanAnkou,
   SanKantsu,
   SanShokuDouJun,
-  SanShokuDouKou, ShouSanGen, SuAnkou,
-  Tanyao,
-  ToiToi,
+  SanShokuDouKou, ShouSanGen, SuAnkou, SuKantsu,
+  Tanyao, Tenho,
+  ToiToi, TsuIsou,
   UraDora
 } from "./Yaku";
 import {
@@ -92,6 +92,13 @@ export default {
       [IkkiTsuukan.name]: '一気通貫',
       [ShouSanGen.name]: '小三元',
       [SuAnkou.name]: '四暗刻',
+      [ChinRoutou.name]: '清老頭',
+      [SuKantsu.name]: '四槓子',
+      [TsuIsou.name]: '字一色',
+      [Tenho.name]: '天和',
+      [Chiho.name]: '地和',
+      [KokushiMusou.name]: '国士無双',
+      [KokushiMusou13MenMachi.name]: '国士無双十三面待ち',
 
       // Dora
       [Dora.name]: 'ドラ',

@@ -144,6 +144,7 @@ export interface MahjongOption {
   },
   fuList: (new (...args: any[]) => Fu)[]
   yakuList: (new (...args: any[]) => Yaku)[]
+  enableDoubleYakuman: boolean
   additionalSpecialYaku: {
     // NOTE: Here is not available to calculate automatically
     //       Because it is not enough information by passed parameters only.
@@ -156,6 +157,9 @@ export interface MahjongOption {
     withHaitei: boolean
     withHoutei: boolean
     withChanKan: boolean
+    withTenho: boolean
+    withChiho: boolean
+    withKokushiMusou13MenMachi: boolean
   }
 }
 

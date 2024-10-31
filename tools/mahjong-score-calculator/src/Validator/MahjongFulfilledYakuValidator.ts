@@ -46,6 +46,10 @@ export class MahjongFulfilledYakuValidator implements Validator {
 
         this._fulfilled.push(record)
 
+        if (record.type === 'FULL' || record.type === 'DOUBLE_FULL') {
+          // NOTE: Use short-circuit when found a yakuman
+          break;
+        }
       }
     }
 

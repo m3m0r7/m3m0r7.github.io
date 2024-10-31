@@ -36,6 +36,7 @@ export class Mahjong {
       },
       fuList: MahjongDefaultOption.fuList ?? [],
       yakuList: MahjongDefaultOption.yakuList ?? [],
+      enableDoubleYakuman: true,
       additionalSpecialYaku: {
         withRiichi: false,
         withDoubleRiichi: false,
@@ -44,6 +45,9 @@ export class Mahjong {
         withHaitei: false,
         withHoutei: false,
         withChanKan: false,
+        withTenho: false,
+        withChiho: false,
+        withKokushiMusou13MenMachi: false,
       },
     }, option)
     this.paiCollection = new PaiCollection(paiList)
