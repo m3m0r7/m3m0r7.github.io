@@ -1,4 +1,4 @@
-import { MahjongOption, Yaku } from "../types";
+import { Koutsu, MahjongOption, Yaku } from "../types";
 import { PaiPairCollection } from "../Collection";
 
 export class DaiSanGen implements Yaku {
@@ -15,7 +15,10 @@ export class DaiSanGen implements Yaku {
   }
 
   get isFulfilled(): boolean {
-    // TODO: Not implemented yet
-    return false
+    return ([
+      ["5z", "5z", "5z"],
+      ["6z", "6z", "6z"],
+      ["7z", "7z", "7z"],
+    ] as Koutsu[]).every(paiNames => this.paiPairCollection.paiPairs.some(paiPair => (paiPair.isKoutsu || paiPair.isKan) && paiPair.pattern.includesWithMatrix(paiNames)))
   }
 }

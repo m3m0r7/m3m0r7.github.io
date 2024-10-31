@@ -22,8 +22,6 @@ export class SanShokuDouKou implements Yaku {
   }
 
   get isFulfilled(): boolean {
-    const contains = (paiName: PaiName) => this.paiPairCollection.paiPairs.some(paiPair => (paiPair.isKoutsu || paiPair.isKan) && paiPair.pattern.includes(paiName))
-
     for (let i = 0; i < this.paiPairCollection.paiPairs.length; i++) {
       const targetPaiPair = this.paiPairCollection.paiPairs[i];
       if (!targetPaiPair.isKoutsu && !targetPaiPair.isKan) {
@@ -35,7 +33,7 @@ export class SanShokuDouKou implements Yaku {
       const koutsuPinzu: PaiName = `${aNumber}p` as PaiName
       const koutsuSouzu: PaiName = `${aNumber}s` as PaiName
 
-      if (contains(koutsuManzu) && contains(koutsuPinzu) && contains(koutsuSouzu)) {
+      if (this.paiPairCollection.containsKoutsuOrKan(koutsuManzu) && this.paiPairCollection.containsKoutsuOrKan(koutsuPinzu) && this.paiPairCollection.containsKoutsuOrKan(koutsuSouzu)) {
         return true
       }
     }

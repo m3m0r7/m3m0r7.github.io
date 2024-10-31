@@ -1,4 +1,4 @@
-import { PaiName, PaiNamePattern, PaiPair } from "./types";
+import { PaiName, PaiNamePattern, PaiPair, Shuntsu } from "./types";
 import { PaiPatternExtractor } from "./Extractor";
 import { PaiGenerator } from "./PaiGenerator";
 
@@ -8,6 +8,22 @@ export class PaiPairCollection {
   readonly paiPairs: PaiPair[] = []
   constructor(paiPairs: PaiPair[]) {
     this.paiPairs = paiPairs
+  }
+
+  containsKoutsuOrKan(paiName: PaiName): boolean {
+    return this.paiPairs.some(paiPair => (paiPair.isKoutsu || paiPair.isKan) && paiPair.pattern.includes(paiName))
+  }
+
+  containsJantou(paiName: PaiName): boolean {
+    if (!PaiPatternExtractor.shouldToitsu(this.jantou.pattern)) {
+      return false
+    }
+    return this.jantou.pattern.includes(paiName)
+  }
+
+  containsShuntsu(paiNames: Shuntsu): boolean {
+    return this.paiPairs
+      .some(paiPair =>  paiPair.isShuntsu && paiPair.pattern.includesWithMatrix(paiNames, 'AND'))
   }
 
   // TODO: Not implemented yet

@@ -1,4 +1,4 @@
-import { Koutsu, MahjongOption, Pai, PaiName, PaiPair, Yaku } from "../types";
+import { Koutsu, MahjongOption, Pai, PaiName, PaiPair, Shuntsu, Yaku } from "../types";
 import { PaiPairCollection } from "../Collection";
 import { RyanPeiKou } from "./RyanPeiKou";
 import { PaiPatternExtractor } from "../Extractor";
@@ -25,7 +25,7 @@ export class SanShokuDouJun implements Yaku {
   }
 
   get isFulfilled(): boolean {
-    const contains = (paiNames: Koutsu) => this.paiPairCollection.paiPairs
+    const contains = (paiNames: Shuntsu) => this.paiPairCollection.paiPairs
       .some(paiPair => {
         const result = paiPair.isShuntsu && paiPair.pattern.includesWithMatrix(paiNames, 'AND')
         if (result && paiPair.isFuro) {
@@ -44,9 +44,9 @@ export class SanShokuDouJun implements Yaku {
       const [bNumber] = PaiPatternExtractor.extractPaiPair(targetPaiPair.pattern[1])
       const [cNumber] = PaiPatternExtractor.extractPaiPair(targetPaiPair.pattern[2])
 
-      const shuntsuManzu: Koutsu = [`${aNumber}m`, `${bNumber}m`, `${cNumber}m`] as Koutsu
-      const shuntsuPinzu: Koutsu = [`${aNumber}p`, `${bNumber}p`, `${cNumber}p`] as Koutsu
-      const shuntsuSouzu: Koutsu = [`${aNumber}s`, `${bNumber}s`, `${cNumber}s`] as Koutsu
+      const shuntsuManzu: Shuntsu = [`${aNumber}m`, `${bNumber}m`, `${cNumber}m`] as Shuntsu
+      const shuntsuPinzu: Shuntsu = [`${aNumber}p`, `${bNumber}p`, `${cNumber}p`] as Shuntsu
+      const shuntsuSouzu: Shuntsu = [`${aNumber}s`, `${bNumber}s`, `${cNumber}s`] as Shuntsu
 
       if (contains(shuntsuManzu) && contains(shuntsuPinzu) && contains(shuntsuSouzu)) {
         return true

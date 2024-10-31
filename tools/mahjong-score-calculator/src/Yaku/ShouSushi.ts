@@ -1,4 +1,4 @@
-import { MahjongOption, Yaku } from "../types";
+import { MahjongOption, PaiName, Yaku } from "../types";
 import { PaiPairCollection } from "../Collection";
 
 export class ShouSushi implements Yaku {
@@ -15,7 +15,19 @@ export class ShouSushi implements Yaku {
   }
 
   get isFulfilled(): boolean {
-    // TODO: Not implemented yet
-    return false
+    const ton = this.paiPairCollection.containsKoutsuOrKan('1z')
+    const nan = this.paiPairCollection.containsKoutsuOrKan('2z')
+    const sha = this.paiPairCollection.containsKoutsuOrKan('3z')
+    const pe = this.paiPairCollection.containsKoutsuOrKan('4z')
+
+    const jantouTon = this.paiPairCollection.containsJantou('1z')
+    const jantouNan = this.paiPairCollection.containsJantou('2z')
+    const jantouSha = this.paiPairCollection.containsJantou('3z')
+    const jantouPe = this.paiPairCollection.containsJantou('4z')
+
+    return (ton && nan && sha && jantouPe)
+      || (nan && sha && pe && jantouTon)
+      || (sha && pe && ton && jantouNan)
+      || (pe && ton && nan && jantouSha)
   }
 }
