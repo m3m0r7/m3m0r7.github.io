@@ -1,42 +1,15 @@
 import { Fu, MahjongOption, Validator, Yaku } from "../types";
 import { PaiPairCollection } from "../Collection";
 import { MahjongFormatValidator } from "./MahjongFormatValidator";
-import {
-  Futei,
-  Ankou,
-  Minkou,
-  Ankan,
-  Minkan,
-  Tsumo,
-  MenzenKafu,
-  MenFonPai,
-  ChanFonPai,
-  SangenPai,
-  RenFonPai,
-} from "../Fu";
 
 export class MahjongFulfilledFuValidator implements Validator {
   readonly paiPairCollection: PaiPairCollection
   private yakuList: Yaku[]
-  private option: Partial<MahjongOption>
-
-  private fuList = [
-    Futei,
-    Ankou,
-    Minkou,
-    Ankan,
-    Minkan,
-    Tsumo,
-    MenzenKafu,
-    MenFonPai,
-    ChanFonPai,
-    SangenPai,
-    RenFonPai,
-  ];
+  private option: MahjongOption
 
   private _fulfilled: Fu[] = []
 
-  constructor(paiPairCollection: PaiPairCollection, yakuList: Yaku[], option: Partial<MahjongOption> = {}) {
+  constructor(paiPairCollection: PaiPairCollection, yakuList: Yaku[], option: MahjongOption) {
     this.option = option
     this.yakuList = yakuList
     this.paiPairCollection = paiPairCollection
@@ -55,7 +28,7 @@ export class MahjongFulfilledFuValidator implements Validator {
       return false
     }
 
-    for (const fuName of this.fuList) {
+    for (const fuName of this.option.fuList) {
       let processor: Fu = new fuName(this.paiPairCollection, this.yakuList, this.option)
 
       if (processor.isFulfilled) {

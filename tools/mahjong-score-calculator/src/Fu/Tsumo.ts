@@ -4,17 +4,17 @@ import { Pinfu } from "../Yaku/Pinfu";
 
 export class Tsumo implements Fu {
   private paiPairCollection: PaiPairCollection
-  private option: Partial<MahjongOption>
+  private option: MahjongOption
   private yakuList: Yaku[]
 
-  constructor(paiPairCollection: PaiPairCollection, yakuList: Yaku[], option: Partial<MahjongOption> = {}) {
+  constructor(paiPairCollection: PaiPairCollection, yakuList: Yaku[], option: MahjongOption) {
     this.paiPairCollection = paiPairCollection
     this.option = option
     this.yakuList = yakuList
   }
 
   get value() {
-    return this.option.hora?.fromTsumo && !this.paiPairCollection.isChiitoitsu && this.yakuList.some(yaku => !(yaku instanceof Pinfu))
+    return this.option.hora.fromTsumo && !this.paiPairCollection.isChiitoitsu && this.yakuList.some(yaku => !(yaku instanceof Pinfu))
       ? 2
       : 0
   }

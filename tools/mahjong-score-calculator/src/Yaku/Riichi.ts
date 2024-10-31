@@ -2,8 +2,9 @@ import { MahjongOption, Yaku } from "../types";
 import { PaiPairCollection } from "../Collection";
 import { PaiGenerator } from "../PaiGenerator";
 import { JunChanta } from "./JunChanta";
+import { DoubleRiichi } from "./DoubleRiichi";
 
-export class Chanta implements Yaku {
+export class Riichi implements Yaku {
   private paiPairCollection: PaiPairCollection
   private option: MahjongOption
 
@@ -13,24 +14,14 @@ export class Chanta implements Yaku {
   }
 
   get han(): number {
-    return this.paiPairCollection.hasFuro
-      ? 1
-      : 2
+    return 1
   }
 
   get parent(): Yaku {
-    return new JunChanta(this.paiPairCollection, this.option)
+    return new DoubleRiichi(this.paiPairCollection, this.option)
   }
 
   get isFulfilled(): boolean {
-    const result: boolean[] = []
-    const allowedPatterns = PaiGenerator.generatePenchanHai();
-
-    for (const paiPair of this.paiPairCollection.paiPairs) {
-      result.push(
-        allowedPatterns.includes(paiPair.pattern) || paiPair.pattern.some(pai => PaiGenerator.generateJiHai().includes(pai))
-      )
-    }
-    return result.every(v => v)
+    return this.option.additionalSpecialYaku.withRiichi || false
   }
 }

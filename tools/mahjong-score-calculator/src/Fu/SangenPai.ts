@@ -5,9 +5,9 @@ import { PaiGenerator } from "../PaiGenerator";
 
 export class SangenPai implements Fu {
   private paiPairCollection: PaiPairCollection
-  private option: Partial<MahjongOption>
+  private option: MahjongOption
 
-  constructor(paiPairCollection: PaiPairCollection, _yaku: Yaku[], option: Partial<MahjongOption> = {}) {
+  constructor(paiPairCollection: PaiPairCollection, _yaku: Yaku[], option: MahjongOption) {
     this.paiPairCollection = paiPairCollection
     this.option = option
   }
@@ -19,7 +19,7 @@ export class SangenPai implements Fu {
       return 0
     }
 
-    return this.option.kaze && pattern.includesWithMatrix(PaiGenerator.generateSangenPai())
+    return pattern.includesWithMatrix(PaiGenerator.generateSangenPai())
       ? 2
       : 0
   }

@@ -4,9 +4,9 @@ import { PaiPatternExtractor } from "../Extractor";
 
 export class RenFonPai implements Fu {
   private paiPairCollection: PaiPairCollection
-  private option: Partial<MahjongOption>
+  private option: MahjongOption
 
-  constructor(paiPairCollection: PaiPairCollection, _yaku: Yaku[], option: Partial<MahjongOption> = {}) {
+  constructor(paiPairCollection: PaiPairCollection, _yaku: Yaku[], option: MahjongOption) {
     this.paiPairCollection = paiPairCollection
     this.option = option
   }
@@ -18,7 +18,7 @@ export class RenFonPai implements Fu {
       return 0
     }
 
-    return this.option.kaze && this.option.kaze === this.option.jikaze && pattern.includes(this.option.kaze)
+    return this.option.kaze === this.option.jikaze && pattern.includes(this.option.kaze)
       // NOTE: Here is decided to calculate fu from a renfon pai. Default is 4 because it is based on mahjong official tournament rules.
       //       But I know, in some cases, that is calculated with 2.
       //       Of course, this is built-in option, and it is available to customize.

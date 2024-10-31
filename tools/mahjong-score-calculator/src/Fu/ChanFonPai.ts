@@ -4,9 +4,9 @@ import { PaiPatternExtractor } from "../Extractor";
 
 export class ChanFonPai implements Fu {
   private paiPairCollection: PaiPairCollection
-  private option: Partial<MahjongOption>
+  private option: MahjongOption
 
-  constructor(paiPairCollection: PaiPairCollection, _yaku: Yaku[], option: Partial<MahjongOption> = {}) {
+  constructor(paiPairCollection: PaiPairCollection, _yaku: Yaku[], option: MahjongOption) {
     this.paiPairCollection = paiPairCollection
     this.option = option
   }

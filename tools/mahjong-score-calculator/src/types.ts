@@ -134,29 +134,46 @@ export interface MahjongOption {
   honba: number
   kaze: Pai<"1", "z"> | Pai<"2", "z"> | Pai<"3", "z"> | Pai<"4", "z">
   jikaze: Pai<"1", "z"> | Pai<"2", "z"> | Pai<"3", "z"> | Pai<"4", "z">
-  isParent: boolean
+  uraDoraList: PaiName[]
   doraList: PaiName[]
   localRules: {
     fu: {
       renfonPai: number,
     },
+    honba: number,
   },
+  fuList: (new (...args: any[]) => Fu)[]
+  yakuList: (new (...args: any[]) => Yaku)[]
   additionalSpecialYaku: {
     // NOTE: Here is not available to calculate automatically
     //       Because it is not enough information by passed parameters only.
     //       There requires information of Yama and Kawa.
     //       Therefore, there are optionized.
-    withRiichi: boolean,
-    withDoubleRiichi: boolean,
-    withOpenRiichi: boolean,
-    withHaitei: boolean,
-    withHoutei: boolean,
+    withRiichi: boolean
+    withDoubleRiichi: boolean
+    withOpenRiichi: boolean
+    withIppatsu: boolean
+    withHaitei: boolean
+    withHoutei: boolean
   }
 }
 
+export interface Yakuman {
+  isYakuman?: boolean
+}
+
+export interface DoubleYakuman extends Yakuman {
+  isDoubleYakuman?: boolean
+}
+
+export interface KazoeYakuman extends Yakuman {
+  isKazoeYakuman?: boolean
+}
+
 export interface Yaku {
-  parent: Yaku | null;
+  parent?: Yaku;
   han: number
+  availableHora?: boolean
   isFulfilled: boolean
 }
 
@@ -182,5 +199,17 @@ export interface Validator {
 }
 
 export type PaiGroup<T = PaiName> = { m: T[], p: T[], s: T[], z: T[] }
+
+export type CalculatedScore = { name: string, score: number }
+
+export type ScoreData = {
+  score: { base: number, parent?: number, child?: number }
+  fu: number
+  yaku: number
+  honba: number
+  appliedFuList: CalculatedScore[]
+  appliedYakuList: CalculatedScore[]
+}
+
 
 export default {}

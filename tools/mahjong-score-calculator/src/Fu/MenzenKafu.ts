@@ -3,15 +3,15 @@ import { PaiPairCollection } from "../Collection";
 
 export class MenzenKafu implements Fu {
   private paiPairCollection: PaiPairCollection
-  private option: Partial<MahjongOption>
+  private option: MahjongOption
 
-  constructor(paiPairCollection: PaiPairCollection, _yaku: Yaku[], option: Partial<MahjongOption> = {}) {
+  constructor(paiPairCollection: PaiPairCollection, _yaku: Yaku[], option: MahjongOption) {
     this.paiPairCollection = paiPairCollection
     this.option = option
   }
 
   get value() {
-    return this.option.hora?.fromRon && !this.paiPairCollection.hasFuro
+    return this.option.hora.fromRon && !this.paiPairCollection.hasFuro
       ? 10
       : 0
   }

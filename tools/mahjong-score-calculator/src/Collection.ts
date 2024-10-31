@@ -48,6 +48,10 @@ export class PaiPairCollection {
     return this.count('isJantou')
   }
 
+  get countAkaDora(): number {
+    return this.count('includeAkaDora')
+  }
+
   get countFuro(): number {
     return this.count('isFuro')
   }

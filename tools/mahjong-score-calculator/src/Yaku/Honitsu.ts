@@ -1,13 +1,15 @@
-import { Yaku } from "../types";
+import { MahjongOption, Yaku } from "../types";
 import { PaiPairCollection } from "../Collection";
 import { PaiGenerator } from "../PaiGenerator";
 import { Chinitsu } from "./Chinitsu";
 
 export class Honitsu implements Yaku {
   private paiPairCollection: PaiPairCollection
+  private option: MahjongOption
 
-  constructor(paiPairCollection: PaiPairCollection) {
+  constructor(paiPairCollection: PaiPairCollection, option: MahjongOption) {
     this.paiPairCollection = paiPairCollection
+    this.option = option
   }
 
   get han(): number {
@@ -16,8 +18,8 @@ export class Honitsu implements Yaku {
       : 3
   }
 
-  get parent(): Yaku | null {
-    return new Chinitsu(this.paiPairCollection)
+  get parent(): Yaku {
+    return new Chinitsu(this.paiPairCollection, this.option)
   }
 
   get isFulfilled(): boolean {
