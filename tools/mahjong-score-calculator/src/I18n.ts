@@ -10,8 +10,8 @@ import {
   Haitei,
   Haku,
   Hatsu,
-  Honitsu,
-  Houtei,
+  Honitsu, HonRoutou,
+  Houtei, IkkiTsuukan,
   IpeiKou,
   Ippatsu,
   JunChanta,
@@ -88,6 +88,8 @@ export default {
       [SanShokuDouJun.name]: '三色同刻',
       [SanKantsu.name]: '三槓子',
       [ChiiToitsu.name]: '七対子',
+      [HonRoutou.name]: '混老頭',
+      [IkkiTsuukan.name]: '一気通貫',
 
       // Dora
       [Dora.name]: 'ドラ',
