@@ -159,6 +159,7 @@ export interface MahjongOption {
       renfonPai: number,
     },
     honba: number,
+    kuitan: boolean,
   },
   fuList: (new (...args: any[]) => Fu)[]
   yakuList: (new (...args: any[]) => Yaku)[]

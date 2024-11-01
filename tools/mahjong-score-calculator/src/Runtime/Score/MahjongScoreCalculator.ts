@@ -137,7 +137,7 @@ export class MahjongScoreCalculator {
       //       It is not available under 30 pu and 1 han.
       //       And so, 20 pu 1 han is only available the menzen-tsumo and the pinfu yaku, and/or chiitoitsu which is minimally 25 fu 1 han.
       //       Therefore, which is needed to round up to 30 pu 1 han minimally.
-      if (tempScoreData.fu < 30 && yakuAndFu.filter(value => value.isYaku).length === 1 && !(yakuAndFu.find(value => value.isYaku) instanceof Pinfu) && !isChiiToitsu) {
+      if (tempScoreData.fu < 30 && !(yakuAndFu.find(value => value.isYaku) instanceof Pinfu) && !isChiiToitsu) {
         tempScoreData.fu = 30;
       }
 

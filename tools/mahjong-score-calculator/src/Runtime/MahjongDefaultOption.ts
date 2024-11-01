@@ -64,7 +64,8 @@ export const MahjongDefaultOption: Partial<MahjongOption> = {
     fu: {
       renfonPai: 4,
     },
-    honba: 0,
+    honba: 300,
+    kuitan: true,
   },
   fuList: [
     Futei,

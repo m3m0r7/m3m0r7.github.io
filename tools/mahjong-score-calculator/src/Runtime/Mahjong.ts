@@ -37,6 +37,8 @@ export class Mahjong {
           renfonPai: 4,
         },
         honba: 300,
+        kuitan: true,
+        ...MahjongDefaultOption.localRules,
       },
       fuList: MahjongDefaultOption.fuList ?? [],
       yakuList: MahjongDefaultOption.yakuList ?? [],
@@ -80,8 +82,6 @@ export class Mahjong {
 
     return this.scoreCalculator.score
   }
-
-
 }
 
 export default {}
