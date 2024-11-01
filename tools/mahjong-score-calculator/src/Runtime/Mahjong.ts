@@ -6,7 +6,7 @@ import { MahjongFulfilledFuValidator } from "../Validator/MahjongFulfilledFuVali
 import { MahjongScoreCalculator } from "./Score/MahjongScoreCalculator";
 import { Chanta, Haitei, Honitsu, Houtei, OpenRiichi, Pinfu, Riichi, RinshanKaihou, Tanyao } from "../Yaku";
 import { Ankan, Ankou, ChanFonPai, MenFonPai, MenzenKafu, Minkan, Minkou, RenFonPai, SangenPai, Tsumo } from "../Fu";
-import { MahjongDefaultOption } from "./MahjongDefaultOption";
+import { MahjongDefaultAdditionalSpecialYaku, MahjongDefaultOption } from "./MahjongDefaultOption";
 import { MahjongHaiTypeValidator } from "../Validator/MahjongHaiTypeValidator";
 import { PaiListFormatAreInvalidError } from "../Error/PaiListFormatAreInvalidError";
 import { CannotCalculateScoreError } from "../Error/CannotCalculateScoreError";
@@ -43,18 +43,7 @@ export class Mahjong {
       fuList: MahjongDefaultOption.fuList ?? [],
       yakuList: MahjongDefaultOption.yakuList ?? [],
       enableDoubleYakuman: true,
-      additionalSpecialYaku: {
-        withRiichi: false,
-        withDoubleRiichi: false,
-        withOpenRiichi: false,
-        withIppatsu: false,
-        withHaitei: false,
-        withHoutei: false,
-        withChanKan: false,
-        withTenho: false,
-        withChiho: false,
-        withNagashiMangan: false
-      },
+      additionalSpecialYaku: MahjongDefaultAdditionalSpecialYaku,
     }, option)
 
     if (!(new MahjongHaiTypeValidator(paiList, this.option)).validate()) {

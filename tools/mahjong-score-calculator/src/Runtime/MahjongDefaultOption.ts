@@ -58,6 +58,19 @@ import {
 } from "../Yaku";
 import { MahjongOption } from "../@types/types";
 
+export const MahjongDefaultAdditionalSpecialYaku: MahjongOption['additionalSpecialYaku'] = {
+  withRiichi: false,
+  withDoubleRiichi: false,
+  withOpenRiichi: false,
+  withIppatsu: false,
+  withHaitei: false,
+  withHoutei: false,
+  withChanKan: false,
+  withTenho: false,
+  withChiho: false,
+  withNagashiMangan: false,
+}
+
 // NOTE: The other property will be merged
 export const MahjongDefaultOption: Partial<MahjongOption> = {
   localRules: {
@@ -67,6 +80,7 @@ export const MahjongDefaultOption: Partial<MahjongOption> = {
     honba: 300,
     kuitan: true,
   },
+  additionalSpecialYaku: MahjongDefaultAdditionalSpecialYaku,
   fuList: [
     Futei,
     Ankou,
