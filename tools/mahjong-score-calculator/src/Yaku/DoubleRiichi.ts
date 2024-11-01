@@ -21,6 +21,6 @@ export class DoubleRiichi implements Yaku {
   }
 
   get isFulfilled(): boolean {
-    return this.option.additionalSpecialYaku.withDoubleRiichi || false
+    return !this.paiPairCollection.hasFuro && this.option.additionalSpecialYaku.withDoubleRiichi
   }
 }

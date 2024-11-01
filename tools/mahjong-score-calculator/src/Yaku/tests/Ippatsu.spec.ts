@@ -5,9 +5,10 @@ import I18n from "../../Lang/I18n";
 import { PaiName } from "../../@types/types";
 import { Futei, MenzenKafu, Tsumo } from "../../Fu";
 import { Riichi } from "../Riichi";
-import { MahjongDefaultAdditionalSpecialYaku, MahjongDefaultOption } from "../../Runtime/MahjongDefaultOption";
+import { MahjongDefaultAdditionalSpecialYaku } from "../../Runtime/MahjongDefaultOption";
+import { Ippatsu } from "../Ippatsu";
 
-const riichiExampleFormat: PaiName[] = [
+const ippatsuRiichiExampleFormat: PaiName[] = [
   "1m", "2m", "3m",
   "5m", "6m", "7m",
 
@@ -22,7 +23,7 @@ describe('Riichi', () => {
     describe('parent', () => {
       test('tsumo', () => {
         const score = new Mahjong(
-          riichiExampleFormat,
+          ippatsuRiichiExampleFormat,
           {
             hora: {
               pai: "2s",
@@ -39,13 +40,14 @@ describe('Riichi', () => {
             additionalSpecialYaku: {
               ...MahjongDefaultAdditionalSpecialYaku,
               withRiichi: true,
+              withIppatsu: true,
             }
           }).score
 
-        expect(score?.score).deep.eq({ base: 1500, child: 500 })
+        expect(score?.score).deep.eq({ base: 2900, child: 1000 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(30)
-        expect(score?.yaku).eq(1)
+        expect(score?.yaku).eq(2)
         expect(score?.appliedFuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -70,13 +72,21 @@ describe('Riichi', () => {
             name: I18n.ja.yaku[Riichi.name],
             score: 1,
             calculationBasedScore: 1,
+          },
+          {
+            isDoubleYakuman: false,
+            isFu: false,
+            isYakuman: false,
+            name: I18n.ja.yaku[Ippatsu.name],
+            score: 1,
+            calculationBasedScore: 1,
           }
         ])
 
       })
       test('ron', () => {
         const score = new Mahjong(
-          riichiExampleFormat,
+          ippatsuRiichiExampleFormat,
           {
             hora: {
               pai: "2s",
@@ -93,13 +103,14 @@ describe('Riichi', () => {
             additionalSpecialYaku: {
               ...MahjongDefaultAdditionalSpecialYaku,
               withRiichi: true,
+              withIppatsu: true,
             }
           }).score
 
-        expect(score?.score).deep.eq({ base: 1500 })
+        expect(score?.score).deep.eq({ base: 2900 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(30)
-        expect(score?.yaku).eq(1)
+        expect(score?.yaku).eq(2)
         expect(score?.appliedFuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -122,6 +133,14 @@ describe('Riichi', () => {
             isFu: false,
             isYakuman: false,
             name: I18n.ja.yaku[Riichi.name],
+            score: 1,
+            calculationBasedScore: 1,
+          },
+          {
+            isDoubleYakuman: false,
+            isFu: false,
+            isYakuman: false,
+            name: I18n.ja.yaku[Ippatsu.name],
             score: 1,
             calculationBasedScore: 1,
           }
@@ -133,7 +152,7 @@ describe('Riichi', () => {
     describe('child', () => {
       test('tsumo', () => {
         const score = new Mahjong(
-          riichiExampleFormat,
+          ippatsuRiichiExampleFormat,
           {
             hora: {
               pai: "2s",
@@ -149,13 +168,14 @@ describe('Riichi', () => {
             additionalSpecialYaku: {
               ...MahjongDefaultAdditionalSpecialYaku,
               withRiichi: true,
+              withIppatsu: true,
             }
           }).score
 
-        expect(score?.score).deep.eq({ base: 1000, parent: 500, child: 300 })
+        expect(score?.score).deep.eq({ base: 2000, parent: 1000, child: 500 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(30)
-        expect(score?.yaku).eq(1)
+        expect(score?.yaku).eq(2)
         expect(score?.appliedFuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -180,13 +200,21 @@ describe('Riichi', () => {
             name: I18n.ja.yaku[Riichi.name],
             score: 1,
             calculationBasedScore: 1,
+          },
+          {
+            isDoubleYakuman: false,
+            isFu: false,
+            isYakuman: false,
+            name: I18n.ja.yaku[Ippatsu.name],
+            score: 1,
+            calculationBasedScore: 1,
           }
         ])
 
       })
       test('ron', () => {
         const score = new Mahjong(
-          riichiExampleFormat,
+          ippatsuRiichiExampleFormat,
           {
             hora: {
               pai: "2s",
@@ -202,13 +230,14 @@ describe('Riichi', () => {
             additionalSpecialYaku: {
               ...MahjongDefaultAdditionalSpecialYaku,
               withRiichi: true,
+              withIppatsu: true,
             }
           }).score
 
-        expect(score?.score).deep.eq({ base: 1000 })
+        expect(score?.score).deep.eq({ base: 2000 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(30)
-        expect(score?.yaku).eq(1)
+        expect(score?.yaku).eq(2)
         expect(score?.appliedFuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -233,6 +262,14 @@ describe('Riichi', () => {
             name: I18n.ja.yaku[Riichi.name],
             score: 1,
             calculationBasedScore: 1,
+          },
+          {
+            isDoubleYakuman: false,
+            isFu: false,
+            isYakuman: false,
+            name: I18n.ja.yaku[Ippatsu.name],
+            score: 1,
+            calculationBasedScore: 1,
           }
         ])
 
@@ -241,7 +278,7 @@ describe('Riichi', () => {
       test('with furo', () => {
         const score = () => {
           const mahjong = new Mahjong(
-            riichiExampleFormat,
+            ippatsuRiichiExampleFormat,
             {
               hora: {
                 pai: "2s",
@@ -257,6 +294,7 @@ describe('Riichi', () => {
               additionalSpecialYaku: {
                 ...MahjongDefaultAdditionalSpecialYaku,
                 withRiichi: true,
+                withIppatsu: true,
               }
             })
 

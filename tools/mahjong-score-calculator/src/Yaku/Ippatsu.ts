@@ -23,6 +23,10 @@ export class Ippatsu implements Yaku {
   }
 
   get isFulfilled(): boolean {
-    return this.option.additionalSpecialYaku.withIppatsu
+    return (
+      this.option.additionalSpecialYaku.withOpenRiichi
+      || this.option.additionalSpecialYaku.withDoubleRiichi
+      || this.option.additionalSpecialYaku.withRiichi
+    ) && this.option.additionalSpecialYaku.withIppatsu
   }
 }

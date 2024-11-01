@@ -17,10 +17,10 @@ export class OpenRiichi implements Yaku {
   }
 
   get han(): number {
-    return 1
+    return 2
   }
 
   get isFulfilled(): boolean {
-    return this.option.additionalSpecialYaku.withOpenRiichi || false
+    return !this.paiPairCollection.hasFuro && this.option.additionalSpecialYaku.withOpenRiichi
   }
 }

@@ -26,6 +26,6 @@ export class Riichi implements Yaku {
   }
 
   get isFulfilled(): boolean {
-    return this.option.additionalSpecialYaku.withRiichi || false
+    return !this.paiPairCollection.hasFuro && this.option.additionalSpecialYaku.withRiichi
   }
 }

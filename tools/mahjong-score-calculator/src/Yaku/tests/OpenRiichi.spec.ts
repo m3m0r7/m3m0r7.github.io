@@ -4,10 +4,10 @@ import { Mahjong } from "../../Runtime/Mahjong";
 import I18n from "../../Lang/I18n";
 import { PaiName } from "../../@types/types";
 import { Futei, MenzenKafu, Tsumo } from "../../Fu";
-import { Riichi } from "../Riichi";
-import { MahjongDefaultAdditionalSpecialYaku, MahjongDefaultOption } from "../../Runtime/MahjongDefaultOption";
+import { OpenRiichi } from "../OpenRiichi";
+import { MahjongDefaultAdditionalSpecialYaku } from "../../Runtime/MahjongDefaultOption";
 
-const riichiExampleFormat: PaiName[] = [
+const openRiichiExampleFormat: PaiName[] = [
   "1m", "2m", "3m",
   "5m", "6m", "7m",
 
@@ -17,12 +17,12 @@ const riichiExampleFormat: PaiName[] = [
   "2s", "2s",
 ];
 
-describe('Riichi', () => {
+describe('OpenRiichi', () => {
   describe('fulfilled', () => {
     describe('parent', () => {
       test('tsumo', () => {
         const score = new Mahjong(
-          riichiExampleFormat,
+          openRiichiExampleFormat,
           {
             hora: {
               pai: "2s",
@@ -38,14 +38,14 @@ describe('Riichi', () => {
 
             additionalSpecialYaku: {
               ...MahjongDefaultAdditionalSpecialYaku,
-              withRiichi: true,
+              withOpenRiichi: true,
             }
           }).score
 
-        expect(score?.score).deep.eq({ base: 1500, child: 500 })
+        expect(score?.score).deep.eq({ base: 2900, child: 1000 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(30)
-        expect(score?.yaku).eq(1)
+        expect(score?.yaku).eq(2)
         expect(score?.appliedFuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -67,16 +67,16 @@ describe('Riichi', () => {
             isDoubleYakuman: false,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[Riichi.name],
-            score: 1,
-            calculationBasedScore: 1,
+            name: I18n.ja.yaku[OpenRiichi.name],
+            score: 2,
+            calculationBasedScore: 2,
           }
         ])
 
       })
       test('ron', () => {
         const score = new Mahjong(
-          riichiExampleFormat,
+          openRiichiExampleFormat,
           {
             hora: {
               pai: "2s",
@@ -92,14 +92,14 @@ describe('Riichi', () => {
 
             additionalSpecialYaku: {
               ...MahjongDefaultAdditionalSpecialYaku,
-              withRiichi: true,
+              withOpenRiichi: true,
             }
           }).score
 
-        expect(score?.score).deep.eq({ base: 1500 })
+        expect(score?.score).deep.eq({ base: 2900 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(30)
-        expect(score?.yaku).eq(1)
+        expect(score?.yaku).eq(2)
         expect(score?.appliedFuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -121,9 +121,9 @@ describe('Riichi', () => {
             isDoubleYakuman: false,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[Riichi.name],
-            score: 1,
-            calculationBasedScore: 1,
+            name: I18n.ja.yaku[OpenRiichi.name],
+            score: 2,
+            calculationBasedScore: 2,
           }
         ])
 
@@ -133,7 +133,7 @@ describe('Riichi', () => {
     describe('child', () => {
       test('tsumo', () => {
         const score = new Mahjong(
-          riichiExampleFormat,
+          openRiichiExampleFormat,
           {
             hora: {
               pai: "2s",
@@ -148,14 +148,14 @@ describe('Riichi', () => {
 
             additionalSpecialYaku: {
               ...MahjongDefaultAdditionalSpecialYaku,
-              withRiichi: true,
+              withOpenRiichi: true,
             }
           }).score
 
-        expect(score?.score).deep.eq({ base: 1000, parent: 500, child: 300 })
+        expect(score?.score).deep.eq({ base: 2000, parent: 1000, child: 500 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(30)
-        expect(score?.yaku).eq(1)
+        expect(score?.yaku).eq(2)
         expect(score?.appliedFuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -177,16 +177,16 @@ describe('Riichi', () => {
             isDoubleYakuman: false,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[Riichi.name],
-            score: 1,
-            calculationBasedScore: 1,
+            name: I18n.ja.yaku[OpenRiichi.name],
+            score: 2,
+            calculationBasedScore: 2,
           }
         ])
 
       })
       test('ron', () => {
         const score = new Mahjong(
-          riichiExampleFormat,
+          openRiichiExampleFormat,
           {
             hora: {
               pai: "2s",
@@ -201,14 +201,14 @@ describe('Riichi', () => {
 
             additionalSpecialYaku: {
               ...MahjongDefaultAdditionalSpecialYaku,
-              withRiichi: true,
+              withOpenRiichi: true,
             }
           }).score
 
-        expect(score?.score).deep.eq({ base: 1000 })
+        expect(score?.score).deep.eq({ base: 2000 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(30)
-        expect(score?.yaku).eq(1)
+        expect(score?.yaku).eq(2)
         expect(score?.appliedFuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -230,9 +230,9 @@ describe('Riichi', () => {
             isDoubleYakuman: false,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[Riichi.name],
-            score: 1,
-            calculationBasedScore: 1,
+            name: I18n.ja.yaku[OpenRiichi.name],
+            score: 2,
+            calculationBasedScore: 2,
           }
         ])
 
@@ -241,7 +241,7 @@ describe('Riichi', () => {
       test('with furo', () => {
         const score = () => {
           const mahjong = new Mahjong(
-            riichiExampleFormat,
+            openRiichiExampleFormat,
             {
               hora: {
                 pai: "2s",
@@ -256,7 +256,7 @@ describe('Riichi', () => {
 
               additionalSpecialYaku: {
                 ...MahjongDefaultAdditionalSpecialYaku,
-                withRiichi: true,
+                withOpenRiichi: true,
               }
             })
 
