@@ -1,5 +1,5 @@
-import { PaiPairCollection } from "../Collection";
-import { Validator } from "../types";
+import { PaiPairCollection } from "../Collection/Collection";
+import { Validator } from "../@types/types";
 
 export class MahjongFormatValidator implements Validator {
   private paiPairCollection: PaiPairCollection
@@ -10,7 +10,10 @@ export class MahjongFormatValidator implements Validator {
 
   validate(): boolean {
     // NOTE: check normally format `(shuntsu | koutsu | kan){4} + jantou`
-    return (this.paiPairCollection.countKan + this.paiPairCollection.countShuntsu + this.paiPairCollection.countKoutsu) === 4
-      && (this.paiPairCollection.countJantou) === 1;
+    return ((this.paiPairCollection.countKan + this.paiPairCollection.countShuntsu + this.paiPairCollection.countKoutsu) === 4
+      && (this.paiPairCollection.countJantou) === 1)
+      || this.paiPairCollection.isKokushiMusou
+      || this.paiPairCollection.isChiiToitsu
+      || this.paiPairCollection.isChurenPoutou;
   }
 }

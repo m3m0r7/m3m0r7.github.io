@@ -1,5 +1,5 @@
-import { Fu, MahjongOption, Validator, Yaku } from "../types";
-import { PaiPairCollection } from "../Collection";
+import { Fu, MahjongOption, Validator, Yaku } from "../@types/types";
+import { PaiPairCollection } from "../Collection/Collection";
 import { MahjongFormatValidator } from "./MahjongFormatValidator";
 
 export class MahjongFulfilledFuValidator implements Validator {

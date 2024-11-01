@@ -1,5 +1,5 @@
-import { Fu, MahjongOption, Yaku } from "../types";
-import { PaiPairCollection } from "../Collection";
+import { Fu, MahjongOption, Yaku } from "../@types/types";
+import { PaiPairCollection } from "../Collection/Collection";
 import { Pinfu } from "../Yaku/Pinfu";
 
 export class Tsumo implements Fu {
@@ -14,7 +14,7 @@ export class Tsumo implements Fu {
   }
 
   get value() {
-    return this.option.hora.fromTsumo && !this.paiPairCollection.isChiitoitsu && this.yakuList.some(yaku => !(yaku instanceof Pinfu))
+    return this.option.hora.fromTsumo && !this.paiPairCollection.isChiiToitsu && this.yakuList.some(yaku => !(yaku instanceof Pinfu))
       ? 2
       : 0
   }

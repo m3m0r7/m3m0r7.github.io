@@ -1,5 +1,7 @@
-import { MahjongOption, Yaku } from "../types";
-import { PaiPairCollection } from "../Collection";
+import { MahjongOption, PaiGroupName, PaiName, Shuntsu, Yaku } from "../@types/types";
+import { PaiPairCollection } from "../Collection/Collection";
+import { PaiPatternExtractor } from "../Runtime/Extractor/Extractor";
+import { PaiGenerator } from "../Utilities/PaiGenerator";
 
 export class ChurenPoutou implements Yaku {
   private paiPairCollection: PaiPairCollection
@@ -15,7 +17,11 @@ export class ChurenPoutou implements Yaku {
   }
 
   get isFulfilled(): boolean {
-    // TODO: Not implemented yet
-    return false
+    // NOTE: The churen poutou is available to menzen only
+    if (this.paiPairCollection.hasFuro) {
+      return false;
+    }
+
+    return this.paiPairCollection.isChurenPoutou
   }
 }

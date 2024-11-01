@@ -1,6 +1,8 @@
-import { PaiName, PaiNamePattern, PaiPair, Shuntsu } from "./types";
-import { PaiPatternExtractor } from "./Extractor";
-import { PaiGenerator } from "./PaiGenerator";
+import { PaiName, PaiNamePattern, PaiPair, Shuntsu } from "../@types/types";
+import { PaiPatternExtractor } from "../Runtime/Extractor/Extractor";
+import { PaiGenerator } from "../Utilities/PaiGenerator";
+import { PaiListFormatAreInvalidError } from "../Error/PaiListFormatAreInvalidError";
+import { JantouNotFoundError } from "../Error/JantouNotFoundError";
 
 type CountOption = Omit<Required<Record<keyof PaiPair, boolean>>, 'pattern'>
 
@@ -26,14 +28,20 @@ export class PaiPairCollection {
       .some(paiPair =>  paiPair.isShuntsu && paiPair.pattern.includesWithMatrix(paiNames, 'AND'))
   }
 
-  // TODO: Not implemented yet
-  get isChiitoitsu(): boolean {
-    return false
+  get isChiiToitsu(): boolean {
+    return this.paiPairs.every(paiPair => paiPair.isToitsu)
   }
 
-  // TODO: Not implemented yet
   get isKokushiMusou(): boolean {
-    return false
+    return this.paiPairs.some(paiPair => paiPair.isKokushi)
+  }
+
+  get isChurenPoutou(): boolean {
+    return this.paiPairs.some(paiPair => paiPair.isChuren)
+  }
+
+  flat(): PaiName[] {
+    return this.paiPairs.reduce<PaiName[]>((carry, paiPair) => [...carry, ...paiPair.pattern], [])
   }
 
   get hasJantou(): boolean {
@@ -135,7 +143,7 @@ export class PaiPairCollection {
     const jantou = this.paiPairs.find((paiPair) => paiPair.isJantou)
 
     if (!jantou) {
-      throw Error('The Jantou is not found')
+      throw new JantouNotFoundError('A Jantou is not found')
     }
     return jantou
   }
@@ -181,6 +189,7 @@ export class PaiCollection {
       }
       jantouList.push({
         isKokushi: false,
+        isChuren: false,
         isJantou: true,
         isToitsu: true,
         isShuntsu: false,
@@ -199,6 +208,29 @@ export class PaiCollection {
     let paiPairs: PaiPairCollection[] = [];
 
     if (predictionJantouList.length === 0) {
+      // NOTE: The kokushi musou is in specially
+      const tryExtraction = (new PaiPatternExtractor(
+        new PaiCollection(this.paiList)
+      )).extract()
+
+      const findKokushiMusou = tryExtraction
+        .find(paiPairs => paiPairs.some(paiPair => paiPair.isKokushi))
+
+      if (findKokushiMusou) {
+        return [
+          new PaiPairCollection(findKokushiMusou),
+        ]
+      }
+
+      const findChurenPoutou = tryExtraction
+        .find(paiPairs => paiPairs.some(paiPair => paiPair.isChuren))
+
+      if (findChurenPoutou) {
+        return [
+          new PaiPairCollection(findChurenPoutou),
+        ]
+      }
+
       return [
         new PaiPairCollection(this.paiPairList),
       ];
@@ -235,7 +267,7 @@ export class PaiCollection {
   private validatePaiList() {
     for (let i = 0; i < this.paiList.length; i++) {
       if (!this.isAvailablePai(this.paiList[i])) {
-        throw Error(`The pai format is invalid: ${this.paiList[i]} (index#${i})`)
+        throw new PaiListFormatAreInvalidError(`The pai format is invalid: ${this.paiList[i]} (index#${i})`)
       }
     }
   }

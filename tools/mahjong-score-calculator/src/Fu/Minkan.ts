@@ -1,5 +1,5 @@
-import { Fu, MahjongOption, Yaku } from "../types";
-import { PaiPairCollection } from "../Collection";
+import { Fu, MahjongOption, Yaku } from "../@types/types";
+import { PaiPairCollection } from "../Collection/Collection";
 
 export class Minkan implements Fu {
   private paiPairCollection: PaiPairCollection

@@ -1,5 +1,5 @@
-import { MahjongOption, PaiName, Yaku } from "../types";
-import { PaiPairCollection } from "../Collection";
+import { MahjongOption, PaiName, Yaku } from "../@types/types";
+import { PaiPairCollection } from "../Collection/Collection";
 
 export class ShouSushi implements Yaku {
   private paiPairCollection: PaiPairCollection

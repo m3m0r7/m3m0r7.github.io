@@ -10,13 +10,14 @@ import {
   RenFonPai,
   SangenPai,
   Tsumo
-} from "./Fu";
+} from "../Fu";
 import {
   AkaDora,
   ChanFon,
   ChanKan,
   Chanta,
   Chiho,
+  ChiiToitsu,
   ChinRoutou,
   Chun,
   ChurenPoutou,
@@ -33,7 +34,8 @@ import {
   JunseiChurenPoutou,
   KokushiMusou,
   KokushiMusou13MenMachi,
-  MenFon, NagashiMangan,
+  MenFon,
+  NagashiMangan,
   OpenRiichi,
   Pinfu,
   RenFon,
@@ -53,8 +55,8 @@ import {
   ToiToi,
   TsuIsou,
   UraDora
-} from "./Yaku";
-import { MahjongOption } from "./types";
+} from "../Yaku";
+import { MahjongOption } from "../@types/types";
 
 // NOTE: The other property will be merged
 export const MahjongDefaultOption: Partial<MahjongOption> = {
@@ -85,18 +87,20 @@ export const MahjongDefaultOption: Partial<MahjongOption> = {
     DaiSushi,
     JunseiChurenPoutou,
 
-    // NOTE: Yakuman
-    SuAnkou,
-    ChinRoutou,
-    SuKantsu,
-    TsuIsou,
+    // NOTE: Here is highly ordered yakuman because the processor will firstly hit to SuAnkou
+    RyuIsou,
     Tenho,
     Chiho,
-    KokushiMusou,
-    RyuIsou,
-    ChurenPoutou,
-    DaiSanGen,
     ShouSushi,
+    DaiSanGen,
+    TsuIsou,
+    ChinRoutou,
+
+    // NOTE: Yakuman
+    SuKantsu,
+    SuAnkou,
+    KokushiMusou,
+    ChurenPoutou,
 
     // NOTE: Normally yaku
     Tanyao,
@@ -126,5 +130,6 @@ export const MahjongDefaultOption: Partial<MahjongOption> = {
     SanShokuDouKou,
     SanShokuDouJun,
     NagashiMangan,
+    ChiiToitsu,
   ],
 }

@@ -48,6 +48,7 @@ import { DaiSushi } from "./DaiSushi";
 import { JunseiChurenPoutou } from "./JunseiChurenPoutou";
 import { SuAnkouTankiMachi } from "./SuAnkouTankiMachi";
 import { NagashiMangan } from "./NagashiMangan";
+import { KazoeYakuman } from "./KazoeYakuman";
 
 export {
   Tanyao,
@@ -100,4 +101,5 @@ export {
   SuAnkouTankiMachi,
   JunseiChurenPoutou,
   NagashiMangan,
+  KazoeYakuman,
 }

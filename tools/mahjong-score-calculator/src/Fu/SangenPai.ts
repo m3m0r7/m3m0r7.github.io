@@ -1,7 +1,7 @@
-import { Fu, MahjongOption, Yaku } from "../types";
-import { PaiPairCollection } from "../Collection";
-import { PaiPatternExtractor } from "../Extractor";
-import { PaiGenerator } from "../PaiGenerator";
+import { Fu, MahjongOption, Yaku } from "../@types/types";
+import { PaiPairCollection } from "../Collection/Collection";
+import { PaiPatternExtractor } from "../Runtime/Extractor/Extractor";
+import { PaiGenerator } from "../Utilities/PaiGenerator";
 
 export class SangenPai implements Fu {
   private paiPairCollection: PaiPairCollection

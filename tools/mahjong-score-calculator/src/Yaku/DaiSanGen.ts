@@ -1,5 +1,5 @@
-import { Koutsu, MahjongOption, Yaku } from "../types";
-import { PaiPairCollection } from "../Collection";
+import { Koutsu, MahjongOption, Yaku } from "../@types/types";
+import { PaiPairCollection } from "../Collection/Collection";
 
 export class DaiSanGen implements Yaku {
   private paiPairCollection: PaiPairCollection

@@ -1,5 +1,5 @@
-import { MahjongOption, Yaku } from "../types";
-import { PaiPairCollection } from "../Collection";
+import { MahjongOption, PaiName, Yaku } from "../@types/types";
+import { PaiPairCollection } from "../Collection/Collection";
 
 export class UraDora implements Yaku {
   private paiPairCollection: PaiPairCollection
@@ -20,12 +20,19 @@ export class UraDora implements Yaku {
   }
 
   get han(): number {
-    return this.paiPairCollection.paiPairs.reduce<number>(
-      (carry, item) => carry + (
-        this.option.uraDoraList.reduce((dora, pai) => dora + (this.option.uraDoraList.includes(pai) ? 1 : 0), 0)
-      ),
-      0
-    )
+    let doraCount = 0
+
+    for (let i = 0; i < this.paiPairCollection.paiPairs.length; i++) {
+      const paiPair = this.paiPairCollection.paiPairs[i]
+      for (let j = 0; j < paiPair.pattern.length; j++) {
+        const paiName: PaiName = paiPair.pattern[j];
+        if (this.option.uraDoraList.includes(paiName)) {
+          doraCount++
+        }
+      }
+    }
+
+    return doraCount;
   }
 
   get isFulfilled(): boolean {

@@ -1,6 +1,6 @@
-import { Fu, MahjongOption, Yaku } from "../types";
-import { PaiPairCollection } from "../Collection";
-import { PaiPatternExtractor } from "../Extractor";
+import { Fu, MahjongOption, Yaku } from "../@types/types";
+import { PaiPairCollection } from "../Collection/Collection";
+import { PaiPatternExtractor } from "../Runtime/Extractor/Extractor";
 
 export class RenFonPai implements Fu {
   private paiPairCollection: PaiPairCollection

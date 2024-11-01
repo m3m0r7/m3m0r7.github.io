@@ -1,5 +1,5 @@
-import { MahjongOption, Validator, Yaku } from "../types";
-import { PaiPairCollection } from "../Collection";
+import { MahjongOption, Validator, Yaku } from "../@types/types";
+import { PaiPairCollection } from "../Collection/Collection";
 import { MahjongFormatValidator } from "./MahjongFormatValidator";
 
 export class MahjongFulfilledYakuValidator implements Validator {
@@ -42,8 +42,6 @@ export class MahjongFulfilledYakuValidator implements Validator {
       } while (processor)
 
       if (record !== null) {
-        record.availableHora = processor.availableHora === undefined || processor.availableHora
-
         this._fulfilled.push(record)
 
         if (record.type === 'FULL' || record.type === 'DOUBLE_FULL') {

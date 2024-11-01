@@ -1,5 +1,5 @@
-import { MahjongOption, Yaku } from "../types";
-import { PaiPairCollection } from "../Collection";
+import { MahjongOption, Yaku } from "../@types/types";
+import { PaiPairCollection } from "../Collection/Collection";
 import { JunChanta } from "./JunChanta";
 
 export class RyanPeiKou implements Yaku {

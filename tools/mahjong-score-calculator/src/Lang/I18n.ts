@@ -14,7 +14,7 @@ import {
   Houtei, IkkiTsuukan,
   IpeiKou,
   Ippatsu,
-  JunChanta, JunseiChurenPoutou, KokushiMusou, KokushiMusou13MenMachi,
+  JunChanta, JunseiChurenPoutou, KazoeYakuman, KokushiMusou, KokushiMusou13MenMachi,
   MenFon, NagashiMangan,
   OpenRiichi,
   Pinfu,
@@ -29,7 +29,7 @@ import {
   Tanyao, Tenho,
   ToiToi, TsuIsou,
   UraDora
-} from "./Yaku";
+} from "../Yaku";
 import {
   Ankan,
   Ankou,
@@ -42,7 +42,7 @@ import {
   RenFonPai,
   SangenPai,
   Tsumo
-} from "./Fu";
+} from "../Fu";
 
 export default {
   ja: {
@@ -107,6 +107,7 @@ export default {
       [KokushiMusou13MenMachi.name]: '国士無双十三面待ち',
       [SuAnkouTankiMachi.name]: '四暗刻単騎待ち',
       [JunseiChurenPoutou.name]: '純正九蓮宝燈',
+      [KazoeYakuman.name]: '数え役満',
 
       // Dora
       [Dora.name]: 'ドラ',

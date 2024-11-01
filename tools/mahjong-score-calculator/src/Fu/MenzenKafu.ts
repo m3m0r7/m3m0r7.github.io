@@ -1,5 +1,5 @@
-import { Fu, MahjongOption, Yaku } from "../types";
-import { PaiPairCollection } from "../Collection";
+import { Fu, MahjongOption, Yaku } from "../@types/types";
+import { PaiPairCollection } from "../Collection/Collection";
 
 export class MenzenKafu implements Fu {
   private paiPairCollection: PaiPairCollection
@@ -17,6 +17,6 @@ export class MenzenKafu implements Fu {
   }
 
   get isFulfilled(): boolean {
-    return this.value > 0
+    return !this.paiPairCollection.isChiiToitsu && this.value > 0
   }
 }

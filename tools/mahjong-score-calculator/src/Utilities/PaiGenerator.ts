@@ -1,4 +1,4 @@
-import { OneToNine, PaiGroupName, PaiName } from "./types";
+import { OneToNine, PaiGroup, PaiGroupName, PaiName } from "../@types/types";
 
 class PaiGeneratorCache {
   private static paiCache: Record<string, PaiName[]> = {}
@@ -83,7 +83,22 @@ export class PaiGenerator {
     return PaiGeneratorCache.getOrSet('sangenPai', () => (new PaiGenerator('5', '7', 'z')).generate())
   }
 
-  static generateKokushiMusou(): PaiName[] {
-    return PaiGeneratorCache.getOrSet('kokushiMusou', () => [...PaiGenerator.generateRoutouHai(), ...this.generateJiHai()])
+  static generateKokushiMusou13MenMachi(): PaiName[] {
+    return PaiGeneratorCache.getOrSet('kokushiMusou13MenMachi', () => [
+      ...this.generateRoutouHai(),
+      ...this.generateJiHai(),
+    ])
+  }
+
+  static generateChurenPoutou9MenMachi(groupName: PaiGroupName): PaiName[] {
+    return PaiGeneratorCache.getOrSet('churenPoutou9MenMachi', () => [
+      `1${groupName}`, `1${groupName}`, `1${groupName}`,
+
+      `2${groupName}`, `3${groupName}`, `4${groupName}`,
+      `5${groupName}`, `6${groupName}`, `7${groupName}`,
+      `5${groupName}`, `8${groupName}`,
+
+      `9${groupName}`, `9${groupName}`, `9${groupName}`,
+    ] as PaiName[])
   }
 }

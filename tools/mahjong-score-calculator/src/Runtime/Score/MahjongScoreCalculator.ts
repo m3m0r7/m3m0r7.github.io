@@ -1,9 +1,10 @@
-import { MahjongFulfilledYakuValidator } from "./Validator/MahjongFulfilledYakuValidator";
-import { MahjongFulfilledFuValidator } from "./Validator/MahjongFulfilledFuValidator";
-import { PaiPairCollection } from "./Collection";
-import { Score, ScoreData, ScoreFu, ScoreYaku } from "./types";
-import { Mahjong } from "./Mahjong";
-import I18n from "./I18n"
+import { MahjongFulfilledYakuValidator } from "../../Validator/MahjongFulfilledYakuValidator";
+import { MahjongFulfilledFuValidator } from "../../Validator/MahjongFulfilledFuValidator";
+import { PaiPairCollection } from "../../Collection/Collection";
+import { Score, ScoreData, ScoreFu, ScoreYaku } from "../../@types/types";
+import { Mahjong } from "../Mahjong";
+import I18n from "../../Lang/I18n"
+import { ChiiToitsu, KazoeYakuman, Pinfu } from "../../Yaku";
 
 type ScoreTable = Record<number, Record<number, number>>
 
@@ -11,7 +12,7 @@ export class MahjongScoreCalculator {
   private paiPairCollections: PaiPairCollection[]
   private calculatedYakuAndFu: Score[][]
   private mahjong: Mahjong
-  private _scoreData: ScoreData | null
+  private _scoreData: ScoreData | null = null
   private scoreTable: { parent: ScoreTable, child: ScoreTable } = {
     parent: {
       1: {           30: 1500, 40: 2000, 50: 2400, 60: 2900, 70: 3400, 80: 3900, 90: 4400, 100: 4800, 110: 5300 },
@@ -32,16 +33,17 @@ export class MahjongScoreCalculator {
     this.paiPairCollections = paiPairCollections;
     this.calculatedYakuAndFu = this.paiPairCollections.map(collection => this.calculateYakuAndFu(collection))
       .filter(score => score.length > 0)
-
-    this._scoreData = this.calculateScoreData(this.calculatedYakuAndFu)
-  }
-
-  get scoreData(): ScoreData | null {
-    return this._scoreData
   }
 
   get isValid() {
-    return this.scoreData !== null
+    return this.score !== null
+  }
+
+  get score() {
+    if (this._scoreData) {
+      return this._scoreData
+    }
+    return this._scoreData = this.calculateScoreData(this.calculatedYakuAndFu)
   }
 
   private calculateYakuAndFu(collection: PaiPairCollection): Score[] {
@@ -75,7 +77,7 @@ export class MahjongScoreCalculator {
     let scoreData: Partial<ScoreData> | null = null;
 
     for (const yakuAndFu of yakuAndFuList) {
-      if (!yakuAndFu.some(score => score.isYaku && score.yaku.availableHora)) {
+      if (!yakuAndFu.some(score => score.isYaku && (score.yaku.availableHora === undefined || score.yaku.availableHora))) {
         continue;
       }
 
@@ -122,10 +124,22 @@ export class MahjongScoreCalculator {
 
       tempScoreData.fu = tempScoreData.appliedFuList?.map(fu => fu.isFu && fu.score).sum() ?? 0
 
-      // NOTE: The fu must be rounded up to the nearest one
-      tempScoreData.fu = tempScoreData.fu === 25
+      const isChiiToitsu = yakuAndFu.some(value => value.isYaku && value.yaku instanceof ChiiToitsu)
+
+      // NOTE: The fu must be rounded up to the nearest one.
+      //       And, in specially, calculate fu of the chiitoitsu.
+      tempScoreData.fu = tempScoreData.fu <= 25 && isChiiToitsu
         ? tempScoreData.fu
         : Math.ceil(tempScoreData.fu / 10) * 10
+
+
+      // NOTE: Here is specially mahjong rule.
+      //       It is not available under 30 pu and 1 han.
+      //       And so, 20 pu 1 han is only available the menzen-tsumo and the pinfu yaku, and/or chiitoitsu which is minimally 25 fu 1 han.
+      //       Therefore, which is needed to round up to 30 pu 1 han minimally.
+      if (tempScoreData.fu < 30 && yakuAndFu.filter(value => value.isYaku).length === 1 && !(yakuAndFu.find(value => value.isYaku) instanceof Pinfu) && !isChiiToitsu) {
+        tempScoreData.fu = 30;
+      }
 
       let calculationYaku: ScoreData['yaku'] = tempScoreData.appliedYakuList?.map(yaku => !yaku.isYakuman && !yaku.isDoubleYakuman && (yaku.calculationBasedScore ?? yaku.score)).sum() ?? 0
       tempScoreData.yaku = tempScoreData.appliedYakuList?.map(yaku => !yaku.isYakuman && !yaku.isDoubleYakuman && yaku.score).sum() ?? 0
@@ -143,6 +157,15 @@ export class MahjongScoreCalculator {
       let baseScore = tempScoreData.honba * this.mahjong.option.localRules.honba;
       const isParent = this.mahjong.option.jikaze === '1z'
       const roundUpScore = (score: number): number => Math.ceil(score / 100) * 100
+
+      if (calculationYaku !== 'DOUBLE_FULL' && calculationYaku !== 'FULL') {
+        const kazoeYakuman = new KazoeYakuman(calculationYaku)
+        if (kazoeYakuman.isFulfilled) {
+          calculationYaku = tempScoreData.yaku = kazoeYakuman.type !== 'NORMAL'
+            ? kazoeYakuman.type
+            : 13
+        }
+      }
 
       if (calculationYaku === 'DOUBLE_FULL') { // NOTE: Double Yakuman
         baseScore = isParent ? 96000 : 64000;
@@ -185,8 +208,6 @@ export class MahjongScoreCalculator {
         scoreData = tempScoreData
       }
     }
-
-    console.log(scoreData);
 
     if (!scoreData) {
       return null

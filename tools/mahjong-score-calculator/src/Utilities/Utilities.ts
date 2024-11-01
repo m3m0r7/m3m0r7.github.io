@@ -1,5 +1,6 @@
 interface Array<T> {
   chunk(size: number): T[][]
+  repeat<U extends T = T>(times: number): T[]
   includesWithMatrix<U = T>(items: U[], type?: 'OR' | 'AND'): boolean
   sum(): number
 }
@@ -9,6 +10,10 @@ Array.prototype.chunk = function (size: number) {
     this.slice(i * size, (i + 1) * size),
   );
 };
+
+Array.prototype.repeat = function <U>(times: number) {
+  return Array<U[]>(times).fill(this as U[]).flat()
+}
 
 Array.prototype.includesWithMatrix = function (items, type: 'OR' | 'AND' = 'OR') {
   return type === 'AND'

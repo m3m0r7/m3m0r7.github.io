@@ -1,17 +1,20 @@
-import { Fu, MahjongOption, Yaku } from "../types";
-import { PaiPairCollection } from "../Collection";
+import { Fu, MahjongOption, Yaku } from "../@types/types";
+import { PaiPairCollection } from "../Collection/Collection";
+import { Pinfu } from "../Yaku";
 
 export class Futei implements Fu {
   private paiPairCollection: PaiPairCollection
   private option: MahjongOption
+  private yakuList: Yaku[]
 
-  constructor(paiPairCollection: PaiPairCollection, _yaku: Yaku[], option: MahjongOption) {
+  constructor(paiPairCollection: PaiPairCollection, yakuList: Yaku[], option: MahjongOption) {
     this.paiPairCollection = paiPairCollection
+    this.yakuList = yakuList
     this.option = option
   }
 
   get value() {
-    return this.paiPairCollection.isChiitoitsu
+    return this.paiPairCollection.isChiiToitsu
       ? 25
       : 20
   }

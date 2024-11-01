@@ -1,6 +1,6 @@
-import { MahjongOption, Yaku } from "../types";
-import { PaiPairCollection } from "../Collection";
-import { PaiGenerator } from "../PaiGenerator";
+import { MahjongOption, Yaku } from "../@types/types";
+import { PaiPairCollection } from "../Collection/Collection";
+import { PaiGenerator } from "../Utilities/PaiGenerator";
 import { Chinitsu } from "./Chinitsu";
 
 export class Honitsu implements Yaku {

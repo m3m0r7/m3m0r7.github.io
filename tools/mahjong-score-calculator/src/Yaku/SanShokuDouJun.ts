@@ -1,8 +1,8 @@
-import { Koutsu, MahjongOption, Pai, PaiName, PaiPair, Shuntsu, Yaku } from "../types";
-import { PaiPairCollection } from "../Collection";
+import { Koutsu, MahjongOption, Pai, PaiName, PaiPair, Shuntsu, Yaku } from "../@types/types";
+import { PaiPairCollection } from "../Collection/Collection";
 import { RyanPeiKou } from "./RyanPeiKou";
-import { PaiPatternExtractor } from "../Extractor";
-import { PaiGenerator } from "../PaiGenerator";
+import { PaiPatternExtractor } from "../Runtime/Extractor/Extractor";
+import { PaiGenerator } from "../Utilities/PaiGenerator";
 
 export class SanShokuDouJun implements Yaku {
   private paiPairCollection: PaiPairCollection

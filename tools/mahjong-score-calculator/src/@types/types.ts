@@ -54,10 +54,11 @@ export type Koutsu = Repeat<PaiName, 3>;
 export type Toitsu = Repeat<PaiName, 2>;
 export type Kan = Repeat<PaiName, 4>;
 
-export type Chiitoitsu = [...Toitsu, ...Toitsu, ...Toitsu, ...Toitsu, ...Toitsu, ...Toitsu, ...Toitsu];
+export type ChiiToitsu = [...Toitsu, ...Toitsu, ...Toitsu, ...Toitsu, ...Toitsu, ...Toitsu, ...Toitsu];
 
 export type PaiPair = {
   isKokushi: false
+  isChuren: false
   isJantou: boolean
   isToitsu: true
   isShuntsu: false
@@ -68,6 +69,7 @@ export type PaiPair = {
   pattern: Toitsu
 } | {
   isKokushi: false
+  isChuren: false
   isJantou: false
   isToitsu: false
   isShuntsu: true
@@ -78,6 +80,7 @@ export type PaiPair = {
   pattern: Shuntsu
 } | {
   isKokushi: false
+  isChuren: false
   isJantou: false
   isToitsu: false
   isShuntsu: false
@@ -88,6 +91,7 @@ export type PaiPair = {
   pattern: Koutsu
 } | {
   isKokushi: false
+  isChuren: false
   isJantou: false
   isToitsu: false
   isShuntsu: false
@@ -98,6 +102,7 @@ export type PaiPair = {
   pattern: Kan
 } | {
   isKokushi: true
+  isChuren: false
   isJantou: false
   isToitsu: false
   isShuntsu: false
@@ -108,6 +113,18 @@ export type PaiPair = {
   pattern: PaiName[]
 } | {
   isKokushi: false
+  isChuren: true
+  isJantou: false
+  isToitsu: false
+  isShuntsu: false
+  isKoutsu: false
+  isKan: false
+  isFuro: false
+  includeAkaDora: boolean
+  pattern: PaiName[]
+} | {
+  isKokushi: false
+  isChuren: false
   isJantou: false
   isToitsu: false
   isShuntsu: false
@@ -128,7 +145,6 @@ export interface Hora {
   fromTsumo: boolean
   fromRinshanPai: boolean
   fromTankiMachi: boolean
-  fromKokushiMusou13MenMachi: boolean
 }
 
 export interface MahjongOption {
