@@ -27,7 +27,7 @@ import {
   Haitei,
   Haku,
   Hatsu,
-  Honitsu,
+  Honitsu, HonRoutou,
   Houtei,
   IpeiKou,
   Ippatsu,
@@ -120,6 +120,7 @@ export const MahjongDefaultOption: Partial<MahjongOption> = {
     ChurenPoutou,
 
     // NOTE: Normally yaku
+    HonRoutou,
     Tanyao,
     Chanta,
     Honitsu,

@@ -43,7 +43,7 @@ export class PaiPatternExtractor {
         return attr.isAkaDora
       }),
       ...option,
-      pattern,
+      pattern: convertedNormallyPattern,
     } as PaiPair
   }
 
@@ -66,7 +66,7 @@ export class PaiPatternExtractor {
       const order = {'m': 0, 'p': 10, 's': 20, 'z': 30};
 
       return (order[aGroup] + Number(aNumber)) - (order[bGroup] + Number(bNumber))
-    });
+    })
 
     if (!shuntsuFriendly) {
       return result
@@ -326,21 +326,34 @@ export class PaiPatternExtractor {
     if (pattern.length !== 4) {
       return false
     }
-    return pattern[0] === pattern[1] && pattern[1] === pattern[2] && pattern[2] === pattern[3]
+
+    const [ aName, aGroup ] = PaiPatternExtractor.extractPaiPair(pattern[0])
+    const [ bName, bGroup ] = PaiPatternExtractor.extractPaiPair(pattern[1])
+    const [ cName, cGroup ] = PaiPatternExtractor.extractPaiPair(pattern[2])
+    const [ dName, dGroup ] = PaiPatternExtractor.extractPaiPair(pattern[3])
+
+    return `${aName}${aGroup}` === `${bName}${bGroup}` && `${bName}${bGroup}` === `${cName}${cGroup}` && `${cName}${cGroup}` === `${dName}${dGroup}`
   }
 
   static shouldKoutsu(pattern: PaiName[]): pattern is Koutsu {
     if (pattern.length !== 3) {
       return false
     }
-    return pattern[0] === pattern[1] && pattern[1] === pattern[2]
+
+    const [ aName, aGroup ] = PaiPatternExtractor.extractPaiPair(pattern[0])
+    const [ bName, bGroup ] = PaiPatternExtractor.extractPaiPair(pattern[1])
+    const [ cName, cGroup ] = PaiPatternExtractor.extractPaiPair(pattern[2])
+    return `${aName}${aGroup}` === `${bName}${bGroup}` && `${bName}${bGroup}` === `${cName}${cGroup}`
   }
 
   static shouldToitsu(pattern: PaiName[]): pattern is Toitsu {
     if (pattern.length !== 2) {
       return false
     }
-    return pattern[0] === pattern[1]
+
+    const [ aName, aGroup ] = PaiPatternExtractor.extractPaiPair(pattern[0])
+    const [ bName, bGroup ] = PaiPatternExtractor.extractPaiPair(pattern[1])
+    return `${aName}${aGroup}` === `${bName}${bGroup}`
   }
 
   static extractPaiPair(paiName: PaiName): [keyof PaiNumberName, PaiGroupName, { isAkaDora: boolean, fromFuro: boolean }] {
