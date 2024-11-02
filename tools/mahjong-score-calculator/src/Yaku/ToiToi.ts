@@ -20,6 +20,9 @@ export class ToiToi implements Yaku {
 
   get isFulfilled(): boolean {
     return this.paiPairCollection.hasFuro &&
-      this.paiPairCollection.paiPairs.every(paiPair => paiPair.isKoutsu || paiPair.isKan)
+      this.paiPairCollection
+        .paiPairs
+        .filter(v => !v.isJantou)
+        .every(paiPair => paiPair.isKoutsu || paiPair.isKan)
   }
 }
