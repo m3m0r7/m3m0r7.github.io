@@ -19,6 +19,6 @@ export class RinshanKaihou implements Yaku {
   }
 
   get isFulfilled(): boolean {
-    return this.option.hora.fromRinshanPai
+    return this.option.hora.fromRinshanPai && this.option.hora.fromTsumo
   }
 }

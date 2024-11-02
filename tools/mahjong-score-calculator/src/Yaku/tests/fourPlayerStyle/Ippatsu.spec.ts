@@ -7,6 +7,7 @@ import { Futei, MenzenKafu, Tsumo } from "../../../Fu";
 import { Riichi } from "../../Riichi";
 import { MahjongDefaultAdditionalSpecialYaku } from "../../../Runtime/MahjongDefaultOption";
 import { Ippatsu } from "../../Ippatsu";
+import { MenzenTsumo } from "../../MenzenTsumo";
 
 const ippatsuRiichiExampleFormat: PaiName[] = [
   "1m", "2m", "3m",
@@ -44,10 +45,10 @@ describe('Riichi', () => {
             }
           }).score.fourPlayerStyleScore
 
-        expect(score?.score).deep.eq({ base: 2900, child: 1000 })
+        expect(score?.score).deep.eq({ base: 5800, child: 2000 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(30)
-        expect(score?.yaku).eq(2)
+        expect(score?.yaku).eq(3)
         expect(score?.appliedFuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -80,7 +81,15 @@ describe('Riichi', () => {
             name: I18n.ja.yaku[Ippatsu.name],
             score: 1,
             calculationBasedScore: 1,
-          }
+          },
+          {
+            isDoubleYakuman: false,
+            isFu: false,
+            isYakuman: false,
+            name: I18n.ja.yaku[MenzenTsumo.name],
+            score: 1,
+            calculationBasedScore: 1,
+          },
         ])
 
       })
@@ -172,10 +181,10 @@ describe('Riichi', () => {
             }
           }).score.fourPlayerStyleScore
 
-        expect(score?.score).deep.eq({ base: 2000, parent: 1000, child: 500 })
+        expect(score?.score).deep.eq({ base: 3900, parent: 2000, child: 1000 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(30)
-        expect(score?.yaku).eq(2)
+        expect(score?.yaku).eq(3)
         expect(score?.appliedFuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -208,7 +217,15 @@ describe('Riichi', () => {
             name: I18n.ja.yaku[Ippatsu.name],
             score: 1,
             calculationBasedScore: 1,
-          }
+          },
+          {
+            isDoubleYakuman: false,
+            isFu: false,
+            isYakuman: false,
+            name: I18n.ja.yaku[MenzenTsumo.name],
+            score: 1,
+            calculationBasedScore: 1,
+          },
         ])
 
       })

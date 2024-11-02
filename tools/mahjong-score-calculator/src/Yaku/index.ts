@@ -49,6 +49,7 @@ import { JunseiChurenPoutou } from "./JunseiChurenPoutou";
 import { SuAnkouTankiMachi } from "./SuAnkouTankiMachi";
 import { NagashiMangan } from "./NagashiMangan";
 import { KazoeYakuman } from "./KazoeYakuman";
+import { MenzenTsumo } from "./MenzenTsumo";
 
 export {
   Tanyao,
@@ -102,4 +103,5 @@ export {
   JunseiChurenPoutou,
   NagashiMangan,
   KazoeYakuman,
+  MenzenTsumo,
 }

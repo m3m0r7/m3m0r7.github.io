@@ -19,6 +19,6 @@ export class ChanKan implements Yaku {
   }
 
   get isFulfilled(): boolean {
-    return this.option.additionalSpecialYaku.withChanKan
+    return this.option.additionalSpecialYaku.withChanKan && this.option.hora.fromRon
   }
 }

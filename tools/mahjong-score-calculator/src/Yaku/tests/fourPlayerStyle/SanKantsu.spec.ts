@@ -6,6 +6,7 @@ import { PaiName } from "../../../@types/types";
 import { SanKantsu } from "../../SanKantsu";
 import { Ankan, Ankou, Futei, MenzenKafu, Minkan, Tsumo } from "../../../Fu";
 import { SanAnkou } from "../../SanAnkou";
+import { MenzenTsumo } from "../../MenzenTsumo";
 
 const sanKantsuExampleFormat: PaiName[] = [
   "1m", "1m", "1m", "1m",
@@ -39,7 +40,7 @@ describe('SanKantsu', () => {
         expect(score?.score).deep.eq({ base: 12000, child: 4000 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(90)
-        expect(score?.yaku).eq(4)
+        expect(score?.yaku).eq(5)
         expect(score?.appliedFuList).deep.eq([
           {
             isYakuman: false,
@@ -79,7 +80,15 @@ describe('SanKantsu', () => {
             name: I18n.ja.yaku[SanAnkou.name],
             score: 2,
             calculationBasedScore: 2,
-          }
+          },
+          {
+            isDoubleYakuman: false,
+            isFu: false,
+            isYakuman: false,
+            name: I18n.ja.yaku[MenzenTsumo.name],
+            score: 1,
+            calculationBasedScore: 1,
+          },
         ])
 
       })
@@ -168,7 +177,7 @@ describe('SanKantsu', () => {
         expect(score?.score).deep.eq({ base: 8000, parent: 4000, child: 2000 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(90)
-        expect(score?.yaku).eq(4)
+        expect(score?.yaku).eq(5)
         expect(score?.appliedFuList).deep.eq([
           {
             isYakuman: false,
@@ -208,7 +217,15 @@ describe('SanKantsu', () => {
             name: I18n.ja.yaku[SanAnkou.name],
             score: 2,
             calculationBasedScore: 2,
-          }
+          },
+          {
+            isDoubleYakuman: false,
+            isFu: false,
+            isYakuman: false,
+            name: I18n.ja.yaku[MenzenTsumo.name],
+            score: 1,
+            calculationBasedScore: 1,
+          },
         ])
       })
       test('ron', () => {
@@ -297,7 +314,7 @@ describe('SanKantsu', () => {
         expect(score?.score).deep.eq({ base: 8000, parent: 4000, child: 2000 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(90)
-        expect(score?.yaku).eq(4)
+        expect(score?.yaku).eq(5)
         expect(score?.appliedFuList).deep.eq([
           {
             isYakuman: false,
@@ -337,7 +354,15 @@ describe('SanKantsu', () => {
             name: I18n.ja.yaku[SanAnkou.name],
             score: 2,
             calculationBasedScore: 2,
-          }
+          },
+          {
+            isDoubleYakuman: false,
+            isFu: false,
+            isYakuman: false,
+            name: I18n.ja.yaku[MenzenTsumo.name],
+            score: 1,
+            calculationBasedScore: 1,
+          },
         ])
       })
 

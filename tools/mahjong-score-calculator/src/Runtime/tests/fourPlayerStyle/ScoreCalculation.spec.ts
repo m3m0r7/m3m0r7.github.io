@@ -4,7 +4,7 @@ import { Mahjong } from "../../Mahjong";
 import I18n from "../../../Lang/I18n";
 import { PaiName } from "../../../@types/types";
 import { Futei, Tsumo } from "../../../Fu";
-import { Dora, Tanyao } from "../../../Yaku";
+import { Dora, MenzenTsumo, Tanyao } from "../../../Yaku";
 
 const tanyaoExampleFormat: PaiName[] = [
   "2m", "3m", "4m",
@@ -70,7 +70,6 @@ describe('ScoreCalculation', () => {
           doraList: [
             "2s",
             "2m",
-            "5p",
           ],
           // NOTE: Here is same of a mahjong parent
           jikaze: "1z",
@@ -107,12 +106,20 @@ describe('ScoreCalculation', () => {
           calculationBasedScore: 1,
         },
         {
-          calculationBasedScore: 4,
+          calculationBasedScore: 3,
           isDoubleYakuman: false,
           isFu: false,
           isYakuman: false,
           name: I18n.ja.yaku[Dora.name],
-          score: 4,
+          score: 3,
+        },
+        {
+          isDoubleYakuman: false,
+          isFu: false,
+          isYakuman: false,
+          name: I18n.ja.yaku[MenzenTsumo.name],
+          score: 1,
+          calculationBasedScore: 1,
         },
       ])
 
@@ -133,7 +140,6 @@ describe('ScoreCalculation', () => {
           doraList: [
             "2s",
             "2m",
-            "5p",
           ],
           // NOTE: Here is same of a mahjong parent
           jikaze: "2z",
@@ -170,12 +176,20 @@ describe('ScoreCalculation', () => {
           calculationBasedScore: 1,
         },
         {
-          calculationBasedScore: 4,
+          calculationBasedScore: 3,
           isDoubleYakuman: false,
           isFu: false,
           isYakuman: false,
           name: I18n.ja.yaku[Dora.name],
-          score: 4,
+          score: 3,
+        },
+        {
+          isDoubleYakuman: false,
+          isFu: false,
+          isYakuman: false,
+          name: I18n.ja.yaku[MenzenTsumo.name],
+          score: 1,
+          calculationBasedScore: 1,
         },
       ])
 
@@ -209,7 +223,7 @@ describe('ScoreCalculation', () => {
       expect(score?.score).deep.eq({ base: 18000, child: 6000 })
       expect(score?.honba).eq(0)
       expect(score?.fu).eq(30)
-      expect(score?.yaku).eq(6)
+      expect(score?.yaku).eq(7)
       expect(score?.appliedFuList).deep.eq([
         {
           isDoubleYakuman: false,
@@ -242,6 +256,14 @@ describe('ScoreCalculation', () => {
           name: I18n.ja.yaku[Dora.name],
           score: 5,
           calculationBasedScore: 5,
+        },
+        {
+          isDoubleYakuman: false,
+          isFu: false,
+          isYakuman: false,
+          name: I18n.ja.yaku[MenzenTsumo.name],
+          score: 1,
+          calculationBasedScore: 1,
         },
       ])
 
@@ -273,7 +295,7 @@ describe('ScoreCalculation', () => {
       expect(score?.score).deep.eq({ base: 12000, parent: 6000, child: 3000 })
       expect(score?.honba).eq(0)
       expect(score?.fu).eq(30)
-      expect(score?.yaku).eq(6)
+      expect(score?.yaku).eq(7)
       expect(score?.appliedFuList).deep.eq([
         {
           isDoubleYakuman: false,
@@ -306,6 +328,14 @@ describe('ScoreCalculation', () => {
           name: I18n.ja.yaku[Dora.name],
           score: 5,
           calculationBasedScore: 5,
+        },
+        {
+          isDoubleYakuman: false,
+          isFu: false,
+          isYakuman: false,
+          name: I18n.ja.yaku[MenzenTsumo.name],
+          score: 1,
+          calculationBasedScore: 1,
         },
       ])
 
@@ -341,7 +371,7 @@ describe('ScoreCalculation', () => {
       expect(score?.score).deep.eq({ base: 24000, child: 8000 })
       expect(score?.honba).eq(0)
       expect(score?.fu).eq(30)
-      expect(score?.yaku).eq(8)
+      expect(score?.yaku).eq(9)
       expect(score?.appliedFuList).deep.eq([
         {
           isDoubleYakuman: false,
@@ -374,6 +404,14 @@ describe('ScoreCalculation', () => {
           name: I18n.ja.yaku[Dora.name],
           score: 7,
           calculationBasedScore: 7,
+        },
+        {
+          isDoubleYakuman: false,
+          isFu: false,
+          isYakuman: false,
+          name: I18n.ja.yaku[MenzenTsumo.name],
+          score: 1,
+          calculationBasedScore: 1,
         },
       ])
 
@@ -407,7 +445,7 @@ describe('ScoreCalculation', () => {
       expect(score?.score).deep.eq({ base: 16000, parent: 8000, child: 4000 })
       expect(score?.honba).eq(0)
       expect(score?.fu).eq(30)
-      expect(score?.yaku).eq(8)
+      expect(score?.yaku).eq(9)
       expect(score?.appliedFuList).deep.eq([
         {
           isDoubleYakuman: false,
@@ -440,6 +478,14 @@ describe('ScoreCalculation', () => {
           name: I18n.ja.yaku[Dora.name],
           score: 7,
           calculationBasedScore: 7,
+        },
+        {
+          isDoubleYakuman: false,
+          isFu: false,
+          isYakuman: false,
+          name: I18n.ja.yaku[MenzenTsumo.name],
+          score: 1,
+          calculationBasedScore: 1,
         },
       ])
 
@@ -478,7 +524,7 @@ describe('ScoreCalculation', () => {
       expect(score?.score).deep.eq({ base: 36000, child: 12000 })
       expect(score?.honba).eq(0)
       expect(score?.fu).eq(30)
-      expect(score?.yaku).eq(11)
+      expect(score?.yaku).eq(12)
       expect(score?.appliedFuList).deep.eq([
         {
           isDoubleYakuman: false,
@@ -511,6 +557,14 @@ describe('ScoreCalculation', () => {
           name: I18n.ja.yaku[Dora.name],
           score: 10,
           calculationBasedScore: 10,
+        },
+        {
+          isDoubleYakuman: false,
+          isFu: false,
+          isYakuman: false,
+          name: I18n.ja.yaku[MenzenTsumo.name],
+          score: 1,
+          calculationBasedScore: 1,
         },
       ])
 
@@ -547,7 +601,7 @@ describe('ScoreCalculation', () => {
       expect(score?.score).deep.eq({ base: 24000, parent: 12000, child: 6000 })
       expect(score?.honba).eq(0)
       expect(score?.fu).eq(30)
-      expect(score?.yaku).eq(11)
+      expect(score?.yaku).eq(12)
       expect(score?.appliedFuList).deep.eq([
         {
           isDoubleYakuman: false,
@@ -580,6 +634,14 @@ describe('ScoreCalculation', () => {
           name: I18n.ja.yaku[Dora.name],
           score: 10,
           calculationBasedScore: 10,
+        },
+        {
+          isDoubleYakuman: false,
+          isFu: false,
+          isYakuman: false,
+          name: I18n.ja.yaku[MenzenTsumo.name],
+          score: 1,
+          calculationBasedScore: 1,
         },
       ])
 

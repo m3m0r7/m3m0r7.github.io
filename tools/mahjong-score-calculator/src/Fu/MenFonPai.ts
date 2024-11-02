@@ -18,7 +18,7 @@ export class MenFonPai implements Fu {
       return 0
     }
 
-    return this.option.jikaze && pattern.includes(this.option.jikaze)
+    return this.option.jikaze && this.option.kaze !== this.option.jikaze && pattern.includes(this.option.jikaze)
       ? 2
       : 0
   }

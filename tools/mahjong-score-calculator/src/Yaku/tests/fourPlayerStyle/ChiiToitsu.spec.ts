@@ -6,6 +6,7 @@ import I18n from "../../../Lang/I18n";
 import { PaiName } from "../../../@types/types";
 import { ChiiToitsu } from "../../ChiiToitsu";
 import { Futei, MenzenKafu } from "../../../Fu";
+import { MenzenTsumo } from "../../MenzenTsumo";
 
 const chiiToitsuExampleFormat: PaiName[] = [
   "3m", "3m",
@@ -38,10 +39,10 @@ describe('ChiiToitsu', () => {
             kaze: "1z",
           }).score.fourPlayerStyleScore
 
-        expect(score?.score).deep.eq({ base: 2400, child: 800 })
+        expect(score?.score).deep.eq({ base: 4800, child: 1600 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(25)
-        expect(score?.yaku).eq(2)
+        expect(score?.yaku).eq(3)
 
         expect(score?.appliedFuList).deep.eq([
           {
@@ -53,6 +54,14 @@ describe('ChiiToitsu', () => {
           },
         ])
         expect(score?.appliedYakuList).deep.eq([
+          {
+            isDoubleYakuman: false,
+            isFu: false,
+            isYakuman: false,
+            name: I18n.ja.yaku[MenzenTsumo.name],
+            score: 1,
+            calculationBasedScore: 1,
+          },
           {
             isDoubleYakuman: false,
             isFu: false,
@@ -126,10 +135,10 @@ describe('ChiiToitsu', () => {
             kaze: "1z",
           }).score.fourPlayerStyleScore
 
-        expect(score?.score).deep.eq({ base: 1600, parent: 800, child: 400 })
+        expect(score?.score).deep.eq({ base: 3200, parent: 1600, child: 800 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(25)
-        expect(score?.yaku).eq(2)
+        expect(score?.yaku).eq(3)
 
         expect(score?.appliedFuList).deep.eq([
           {
@@ -145,10 +154,18 @@ describe('ChiiToitsu', () => {
             isDoubleYakuman: false,
             isFu: false,
             isYakuman: false,
+            name: I18n.ja.yaku[MenzenTsumo.name],
+            score: 1,
+            calculationBasedScore: 1,
+          },
+          {
+            isDoubleYakuman: false,
+            isFu: false,
+            isYakuman: false,
             name: I18n.ja.yaku[ChiiToitsu.name],
             score: 2,
             calculationBasedScore: 2,
-          }
+          },
         ])
 
       })

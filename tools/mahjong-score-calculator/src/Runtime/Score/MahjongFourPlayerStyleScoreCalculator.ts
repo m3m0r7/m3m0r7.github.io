@@ -4,7 +4,7 @@ import { PaiPairCollection } from "../../Collection/Collection";
 import { PlayStyle, Score, ScoreData, ScoreFu, ScoreYaku } from "../../@types/types";
 import { Mahjong } from "../Mahjong";
 import I18n from "../../Lang/I18n"
-import { ChiiToitsu, KazoeYakuman, Pinfu } from "../../Yaku";
+import { ChiiToitsu, KazoeYakuman, NagashiMangan, Pinfu } from "../../Yaku";
 
 type ScoreTable = Record<number, Record<number, number>>
 
@@ -103,7 +103,7 @@ export class MahjongFourPlayerStyleScoreCalculator {
               isDoubleYakuman: false,
               isFu: false,
               name: I18n.ja.yaku[score.yaku.constructor.name] ?? score.yaku.constructor.name,
-              score: score.yaku.han ?? score.yaku.han ?? 0,
+              score: score.yaku.han ?? 0,
               calculationBasedScore: score.yaku.calculationBasedHan ?? score.yaku.han,
             })
           }
@@ -144,12 +144,12 @@ export class MahjongFourPlayerStyleScoreCalculator {
       let calculationYaku: ScoreData['yaku'] = tempScoreData.appliedYakuList?.map(yaku => !yaku.isYakuman && !yaku.isDoubleYakuman && (yaku.calculationBasedScore ?? yaku.score)).sum() ?? 0
       tempScoreData.yaku = tempScoreData.appliedYakuList?.map(yaku => !yaku.isYakuman && !yaku.isDoubleYakuman && yaku.score).sum() ?? 0
 
-      tempScoreData.yaku = calculationYaku = tempScoreData.appliedYakuList?.some(yaku => yaku.isYakuman)
-        ? 'FULL'
+      tempScoreData.yaku = tempScoreData.appliedYakuList?.some(yaku => yaku.isYakuman)
+        ? calculationYaku = 'FULL'
         : tempScoreData.yaku
 
-      tempScoreData.yaku = calculationYaku = tempScoreData.appliedYakuList?.some(yaku => yaku.isDoubleYakuman)
-        ? 'DOUBLE_FULL'
+      tempScoreData.yaku = tempScoreData.appliedYakuList?.some(yaku => yaku.isDoubleYakuman)
+        ? calculationYaku = 'DOUBLE_FULL'
         : tempScoreData.yaku
 
       tempScoreData.honba = this.mahjong.option.honba
@@ -160,19 +160,49 @@ export class MahjongFourPlayerStyleScoreCalculator {
 
       if (calculationYaku !== 'DOUBLE_FULL' && calculationYaku !== 'FULL') {
         const kazoeYakuman = new KazoeYakuman(calculationYaku)
+
         if (kazoeYakuman.isFulfilled) {
+          tempScoreData.appliedYakuList = [{
+            isYakuman: true,
+            isDoubleYakuman: false,
+            isFu: false,
+            name: I18n.ja.yaku[KazoeYakuman.name] ?? KazoeYakuman.name,
+          }]
+
           calculationYaku = tempScoreData.yaku = kazoeYakuman.type !== 'NORMAL'
             ? kazoeYakuman.type
             : 13
         }
       }
 
+      // NOTE: Here is a specially rules in mahjong, when this is available at ryu-kyoku (ryu-kyoku: End of a round but not fulfilled a yaku other/me players)
+      const fulfilledNagashiMangan = yakuAndFu.find(value => value.isYaku && value.yaku instanceof NagashiMangan)
+      if (fulfilledNagashiMangan && fulfilledNagashiMangan.isYaku) {
+        tempScoreData.fu = null
+        tempScoreData.appliedFuList = []
+        tempScoreData.appliedYakuList = [{
+          isYakuman: false,
+          isDoubleYakuman: false,
+          isFu: false,
+          name: I18n.ja.yaku[NagashiMangan.name] ?? NagashiMangan.name,
+          score: fulfilledNagashiMangan.yaku.han ?? 0,
+          calculationBasedScore: fulfilledNagashiMangan.yaku.calculationBasedHan ?? fulfilledNagashiMangan.yaku.han,
+        }]
+
+        if (!tempScoreData.appliedYakuList[0].isFu) {
+          tempScoreData.yaku = tempScoreData.appliedYakuList[0].score
+          calculationYaku = tempScoreData.appliedYakuList[0].calculationBasedScore ?? 0
+        }
+      }
+
       if (calculationYaku === 'DOUBLE_FULL') { // NOTE: Double Yakuman
-        baseScore = isParent ? 96000 : 64000;
+        baseScore += isParent ? 96000 : 64000;
         tempScoreData.fu = null
+        tempScoreData.appliedFuList = []
       } else if (calculationYaku === 'FULL') { // NOTE: Yakuman
-        baseScore = isParent ? 48000 : 32000;
+        baseScore += isParent ? 48000 : 32000;
         tempScoreData.fu = null
+        tempScoreData.appliedFuList = []
       } else if (calculationYaku >= 11 && calculationYaku <= 12) { // NOTE: Normally scoring
         baseScore += isParent ? 36000 : 24000;
       } else if (calculationYaku >= 8 && calculationYaku <= 10) { // NOTE: Normally scoring

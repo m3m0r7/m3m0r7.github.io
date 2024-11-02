@@ -36,7 +36,7 @@ import {
   JunseiChurenPoutou,
   KokushiMusou,
   KokushiMusou13MenMachi,
-  MenFon,
+  MenFon, MenzenTsumo,
   NagashiMangan,
   OpenRiichi,
   Pinfu,
@@ -151,6 +151,8 @@ export const MahjongDefaultOption: Partial<MahjongOption> = {
     SanShokuDouKou,
     SanShokuDouJun,
     NagashiMangan,
+    MenzenTsumo,
+
     ChiiToitsu,
   ],
 }

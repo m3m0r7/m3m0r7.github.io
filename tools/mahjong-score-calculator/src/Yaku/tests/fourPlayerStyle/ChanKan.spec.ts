@@ -6,6 +6,7 @@ import { PaiName } from "../../../@types/types";
 import { Ankou, Futei, MenzenKafu, Minkou, Tsumo } from "../../../Fu";
 import { ChanKan } from "../../ChanKan";
 import { MahjongDefaultAdditionalSpecialYaku } from "../../../Runtime/MahjongDefaultOption";
+import { MenzenTsumo } from "../../MenzenTsumo";
 
 const chanKanExampleFormat: PaiName[] = [
   "1m", "2m", "3m",
@@ -20,67 +21,6 @@ const chanKanExampleFormat: PaiName[] = [
 describe('ChanKan', () => {
   describe('fulfilled', () => {
     describe('parent', () => {
-      test('tsumo', () => {
-        const score = new Mahjong(
-          chanKanExampleFormat,
-          {
-            hora: {
-              pai: "2s",
-              fromTsumo: true,
-              fromRon: false,
-
-              fromRinshanPai: false,
-            },
-
-            additionalSpecialYaku: {
-              ...MahjongDefaultAdditionalSpecialYaku,
-              withChanKan: true,
-            },
-
-            // NOTE: Here is same of a mahjong parent
-            jikaze: "1z",
-            kaze: "1z",
-          }).score.fourPlayerStyleScore
-
-        expect(score?.score).deep.eq({ base: 1500, child: 500 })
-        expect(score?.honba).eq(0)
-        expect(score?.fu).eq(30)
-        expect(score?.yaku).eq(1)
-        expect(score?.appliedFuList).deep.eq([
-          {
-            isDoubleYakuman: false,
-            isFu: true,
-            isYakuman: false,
-            name: I18n.ja.fu[Futei.name],
-            score: 20,
-          },
-          {
-            isDoubleYakuman: false,
-            isFu: true,
-            isYakuman: false,
-            name: I18n.ja.fu[Ankou.name],
-            score: 8,
-          },
-          {
-            isDoubleYakuman: false,
-            isFu: true,
-            isYakuman: false,
-            name: I18n.ja.fu[Tsumo.name],
-            score: 2,
-          },
-        ])
-        expect(score?.appliedYakuList).deep.eq([
-          {
-            isDoubleYakuman: false,
-            isFu: false,
-            isYakuman: false,
-            name: I18n.ja.yaku[ChanKan.name],
-            score: 1,
-            calculationBasedScore: 1,
-          }
-        ])
-
-      })
       test('ron', () => {
         const score = new Mahjong(
           chanKanExampleFormat,
@@ -145,66 +85,6 @@ describe('ChanKan', () => {
     })
 
     describe('child', () => {
-      test('tsumo', () => {
-        const score = new Mahjong(
-          chanKanExampleFormat,
-          {
-            hora: {
-              pai: "2s",
-              fromTsumo: true,
-              fromRon: false,
-
-              fromRinshanPai: false,
-            },
-
-            additionalSpecialYaku: {
-              ...MahjongDefaultAdditionalSpecialYaku,
-              withChanKan: true,
-            },
-
-            jikaze: "2z",
-            kaze: "1z",
-          }).score.fourPlayerStyleScore
-
-        expect(score?.score).deep.eq({ base: 1000, parent: 500, child: 300 })
-        expect(score?.honba).eq(0)
-        expect(score?.fu).eq(30)
-        expect(score?.yaku).eq(1)
-        expect(score?.appliedFuList).deep.eq([
-          {
-            isDoubleYakuman: false,
-            isFu: true,
-            isYakuman: false,
-            name: I18n.ja.fu[Futei.name],
-            score: 20,
-          },
-          {
-            isDoubleYakuman: false,
-            isFu: true,
-            isYakuman: false,
-            name: I18n.ja.fu[Ankou.name],
-            score: 8,
-          },
-          {
-            isDoubleYakuman: false,
-            isFu: true,
-            isYakuman: false,
-            name: I18n.ja.fu[Tsumo.name],
-            score: 2,
-          },
-        ])
-        expect(score?.appliedYakuList).deep.eq([
-          {
-            isDoubleYakuman: false,
-            isFu: false,
-            isYakuman: false,
-            name: I18n.ja.yaku[ChanKan.name],
-            score: 1,
-            calculationBasedScore: 1,
-          }
-        ])
-
-      })
       test('ron', () => {
         const score = new Mahjong(
           chanKanExampleFormat,

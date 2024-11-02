@@ -8,6 +8,7 @@ import { Dora } from "../../Dora";
 import { Haku } from "../../Haku";
 import { Riichi } from "../../Riichi";
 import { MahjongDefaultAdditionalSpecialYaku } from "../../../Runtime/MahjongDefaultOption";
+import { MenzenTsumo } from "../../MenzenTsumo";
 
 const doraExampleFormat: PaiName[] = [
   "1m", "2m", "3m",
@@ -48,10 +49,10 @@ describe('Dora', () => {
             kaze: "1z",
           }).score.fourPlayerStyleScore
 
-        expect(score?.score).deep.eq({ base: 5800, child: 2000 })
+        expect(score?.score).deep.eq({ base: 11600, child: 3900 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(30)
-        expect(score?.yaku).eq(3)
+        expect(score?.yaku).eq(4)
         expect(score?.appliedFuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -91,6 +92,14 @@ describe('Dora', () => {
             name: I18n.ja.yaku[Dora.name],
             score: 2,
             calculationBasedScore: 2,
+          },
+          {
+            isDoubleYakuman: false,
+            isFu: false,
+            isYakuman: false,
+            name: I18n.ja.yaku[MenzenTsumo.name],
+            score: 1,
+            calculationBasedScore: 1,
           },
         ])
 
@@ -196,10 +205,10 @@ describe('Dora', () => {
             kaze: "1z",
           }).score.fourPlayerStyleScore
 
-        expect(score?.score).deep.eq({ base: 3900, parent: 2000, child: 1000 })
+        expect(score?.score).deep.eq({ base: 7700, parent: 3900, child: 2000 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(30)
-        expect(score?.yaku).eq(3)
+        expect(score?.yaku).eq(4)
         expect(score?.appliedFuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -239,6 +248,14 @@ describe('Dora', () => {
             name: I18n.ja.yaku[Dora.name],
             score: 2,
             calculationBasedScore: 2,
+          },
+          {
+            isDoubleYakuman: false,
+            isFu: false,
+            isYakuman: false,
+            name: I18n.ja.yaku[MenzenTsumo.name],
+            score: 1,
+            calculationBasedScore: 1,
           },
         ])
 

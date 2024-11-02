@@ -5,6 +5,7 @@ import I18n from "../../../Lang/I18n";
 import { PaiName } from "../../../@types/types";
 import { SanAnkou } from "../../SanAnkou";
 import { Ankou, Futei, MenzenKafu, Tsumo } from "../../../Fu";
+import { MenzenTsumo } from "../../MenzenTsumo";
 
 const sanAnkouExampleFormat: PaiName[] = [
   "1m", "1m", "1m",
@@ -35,10 +36,10 @@ describe('SanAnkou', () => {
             kaze: "1z",
           }).score.fourPlayerStyleScore
 
-        expect(score?.score).deep.eq({ base: 3900, child: 1300 })
+        expect(score?.score).deep.eq({ base: 7700, child: 2600 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(40)
-        expect(score?.yaku).eq(2)
+        expect(score?.yaku).eq(3)
         expect(score?.appliedFuList).deep.eq([
           {
             isYakuman: false,
@@ -70,7 +71,15 @@ describe('SanAnkou', () => {
             name: I18n.ja.yaku[SanAnkou.name],
             score: 2,
             calculationBasedScore: 2,
-          }
+          },
+          {
+            isDoubleYakuman: false,
+            isFu: false,
+            isYakuman: false,
+            name: I18n.ja.yaku[MenzenTsumo.name],
+            score: 1,
+            calculationBasedScore: 1,
+          },
         ])
 
       })
@@ -148,10 +157,10 @@ describe('SanAnkou', () => {
             kaze: "1z",
           }).score.fourPlayerStyleScore
 
-        expect(score?.score).deep.eq({ base: 2600, parent: 1300, child: 700 })
+        expect(score?.score).deep.eq({ base: 5200, parent: 2600, child: 1300 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(40)
-        expect(score?.yaku).eq(2)
+        expect(score?.yaku).eq(3)
         expect(score?.appliedFuList).deep.eq([
           {
             isYakuman: false,
@@ -183,7 +192,15 @@ describe('SanAnkou', () => {
             name: I18n.ja.yaku[SanAnkou.name],
             score: 2,
             calculationBasedScore: 2,
-          }
+          },
+          {
+            isDoubleYakuman: false,
+            isFu: false,
+            isYakuman: false,
+            name: I18n.ja.yaku[MenzenTsumo.name],
+            score: 1,
+            calculationBasedScore: 1,
+          },
         ])
 
 

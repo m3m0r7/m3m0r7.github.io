@@ -18,7 +18,7 @@ export class ChanFonPai implements Fu {
       return 0
     }
 
-    return this.option.kaze && pattern.includes(this.option.kaze)
+    return this.option.kaze && this.option.kaze !== this.option.jikaze && pattern.includes(this.option.kaze)
       ? 2
       : 0
   }

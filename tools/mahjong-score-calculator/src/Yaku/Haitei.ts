@@ -21,6 +21,6 @@ export class Haitei implements Yaku {
   }
 
   get isFulfilled(): boolean {
-    return this.option.additionalSpecialYaku.withHaitei
+    return this.option.additionalSpecialYaku.withHaitei && this.option.hora.fromTsumo
   }
 }

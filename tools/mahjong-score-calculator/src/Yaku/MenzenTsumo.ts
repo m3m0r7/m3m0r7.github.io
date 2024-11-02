@@ -1,7 +1,7 @@
 import { MahjongOption, Yaku } from "../@types/types";
 import { PaiPairCollection } from "../Collection/Collection";
 
-export class Houtei implements Yaku {
+export class MenzenTsumo implements Yaku {
   private paiPairCollection: PaiPairCollection
   private option: MahjongOption
 
@@ -19,6 +19,7 @@ export class Houtei implements Yaku {
   }
 
   get isFulfilled(): boolean {
-    return this.option.additionalSpecialYaku.withHoutei && this.option.hora.fromRon
+    return !this.paiPairCollection.hasFuro
+      && this.option.hora.fromTsumo
   }
 }
