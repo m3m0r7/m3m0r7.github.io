@@ -1,4 +1,15 @@
-import { Kan, Koutsu, PaiGroup, PaiGroupName, PaiName, PaiNumberName, PaiPair, Shuntsu, Toitsu } from "../../@types/types";
+import {
+  Kan,
+  Koutsu,
+  PaiAttr,
+  PaiGroup,
+  PaiGroupName,
+  PaiName,
+  PaiNumberName,
+  PaiPair,
+  Shuntsu,
+  Toitsu
+} from "../../@types/types";
 import { PaiCollection } from "../../Collection/Collection";
 import { PaiGenerator } from "../../Utilities/PaiGenerator";
 
@@ -7,6 +18,33 @@ export class PaiPatternExtractor {
 
   constructor(paiCollection: PaiCollection) {
     this.paiCollection = paiCollection
+  }
+
+  static createPaiPair(pattern: PaiName[], option: Partial<PaiPair> = {}): PaiPair {
+    const convertedNormallyPattern = pattern.map((paiName) => {
+      const [ name, group ] = PaiPatternExtractor.extractPaiPair(paiName)
+      return `${name}${group}`
+    })
+
+    return {
+      isKokushi: false,
+      isChuren: false,
+      isJantou: false,
+      isToitsu: false,
+      isShuntsu: false,
+      isKoutsu: false,
+      isKan: false,
+      isFuro: pattern.some((paiName) => {
+        const [ _name, _group, attr ] = PaiPatternExtractor.extractPaiPair(paiName)
+        return attr.fromFuro
+      }),
+      includeAkaDora: pattern.some((paiName) => {
+        const [ _name, _group, attr ] = PaiPatternExtractor.extractPaiPair(paiName)
+        return attr.isAkaDora
+      }),
+      ...option,
+      pattern,
+    } as PaiPair
   }
 
   static splitByGroup(paiList: PaiName[]): PaiGroup {
@@ -78,21 +116,15 @@ export class PaiPatternExtractor {
       const pattern = remainingPaiList.slice(i, i + 3);
 
       if (PaiPatternExtractor.shouldShuntsu(pattern)) {
-        extractedPattern.push({
-          isKokushi: false,
-          isChuren: false,
-          isJantou: false,
-          isToitsu: false,
-          isShuntsu: true,
-          isKoutsu: false,
-          isKan: false,
-          isFuro: false,
-          includeAkaDora: false,
-          pattern,
-        })
+
+        extractedPattern.push(
+          PaiPatternExtractor.createPaiPair(
+            pattern,
+            { isShuntsu: true },
+          )
+        )
 
         solvedPositions.push(i, i + 1, i + 2)
-
         i += 2
       }
     }
@@ -109,34 +141,22 @@ export class PaiPatternExtractor {
       const pattern = remainingPaiList.slice(i, i + 3);
 
       if (PaiPatternExtractor.shouldKan(remainingPaiList.slice(i, i + 4))) {
-        extractedPattern.push({
-          isKokushi: false,
-          isChuren: false,
-          isJantou: false,
-          isToitsu: false,
-          isShuntsu: false,
-          isKoutsu: false,
-          isKan: true,
-          isFuro: false,
-          includeAkaDora: false,
-          pattern: [remainingPaiList[i], remainingPaiList[i + 1], remainingPaiList[i + 2], remainingPaiList[i + 3]],
-        })
+        extractedPattern.push(
+          PaiPatternExtractor.createPaiPair(
+            [remainingPaiList[i], remainingPaiList[i + 1], remainingPaiList[i + 2], remainingPaiList[i + 3]],
+            { isKan: true }
+          )
+        )
 
         solvedPositions.push(i, i + 1, i + 2, i + 3)
         i += 3
       } else if (PaiPatternExtractor.shouldKoutsu(pattern)) {
-        extractedPattern.push({
-          isKokushi: false,
-          isChuren: false,
-          isJantou: false,
-          isToitsu: false,
-          isShuntsu: false,
-          isKoutsu: true,
-          isKan: false,
-          isFuro: false,
-          includeAkaDora: false,
-          pattern,
-        })
+        extractedPattern.push(
+          PaiPatternExtractor.createPaiPair(
+            pattern,
+            { isKoutsu: true }
+          )
+        )
         solvedPositions.push(i, i + 1, i + 2)
 
         i += 2
@@ -152,18 +172,11 @@ export class PaiPatternExtractor {
     const solvedPositions: number[] = []
 
     for (let i = 0; i < remainingPaiList.length; i++) {
-      extractedPattern.push({
-        isKokushi: false,
-        isChuren: false,
-        isJantou: false,
-        isToitsu: false,
-        isShuntsu: false,
-        isKoutsu: false,
-        isKan: false,
-        isFuro: false,
-        includeAkaDora: false,
-        pattern: [remainingPaiList[i]],
-      })
+      extractedPattern.push(
+        PaiPatternExtractor.createPaiPair(
+          [remainingPaiList[i]],
+        )
+      )
 
       solvedPositions.push(i)
     }
@@ -180,18 +193,12 @@ export class PaiPatternExtractor {
       const pattern = remainingPaiList.slice(i, i + 2);
 
       if (PaiPatternExtractor.shouldToitsu(pattern)) {
-        extractedPattern.push({
-          isKokushi: false,
-          isChuren: false,
-          isJantou: false,
-          isToitsu: true,
-          isShuntsu: false,
-          isKoutsu: false,
-          isKan: false,
-          isFuro: false,
-          includeAkaDora: false,
-          pattern,
-        })
+        extractedPattern.push(
+          PaiPatternExtractor.createPaiPair(
+            pattern,
+            { isToitsu: true }
+          )
+        )
         solvedPositions.push(i, i + 1)
 
         i += 1
@@ -336,10 +343,15 @@ export class PaiPatternExtractor {
     return pattern[0] === pattern[1]
   }
 
-  static extractPaiPair(paiName: PaiName): [keyof PaiNumberName, PaiGroupName] {
+  static extractPaiPair(paiName: PaiName): [keyof PaiNumberName, PaiGroupName, { isAkaDora: boolean, fromFuro: boolean }] {
+    const paiAttr = paiName.substring(2) as PaiAttr
     return [
       paiName.substring(0, 1) as keyof PaiNumberName,
       paiName.substring(1, 2) as PaiGroupName,
+      {
+        isAkaDora: paiAttr.includes('a'),
+        fromFuro: paiAttr.includes('f'),
+      },
     ]
   }
 }

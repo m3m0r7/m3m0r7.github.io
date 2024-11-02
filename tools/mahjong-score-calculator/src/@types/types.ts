@@ -3,26 +3,57 @@ type Repeat<T, N extends number, R extends T[] = []> =
     ? R
     : Repeat<T, N, [T, ...R]>;
 
+type GenerateCombinationsFromString<
+  T extends string,
+  MaxLength extends number,
+  Acc extends string = '',
+  Prev extends string = '',
+  N extends any[] = []
+> = N['length'] extends MaxLength
+  ? Acc
+  : Acc | {
+  [K in T]: K extends Prev
+    ? never
+    : GenerateCombinationsFromString<T, MaxLength, `${Acc}${K}`, K, [any, ...N]>
+}[T];
+
 export type OneToSeven = "1" | "2" | "3" | "4" | "5" | "6" | "7"
 export type OneToNine = OneToSeven | "8" | "9"
-export type PaiGroupName = "m" | "p" | "s" | "z"
-export type PaiNormal<T extends OneToNine, K extends "m" | "p" | "s"> = `${T}${K}`
+export type PaiGroupManzu = "m"
+export type PaiGroupPinzu = "p"
+export type PaiGroupSouzu = "s"
+export type PaiGroupJi = "z"
+export type PaiGroupSuuPai = PaiGroupManzu | PaiGroupPinzu | PaiGroupSouzu
+export type PaiGroupName = PaiGroupSuuPai | PaiGroupJi
+
+// NOTE: The a is an Aka Dora, f is a Furo
+export type PaiAttr = GenerateCombinationsFromString<"a" | "f" | "", 3>
+
+export type PaiNormal<T extends OneToNine, K extends PaiGroupSuuPai, U extends PaiAttr = ""> = `${T}${K}${U}`
 export type PaiJi<T extends OneToSeven> = `${T}z`
-export type Pai<T extends OneToNine, K extends PaiGroupName> = K extends "z"
+export type Pai<T extends OneToNine, K extends PaiGroupName, U extends PaiAttr = ""> = K extends PaiGroupJi
   ? (
     T extends OneToSeven
       ? PaiJi<T>
       : never
     )
   : (
-    K extends "m" | "p" | "s"
-      ? PaiNormal<T, K>
+    K extends PaiGroupSuuPai
+      ? PaiNormal<T, K, U>
       : never
     )
 
-export type PaiList<K extends PaiGroupName> = Pai<"1", K> | Pai<"2", K> | Pai<"3", K>
-  | Pai<"4", K> | Pai<"5", K> | Pai<"6", K>
-  | Pai<"7", K> | Pai<"8", K> | Pai<"9", K>
+export type PaiList<K extends PaiGroupName> = Pai<"1", K> | Pai<"2", K> | Pai<"3", K> | Pai<"4", K>
+  | Pai<"5", K>
+  | Pai<"6", K> | Pai<"7", K> | Pai<"8", K> | Pai<"9", K>
+
+  // NOTE: Akadora
+  | Pai<"5", K, "a">
+
+  // NOTE: Furo
+  | Pai<"1", K, "f"> | Pai<"2", K, "f"> | Pai<"3", K, "f"> | Pai<"4", K, "f">
+  | Pai<"5", K, "f"> | Pai<"5", K, "af">
+  | Pai<"6", K, "f"> | Pai<"7", K, "f"> | Pai<"8", K, "f"> | Pai<"9", K, "f">
 
 export type PaiManzuName = PaiList<"m">;
 export type PaiPinzuName = PaiList<"p">;

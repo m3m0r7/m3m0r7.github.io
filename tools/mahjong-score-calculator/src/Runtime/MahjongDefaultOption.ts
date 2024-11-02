@@ -71,15 +71,17 @@ export const MahjongDefaultAdditionalSpecialYaku: MahjongOption['additionalSpeci
   withNagashiMangan: false,
 }
 
+export const MahjongDefaultLocalRules: MahjongOption['localRules'] = {
+  fu: {
+    renfonPai: 4,
+  },
+  honba: 300,
+  kuitan: true,
+}
+
 // NOTE: The other property will be merged
 export const MahjongDefaultOption: Partial<MahjongOption> = {
-  localRules: {
-    fu: {
-      renfonPai: 4,
-    },
-    honba: 300,
-    kuitan: true,
-  },
+  localRules: MahjongDefaultLocalRules,
   additionalSpecialYaku: MahjongDefaultAdditionalSpecialYaku,
   fuList: [
     Futei,

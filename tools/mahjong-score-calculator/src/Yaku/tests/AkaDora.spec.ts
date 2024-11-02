@@ -2,22 +2,22 @@ import '../../Utilities/Utilities';
 import { describe, expect, test } from "vitest";
 import { Mahjong } from "../../Runtime/Mahjong";
 import I18n from "../../Lang/I18n";
-import { MahjongOption, PaiName } from "../../@types/types";
+import { PaiName } from "../../@types/types";
 import { Futei, MenzenKafu, Tsumo } from "../../Fu";
 import { Tanyao } from "../Tanyao";
-import { MahjongDefaultLocalRules, MahjongDefaultOption } from "../../Runtime/MahjongDefaultOption";
+import { AkaDora } from "../AkaDora";
 
 const tanyaoExampleFormat: PaiName[] = [
   "2m", "3m", "4m",
   "5m", "6m", "7m",
 
-  "3p", "4p", "5p",
+  "3p", "4p", "5pa",
   "6p", "7p", "8p",
 
   "2s", "2s",
 ];
 
-describe('Tanyao', () => {
+describe('AkaDora', () => {
   describe('fulfilled', () => {
     describe('parent', () => {
       test('tsumo', () => {
@@ -37,10 +37,10 @@ describe('Tanyao', () => {
             kaze: "1z",
           }).score
 
-        expect(score?.score).deep.eq({ base: 1500, child: 500 })
+        expect(score?.score).deep.eq({ base: 2900, child: 1000 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(30)
-        expect(score?.yaku).eq(1)
+        expect(score?.yaku).eq(2)
         expect(score?.appliedFuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -65,6 +65,14 @@ describe('Tanyao', () => {
             name: I18n.ja.yaku[Tanyao.name],
             score: 1,
             calculationBasedScore: 1,
+          },
+          {
+            isDoubleYakuman: false,
+            isFu: false,
+            isYakuman: false,
+            name: I18n.ja.yaku[AkaDora.name],
+            score: 1,
+            calculationBasedScore: 1,
           }
         ])
 
@@ -86,10 +94,10 @@ describe('Tanyao', () => {
             kaze: "1z",
           }).score
 
-        expect(score?.score).deep.eq({ base: 1500 })
+        expect(score?.score).deep.eq({ base: 2900 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(30)
-        expect(score?.yaku).eq(1)
+        expect(score?.yaku).eq(2)
         expect(score?.appliedFuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -112,6 +120,14 @@ describe('Tanyao', () => {
             isFu: false,
             isYakuman: false,
             name: I18n.ja.yaku[Tanyao.name],
+            score: 1,
+            calculationBasedScore: 1,
+          },
+          {
+            isDoubleYakuman: false,
+            isFu: false,
+            isYakuman: false,
+            name: I18n.ja.yaku[AkaDora.name],
             score: 1,
             calculationBasedScore: 1,
           }
@@ -137,10 +153,10 @@ describe('Tanyao', () => {
             kaze: "1z",
           }).score
 
-        expect(score?.score).deep.eq({ base: 1000, parent: 500, child: 300 })
+        expect(score?.score).deep.eq({ base: 2000, parent: 1000, child: 500 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(30)
-        expect(score?.yaku).eq(1)
+        expect(score?.yaku).eq(2)
         expect(score?.appliedFuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -165,6 +181,14 @@ describe('Tanyao', () => {
             name: I18n.ja.yaku[Tanyao.name],
             score: 1,
             calculationBasedScore: 1,
+          },
+          {
+            isDoubleYakuman: false,
+            isFu: false,
+            isYakuman: false,
+            name: I18n.ja.yaku[AkaDora.name],
+            score: 1,
+            calculationBasedScore: 1,
           }
         ])
 
@@ -185,10 +209,10 @@ describe('Tanyao', () => {
             kaze: "1z",
           }).score
 
-        expect(score?.score).deep.eq({ base: 1000 })
+        expect(score?.score).deep.eq({ base: 2000 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(30)
-        expect(score?.yaku).eq(1)
+        expect(score?.yaku).eq(2)
         expect(score?.appliedFuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -213,94 +237,77 @@ describe('Tanyao', () => {
             name: I18n.ja.yaku[Tanyao.name],
             score: 1,
             calculationBasedScore: 1,
+          },
+          {
+            isDoubleYakuman: false,
+            isFu: false,
+            isYakuman: false,
+            name: I18n.ja.yaku[AkaDora.name],
+            score: 1,
+            calculationBasedScore: 1,
           }
         ])
 
       })
 
-      describe('with furo', () => {
-        test('kuitan is not available', () => {
-          const mahjong = new Mahjong(
-            tanyaoExampleFormat,
-            {
-              hora: {
-                pai: "2s",
-                fromTsumo: false,
-                fromRon: true,
-                fromTankiMachi: false,
-                fromRinshanPai: false,
-              },
 
-              localRules: {
-                ...MahjongDefaultLocalRules,
-                kuitan: false,
-              },
-
-              jikaze: "2z",
-              kaze: "1z",
-            })
-
-          mahjong.updatePaiPairCollections((paiPairCollection) => {
-            paiPairCollection.paiPairs.map(paiPair => {
-              paiPair.isFuro = true
-              return paiPair
-            })
-            return paiPairCollection
-          })
-
-          const score = () => mahjong.score
-
-          expect(score).toThrow('The mahjong scores are not available that reason for Yaku are not fulfilled, invalid format and so on')
-        })
-        test('kuitan is available', () => {
-          const mahjong = new Mahjong(
-            tanyaoExampleFormat,
-            {
-              hora: {
-                pai: "2s",
-                fromTsumo: false,
-                fromRon: true,
-                fromTankiMachi: false,
-                fromRinshanPai: false,
-              },
-
-              jikaze: "2z",
-              kaze: "1z",
-            })
-
-          mahjong.updatePaiPairCollections((paiPairCollection) => {
-            paiPairCollection.paiPairs.map(paiPair => {
-              paiPair.isFuro = true
-              return paiPair
-            })
-            return paiPairCollection
-          })
-
-          const score = mahjong.score
-          expect(score?.score).deep.eq({ base: 1000 })
-          expect(score?.honba).eq(0)
-          expect(score?.fu).eq(30)
-          expect(score?.yaku).eq(1)
-          expect(score?.appliedFuList).deep.eq([
-            {
-              isDoubleYakuman: false,
-              isFu: true,
-              isYakuman: false,
-              name: I18n.ja.fu[Futei.name],
-              score: 20,
+      test('with furo', () => {
+        const mahjong = new Mahjong(
+          tanyaoExampleFormat,
+          {
+            hora: {
+              pai: "2s",
+              fromTsumo: false,
+              fromRon: true,
+              fromTankiMachi: false,
+              fromRinshanPai: false,
             },
-          ])
-          expect(score?.appliedYakuList).deep.eq([
-            {
-              isDoubleYakuman: false,
-              isFu: false,
-              isYakuman: false,
-              name: I18n.ja.yaku[Tanyao.name],
-              score: 1,
-              calculationBasedScore: 1,
-            }
-          ])
+
+            jikaze: "2z",
+            kaze: "1z",
+          })
+
+        mahjong.updatePaiPairCollections((paiPairCollection) => {
+          paiPairCollection.paiPairs.map(paiPair => {
+            paiPair.isFuro = true
+            return paiPair
+          })
+          return paiPairCollection
         })
+
+        const score = mahjong.score
+        expect(score?.score).deep.eq({ base: 2000 })
+        expect(score?.honba).eq(0)
+        expect(score?.fu).eq(30)
+        expect(score?.yaku).eq(2)
+        expect(score?.appliedFuList).deep.eq([
+          {
+            isDoubleYakuman: false,
+            isFu: true,
+            isYakuman: false,
+            name: I18n.ja.fu[Futei.name],
+            score: 20,
+          },
+        ])
+        expect(score?.appliedYakuList).deep.eq([
+          {
+            isDoubleYakuman: false,
+            isFu: false,
+            isYakuman: false,
+            name: I18n.ja.yaku[Tanyao.name],
+            score: 1,
+            calculationBasedScore: 1,
+          },
+          {
+            isDoubleYakuman: false,
+            isFu: false,
+            isYakuman: false,
+            name: I18n.ja.yaku[AkaDora.name],
+            score: 1,
+            calculationBasedScore: 1,
+          }
+        ])
+
       })
     })
   })
