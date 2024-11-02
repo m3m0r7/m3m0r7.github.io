@@ -120,6 +120,7 @@ export const MahjongDefaultOption: Partial<MahjongOption> = {
     ChurenPoutou,
 
     // NOTE: Normally yaku
+    ChanKan,
     HonRoutou,
     Tanyao,
     Chanta,
@@ -140,7 +141,6 @@ export const MahjongDefaultOption: Partial<MahjongOption> = {
     Haku,
     Hatsu,
     Chun,
-    ChanKan,
     IpeiKou,
     ToiToi,
     SanAnkou,

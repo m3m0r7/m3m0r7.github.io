@@ -5,12 +5,13 @@ import { PaiGenerator } from "./Utilities/PaiGenerator";
 // torima
 const mahjong = new Mahjong([
 
-  "1mf", "1m", "1m",
-  "9mf", "9m", "9m",
-  "1pf", "1p", "1p",
-  "9pf", "9p", "9p",
+  "1m", "2m", "3m",
+  "5m", "6m", "7m",
 
-  "4z", "4z",
+  "3p", "4p", "5p",
+  "2z", "2z", "2z",
+
+  "2s", "2s",
 ])
 
 console.log(mahjong.score.fourPlayerStyleScore)

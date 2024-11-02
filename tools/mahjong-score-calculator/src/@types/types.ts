@@ -30,11 +30,11 @@ export type PaiGroupName = PaiGroupSuuPai | PaiGroupJi
 export type PaiAttr = GenerateCombinationsFromString<"a" | "f" | "", 3>
 
 export type PaiNormal<T extends OneToNine, K extends PaiGroupSuuPai, U extends PaiAttr = ""> = `${T}${K}${U}`
-export type PaiJi<T extends OneToSeven> = `${T}z`
+export type PaiJi<T extends OneToSeven, U extends PaiAttr = ""> = `${T}z${U}`
 export type Pai<T extends OneToNine, K extends PaiGroupName, U extends PaiAttr = ""> = K extends PaiGroupJi
   ? (
     T extends OneToSeven
-      ? PaiJi<T>
+      ? PaiJi<T, U>
       : never
     )
   : (
@@ -58,8 +58,10 @@ export type PaiList<K extends PaiGroupName> = Pai<"1", K> | Pai<"2", K> | Pai<"3
 export type PaiManzuName = PaiList<"m">;
 export type PaiPinzuName = PaiList<"p">;
 export type PaiSouzuName = PaiList<"s">;
-export type PaiKazeName = Pai<"1", "z"> | Pai<"2", "z"> | Pai<"3", "z"> | Pai<"4", "z">;
-export type PaiSangenName = Pai<"5", "z"> | Pai<"6", "z"> | Pai<"7", "z">;
+export type PaiKazeName = Pai<"1", "z"> | Pai<"2", "z"> | Pai<"3", "z"> | Pai<"4", "z">
+  | Pai<"1", "z", "f"> | Pai<"2", "z", "f"> | Pai<"3", "z", "f"> | Pai<"4", "z", "f">;
+export type PaiSangenName = Pai<"5", "z"> | Pai<"6", "z"> | Pai<"7", "z">
+  | Pai<"5", "z", "f"> | Pai<"6", "z", "f"> | Pai<"7", "z", "f">;
 
 export type PaiName = PaiManzuName | PaiPinzuName | PaiSouzuName | PaiKazeName | PaiSangenName;
 

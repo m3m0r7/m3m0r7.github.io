@@ -4,26 +4,26 @@ import { Mahjong } from "../../../Runtime/Mahjong";
 import I18n from "../../../Lang/I18n";
 import { PaiName } from "../../../@types/types";
 import { Ankou, Futei, MenzenKafu, Minkou, Tsumo } from "../../../Fu";
-import { RenFon } from "../../RenFon";
+import { MenFon } from "../../MenFon";
 import { MahjongDefaultAdditionalSpecialYaku } from "../../../Runtime/MahjongDefaultOption";
 import { Ippatsu } from "../../Ippatsu";
 
-const renFonExampleFormat: PaiName[] = [
+const menFonExampleFormat: PaiName[] = [
   "1m", "2m", "3m",
   "5m", "6m", "7m",
 
   "3p", "4p", "5p",
-  "1z", "1z", "1z",
+  "2z", "2z", "2z",
 
   "2s", "2s",
 ];
 
-describe('RenFon', () => {
+describe('MenFon', () => {
   describe('fulfilled', () => {
     describe('parent', () => {
       test('tsumo', () => {
         const score = new Mahjong(
-          renFonExampleFormat,
+          menFonExampleFormat,
           {
             hora: {
               pai: "2s",
@@ -34,14 +34,14 @@ describe('RenFon', () => {
             },
 
             // NOTE: Here is same of a mahjong parent
-            jikaze: "1z",
+            jikaze: "2z",
             kaze: "1z",
           }).score.fourPlayerStyleScore
 
-        expect(score?.score).deep.eq({ base: 2900, child: 1000 })
+        expect(score?.score).deep.eq({ base: 1000, parent: 500, child: 300 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(30)
-        expect(score?.yaku).eq(2)
+        expect(score?.yaku).eq(1)
         expect(score?.appliedFuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -70,16 +70,16 @@ describe('RenFon', () => {
             isDoubleYakuman: false,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[RenFon.name],
-            score: 2,
-            calculationBasedScore: 2,
+            name: I18n.ja.yaku[MenFon.name],
+            score: 1,
+            calculationBasedScore: 1,
           },
         ])
 
       })
       test('ron', () => {
         const score = new Mahjong(
-          renFonExampleFormat,
+          menFonExampleFormat,
           {
             hora: {
               pai: "2s",
@@ -90,14 +90,14 @@ describe('RenFon', () => {
             },
 
             // NOTE: Here is same of a mahjong parent
-            jikaze: "1z",
+            jikaze: "2z",
             kaze: "1z",
           }).score.fourPlayerStyleScore
 
-        expect(score?.score).deep.eq({ base: 3900 })
+        expect(score?.score).deep.eq({ base: 1300 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(40)
-        expect(score?.yaku).eq(2)
+        expect(score?.yaku).eq(1)
         expect(score?.appliedFuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -126,9 +126,9 @@ describe('RenFon', () => {
             isDoubleYakuman: false,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[RenFon.name],
-            score: 2,
-            calculationBasedScore: 2,
+            name: I18n.ja.yaku[MenFon.name],
+            score: 1,
+            calculationBasedScore: 1,
           },
         ])
 
@@ -138,7 +138,7 @@ describe('RenFon', () => {
     describe('child', () => {
       test('tsumo', () => {
         const score = new Mahjong(
-          renFonExampleFormat,
+          menFonExampleFormat,
           {
             hora: {
               pai: "2s",
@@ -148,14 +148,14 @@ describe('RenFon', () => {
               fromRinshanPai: false,
             },
 
-            jikaze: "1z",
+            jikaze: "2z",
             kaze: "1z",
           }).score.fourPlayerStyleScore
 
-        expect(score?.score).deep.eq({ base: 2900, child: 1000 })
+        expect(score?.score).deep.eq({ base: 1000, parent: 500, child: 300 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(30)
-        expect(score?.yaku).eq(2)
+        expect(score?.yaku).eq(1)
         expect(score?.appliedFuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -184,16 +184,16 @@ describe('RenFon', () => {
             isDoubleYakuman: false,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[RenFon.name],
-            score: 2,
-            calculationBasedScore: 2,
+            name: I18n.ja.yaku[MenFon.name],
+            score: 1,
+            calculationBasedScore: 1,
           },
         ])
 
       })
       test('ron', () => {
         const score = new Mahjong(
-          renFonExampleFormat,
+          menFonExampleFormat,
           {
             hora: {
               pai: "2s",
@@ -203,14 +203,14 @@ describe('RenFon', () => {
               fromRinshanPai: false,
             },
 
-            jikaze: "1z",
+            jikaze: "2z",
             kaze: "1z",
           }).score.fourPlayerStyleScore
 
-        expect(score?.score).deep.eq({ base: 3900 })
+        expect(score?.score).deep.eq({ base: 1300 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(40)
-        expect(score?.yaku).eq(2)
+        expect(score?.yaku).eq(1)
         expect(score?.appliedFuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -239,9 +239,9 @@ describe('RenFon', () => {
             isDoubleYakuman: false,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[RenFon.name],
-            score: 2,
-            calculationBasedScore: 2,
+            name: I18n.ja.yaku[MenFon.name],
+            score: 1,
+            calculationBasedScore: 1,
           },
         ])
 
@@ -249,7 +249,7 @@ describe('RenFon', () => {
 
       test('with furo', () => {
         const mahjong = new Mahjong(
-          renFonExampleFormat,
+          menFonExampleFormat,
           {
             hora: {
               pai: "2s",
@@ -259,7 +259,7 @@ describe('RenFon', () => {
               fromRinshanPai: false,
             },
 
-            jikaze: "1z",
+            jikaze: "2z",
             kaze: "1z",
           })
 
@@ -273,10 +273,10 @@ describe('RenFon', () => {
 
         const score = mahjong.score.fourPlayerStyleScore
 
-        expect(score?.score).deep.eq({ base: 2900 })
+        expect(score?.score).deep.eq({ base: 1000 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(30)
-        expect(score?.yaku).eq(2)
+        expect(score?.yaku).eq(1)
         expect(score?.appliedFuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -298,11 +298,38 @@ describe('RenFon', () => {
             isDoubleYakuman: false,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[RenFon.name],
-            score: 2,
-            calculationBasedScore: 2,
+            name: I18n.ja.yaku[MenFon.name],
+            score: 1,
+            calculationBasedScore: 1,
           },
         ])
+      })
+
+      test('yaku is not available', () => {
+        const score  = () => new Mahjong(
+          [
+            "1m", "2m", "3m",
+            "5m", "6m", "7m",
+
+            "3p", "4p", "5p",
+            "2z", "2z", "2z",
+
+            "2s", "2s",
+          ],
+          {
+            hora: {
+              pai: "2s",
+              fromTsumo: false,
+              fromRon: true,
+              fromTankiMachi: false,
+              fromRinshanPai: false,
+            },
+
+            jikaze: "1z",
+            kaze: "1z",
+          }).score.fourPlayerStyleScore
+
+        expect(score).toThrow('The mahjong scores are not available that reason for Yaku are not fulfilled, invalid format and so on')
       })
     })
   })
