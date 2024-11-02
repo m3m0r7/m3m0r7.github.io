@@ -36,6 +36,6 @@ export class UraDora implements Yaku {
   }
 
   get isFulfilled(): boolean {
-    return this.han > 0
+    return (this.option.additionalSpecialYaku.withRiichi || this.option.additionalSpecialYaku.withOpenRiichi || this.option.additionalSpecialYaku.withDoubleRiichi) && this.han > 0
   }
 }
