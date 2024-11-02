@@ -217,7 +217,7 @@ export class PaiPatternExtractor {
       return [[], []]
     }
 
-    if (paiList.reduce((carry, item) => carry.filter(pai => pai === item), PaiGenerator.generateKokushiMusou13MenMachi()).length === 0) {
+    if (paiList.reduce((carry, item) => carry.filter(pai => pai !== item), PaiGenerator.generateKokushiMusou13MenMachi()).length === 0) {
       return [
         [{
           isKokushi: true,
@@ -248,9 +248,9 @@ export class PaiPatternExtractor {
       return [[], []]
     }
 
-    if (paiList.reduce((carry, item) => carry.filter(pai => pai === item), PaiGenerator.generateChurenPoutou9MenMachi('m')).length === 0
-      || paiList.reduce((carry, item) => carry.filter(pai => pai === item), PaiGenerator.generateChurenPoutou9MenMachi('p')).length === 0
-      || paiList.reduce((carry, item) => carry.filter(pai => pai === item), PaiGenerator.generateChurenPoutou9MenMachi('s')).length === 0) {
+    if (paiList.reduce((carry, item) => carry.filter(pai => pai !== item), PaiGenerator.generateChurenPoutou9MenMachi('m')).length === 0
+      || paiList.reduce((carry, item) => carry.filter(pai => pai !== item), PaiGenerator.generateChurenPoutou9MenMachi('p')).length === 0
+      || paiList.reduce((carry, item) => carry.filter(pai => pai !== item), PaiGenerator.generateChurenPoutou9MenMachi('s')).length === 0) {
       return [
         [{
           isKokushi: false,

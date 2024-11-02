@@ -179,7 +179,8 @@ export class PaiCollection {
 
   lookUpPredictionJantouList(): PaiPair[] {
     const jantouList: PaiPair[] = []
-    for (let i = 0; i < 14; i++) {
+    // The max pai is 14 (Basically) + 4 (from wanpai maximally) = 18
+    for (let i = 0; i < (14 + 4); i++) {
       const paiList = this.paiList.slice(i, i + 2);
       if (paiList.length !== 2) {
         continue;

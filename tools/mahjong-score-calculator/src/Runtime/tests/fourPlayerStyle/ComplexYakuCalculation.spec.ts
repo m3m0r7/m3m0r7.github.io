@@ -1,9 +1,9 @@
-import '../../Utilities/Utilities';
+import '../../../Utilities/Utilities';
 import { describe, expect, test } from "vitest";
-import { Mahjong } from "../Mahjong";
-import I18n from "../../Lang/I18n";
-import { Futei } from "../../Fu";
-import { Dora, IpeiKou, Tanyao } from "../../Yaku";
+import { Mahjong } from "../../Mahjong";
+import I18n from "../../../Lang/I18n";
+import { Futei } from "../../../Fu";
+import { Dora, IpeiKou, Tanyao } from "../../../Yaku";
 
 describe('ComplexYakuCalculation', () => {
   describe('complexes', () => {
@@ -22,7 +22,7 @@ describe('ComplexYakuCalculation', () => {
           {
             doraList: ['2m'],
           }
-        ).score
+        ).score.fourPlayerStyleScore
 
         expect(score?.score).deep.eq({ base: 11600 })
         expect(score?.fu).eq(30)
@@ -79,7 +79,7 @@ describe('ComplexYakuCalculation', () => {
             doraList: ['2m'],
             jikaze: '2z'
           }
-        ).score
+        ).score.fourPlayerStyleScore
 
         expect(score?.score).deep.eq({ base: 7700 })
         expect(score?.fu).eq(30)

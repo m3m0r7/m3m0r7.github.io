@@ -1,10 +1,10 @@
-import '../../Utilities/Utilities';
+import '../../../Utilities/Utilities';
 import { describe, expect, test } from "vitest";
-import { Mahjong } from "../Mahjong";
-import I18n from "../../Lang/I18n";
-import { PaiName } from "../../@types/types";
-import { Futei, Tsumo } from "../../Fu";
-import { Dora, Tanyao } from "../../Yaku";
+import { Mahjong } from "../../Mahjong";
+import I18n from "../../../Lang/I18n";
+import { PaiName } from "../../../@types/types";
+import { Futei, Tsumo } from "../../../Fu";
+import { Dora, Tanyao } from "../../../Yaku";
 
 const tanyaoExampleFormat: PaiName[] = [
   "2m", "3m", "4m",
@@ -21,7 +21,7 @@ describe('ScoreCalculation', () => {
     test('over using pai', () => {
       const score = () => new Mahjong(
         ["1s", "1s", "1s", "1s", "1s"]
-      ).score
+      ).score.fourPlayerStyleScore
 
       expect(score).toThrow('PaiTypes are invalid')
     })
@@ -34,7 +34,7 @@ describe('ScoreCalculation', () => {
           "1s", "2s", "3s", "4s",
           "1z", "1z",
         ]
-      ).score
+      ).score.fourPlayerStyleScore
 
       expect(score).toThrow('The mahjong scores are not available that reason for Yaku are not fulfilled, invalid format and so on')
     })
@@ -48,7 +48,7 @@ describe('ScoreCalculation', () => {
           "2s", "3s", "4s",
           "1z", "1z",
         ]
-      ).score
+      ).score.fourPlayerStyleScore
 
       expect(score).toThrow('The mahjong scores are not available that reason for Yaku are not fulfilled, invalid format and so on')
     })
@@ -75,7 +75,7 @@ describe('ScoreCalculation', () => {
           // NOTE: Here is same of a mahjong parent
           jikaze: "1z",
           kaze: "1z",
-        }).score
+        }).score.fourPlayerStyleScore
 
       expect(score?.score).deep.eq({ base: 12000, child: 4000 })
       expect(score?.honba).eq(0)
@@ -138,7 +138,7 @@ describe('ScoreCalculation', () => {
           // NOTE: Here is same of a mahjong parent
           jikaze: "2z",
           kaze: "1z",
-        }).score
+        }).score.fourPlayerStyleScore
 
       expect(score?.score).deep.eq({ base: 8000, parent: 4000, child: 2000 })
       expect(score?.honba).eq(0)
@@ -204,7 +204,7 @@ describe('ScoreCalculation', () => {
           // NOTE: Here is same of a mahjong parent
           jikaze: "1z",
           kaze: "1z",
-        }).score
+        }).score.fourPlayerStyleScore
 
       expect(score?.score).deep.eq({ base: 18000, child: 6000 })
       expect(score?.honba).eq(0)
@@ -268,7 +268,7 @@ describe('ScoreCalculation', () => {
           // NOTE: Here is same of a mahjong parent
           jikaze: "2z",
           kaze: "1z",
-        }).score
+        }).score.fourPlayerStyleScore
 
       expect(score?.score).deep.eq({ base: 12000, parent: 6000, child: 3000 })
       expect(score?.honba).eq(0)
@@ -336,7 +336,7 @@ describe('ScoreCalculation', () => {
           // NOTE: Here is same of a mahjong parent
           jikaze: "1z",
           kaze: "1z",
-        }).score
+        }).score.fourPlayerStyleScore
 
       expect(score?.score).deep.eq({ base: 24000, child: 8000 })
       expect(score?.honba).eq(0)
@@ -402,7 +402,7 @@ describe('ScoreCalculation', () => {
           // NOTE: Here is same of a mahjong parent
           jikaze: "2z",
           kaze: "1z",
-        }).score
+        }).score.fourPlayerStyleScore
 
       expect(score?.score).deep.eq({ base: 16000, parent: 8000, child: 4000 })
       expect(score?.honba).eq(0)
@@ -473,7 +473,7 @@ describe('ScoreCalculation', () => {
           // NOTE: Here is same of a mahjong parent
           jikaze: "1z",
           kaze: "1z",
-        }).score
+        }).score.fourPlayerStyleScore
 
       expect(score?.score).deep.eq({ base: 36000, child: 12000 })
       expect(score?.honba).eq(0)
@@ -542,7 +542,7 @@ describe('ScoreCalculation', () => {
           // NOTE: Here is same of a mahjong parent
           jikaze: "2z",
           kaze: "1z",
-        }).score
+        }).score.fourPlayerStyleScore
 
       expect(score?.score).deep.eq({ base: 24000, parent: 12000, child: 6000 })
       expect(score?.honba).eq(0)

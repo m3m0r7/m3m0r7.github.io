@@ -141,7 +141,6 @@ export const MahjongDefaultOption: Partial<MahjongOption> = {
     Chun,
     ChanKan,
     IpeiKou,
-    RyanPeiKou,
     ToiToi,
     SanAnkou,
     SanShokuDouKou,

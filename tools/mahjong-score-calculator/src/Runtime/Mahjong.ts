@@ -1,21 +1,16 @@
-import { Fu, Hora, MahjongOption, Pai, PaiName, Score, Yaku } from "../@types/types";
-import { MahjongFulfilledYakuValidator } from "../Validator/MahjongFulfilledYakuValidator";
+import { MahjongOption, PaiName } from "../@types/types";
 import { PaiCollection, PaiPairCollection } from "../Collection/Collection";
-import { Futei } from "../Fu/Futei";
-import { MahjongFulfilledFuValidator } from "../Validator/MahjongFulfilledFuValidator";
-import { MahjongScoreCalculator } from "./Score/MahjongScoreCalculator";
-import { Chanta, Haitei, Honitsu, Houtei, OpenRiichi, Pinfu, Riichi, RinshanKaihou, Tanyao } from "../Yaku";
-import { Ankan, Ankou, ChanFonPai, MenFonPai, MenzenKafu, Minkan, Minkou, RenFonPai, SangenPai, Tsumo } from "../Fu";
+import { MahjongFourPlayerStyleScoreCalculator } from "./Score/MahjongFourPlayerStyleScoreCalculator";
 import { MahjongDefaultAdditionalSpecialYaku, MahjongDefaultOption } from "./MahjongDefaultOption";
 import { MahjongHaiTypeValidator } from "../Validator/MahjongHaiTypeValidator";
 import { PaiListFormatAreInvalidError } from "../Error/PaiListFormatAreInvalidError";
-import { CannotCalculateScoreError } from "../Error/CannotCalculateScoreError";
+import { MahjongScoreCalculator } from "./Score/MahjongScoreCalculator";
 
 export class Mahjong {
   readonly option: MahjongOption
   private _paiPairCollections: PaiPairCollection[]
   private paiCollection: PaiCollection
-  private scoreCalculator: MahjongScoreCalculator | null = null
+  private scoreCalculator: MahjongFourPlayerStyleScoreCalculator | null = null
 
   constructor(paiList: PaiName[], option: Partial<MahjongOption> = {}) {
     this.option = Object.assign<MahjongOption, typeof option>({
@@ -43,6 +38,7 @@ export class Mahjong {
       fuList: MahjongDefaultOption.fuList ?? [],
       yakuList: MahjongDefaultOption.yakuList ?? [],
       enableDoubleYakuman: true,
+      logger: (...message: string[]) => console.info(...message),
       additionalSpecialYaku: MahjongDefaultAdditionalSpecialYaku,
     }, option)
 
@@ -63,13 +59,7 @@ export class Mahjong {
   }
 
   get score() {
-    this.scoreCalculator = new MahjongScoreCalculator(this, this._paiPairCollections)
-
-    if (!this.scoreCalculator.isValid) {
-      throw new CannotCalculateScoreError('The mahjong scores are not available that reason for Yaku are not fulfilled, invalid format and so on')
-    }
-
-    return this.scoreCalculator.score
+    return new MahjongScoreCalculator(this, this.paiPairCollections)
   }
 }
 

@@ -1,9 +1,9 @@
-import '../../Utilities/Utilities';
+import '../../../Utilities/Utilities';
 import { describe, expect, test } from "vitest";
-import { Mahjong } from "../../Runtime/Mahjong";
-import { PaiGenerator } from "../../Utilities/PaiGenerator";
-import I18n from "../../Lang/I18n";
-import { KokushiMusou13MenMachi } from "../KokushiMusou13MenMachi";
+import { Mahjong } from "../../../Runtime/Mahjong";
+import { PaiGenerator } from "../../../Utilities/PaiGenerator";
+import I18n from "../../../Lang/I18n";
+import { KokushiMusou13MenMachi } from "../../KokushiMusou13MenMachi";
 
 describe('KokushiMusou13MenMachi', () => {
   describe('fulfilled', () => {
@@ -25,7 +25,7 @@ describe('KokushiMusou13MenMachi', () => {
           // NOTE: Here is same of a mahjong parent
           jikaze: "1z",
           kaze: "1z",
-        }).score
+        }).score.fourPlayerStyleScore
 
         expect(score?.score).deep.eq({ base: 96000, child: 32000 })
         expect(score?.honba).eq(0)
@@ -59,7 +59,7 @@ describe('KokushiMusou13MenMachi', () => {
             // NOTE: Here is same of a mahjong parent
             jikaze: "1z",
             kaze: "1z",
-          }).score
+          }).score.fourPlayerStyleScore
 
         expect(score?.score).deep.eq({ base: 96000 })
         expect(score?.honba).eq(0)
@@ -95,7 +95,7 @@ describe('KokushiMusou13MenMachi', () => {
 
             jikaze: "2z",
             kaze: "1z",
-          }).score
+          }).score.fourPlayerStyleScore
 
         expect(score?.score).deep.eq({ base: 64000, parent: 32000, child: 16000 })
         expect(score?.honba).eq(0)
@@ -128,7 +128,7 @@ describe('KokushiMusou13MenMachi', () => {
 
             jikaze: "2z",
             kaze: "1z",
-          }).score
+          }).score.fourPlayerStyleScore
 
         expect(score?.score).deep.eq({ base: 64000 })
         expect(score?.honba).eq(0)

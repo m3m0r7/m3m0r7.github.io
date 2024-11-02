@@ -1,27 +1,27 @@
-import '../../Utilities/Utilities';
+import '../../../Utilities/Utilities';
 import { describe, expect, test } from "vitest";
-import { Mahjong } from "../../Runtime/Mahjong";
-import I18n from "../../Lang/I18n";
-import { PaiName } from "../../@types/types";
-import { Ankou, Futei, MenzenKafu, Minkou, Tsumo } from "../../Fu";
-import { Haku } from "../Haku";
+import { Mahjong } from "../../../Runtime/Mahjong";
+import I18n from "../../../Lang/I18n";
+import { PaiName } from "../../../@types/types";
+import { Ankou, Futei, MenzenKafu, Minkou, Tsumo } from "../../../Fu";
+import { Hatsu } from "../../Hatsu";
 
-const hakuExampleFormat: PaiName[] = [
+const hatsuExampleFormat: PaiName[] = [
   "1m", "2m", "3m",
   "5m", "6m", "7m",
 
   "3p", "4p", "5p",
-  "5z", "5z", "5z",
+  "6z", "6z", "6z",
 
   "2s", "2s",
 ]
 
-describe('Haku', () => {
+describe('Hatsu', () => {
   describe('fulfilled', () => {
     describe('parent', () => {
       test('tsumo', () => {
         const score = new Mahjong(
-          hakuExampleFormat,
+          hatsuExampleFormat,
           {
             hora: {
               pai: "2s",
@@ -34,7 +34,7 @@ describe('Haku', () => {
             // NOTE: Here is same of a mahjong parent
             jikaze: "1z",
             kaze: "1z",
-          }).score
+          }).score.fourPlayerStyleScore
 
         expect(score?.score).deep.eq({ base: 1500, child: 500 })
         expect(score?.honba).eq(0)
@@ -68,7 +68,7 @@ describe('Haku', () => {
             isDoubleYakuman: false,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[Haku.name],
+            name: I18n.ja.yaku[Hatsu.name],
             score: 1,
             calculationBasedScore: 1,
           }
@@ -77,7 +77,7 @@ describe('Haku', () => {
       })
       test('ron', () => {
         const score = new Mahjong(
-          hakuExampleFormat,
+          hatsuExampleFormat,
           {
             hora: {
               pai: "2s",
@@ -90,7 +90,7 @@ describe('Haku', () => {
             // NOTE: Here is same of a mahjong parent
             jikaze: "1z",
             kaze: "1z",
-          }).score
+          }).score.fourPlayerStyleScore
 
         expect(score?.score).deep.eq({ base: 2000 })
         expect(score?.honba).eq(0)
@@ -124,7 +124,7 @@ describe('Haku', () => {
             isDoubleYakuman: false,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[Haku.name],
+            name: I18n.ja.yaku[Hatsu.name],
             score: 1,
             calculationBasedScore: 1,
           }
@@ -136,7 +136,7 @@ describe('Haku', () => {
     describe('child', () => {
       test('tsumo', () => {
         const score = new Mahjong(
-          hakuExampleFormat,
+          hatsuExampleFormat,
           {
             hora: {
               pai: "2s",
@@ -148,7 +148,7 @@ describe('Haku', () => {
 
             jikaze: "2z",
             kaze: "1z",
-          }).score
+          }).score.fourPlayerStyleScore
 
         expect(score?.score).deep.eq({ base: 1000, parent: 500, child: 300 })
         expect(score?.honba).eq(0)
@@ -182,7 +182,7 @@ describe('Haku', () => {
             isDoubleYakuman: false,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[Haku.name],
+            name: I18n.ja.yaku[Hatsu.name],
             score: 1,
             calculationBasedScore: 1,
           }
@@ -191,7 +191,7 @@ describe('Haku', () => {
       })
       test('ron', () => {
         const score = new Mahjong(
-          hakuExampleFormat,
+          hatsuExampleFormat,
           {
             hora: {
               pai: "2s",
@@ -203,7 +203,7 @@ describe('Haku', () => {
 
             jikaze: "2z",
             kaze: "1z",
-          }).score
+          }).score.fourPlayerStyleScore
 
         expect(score?.score).deep.eq({ base: 1300 })
         expect(score?.honba).eq(0)
@@ -237,7 +237,7 @@ describe('Haku', () => {
             isDoubleYakuman: false,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[Haku.name],
+            name: I18n.ja.yaku[Hatsu.name],
             score: 1,
             calculationBasedScore: 1,
           }
@@ -248,7 +248,7 @@ describe('Haku', () => {
 
       test('with furo', () => {
         const mahjong = new Mahjong(
-          hakuExampleFormat,
+          hatsuExampleFormat,
           {
             hora: {
               pai: "2s",
@@ -270,7 +270,7 @@ describe('Haku', () => {
           return paiPairCollection
         })
 
-        const score = mahjong.score
+        const score = mahjong.score.fourPlayerStyleScore
         expect(score?.score).deep.eq({ base: 1000 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(30)
@@ -296,7 +296,7 @@ describe('Haku', () => {
             isDoubleYakuman: false,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[Haku.name],
+            name: I18n.ja.yaku[Hatsu.name],
             score: 1,
             calculationBasedScore: 1,
           }
