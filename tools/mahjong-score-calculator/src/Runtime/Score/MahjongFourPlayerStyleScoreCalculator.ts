@@ -189,9 +189,9 @@ export class MahjongFourPlayerStyleScoreCalculator {
           calculationBasedScore: fulfilledNagashiMangan.yaku.calculationBasedHan ?? fulfilledNagashiMangan.yaku.han,
         }]
 
-        if (!tempScoreData.appliedYakuList[0].isFu) {
+        if (!tempScoreData.appliedYakuList[0].isFu && !tempScoreData.appliedYakuList[0].isYakuman && !tempScoreData.appliedYakuList[0].isDoubleYakuman) {
           tempScoreData.yaku = tempScoreData.appliedYakuList[0].score
-          calculationYaku = tempScoreData.appliedYakuList[0].calculationBasedScore ?? 0
+          calculationYaku = tempScoreData.appliedYakuList[0].calculationBasedScore ?? 5
         }
       }
 
@@ -212,7 +212,7 @@ export class MahjongFourPlayerStyleScoreCalculator {
       } else if (calculationYaku >= 5) {
         baseScore += isParent ? 12000 : 8000;
       } else {  // NOTE: under 4 yaku
-        baseScore += this.scoreTable?.[isParent ? 'parent' : 'child']?.[calculationYaku]?.[tempScoreData.fu] ?? 0
+        baseScore += this.scoreTable?.[isParent ? 'parent' : 'child']?.[calculationYaku]?.[tempScoreData.fu ?? 30] ?? 0
       }
 
       if (this.mahjong.option.hora.fromTsumo) {

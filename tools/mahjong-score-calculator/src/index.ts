@@ -7,13 +7,12 @@ import { MahjongDefaultAdditionalSpecialYaku } from "./Runtime/MahjongDefaultOpt
 
 const mahjong = new Mahjong(
   [
-    "1m", "2m", "3m",
-    "5m", "6m", "7m",
+    "1m", "1m", "1m",
+    "2m", "3m", "4m",
+    "5m", "6m", "7m", "8m",
+    "9m", "9m", "9m",
 
-    "3p", "4p", "5p",
-    "6p", "7p", "8p",
-
-    "2s", "2s",
+    "1m",
   ],
   {
     hora: {

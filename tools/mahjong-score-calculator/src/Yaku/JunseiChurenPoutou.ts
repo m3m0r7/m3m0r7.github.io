@@ -26,26 +26,6 @@ export class JunseiChurenPoutou implements Yaku {
       return false;
     }
 
-    for (const groupName of ['m', 'p', 's'] as PaiGroupName[]) {
-      const flatPaiPair = this.paiPairCollection.flat()
-
-      for (let i = 1; i <= 9; i++) {
-        const paiNames = [
-          ...PaiGenerator.generateChurenPoutou9MenMachi(groupName),
-
-          // NOTE: Appended a pai
-          `${i}${groupName}`
-        ] as PaiName[];
-
-        const sortedByNonShuntsuFriendly = PaiPatternExtractor.sortByPaiName(paiNames, false)
-        const sortedByShuntsuFriendly = PaiPatternExtractor.sortByPaiName(paiNames, true)
-
-        if (this.option.hora.pai === `${i}${groupName}` && (flatPaiPair.same(sortedByNonShuntsuFriendly) || flatPaiPair.same(sortedByShuntsuFriendly))) {
-          return true
-        }
-      }
-    }
-
-    return false
+    return this.paiPairCollection.isChurenPoutou && this.option.additionalSpecialYaku.withJunseiChurenPoutou
   }
 }

@@ -3,15 +3,15 @@ import { describe, expect, test } from "vitest";
 import { Mahjong } from "../../../Runtime/Mahjong";
 import { PaiGenerator } from "../../../Utilities/PaiGenerator";
 import I18n from "../../../Lang/I18n";
-import { KokushiMusou13MenMachi } from "../../KokushiMusou13MenMachi";
+import { JunseiChurenPoutou } from "../../JunseiChurenPoutou";
 import { MahjongDefaultAdditionalSpecialYaku } from "../../../Runtime/MahjongDefaultOption";
 
-describe('KokushiMusou13MenMachi', () => {
+describe('JunseiChurenPoutou', () => {
   describe('fulfilled', () => {
     describe('parent', () => {
       test('tsumo', () => {
         const score = new Mahjong([
-          ...PaiGenerator.generateKokushiMusou13MenMachi(),
+          ...PaiGenerator.generateChurenPoutou9MenMachi('m'),
           '1m',
         ],
         {
@@ -25,7 +25,7 @@ describe('KokushiMusou13MenMachi', () => {
 
           additionalSpecialYaku: {
             ...MahjongDefaultAdditionalSpecialYaku,
-            withKokushiMusou13MenMachi: true,
+            withJunseiChurenPoutou: true,
           },
 
           // NOTE: Here is same of a mahjong parent
@@ -43,14 +43,14 @@ describe('KokushiMusou13MenMachi', () => {
             isDoubleYakuman: true,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[KokushiMusou13MenMachi.name]
+            name: I18n.ja.yaku[JunseiChurenPoutou.name]
           }
         ])
 
       })
       test('ron', () => {
         const score = new Mahjong([
-            ...PaiGenerator.generateKokushiMusou13MenMachi(),
+            ...PaiGenerator.generateChurenPoutou9MenMachi('m'),
             '1m',
           ],
           {
@@ -64,7 +64,7 @@ describe('KokushiMusou13MenMachi', () => {
 
             additionalSpecialYaku: {
               ...MahjongDefaultAdditionalSpecialYaku,
-              withKokushiMusou13MenMachi: true,
+              withJunseiChurenPoutou: true,
             },
 
 
@@ -83,7 +83,7 @@ describe('KokushiMusou13MenMachi', () => {
             isDoubleYakuman: true,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[KokushiMusou13MenMachi.name]
+            name: I18n.ja.yaku[JunseiChurenPoutou.name]
           }
         ])
 
@@ -93,7 +93,7 @@ describe('KokushiMusou13MenMachi', () => {
     describe('child', () => {
       test('tsumo', () => {
         const score = new Mahjong([
-            ...PaiGenerator.generateKokushiMusou13MenMachi(),
+            ...PaiGenerator.generateChurenPoutou9MenMachi('m'),
             '1m',
           ],
           {
@@ -107,7 +107,7 @@ describe('KokushiMusou13MenMachi', () => {
 
             additionalSpecialYaku: {
               ...MahjongDefaultAdditionalSpecialYaku,
-              withKokushiMusou13MenMachi: true,
+              withJunseiChurenPoutou: true,
             },
 
             jikaze: "2z",
@@ -124,14 +124,14 @@ describe('KokushiMusou13MenMachi', () => {
             isDoubleYakuman: true,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[KokushiMusou13MenMachi.name]
+            name: I18n.ja.yaku[JunseiChurenPoutou.name]
           }
         ])
 
       })
       test('ron', () => {
         const score = new Mahjong([
-            ...PaiGenerator.generateKokushiMusou13MenMachi(),
+            ...PaiGenerator.generateChurenPoutou9MenMachi('m'),
             '1m',
           ],
           {
@@ -145,7 +145,7 @@ describe('KokushiMusou13MenMachi', () => {
 
             additionalSpecialYaku: {
               ...MahjongDefaultAdditionalSpecialYaku,
-              withKokushiMusou13MenMachi: true,
+              withJunseiChurenPoutou: true,
             },
 
             jikaze: "2z",
@@ -162,7 +162,7 @@ describe('KokushiMusou13MenMachi', () => {
             isDoubleYakuman: true,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[KokushiMusou13MenMachi.name]
+            name: I18n.ja.yaku[JunseiChurenPoutou.name]
           }
         ])
 

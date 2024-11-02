@@ -91,12 +91,11 @@ export class PaiGenerator {
   }
 
   static generateChurenPoutou9MenMachi(groupName: PaiGroupName): PaiName[] {
-    return PaiGeneratorCache.getOrSet('churenPoutou9MenMachi', () => [
+    return PaiGeneratorCache.getOrSet(`churenPoutou9MenMachi.${groupName}`, () => [
       `1${groupName}`, `1${groupName}`, `1${groupName}`,
 
       `2${groupName}`, `3${groupName}`, `4${groupName}`,
-      `5${groupName}`, `6${groupName}`, `7${groupName}`,
-      `5${groupName}`, `8${groupName}`,
+      `5${groupName}`, `6${groupName}`, `7${groupName}`, `8${groupName}`,
 
       `9${groupName}`, `9${groupName}`, `9${groupName}`,
     ] as PaiName[])

@@ -248,24 +248,31 @@ export class PaiPatternExtractor {
       return [[], []]
     }
 
-    if (paiList.reduce((carry, item) => carry.filter(pai => pai !== item), PaiGenerator.generateChurenPoutou9MenMachi('m')).length === 0
-      || paiList.reduce((carry, item) => carry.filter(pai => pai !== item), PaiGenerator.generateChurenPoutou9MenMachi('p')).length === 0
-      || paiList.reduce((carry, item) => carry.filter(pai => pai !== item), PaiGenerator.generateChurenPoutou9MenMachi('s')).length === 0) {
-      return [
-        [{
-          isKokushi: false,
-          isChuren: true,
-          isJantou: false,
-          isToitsu: false,
-          isShuntsu: false,
-          isKoutsu: false,
-          isKan: false,
-          isFuro: false,
-          includeAkaDora: false,
-          pattern: paiList,
-        }],
-        Array.from({ length: paiList.length }, (_, k) => k),
-      ]
+    for (const groupName of ([ 'm', 'p', 's' ] as PaiGroupName[])) {
+      for (const pai of PaiGenerator.generateChurenPoutou9MenMachi(groupName)) {
+        const pattern = PaiPatternExtractor.sortByPaiName([
+          ...PaiGenerator.generateChurenPoutou9MenMachi(groupName),
+          pai,
+        ], false);
+
+        if (remainingPaiList.same(pattern)) {
+          return [
+            [{
+              isKokushi: false,
+              isChuren: true,
+              isJantou: false,
+              isToitsu: false,
+              isShuntsu: false,
+              isKoutsu: false,
+              isKan: false,
+              isFuro: false,
+              includeAkaDora: false,
+              pattern: remainingPaiList,
+            }],
+            Array.from({ length: remainingPaiList.length }, (_, k) => k),
+          ]
+        }
+      }
     }
 
     return [[], []]

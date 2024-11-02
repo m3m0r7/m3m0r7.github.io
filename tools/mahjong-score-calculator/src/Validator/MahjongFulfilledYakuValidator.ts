@@ -1,6 +1,7 @@
 import { MahjongOption, Validator, Yaku } from "../@types/types";
 import { PaiPairCollection } from "../Collection/Collection";
 import { MahjongFormatValidator } from "./MahjongFormatValidator";
+import { JantouNotFoundError } from "../Error/JantouNotFoundError";
 
 export class MahjongFulfilledYakuValidator implements Validator {
   readonly paiPairCollection: PaiPairCollection
@@ -30,16 +31,23 @@ export class MahjongFulfilledYakuValidator implements Validator {
       let processor: Yaku = new yakuName(this.paiPairCollection, this.option)
       let record: Yaku | null = null
 
-      do {
-        if (processor.isFulfilled) {
-          record = processor
-        }
+      try {
+        do {
+          if (processor.isFulfilled) {
+            record = processor
+          }
 
-        if (!processor.parent) {
-          break;
+          if (! processor.parent) {
+            break;
+          }
+          processor = processor.parent
+        } while (processor)
+      } catch (e) {
+        // NOTE: for example, here will face a churen poutou
+        if (e instanceof JantouNotFoundError) {
+          continue
         }
-        processor = processor.parent
-      } while (processor)
+      }
 
       if (record !== null) {
         this._fulfilled.push(record)

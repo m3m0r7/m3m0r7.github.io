@@ -71,6 +71,8 @@ export const MahjongDefaultAdditionalSpecialYaku: MahjongOption['additionalSpeci
   withTenho: false,
   withChiho: false,
   withNagashiMangan: false,
+  withJunseiChurenPoutou: false,
+  withKokushiMusou13MenMachi: false,
 }
 
 export const MahjongDefaultLocalRules: MahjongOption['localRules'] = {

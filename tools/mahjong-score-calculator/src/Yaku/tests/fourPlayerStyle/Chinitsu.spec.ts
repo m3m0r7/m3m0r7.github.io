@@ -6,15 +6,16 @@ import { PaiName } from "../../../@types/types";
 import { Ankou, Futei, MenzenKafu, Minkou, Tsumo } from "../../../Fu";
 import { Chinitsu } from "../../Chinitsu";
 import { MenzenTsumo } from "../../MenzenTsumo";
+import { SanAnkou } from "../../SanAnkou";
 
 const honitsuExampleFormat: PaiName[] = [
 
   "1m", "1m", "1m",
-  "2m", "3m", "4m",
+  "2m", "2m", "2m",
   "5m", "6m", "7m",
-  "9m", "9m", "9m",
+  "8m", "8m", "8m",
 
-  "8m", "8m",
+  "9m", "9m",
 ];
 
 describe('Chinitsu', () => {
@@ -37,10 +38,10 @@ describe('Chinitsu', () => {
             kaze: "1z",
           }).score.fourPlayerStyleScore
 
-        expect(score?.score).deep.eq({ base: 18000, child: 6000 })
+        expect(score?.score).deep.eq({ base: 24000, child: 8000 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(40)
-        expect(score?.yaku).eq(7)
+        expect(score?.yaku).eq(9)
         expect(score?.appliedFuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -72,6 +73,14 @@ describe('Chinitsu', () => {
             name: I18n.ja.yaku[Chinitsu.name],
             score: 6,
             calculationBasedScore: 6,
+          },
+          {
+            isDoubleYakuman: false,
+            isFu: false,
+            isYakuman: false,
+            name: I18n.ja.yaku[SanAnkou.name],
+            score: 2,
+            calculationBasedScore: 2,
           },
           {
             isDoubleYakuman: false,
@@ -101,10 +110,10 @@ describe('Chinitsu', () => {
             kaze: "1z",
           }).score.fourPlayerStyleScore
 
-        expect(score?.score).deep.eq({ base: 18000 })
+        expect(score?.score).deep.eq({ base: 24000 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(50)
-        expect(score?.yaku).eq(6)
+        expect(score?.yaku).eq(8)
         expect(score?.appliedFuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -136,7 +145,15 @@ describe('Chinitsu', () => {
             name: I18n.ja.yaku[Chinitsu.name],
             score: 6,
             calculationBasedScore: 6,
-          }
+          },
+          {
+            isDoubleYakuman: false,
+            isFu: false,
+            isYakuman: false,
+            name: I18n.ja.yaku[SanAnkou.name],
+            score: 2,
+            calculationBasedScore: 2,
+          },
         ])
 
       })
@@ -159,10 +176,10 @@ describe('Chinitsu', () => {
             kaze: "1z",
           }).score.fourPlayerStyleScore
 
-        expect(score?.score).deep.eq({ base: 12000, parent: 6000, child: 3000 })
+        expect(score?.score).deep.eq({ base: 16000, parent: 8000, child: 4000 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(40)
-        expect(score?.yaku).eq(7)
+        expect(score?.yaku).eq(9)
         expect(score?.appliedFuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -199,6 +216,14 @@ describe('Chinitsu', () => {
             isDoubleYakuman: false,
             isFu: false,
             isYakuman: false,
+            name: I18n.ja.yaku[SanAnkou.name],
+            score: 2,
+            calculationBasedScore: 2,
+          },
+          {
+            isDoubleYakuman: false,
+            isFu: false,
+            isYakuman: false,
             name: I18n.ja.yaku[MenzenTsumo.name],
             score: 1,
             calculationBasedScore: 1,
@@ -222,10 +247,10 @@ describe('Chinitsu', () => {
             kaze: "1z",
           }).score.fourPlayerStyleScore
 
-        expect(score?.score).deep.eq({ base: 12000 })
+        expect(score?.score).deep.eq({ base: 16000 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(50)
-        expect(score?.yaku).eq(6)
+        expect(score?.yaku).eq(8)
         expect(score?.appliedFuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -257,7 +282,15 @@ describe('Chinitsu', () => {
             name: I18n.ja.yaku[Chinitsu.name],
             score: 6,
             calculationBasedScore: 6,
-          }
+          },
+          {
+            isDoubleYakuman: false,
+            isFu: false,
+            isYakuman: false,
+            name: I18n.ja.yaku[SanAnkou.name],
+            score: 2,
+            calculationBasedScore: 2,
+          },
         ])
 
       })

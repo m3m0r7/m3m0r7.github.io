@@ -215,6 +215,9 @@ export interface MahjongOption extends SystemOption {
     withTenho: boolean
     withChiho: boolean
     withNagashiMangan: boolean
+
+    withKokushiMusou13MenMachi: boolean
+    withJunseiChurenPoutou: boolean
   }
 }
 

@@ -252,30 +252,31 @@ export class PaiCollection {
     const predictionJantouList = this.lookUpPredictionJantouList();
     let paiPairs: PaiPairCollection[] = [];
 
+    const tryExtraction = (new PaiPatternExtractor(
+      new PaiCollection(this.paiList)
+    )).extract()
+
+    // NOTE: The kokushi musou is in specially
+    const findKokushiMusou = tryExtraction
+      .find(paiPairs => paiPairs.some(paiPair => paiPair.isKokushi))
+
+    if (findKokushiMusou) {
+      return [
+        new PaiPairCollection(findKokushiMusou),
+      ]
+    }
+
+    // NOTE: The churen poutou is in specially
+    const findChurenPoutou = tryExtraction
+      .find(paiPairs => paiPairs.some(paiPair => paiPair.isChuren))
+
+    if (findChurenPoutou) {
+      return [
+        new PaiPairCollection(findChurenPoutou),
+      ]
+    }
+
     if (predictionJantouList.length === 0) {
-      // NOTE: The kokushi musou is in specially
-      const tryExtraction = (new PaiPatternExtractor(
-        new PaiCollection(this.paiList)
-      )).extract()
-
-      const findKokushiMusou = tryExtraction
-        .find(paiPairs => paiPairs.some(paiPair => paiPair.isKokushi))
-
-      if (findKokushiMusou) {
-        return [
-          new PaiPairCollection(findKokushiMusou),
-        ]
-      }
-
-      const findChurenPoutou = tryExtraction
-        .find(paiPairs => paiPairs.some(paiPair => paiPair.isChuren))
-
-      if (findChurenPoutou) {
-        return [
-          new PaiPairCollection(findChurenPoutou),
-        ]
-      }
-
       return [
         new PaiPairCollection(this.paiPairList),
       ];

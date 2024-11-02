@@ -22,6 +22,11 @@ export class ChurenPoutou implements Yaku {
       return false;
     }
 
+    // NOTE: The churen poutou is available to menzen only
+    if (this.paiPairCollection.hasFuro) {
+      return false;
+    }
+
     return this.paiPairCollection.isChurenPoutou
   }
 }
