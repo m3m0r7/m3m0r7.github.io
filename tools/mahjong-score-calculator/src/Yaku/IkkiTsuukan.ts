@@ -7,6 +7,7 @@ import { PaiPatternExtractor } from "../Runtime/Extractor/Extractor";
 export class IkkiTsuukan implements Yaku {
   private paiPairCollection: PaiPairCollection
   private option: MahjongOption
+  private includeFuro: boolean = false
 
   constructor(paiPairCollection: PaiPairCollection, option: MahjongOption) {
     this.paiPairCollection = paiPairCollection
@@ -18,7 +19,7 @@ export class IkkiTsuukan implements Yaku {
   }
 
   get han(): number {
-    return this.paiPairCollection.hasFuro
+    return this.includeFuro
       ? 1
       : 2
   }
@@ -31,10 +32,18 @@ export class IkkiTsuukan implements Yaku {
     ]
 
     for (const pattern of groupedPatterns) {
-      if (this.paiPairCollection.paiPairs.some(paiPair => paiPair.pattern.same(pattern[0]))
-        && this.paiPairCollection.paiPairs.some(paiPair => paiPair.pattern.same(pattern[1]))
-        && this.paiPairCollection.paiPairs.some(paiPair => paiPair.pattern.same(pattern[2]))
-      ) {
+      const furoJudgers = [false, false, false]
+
+      const checkShuntsu = (index: number) => this.paiPairCollection.paiPairs.some(paiPair => {
+        const result = paiPair.pattern.same(pattern[index])
+        if (result) {
+          furoJudgers[index] = paiPair.isFuro
+        }
+        return result
+      })
+
+      if (checkShuntsu(0) && checkShuntsu(1) && checkShuntsu(2)) {
+        this.includeFuro = furoJudgers.some(v => v)
         return true
       }
     }
