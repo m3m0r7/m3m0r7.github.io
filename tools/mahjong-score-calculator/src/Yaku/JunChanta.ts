@@ -20,14 +20,11 @@ export class JunChanta implements Yaku {
   }
 
   get isFulfilled(): boolean {
-    const result: boolean[] = []
-    const allowedPatterns = PaiGenerator.generatePenchanHai();
-
-    for (const paiPair of this.paiPairCollection.paiPairs) {
-      result.push(
-        allowedPatterns.includes(paiPair.pattern)
+    return this.paiPairCollection.paiPairs
+      .every(
+        paiPair => (paiPair.isJantou && paiPair.pattern.includesWithMatrix(PaiGenerator.generateRoutouHai()))
+          || (paiPair.isShuntsu && PaiGenerator.generatePenchanHai().some(paiNames => paiPair.pattern.includesWithMatrix(paiNames, 'AND')))
+          || (paiPair.isKoutsu && paiPair.pattern.includesWithMatrix(PaiGenerator.generateRoutouHai()))
       )
-    }
-    return result.every(v => v)
   }
 }

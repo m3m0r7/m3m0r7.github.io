@@ -3,28 +3,29 @@ import { describe, expect, test } from "vitest";
 import { Mahjong } from "../../../Runtime/Mahjong";
 import I18n from "../../../Lang/I18n";
 import { PaiName } from "../../../@types/types";
-import { HonRoutou } from "../../HonRoutou";
-import { Futei, Minkou, Tsumo } from "../../../Fu";
-import { ToiToi } from "../../ToiToi";
+import { Futei, MenFonPai, MenzenKafu, Tsumo } from "../../../Fu";
+import { Tanyao } from "../../Tanyao";
+import { JunChanta } from "../../JunChanta";
 
-const honRoutouExampleFormat: PaiName[] = [
-  "1mf", "1m", "1m",
-  "9mf", "9m", "9m",
-  "1pf", "1p", "1p",
-  "9pf", "9p", "9p",
+const junChantaExampleFormat: PaiName[] = [
+  "1m", "2m", "3m",
+  "7m", "8m", "9m",
 
-  "4z", "4z",
-]
+  "1p", "2p", "3p",
+  "7p", "8p", "9p",
 
-describe('HonRoutou and ToiToi', () => {
+  "1s", "1s",
+];
+
+describe('JunChanta', () => {
   describe('fulfilled', () => {
     describe('parent', () => {
       test('tsumo', () => {
         const score = new Mahjong(
-          honRoutouExampleFormat,
+          junChantaExampleFormat,
           {
             hora: {
-              pai: "1p",
+              pai: "1s",
               fromTsumo: true,
               fromRon: false,
 
@@ -36,59 +37,44 @@ describe('HonRoutou and ToiToi', () => {
             kaze: "1z",
           }).score.fourPlayerStyleScore
 
-        expect(score?.score).deep.eq({ base: 12000, child: 4000 })
+        expect(score?.score).deep.eq({ base: 5800, child: 2000 })
         expect(score?.honba).eq(0)
-        expect(score?.fu).eq(40)
-        expect(score?.yaku).eq(4)
+        expect(score?.fu).eq(30)
+        expect(score?.yaku).eq(3)
         expect(score?.appliedFuList).deep.eq([
           {
-            isYakuman: false,
             isDoubleYakuman: false,
             isFu: true,
+            isYakuman: false,
             name: I18n.ja.fu[Futei.name],
-            score: 20
+            score: 20,
           },
           {
-            isYakuman: false,
             isDoubleYakuman: false,
             isFu: true,
-            name: I18n.ja.fu[Minkou.name],
-            score: 16
-          },
-          {
             isYakuman: false,
-            isDoubleYakuman: false,
-            isFu: true,
             name: I18n.ja.fu[Tsumo.name],
-            score: 2
-          }
+            score: 2,
+          },
         ])
         expect(score?.appliedYakuList).deep.eq([
           {
             isDoubleYakuman: false,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[HonRoutou.name],
-            score: 2,
-            calculationBasedScore: 2,
-          },
-          {
-            isDoubleYakuman: false,
-            isFu: false,
-            isYakuman: false,
-            name: I18n.ja.yaku[ToiToi.name],
-            score: 2,
-            calculationBasedScore: 2,
+            name: I18n.ja.yaku[JunChanta.name],
+            score: 3,
+            calculationBasedScore: 3,
           }
         ])
 
       })
       test('ron', () => {
         const score = new Mahjong(
-          honRoutouExampleFormat,
+          junChantaExampleFormat,
           {
             hora: {
-              pai: "1p",
+              pai: "1s",
               fromTsumo: false,
               fromRon: true,
 
@@ -100,24 +86,24 @@ describe('HonRoutou and ToiToi', () => {
             kaze: "1z",
           }).score.fourPlayerStyleScore
 
-        expect(score?.score).deep.eq({ base: 12000 })
+        expect(score?.score).deep.eq({ base: 5800 })
         expect(score?.honba).eq(0)
-        expect(score?.fu).eq(40)
-        expect(score?.yaku).eq(4)
+        expect(score?.fu).eq(30)
+        expect(score?.yaku).eq(3)
         expect(score?.appliedFuList).deep.eq([
           {
-            isYakuman: false,
             isDoubleYakuman: false,
             isFu: true,
+            isYakuman: false,
             name: I18n.ja.fu[Futei.name],
-            score: 20
+            score: 20,
           },
           {
-            isYakuman: false,
             isDoubleYakuman: false,
             isFu: true,
-            name: I18n.ja.fu[Minkou.name],
-            score: 16
+            isYakuman: false,
+            name: I18n.ja.fu[MenzenKafu.name],
+            score: 10,
           },
         ])
         expect(score?.appliedYakuList).deep.eq([
@@ -125,29 +111,22 @@ describe('HonRoutou and ToiToi', () => {
             isDoubleYakuman: false,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[HonRoutou.name],
-            score: 2,
-            calculationBasedScore: 2,
-          },
-          {
-            isDoubleYakuman: false,
-            isFu: false,
-            isYakuman: false,
-            name: I18n.ja.yaku[ToiToi.name],
-            score: 2,
-            calculationBasedScore: 2,
+            name: I18n.ja.yaku[JunChanta.name],
+            score: 3,
+            calculationBasedScore: 3,
           }
         ])
+
       })
     })
 
     describe('child', () => {
       test('tsumo', () => {
         const score = new Mahjong(
-          honRoutouExampleFormat,
+          junChantaExampleFormat,
           {
             hora: {
-              pai: "1p",
+              pai: "1s",
               fromTsumo: true,
               fromRon: false,
 
@@ -158,60 +137,44 @@ describe('HonRoutou and ToiToi', () => {
             kaze: "1z",
           }).score.fourPlayerStyleScore
 
-        expect(score?.score).deep.eq({ base: 8000, parent: 4000, child: 2000 })
+        expect(score?.score).deep.eq({ base: 3900, parent: 2000, child: 1000 })
         expect(score?.honba).eq(0)
-        expect(score?.fu).eq(40)
-        expect(score?.yaku).eq(4)
+        expect(score?.fu).eq(30)
+        expect(score?.yaku).eq(3)
         expect(score?.appliedFuList).deep.eq([
           {
-            isYakuman: false,
             isDoubleYakuman: false,
             isFu: true,
+            isYakuman: false,
             name: I18n.ja.fu[Futei.name],
-            score: 20
+            score: 20,
           },
           {
-            isYakuman: false,
             isDoubleYakuman: false,
             isFu: true,
-            name: I18n.ja.fu[Minkou.name],
-            score: 16
-          },
-          {
             isYakuman: false,
-            isDoubleYakuman: false,
-            isFu: true,
             name: I18n.ja.fu[Tsumo.name],
-            score: 2
-          }
+            score: 2,
+          },
         ])
         expect(score?.appliedYakuList).deep.eq([
           {
             isDoubleYakuman: false,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[HonRoutou.name],
-            score: 2,
-            calculationBasedScore: 2,
-          },
-          {
-            isDoubleYakuman: false,
-            isFu: false,
-            isYakuman: false,
-            name: I18n.ja.yaku[ToiToi.name],
-            score: 2,
-            calculationBasedScore: 2,
+            name: I18n.ja.yaku[JunChanta.name],
+            score: 3,
+            calculationBasedScore: 3,
           }
         ])
-
 
       })
       test('ron', () => {
         const score = new Mahjong(
-          honRoutouExampleFormat,
+          junChantaExampleFormat,
           {
             hora: {
-              pai: "1p",
+              pai: "1s",
               fromTsumo: false,
               fromRon: true,
 
@@ -222,24 +185,24 @@ describe('HonRoutou and ToiToi', () => {
             kaze: "1z",
           }).score.fourPlayerStyleScore
 
-        expect(score?.score).deep.eq({ base: 8000 })
+        expect(score?.score).deep.eq({ base: 3900 })
         expect(score?.honba).eq(0)
-        expect(score?.fu).eq(40)
-        expect(score?.yaku).eq(4)
+        expect(score?.fu).eq(30)
+        expect(score?.yaku).eq(3)
         expect(score?.appliedFuList).deep.eq([
           {
-            isYakuman: false,
             isDoubleYakuman: false,
             isFu: true,
+            isYakuman: false,
             name: I18n.ja.fu[Futei.name],
-            score: 20
+            score: 20,
           },
           {
-            isYakuman: false,
             isDoubleYakuman: false,
             isFu: true,
-            name: I18n.ja.fu[Minkou.name],
-            score: 16
+            isYakuman: false,
+            name: I18n.ja.fu[MenzenKafu.name],
+            score: 10,
           },
         ])
         expect(score?.appliedYakuList).deep.eq([
@@ -247,19 +210,64 @@ describe('HonRoutou and ToiToi', () => {
             isDoubleYakuman: false,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[HonRoutou.name],
-            score: 2,
-            calculationBasedScore: 2,
+            name: I18n.ja.yaku[JunChanta.name],
+            score: 3,
+            calculationBasedScore: 3,
+          }
+        ])
+
+      })
+
+
+      test('with furo', () => {
+        const mahjong = new Mahjong(
+          junChantaExampleFormat,
+          {
+            hora: {
+              pai: "1s",
+              fromTsumo: false,
+              fromRon: true,
+
+              fromRinshanPai: false,
+            },
+
+            jikaze: "2z",
+            kaze: "1z",
+          })
+
+        mahjong.updatePaiPairCollections((paiPairCollection) => {
+          paiPairCollection.paiPairs.map(paiPair => {
+            paiPair.isFuro = true
+            return paiPair
+          })
+          return paiPairCollection
+        })
+
+        const score = mahjong.score.fourPlayerStyleScore
+        expect(score?.score).deep.eq({ base: 2000 })
+        expect(score?.honba).eq(0)
+        expect(score?.fu).eq(30)
+        expect(score?.yaku).eq(2)
+        expect(score?.appliedFuList).deep.eq([
+          {
+            isDoubleYakuman: false,
+            isFu: true,
+            isYakuman: false,
+            name: I18n.ja.fu[Futei.name],
+            score: 20,
           },
+        ])
+        expect(score?.appliedYakuList).deep.eq([
           {
             isDoubleYakuman: false,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[ToiToi.name],
+            name: I18n.ja.yaku[JunChanta.name],
             score: 2,
             calculationBasedScore: 2,
           }
         ])
+
       })
     })
   })

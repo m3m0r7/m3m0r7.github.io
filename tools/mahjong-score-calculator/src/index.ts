@@ -6,16 +6,17 @@ import { PaiGenerator } from "./Utilities/PaiGenerator";
 
 const mahjong = new Mahjong(
   [
-    "1mf", "1m", "1m", "1m",
-    "5mf", "5m", "5m", "5m",
-    "3mf", "3m", "3m", "3m",
-    "2p", "3p", "4p",
+    "1m", "2m", "3m",
+    "7m", "8m", "9m",
 
-    "2s", "2s",
+    "1p", "2p", "3p",
+    "7p", "8p", "9p",
+
+    "1s", "1s",
   ],
   {
     hora: {
-      pai: "2s",
+      pai: "1s",
       fromTsumo: false,
       fromRon: true,
 
