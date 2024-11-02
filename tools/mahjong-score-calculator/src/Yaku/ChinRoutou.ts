@@ -18,6 +18,6 @@ export class ChinRoutou implements Yaku {
 
   get isFulfilled(): boolean {
     return this.paiPairCollection.paiPairs
-      .every(paiPair => (paiPair.isKoutsu || paiPair.isKan) && paiPair.pattern.includesWithMatrix(PaiGenerator.generateRoutouHai()))
+      .every(paiPair => (paiPair.isJantou || paiPair.isKoutsu || paiPair.isKan) && paiPair.pattern.includesWithMatrix(PaiGenerator.generateRoutouHai()))
   }
 }
