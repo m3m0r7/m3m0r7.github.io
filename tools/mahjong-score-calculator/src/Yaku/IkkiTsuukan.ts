@@ -2,11 +2,11 @@ import { MahjongOption, Yaku } from "../@types/types";
 import { PaiPairCollection } from "../Collection/Collection";
 import { PaiGenerator } from "../Utilities/PaiGenerator";
 import { Chinitsu } from "./Chinitsu";
+import { PaiPatternExtractor } from "../Runtime/Extractor/Extractor";
 
 export class IkkiTsuukan implements Yaku {
   private paiPairCollection: PaiPairCollection
   private option: MahjongOption
-  private includeFuro: boolean = false
 
   constructor(paiPairCollection: PaiPairCollection, option: MahjongOption) {
     this.paiPairCollection = paiPairCollection
@@ -18,7 +18,7 @@ export class IkkiTsuukan implements Yaku {
   }
 
   get han(): number {
-    return this.includeFuro
+    return this.paiPairCollection.hasFuro
       ? 1
       : 2
   }
@@ -28,18 +28,13 @@ export class IkkiTsuukan implements Yaku {
       (new PaiGenerator('1', '9', 'm')).generate().chunk(3),
       (new PaiGenerator('1', '9', 'p')).generate().chunk(3),
       (new PaiGenerator('1', '9', 's')).generate().chunk(3),
-    ];
+    ]
 
-    for (const patterns of groupedPatterns) {
-      const result = this.paiPairCollection.paiPairs
-        .every(paiPair => {
-          const result = patterns.every(pattern => paiPair.pattern.includesWithMatrix(pattern, 'AND'))
-          if (paiPair.isFuro && result) {
-            this.includeFuro = true
-          }
-          return result
-        })
-      if (result) {
+    for (const pattern of groupedPatterns) {
+      if (this.paiPairCollection.paiPairs.some(paiPair => paiPair.pattern.same(pattern[0]))
+        && this.paiPairCollection.paiPairs.some(paiPair => paiPair.pattern.same(pattern[1]))
+        && this.paiPairCollection.paiPairs.some(paiPair => paiPair.pattern.same(pattern[2]))
+      ) {
         return true
       }
     }

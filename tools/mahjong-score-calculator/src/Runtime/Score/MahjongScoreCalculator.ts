@@ -14,9 +14,9 @@ export class MahjongScoreCalculator {
 
   get fourPlayerStyleScore() {
     const scoreCalculator = new MahjongFourPlayerStyleScoreCalculator(
-        this.mahjong,
+      this.mahjong,
       this.paiPairCollections,
-      )
+    )
 
     if (!scoreCalculator.isValid) {
       throw new CannotCalculateScoreError('The mahjong scores are not available that reason for Yaku are not fulfilled, invalid format and so on')

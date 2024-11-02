@@ -38,9 +38,9 @@ export class JunseiChurenPoutou implements Yaku {
         ] as PaiName[];
 
         const sortedByNonShuntsuFriendly = PaiPatternExtractor.sortByPaiName(paiNames, false)
-        const sortedByShuntsuFriendly = PaiPatternExtractor.sortByPaiName(paiNames, false)
+        const sortedByShuntsuFriendly = PaiPatternExtractor.sortByPaiName(paiNames, true)
 
-        if (this.option.hora.pai === `${i}${groupName}` && (flatPaiPair.includesWithMatrix(sortedByNonShuntsuFriendly, 'AND') || flatPaiPair.includesWithMatrix(sortedByShuntsuFriendly, 'AND'))) {
+        if (this.option.hora.pai === `${i}${groupName}` && (flatPaiPair.same(sortedByNonShuntsuFriendly) || flatPaiPair.same(sortedByShuntsuFriendly))) {
           return true
         }
       }

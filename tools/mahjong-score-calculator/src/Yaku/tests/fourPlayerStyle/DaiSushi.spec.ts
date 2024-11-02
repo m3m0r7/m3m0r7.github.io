@@ -3,23 +3,24 @@ import { describe, expect, test } from "vitest";
 import { Mahjong } from "../../../Runtime/Mahjong";
 import I18n from "../../../Lang/I18n";
 import { PaiName } from "../../../@types/types";
-import { ShouSushi } from "../../ShouSushi";
+import { DaiSushi } from "../../DaiSushi";
 
-const shouSuShiExampleFormat: PaiName[] = [
-  "1m", "2m", "3m",
+const daiSushiExampleFormat: PaiName[] = [
   "1z", "1z", "1z",
   "2z", "2z", "2z",
   "3z", "3z", "3z",
 
-  "4z", "4z",
+  "4z", "4z", "4z",
+
+  "1m", "1m"
 ]
 
-describe('ShouSushi', () => {
+describe('DaiSushi', () => {
   describe('fulfilled', () => {
     describe('parent', () => {
       test('tsumo', () => {
         const score = new Mahjong(
-          shouSuShiExampleFormat,
+          daiSushiExampleFormat,
           {
             hora: {
               pai: "4z",
@@ -34,24 +35,24 @@ describe('ShouSushi', () => {
             kaze: "1z",
           }).score.fourPlayerStyleScore
 
-        expect(score?.score).deep.eq({ base: 48000, child: 16000 })
+        expect(score?.score).deep.eq({ base: 96000, child: 32000 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(null)
-        expect(score?.yaku).eq('FULL')
+        expect(score?.yaku).eq('DOUBLE_FULL')
         expect(score?.appliedFuList).deep.eq([])
         expect(score?.appliedYakuList).deep.eq([
           {
-            isDoubleYakuman: false,
+            isDoubleYakuman: true,
             isFu: false,
-            isYakuman: true,
-            name: I18n.ja.yaku[ShouSushi.name],
+            isYakuman: false,
+            name: I18n.ja.yaku[DaiSushi.name],
           }
         ])
 
       })
       test('ron', () => {
         const score = new Mahjong(
-          shouSuShiExampleFormat,
+          daiSushiExampleFormat,
           {
             hora: {
               pai: "4z",
@@ -66,17 +67,17 @@ describe('ShouSushi', () => {
             kaze: "1z",
           }).score.fourPlayerStyleScore
 
-        expect(score?.score).deep.eq({ base: 48000 })
+        expect(score?.score).deep.eq({ base: 96000 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(null)
-        expect(score?.yaku).eq('FULL')
+        expect(score?.yaku).eq('DOUBLE_FULL')
         expect(score?.appliedFuList).deep.eq([])
         expect(score?.appliedYakuList).deep.eq([
           {
-            isDoubleYakuman: false,
+            isDoubleYakuman: true,
             isFu: false,
-            isYakuman: true,
-            name: I18n.ja.yaku[ShouSushi.name],
+            isYakuman: false,
+            name: I18n.ja.yaku[DaiSushi.name],
           }
         ])
 
@@ -87,7 +88,7 @@ describe('ShouSushi', () => {
     describe('child', () => {
       test('tsumo', () => {
         const score = new Mahjong(
-          shouSuShiExampleFormat,
+          daiSushiExampleFormat,
           {
             hora: {
               pai: "4z",
@@ -101,17 +102,17 @@ describe('ShouSushi', () => {
             kaze: "1z",
           }).score.fourPlayerStyleScore
 
-        expect(score?.score).deep.eq({ base: 32000, parent: 16000, child: 8000 })
+        expect(score?.score).deep.eq({ base: 64000, parent: 32000, child: 16000 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(null)
-        expect(score?.yaku).eq('FULL')
+        expect(score?.yaku).eq('DOUBLE_FULL')
         expect(score?.appliedFuList).deep.eq([])
         expect(score?.appliedYakuList).deep.eq([
           {
-            isDoubleYakuman: false,
+            isDoubleYakuman: true,
             isFu: false,
-            isYakuman: true,
-            name: I18n.ja.yaku[ShouSushi.name],
+            isYakuman: false,
+            name: I18n.ja.yaku[DaiSushi.name],
           }
         ])
 
@@ -119,7 +120,7 @@ describe('ShouSushi', () => {
       })
       test('ron', () => {
         const score = new Mahjong(
-          shouSuShiExampleFormat,
+          daiSushiExampleFormat,
           {
             hora: {
               pai: "4z",
@@ -133,17 +134,17 @@ describe('ShouSushi', () => {
             kaze: "1z",
           }).score.fourPlayerStyleScore
 
-        expect(score?.score).deep.eq({ base: 32000 })
+        expect(score?.score).deep.eq({ base: 64000 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(null)
-        expect(score?.yaku).eq('FULL')
+        expect(score?.yaku).eq('DOUBLE_FULL')
         expect(score?.appliedFuList).deep.eq([])
         expect(score?.appliedYakuList).deep.eq([
           {
-            isDoubleYakuman: false,
+            isDoubleYakuman: true,
             isFu: false,
-            isYakuman: true,
-            name: I18n.ja.yaku[ShouSushi.name],
+            isYakuman: false,
+            name: I18n.ja.yaku[DaiSushi.name],
           }
         ])
 

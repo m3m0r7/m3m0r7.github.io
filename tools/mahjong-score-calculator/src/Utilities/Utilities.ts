@@ -3,6 +3,7 @@ interface Array<T> {
   repeat<U extends T = T>(times: number): T[]
   includesWithMatrix<U = T>(items: U[], type?: 'OR' | 'AND'): boolean
   sum(): number
+  same<T>(arr: T[]): boolean
 }
 
 Array.prototype.chunk = function (size: number) {
@@ -25,4 +26,9 @@ Array.prototype.sum = function (): number {
   return this.reduce<number>((carry, item) => {
     return carry + item
   }, 0)
+}
+
+
+Array.prototype.same = function <T>(arr: T[]): boolean {
+  return JSON.stringify(this) === JSON.stringify(arr)
 }

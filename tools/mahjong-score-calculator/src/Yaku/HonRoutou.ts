@@ -23,6 +23,6 @@ export class HonRoutou implements Yaku {
   get isFulfilled(): boolean {
     return this.paiPairCollection.paiPairs
       .filter(v => !v.isJantou)
-      .every(paiPair => (paiPair.isKoutsu || paiPair.isKan) && paiPair.pattern.includesWithMatrix(PaiGenerator.generateYaoChuHai()))
+      .every(paiPair => (paiPair.isKoutsu || paiPair.isKan || paiPair.isToitsu) && paiPair.pattern.includesWithMatrix(PaiGenerator.generateYaoChuHai()))
   }
 }

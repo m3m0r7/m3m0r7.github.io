@@ -24,7 +24,7 @@ export class JunChanta implements Yaku {
       .every(
         paiPair => (paiPair.isJantou && paiPair.pattern.includesWithMatrix(PaiGenerator.generateRoutouHai()))
           || (paiPair.isShuntsu && PaiGenerator.generatePenchanHai().some(paiNames => paiPair.pattern.includesWithMatrix(paiNames, 'AND')))
-          || (paiPair.isKoutsu && paiPair.pattern.includesWithMatrix(PaiGenerator.generateRoutouHai()))
+          || ((paiPair.isKoutsu || paiPair.isToitsu) && paiPair.pattern.includesWithMatrix(PaiGenerator.generateRoutouHai()))
       )
   }
 }

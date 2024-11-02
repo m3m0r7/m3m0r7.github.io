@@ -343,6 +343,7 @@ export class PaiPatternExtractor {
     const [ aName, aGroup ] = PaiPatternExtractor.extractPaiPair(pattern[0])
     const [ bName, bGroup ] = PaiPatternExtractor.extractPaiPair(pattern[1])
     const [ cName, cGroup ] = PaiPatternExtractor.extractPaiPair(pattern[2])
+
     return `${aName}${aGroup}` === `${bName}${bGroup}` && `${bName}${bGroup}` === `${cName}${cGroup}`
   }
 
