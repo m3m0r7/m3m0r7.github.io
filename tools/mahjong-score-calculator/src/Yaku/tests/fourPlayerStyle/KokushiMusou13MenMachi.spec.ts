@@ -18,7 +18,7 @@ describe('KokushiMusou13MenMachi', () => {
             pai: "1m",
             fromTsumo: true,
             fromRon: false,
-            fromTankiMachi: false,
+
             fromRinshanPai: false,
           },
 
@@ -52,7 +52,7 @@ describe('KokushiMusou13MenMachi', () => {
               pai: "1m",
               fromTsumo: false,
               fromRon: true,
-              fromTankiMachi: false,
+
               fromRinshanPai: false,
             },
 
@@ -89,7 +89,7 @@ describe('KokushiMusou13MenMachi', () => {
               pai: "1m",
               fromTsumo: true,
               fromRon: false,
-              fromTankiMachi: false,
+
               fromRinshanPai: false,
             },
 
@@ -122,7 +122,7 @@ describe('KokushiMusou13MenMachi', () => {
               pai: "1m",
               fromTsumo: false,
               fromRon: true,
-              fromTankiMachi: false,
+
               fromRinshanPai: false,
             },
 

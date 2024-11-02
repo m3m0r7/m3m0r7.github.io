@@ -29,7 +29,7 @@ describe('ChiiToitsu', () => {
               pai: "1s",
               fromTsumo: true,
               fromRon: false,
-              fromTankiMachi: false,
+
               fromRinshanPai: false,
             },
 
@@ -72,7 +72,7 @@ describe('ChiiToitsu', () => {
               pai: "1s",
               fromTsumo: false,
               fromRon: true,
-              fromTankiMachi: false,
+
               fromRinshanPai: false,
             },
 
@@ -118,7 +118,7 @@ describe('ChiiToitsu', () => {
               pai: "1s",
               fromTsumo: true,
               fromRon: false,
-              fromTankiMachi: false,
+
               fromRinshanPai: false,
             },
 
@@ -160,7 +160,7 @@ describe('ChiiToitsu', () => {
               pai: "1s",
               fromTsumo: false,
               fromRon: true,
-              fromTankiMachi: false,
+
               fromRinshanPai: false,
             },
 

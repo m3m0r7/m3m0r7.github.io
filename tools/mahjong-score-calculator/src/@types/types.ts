@@ -177,7 +177,6 @@ export interface Hora {
   fromRon: boolean
   fromTsumo: boolean
   fromRinshanPai: boolean
-  fromTankiMachi: boolean
 }
 
 export interface SystemOption {

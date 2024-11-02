@@ -13,8 +13,8 @@ export class Ankou implements Fu {
   get value() {
     let count = 0
 
-    count += this.paiPairCollection.countYaoChuHai() * 8
-    count += this.paiPairCollection.countChunChanPai() * 4
+    count += this.paiPairCollection.countYaoChuHai({ isKoutsu: true, isFuro: false }) * 8
+    count += this.paiPairCollection.countChunChanPai({ isKoutsu: true, isFuro: false }) * 4
     return count
   }
 

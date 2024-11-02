@@ -20,7 +20,7 @@ export class Mahjong {
         fromRon: false,
         fromTsumo: false,
         fromRinshanPai: false,
-        fromTankiMachi: false,
+
       },
       honba: 0,
       kaze: "1z",

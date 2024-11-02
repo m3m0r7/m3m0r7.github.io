@@ -3,28 +3,28 @@ import { describe, expect, test } from "vitest";
 import { Mahjong } from "../../../Runtime/Mahjong";
 import I18n from "../../../Lang/I18n";
 import { PaiName } from "../../../@types/types";
-import { HonRoutou } from "../../HonRoutou";
-import { Futei, Minkou, Tsumo } from "../../../Fu";
-import { ToiToi } from "../../ToiToi";
+import { SanKantsu } from "../../SanKantsu";
+import { Ankan, Ankou, Futei, MenzenKafu, Minkan, Tsumo } from "../../../Fu";
+import { SanAnkou } from "../../SanAnkou";
 
-const honRoutouExampleFormat: PaiName[] = [
-  "1mf", "1m", "1m",
-  "9mf", "9m", "9m",
-  "1pf", "1p", "1p",
-  "9pf", "9p", "9p",
+const sanKantsuExampleFormat: PaiName[] = [
+  "1m", "1m", "1m", "1m",
+  "5m", "5m", "5m", "5m",
+  "3m", "3m", "3m", "3m",
+  "2p", "3p", "4p",
 
-  "4z", "4z",
+  "2s", "2s",
 ]
 
-describe('HonRoutou and ToiToi', () => {
+describe('SanKantsu', () => {
   describe('fulfilled', () => {
     describe('parent', () => {
       test('tsumo', () => {
         const score = new Mahjong(
-          honRoutouExampleFormat,
+          sanKantsuExampleFormat,
           {
             hora: {
-              pai: "1p",
+              pai: "2s",
               fromTsumo: true,
               fromRon: false,
 
@@ -38,7 +38,7 @@ describe('HonRoutou and ToiToi', () => {
 
         expect(score?.score).deep.eq({ base: 12000, child: 4000 })
         expect(score?.honba).eq(0)
-        expect(score?.fu).eq(40)
+        expect(score?.fu).eq(90)
         expect(score?.yaku).eq(4)
         expect(score?.appliedFuList).deep.eq([
           {
@@ -52,8 +52,8 @@ describe('HonRoutou and ToiToi', () => {
             isYakuman: false,
             isDoubleYakuman: false,
             isFu: true,
-            name: I18n.ja.fu[Minkou.name],
-            score: 16
+            name: I18n.ja.fu[Ankan.name],
+            score: 64
           },
           {
             isYakuman: false,
@@ -68,7 +68,7 @@ describe('HonRoutou and ToiToi', () => {
             isDoubleYakuman: false,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[HonRoutou.name],
+            name: I18n.ja.yaku[SanKantsu.name],
             score: 2,
             calculationBasedScore: 2,
           },
@@ -76,7 +76,7 @@ describe('HonRoutou and ToiToi', () => {
             isDoubleYakuman: false,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[ToiToi.name],
+            name: I18n.ja.yaku[SanAnkou.name],
             score: 2,
             calculationBasedScore: 2,
           }
@@ -85,10 +85,10 @@ describe('HonRoutou and ToiToi', () => {
       })
       test('ron', () => {
         const score = new Mahjong(
-          honRoutouExampleFormat,
+          sanKantsuExampleFormat,
           {
             hora: {
-              pai: "1p",
+              pai: "2s",
               fromTsumo: false,
               fromRon: true,
 
@@ -102,7 +102,7 @@ describe('HonRoutou and ToiToi', () => {
 
         expect(score?.score).deep.eq({ base: 12000 })
         expect(score?.honba).eq(0)
-        expect(score?.fu).eq(40)
+        expect(score?.fu).eq(100)
         expect(score?.yaku).eq(4)
         expect(score?.appliedFuList).deep.eq([
           {
@@ -116,16 +116,23 @@ describe('HonRoutou and ToiToi', () => {
             isYakuman: false,
             isDoubleYakuman: false,
             isFu: true,
-            name: I18n.ja.fu[Minkou.name],
-            score: 16
+            name: I18n.ja.fu[Ankan.name],
+            score: 64
           },
+          {
+            isYakuman: false,
+            isDoubleYakuman: false,
+            isFu: true,
+            name: I18n.ja.fu[MenzenKafu.name],
+            score: 10
+          }
         ])
         expect(score?.appliedYakuList).deep.eq([
           {
             isDoubleYakuman: false,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[HonRoutou.name],
+            name: I18n.ja.yaku[SanKantsu.name],
             score: 2,
             calculationBasedScore: 2,
           },
@@ -133,7 +140,7 @@ describe('HonRoutou and ToiToi', () => {
             isDoubleYakuman: false,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[ToiToi.name],
+            name: I18n.ja.yaku[SanAnkou.name],
             score: 2,
             calculationBasedScore: 2,
           }
@@ -144,10 +151,10 @@ describe('HonRoutou and ToiToi', () => {
     describe('child', () => {
       test('tsumo', () => {
         const score = new Mahjong(
-          honRoutouExampleFormat,
+          sanKantsuExampleFormat,
           {
             hora: {
-              pai: "1p",
+              pai: "2s",
               fromTsumo: true,
               fromRon: false,
 
@@ -160,7 +167,7 @@ describe('HonRoutou and ToiToi', () => {
 
         expect(score?.score).deep.eq({ base: 8000, parent: 4000, child: 2000 })
         expect(score?.honba).eq(0)
-        expect(score?.fu).eq(40)
+        expect(score?.fu).eq(90)
         expect(score?.yaku).eq(4)
         expect(score?.appliedFuList).deep.eq([
           {
@@ -174,8 +181,8 @@ describe('HonRoutou and ToiToi', () => {
             isYakuman: false,
             isDoubleYakuman: false,
             isFu: true,
-            name: I18n.ja.fu[Minkou.name],
-            score: 16
+            name: I18n.ja.fu[Ankan.name],
+            score: 64
           },
           {
             isYakuman: false,
@@ -190,7 +197,7 @@ describe('HonRoutou and ToiToi', () => {
             isDoubleYakuman: false,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[HonRoutou.name],
+            name: I18n.ja.yaku[SanKantsu.name],
             score: 2,
             calculationBasedScore: 2,
           },
@@ -198,20 +205,18 @@ describe('HonRoutou and ToiToi', () => {
             isDoubleYakuman: false,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[ToiToi.name],
+            name: I18n.ja.yaku[SanAnkou.name],
             score: 2,
             calculationBasedScore: 2,
           }
         ])
-
-
       })
       test('ron', () => {
         const score = new Mahjong(
-          honRoutouExampleFormat,
+          sanKantsuExampleFormat,
           {
             hora: {
-              pai: "1p",
+              pai: "2s",
               fromTsumo: false,
               fromRon: true,
 
@@ -224,7 +229,7 @@ describe('HonRoutou and ToiToi', () => {
 
         expect(score?.score).deep.eq({ base: 8000 })
         expect(score?.honba).eq(0)
-        expect(score?.fu).eq(40)
+        expect(score?.fu).eq(100)
         expect(score?.yaku).eq(4)
         expect(score?.appliedFuList).deep.eq([
           {
@@ -238,16 +243,23 @@ describe('HonRoutou and ToiToi', () => {
             isYakuman: false,
             isDoubleYakuman: false,
             isFu: true,
-            name: I18n.ja.fu[Minkou.name],
-            score: 16
+            name: I18n.ja.fu[Ankan.name],
+            score: 64
           },
+          {
+            isYakuman: false,
+            isDoubleYakuman: false,
+            isFu: true,
+            name: I18n.ja.fu[MenzenKafu.name],
+            score: 10
+          }
         ])
         expect(score?.appliedYakuList).deep.eq([
           {
             isDoubleYakuman: false,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[HonRoutou.name],
+            name: I18n.ja.yaku[SanKantsu.name],
             score: 2,
             calculationBasedScore: 2,
           },
@@ -255,12 +267,135 @@ describe('HonRoutou and ToiToi', () => {
             isDoubleYakuman: false,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[ToiToi.name],
+            name: I18n.ja.yaku[SanAnkou.name],
             score: 2,
             calculationBasedScore: 2,
           }
         ])
       })
     })
+
+
+
+    describe('child', () => {
+      test('tsumo', () => {
+        const score = new Mahjong(
+          sanKantsuExampleFormat,
+          {
+            hora: {
+              pai: "2s",
+              fromTsumo: true,
+              fromRon: false,
+
+              fromRinshanPai: false,
+            },
+
+            jikaze: "2z",
+            kaze: "1z",
+          }).score.fourPlayerStyleScore
+
+        expect(score?.score).deep.eq({ base: 8000, parent: 4000, child: 2000 })
+        expect(score?.honba).eq(0)
+        expect(score?.fu).eq(90)
+        expect(score?.yaku).eq(4)
+        expect(score?.appliedFuList).deep.eq([
+          {
+            isYakuman: false,
+            isDoubleYakuman: false,
+            isFu: true,
+            name: I18n.ja.fu[Futei.name],
+            score: 20
+          },
+          {
+            isYakuman: false,
+            isDoubleYakuman: false,
+            isFu: true,
+            name: I18n.ja.fu[Ankan.name],
+            score: 64
+          },
+          {
+            isYakuman: false,
+            isDoubleYakuman: false,
+            isFu: true,
+            name: I18n.ja.fu[Tsumo.name],
+            score: 2
+          }
+        ])
+        expect(score?.appliedYakuList).deep.eq([
+          {
+            isDoubleYakuman: false,
+            isFu: false,
+            isYakuman: false,
+            name: I18n.ja.yaku[SanKantsu.name],
+            score: 2,
+            calculationBasedScore: 2,
+          },
+          {
+            isDoubleYakuman: false,
+            isFu: false,
+            isYakuman: false,
+            name: I18n.ja.yaku[SanAnkou.name],
+            score: 2,
+            calculationBasedScore: 2,
+          }
+        ])
+      })
+
+      test('with furo', () => {
+        const score = new Mahjong(
+          [
+            "1mf", "1m", "1m", "1m",
+            "5mf", "5m", "5m", "5m",
+            "3mf", "3m", "3m", "3m",
+            "2p", "3p", "4p",
+
+            "2s", "2s",
+          ],
+          {
+            hora: {
+              pai: "2s",
+              fromTsumo: false,
+              fromRon: true,
+
+              fromRinshanPai: false,
+            },
+
+            jikaze: "2z",
+            kaze: "1z",
+          }).score.fourPlayerStyleScore
+
+        expect(score?.score).deep.eq({ base: 3900 })
+        expect(score?.honba).eq(0)
+        expect(score?.fu).eq(60)
+        expect(score?.yaku).eq(2)
+        expect(score?.appliedFuList).deep.eq([
+          {
+            isYakuman: false,
+            isDoubleYakuman: false,
+            isFu: true,
+            name: I18n.ja.fu[Futei.name],
+            score: 20
+          },
+          {
+            isYakuman: false,
+            isDoubleYakuman: false,
+            isFu: true,
+            name: I18n.ja.fu[Minkan.name],
+            score: 32
+          }
+        ])
+        expect(score?.appliedYakuList).deep.eq([
+          {
+            isDoubleYakuman: false,
+            isFu: false,
+            isYakuman: false,
+            name: I18n.ja.yaku[SanKantsu.name],
+            score: 2,
+            calculationBasedScore: 2,
+          }
+        ])
+      })
+    })
+
   })
 })

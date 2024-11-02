@@ -13,8 +13,8 @@ export class Minkan implements Fu {
   get value() {
     let count = 0
 
-    count += this.paiPairCollection.countYaoChuHai({ isKan: true }) * 16
-    count += this.paiPairCollection.countChunChanPai({ isKan: true }) * 8
+    count += this.paiPairCollection.countYaoChuHai({ isKan: true, isFuro: true }) * 16
+    count += this.paiPairCollection.countChunChanPai({ isKan: true, isFuro: true }) * 8
     return count
   }
 

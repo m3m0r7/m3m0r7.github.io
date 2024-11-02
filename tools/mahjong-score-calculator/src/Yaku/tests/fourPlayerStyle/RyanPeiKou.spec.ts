@@ -26,7 +26,7 @@ describe('RyanPeiKou', () => {
               pai: "2s",
               fromTsumo: true,
               fromRon: false,
-              fromTankiMachi: false,
+
               fromRinshanPai: false,
             },
 
@@ -74,7 +74,7 @@ describe('RyanPeiKou', () => {
               pai: "2s",
               fromTsumo: false,
               fromRon: true,
-              fromTankiMachi: false,
+
               fromRinshanPai: false,
             },
 
@@ -125,7 +125,7 @@ describe('RyanPeiKou', () => {
               pai: "2s",
               fromTsumo: true,
               fromRon: false,
-              fromTankiMachi: false,
+
               fromRinshanPai: false,
             },
 
@@ -173,7 +173,7 @@ describe('RyanPeiKou', () => {
               pai: "2s",
               fromTsumo: false,
               fromRon: true,
-              fromTankiMachi: false,
+
               fromRinshanPai: false,
             },
 

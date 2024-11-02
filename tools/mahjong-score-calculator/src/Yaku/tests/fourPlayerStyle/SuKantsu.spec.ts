@@ -6,7 +6,7 @@ import { PaiName } from "../../../@types/types";
 import { SuKantsu } from "../../SuKantsu";
 
 const suKantsuExampleFormat: PaiName[] = [
-  "1m", "1m", "1m", "1m",
+  "1mf", "1m", "1m", "1m",
   "2m", "2m", "2m", "2m",
   "3m", "3m", "3m", "3m",
   "4m", "4m", "4m", "4m",
@@ -25,7 +25,7 @@ describe('SuKantsu', () => {
               pai: "2s",
               fromTsumo: true,
               fromRon: false,
-              fromTankiMachi: false,
+
               fromRinshanPai: false,
             },
 
@@ -57,7 +57,7 @@ describe('SuKantsu', () => {
               pai: "2s",
               fromTsumo: false,
               fromRon: true,
-              fromTankiMachi: false,
+
               fromRinshanPai: false,
             },
 
@@ -93,7 +93,7 @@ describe('SuKantsu', () => {
               pai: "2s",
               fromTsumo: true,
               fromRon: false,
-              fromTankiMachi: false,
+
               fromRinshanPai: false,
             },
 
@@ -125,7 +125,7 @@ describe('SuKantsu', () => {
               pai: "2s",
               fromTsumo: false,
               fromRon: true,
-              fromTankiMachi: false,
+
               fromRinshanPai: false,
             },
 

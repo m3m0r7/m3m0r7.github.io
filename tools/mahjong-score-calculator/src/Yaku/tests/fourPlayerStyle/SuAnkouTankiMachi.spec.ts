@@ -3,25 +3,23 @@ import { describe, expect, test } from "vitest";
 import { Mahjong } from "../../../Runtime/Mahjong";
 import I18n from "../../../Lang/I18n";
 import { PaiName } from "../../../@types/types";
-import { MahjongDefaultAdditionalSpecialYaku } from "../../../Runtime/MahjongDefaultOption";
-import { Chiho } from "../../Chiho";
+import { SuAnkouTankiMachi } from "../../SuAnkouTankiMachi";
 
-const hakuExampleFormat: PaiName[] = [
-  "1m", "2m", "3m",
-  "5m", "6m", "7m",
-
-  "3p", "4p", "5p",
-  "5z", "5z", "5z",
+const suAnkouTankiMachiExampleFormat: PaiName[] = [
+  "1m", "1m", "1m",
+  "2m", "2m", "2m",
+  "3m", "3m", "3m",
+  "4m", "4m", "4m",
 
   "2s", "2s",
 ]
 
-describe('Chiho', () => {
+describe('SuAnkouTankiMachi', () => {
   describe('fulfilled', () => {
     describe('parent', () => {
       test('tsumo', () => {
         const score = new Mahjong(
-          hakuExampleFormat,
+          suAnkouTankiMachiExampleFormat,
           {
             hora: {
               pai: "2s",
@@ -31,34 +29,29 @@ describe('Chiho', () => {
               fromRinshanPai: false,
             },
 
-            additionalSpecialYaku: {
-              ...MahjongDefaultAdditionalSpecialYaku,
-              withChiho: true,
-            },
-
             // NOTE: Here is same of a mahjong parent
             jikaze: "1z",
             kaze: "1z",
           }).score.fourPlayerStyleScore
 
-        expect(score?.score).deep.eq({ base: 48000, child: 16000 })
+        expect(score?.score).deep.eq({ base: 96000, child: 32000 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(null)
-        expect(score?.yaku).eq('FULL')
+        expect(score?.yaku).eq('DOUBLE_FULL')
         expect(score?.appliedFuList).deep.eq([])
         expect(score?.appliedYakuList).deep.eq([
           {
-            isDoubleYakuman: false,
+            isDoubleYakuman: true,
             isFu: false,
-            isYakuman: true,
-            name: I18n.ja.yaku[Chiho.name],
+            isYakuman: false,
+            name: I18n.ja.yaku[SuAnkouTankiMachi.name],
           }
         ])
 
       })
       test('ron', () => {
         const score = new Mahjong(
-          hakuExampleFormat,
+          suAnkouTankiMachiExampleFormat,
           {
             hora: {
               pai: "2s",
@@ -68,29 +61,25 @@ describe('Chiho', () => {
               fromRinshanPai: false,
             },
 
-            additionalSpecialYaku: {
-              ...MahjongDefaultAdditionalSpecialYaku,
-              withChiho: true,
-            },
-
             // NOTE: Here is same of a mahjong parent
             jikaze: "1z",
             kaze: "1z",
           }).score.fourPlayerStyleScore
 
-        expect(score?.score).deep.eq({ base: 48000 })
+        expect(score?.score).deep.eq({ base: 96000 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(null)
-        expect(score?.yaku).eq('FULL')
+        expect(score?.yaku).eq('DOUBLE_FULL')
         expect(score?.appliedFuList).deep.eq([])
         expect(score?.appliedYakuList).deep.eq([
           {
-            isDoubleYakuman: false,
+            isDoubleYakuman: true,
             isFu: false,
-            isYakuman: true,
-            name: I18n.ja.yaku[Chiho.name],
+            isYakuman: false,
+            name: I18n.ja.yaku[SuAnkouTankiMachi.name],
           }
         ])
+
 
       })
     })
@@ -98,7 +87,7 @@ describe('Chiho', () => {
     describe('child', () => {
       test('tsumo', () => {
         const score = new Mahjong(
-          hakuExampleFormat,
+          suAnkouTankiMachiExampleFormat,
           {
             hora: {
               pai: "2s",
@@ -108,33 +97,29 @@ describe('Chiho', () => {
               fromRinshanPai: false,
             },
 
-            additionalSpecialYaku: {
-              ...MahjongDefaultAdditionalSpecialYaku,
-              withChiho: true,
-            },
-
             jikaze: "2z",
             kaze: "1z",
           }).score.fourPlayerStyleScore
 
-        expect(score?.score).deep.eq({ base: 32000, parent: 16000, child: 8000 })
+        expect(score?.score).deep.eq({ base: 64000, parent: 32000, child: 16000 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(null)
-        expect(score?.yaku).eq('FULL')
+        expect(score?.yaku).eq('DOUBLE_FULL')
         expect(score?.appliedFuList).deep.eq([])
         expect(score?.appliedYakuList).deep.eq([
           {
-            isDoubleYakuman: false,
+            isDoubleYakuman: true,
             isFu: false,
-            isYakuman: true,
-            name: I18n.ja.yaku[Chiho.name],
+            isYakuman: false,
+            name: I18n.ja.yaku[SuAnkouTankiMachi.name],
           }
         ])
+
 
       })
       test('ron', () => {
         const score = new Mahjong(
-          hakuExampleFormat,
+          suAnkouTankiMachiExampleFormat,
           {
             hora: {
               pai: "2s",
@@ -144,28 +129,24 @@ describe('Chiho', () => {
               fromRinshanPai: false,
             },
 
-            additionalSpecialYaku: {
-              ...MahjongDefaultAdditionalSpecialYaku,
-              withChiho: true,
-            },
-
             jikaze: "2z",
             kaze: "1z",
           }).score.fourPlayerStyleScore
 
-        expect(score?.score).deep.eq({ base: 32000 })
+        expect(score?.score).deep.eq({ base: 64000 })
         expect(score?.honba).eq(0)
         expect(score?.fu).eq(null)
-        expect(score?.yaku).eq('FULL')
+        expect(score?.yaku).eq('DOUBLE_FULL')
         expect(score?.appliedFuList).deep.eq([])
         expect(score?.appliedYakuList).deep.eq([
           {
-            isDoubleYakuman: false,
+            isDoubleYakuman: true,
             isFu: false,
-            isYakuman: true,
-            name: I18n.ja.yaku[Chiho.name],
+            isYakuman: false,
+            name: I18n.ja.yaku[SuAnkouTankiMachi.name],
           }
         ])
+
       })
     })
   })

@@ -97,29 +97,73 @@ export class PaiPairCollection {
   }
 
   countYaoChuHai(option: Partial<CountOption> = {}): number {
-    const mergedOption = Object.assign<typeof option, typeof option>({
-      isKan: false,
-      isFuro: false,
-    }, option)
-    return this.paiPairs.reduce(
-      (sum, paiPair) => sum + (
-        paiPair.isKoutsu && paiPair.isFuro === mergedOption.isFuro && paiPair.isKan === mergedOption.isKan && paiPair.pattern.includesWithMatrix(
-          PaiGenerator.generateYaoChuHai(),
-        ) ? 1 : 0),
-      0,
+    return this.countPai(
+      PaiGenerator.generateYaoChuHai(),
+      option,
     )
   }
 
   countChunChanPai(option: Partial<CountOption> = {}): number {
-    const mergedOption = Object.assign<typeof option, typeof option>({
-      isKan: false,
-      isFuro: false,
-    }, option)
+    return this.countPai(
+      PaiGenerator.generateChunChanPai(),
+      option,
+    )
+  }
+
+  countPai(targetPaiList: PaiName[], option: Partial<CountOption> = {}): number {
+    if (option.isKan !== undefined && option.isFuro !== undefined) {
+      return this.paiPairs.reduce(
+        (sum, paiPair) => sum + (
+          paiPair.isKan && ((option.isFuro && paiPair.isFuro) || (!option.isFuro && !paiPair.isFuro)) && paiPair.pattern.includesWithMatrix(
+            targetPaiList,
+          ) ? 1 : 0),
+        0,
+      )
+    }
+    if (option.isKoutsu !== undefined && option.isFuro !== undefined) {
+      return this.paiPairs.reduce(
+        (sum, paiPair) => sum + (
+          paiPair.isKoutsu && ((option.isFuro && paiPair.isFuro) || (!option.isFuro && !paiPair.isFuro)) && paiPair.pattern.includesWithMatrix(
+            targetPaiList,
+          ) ? 1 : 0),
+        0,
+      )
+    }
+
+    if (option.isKan !== undefined) {
+      return this.paiPairs.reduce(
+        (sum, paiPair) => sum + (
+          paiPair.isKan && paiPair.pattern.includesWithMatrix(
+            targetPaiList,
+          ) ? 1 : 0),
+        0,
+      )
+    }
+
+    if (option.isKoutsu !== undefined) {
+      return this.paiPairs.reduce(
+        (sum, paiPair) => sum + (
+          paiPair.isKoutsu && paiPair.pattern.includesWithMatrix(
+            targetPaiList,
+          ) ? 1 : 0),
+        0,
+      )
+    }
+
+    if (option.isFuro !== undefined) {
+      return this.paiPairs.reduce(
+        (sum, paiPair) => sum + (
+          ((option.isFuro && paiPair.isFuro) || (!option.isFuro && !paiPair.isFuro)) && paiPair.pattern.includesWithMatrix(
+            targetPaiList,
+          ) ? 1 : 0),
+        0,
+      )
+    }
 
     return this.paiPairs.reduce(
       (sum, paiPair) => sum + (
-        paiPair.isKoutsu && paiPair.isFuro === mergedOption.isFuro && paiPair.isKan === mergedOption.isKan && paiPair.pattern.includesWithMatrix(
-          PaiGenerator.generateChunChanPai(),
+        paiPair.pattern.includesWithMatrix(
+          targetPaiList,
         ) ? 1 : 0),
       0,
     )

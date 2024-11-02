@@ -14,8 +14,8 @@ export class Minkou implements Fu {
   get value() {
     let count = 0
 
-    count += this.paiPairCollection.countYaoChuHai({ isFuro: true }) * 4
-    count += this.paiPairCollection.countChunChanPai({ isFuro: true }) * 2
+    count += this.paiPairCollection.countYaoChuHai({ isKoutsu: true, isFuro: true }) * 4
+    count += this.paiPairCollection.countChunChanPai({ isKoutsu: true, isFuro: true }) * 2
     return count
   }
 

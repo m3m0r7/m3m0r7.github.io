@@ -1,6 +1,7 @@
 import { MahjongOption, Yaku } from "../@types/types";
 import { PaiPairCollection } from "../Collection/Collection";
 import { SuAnkou } from "./SuAnkou";
+import { PaiPatternExtractor } from "../Runtime/Extractor/Extractor";
 
 export class SuAnkouTankiMachi implements Yaku {
   private paiPairCollection: PaiPairCollection
@@ -19,10 +20,8 @@ export class SuAnkouTankiMachi implements Yaku {
     if (!this.option.enableDoubleYakuman) {
       return false
     }
-    if (!this.option.hora.fromTankiMachi) {
-      return false
-    }
 
-    return (new SuAnkou(this.paiPairCollection, this.option)).isFulfilled
+    return this.paiPairCollection.paiPairs.some(v => v.isJantou && v.pattern.includes(this.option.hora.pai))
+      && (new SuAnkou(this.paiPairCollection, this.option)).isFulfilled
   }
 }

@@ -13,8 +13,9 @@ export class Ankan implements Fu {
   get value() {
     let count = 0
 
-    count += this.paiPairCollection.countYaoChuHai({ isKan: true }) * 32
-    count += this.paiPairCollection.countChunChanPai({ isKan: true }) * 16
+    count += this.paiPairCollection.countYaoChuHai({ isKan: true, isFuro: false }) * 32
+    count += this.paiPairCollection.countChunChanPai({ isKan: true, isFuro: false }) * 16
+
     return count
   }
 

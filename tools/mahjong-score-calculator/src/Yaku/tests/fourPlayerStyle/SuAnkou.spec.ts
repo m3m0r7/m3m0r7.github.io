@@ -22,10 +22,10 @@ describe('SuAnkou', () => {
           suAnkouExampleFormat,
           {
             hora: {
-              pai: "2s",
+              pai: "1m",
               fromTsumo: true,
               fromRon: false,
-              fromTankiMachi: false,
+
               fromRinshanPai: false,
             },
 
@@ -54,10 +54,10 @@ describe('SuAnkou', () => {
           suAnkouExampleFormat,
           {
             hora: {
-              pai: "2s",
+              pai: "1m",
               fromTsumo: false,
               fromRon: true,
-              fromTankiMachi: false,
+
               fromRinshanPai: false,
             },
 
@@ -90,10 +90,10 @@ describe('SuAnkou', () => {
           suAnkouExampleFormat,
           {
             hora: {
-              pai: "2s",
+              pai: "1m",
               fromTsumo: true,
               fromRon: false,
-              fromTankiMachi: false,
+
               fromRinshanPai: false,
             },
 
@@ -122,10 +122,10 @@ describe('SuAnkou', () => {
           suAnkouExampleFormat,
           {
             hora: {
-              pai: "2s",
+              pai: "1m",
               fromTsumo: false,
               fromRon: true,
-              fromTankiMachi: false,
+
               fromRinshanPai: false,
             },
 
