@@ -4,7 +4,7 @@ import { Mahjong } from "../../../Runtime/Mahjong";
 import I18n from "../../../Lang/I18n";
 import { PaiName } from "../../../@types/types";
 import { Ankou, Futei, MenzenKafu, Minkou, Tsumo } from "../../../Fu";
-import { Haitei } from "../../Haitei";
+import { RinshanKaihou } from "../../RinshanKaihou";
 import { MahjongDefaultAdditionalSpecialYaku } from "../../../Runtime/MahjongDefaultOption";
 
 const haiteiExampleFormat: PaiName[] = [
@@ -17,7 +17,7 @@ const haiteiExampleFormat: PaiName[] = [
   "2s", "2s",
 ]
 
-describe('Haitei', () => {
+describe('RinshanKaihou', () => {
   describe('fulfilled', () => {
     describe('parent', () => {
       test('tsumo', () => {
@@ -29,12 +29,7 @@ describe('Haitei', () => {
               fromTsumo: true,
               fromRon: false,
 
-              fromRinshanPai: false,
-            },
-
-            additionalSpecialYaku: {
-              ...MahjongDefaultAdditionalSpecialYaku,
-              withHaitei: true,
+              fromRinshanPai: true,
             },
 
             // NOTE: Here is same of a mahjong parent
@@ -74,7 +69,7 @@ describe('Haitei', () => {
             isDoubleYakuman: false,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[Haitei.name],
+            name: I18n.ja.yaku[RinshanKaihou.name],
             score: 1,
             calculationBasedScore: 1,
           }
@@ -90,12 +85,7 @@ describe('Haitei', () => {
               fromTsumo: false,
               fromRon: true,
 
-              fromRinshanPai: false,
-            },
-
-            additionalSpecialYaku: {
-              ...MahjongDefaultAdditionalSpecialYaku,
-              withHaitei: true,
+              fromRinshanPai: true,
             },
 
             // NOTE: Here is same of a mahjong parent
@@ -135,7 +125,7 @@ describe('Haitei', () => {
             isDoubleYakuman: false,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[Haitei.name],
+            name: I18n.ja.yaku[RinshanKaihou.name],
             score: 1,
             calculationBasedScore: 1,
           }
@@ -154,12 +144,7 @@ describe('Haitei', () => {
               fromTsumo: true,
               fromRon: false,
 
-              fromRinshanPai: false,
-            },
-
-            additionalSpecialYaku: {
-              ...MahjongDefaultAdditionalSpecialYaku,
-              withHaitei: true,
+              fromRinshanPai: true,
             },
 
             jikaze: "2z",
@@ -198,7 +183,7 @@ describe('Haitei', () => {
             isDoubleYakuman: false,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[Haitei.name],
+            name: I18n.ja.yaku[RinshanKaihou.name],
             score: 1,
             calculationBasedScore: 1,
           }
@@ -214,12 +199,7 @@ describe('Haitei', () => {
               fromTsumo: false,
               fromRon: true,
 
-              fromRinshanPai: false,
-            },
-
-            additionalSpecialYaku: {
-              ...MahjongDefaultAdditionalSpecialYaku,
-              withHaitei: true,
+              fromRinshanPai: true,
             },
 
             jikaze: "2z",
@@ -258,7 +238,7 @@ describe('Haitei', () => {
             isDoubleYakuman: false,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[Haitei.name],
+            name: I18n.ja.yaku[RinshanKaihou.name],
             score: 1,
             calculationBasedScore: 1,
           }
@@ -276,12 +256,7 @@ describe('Haitei', () => {
               fromTsumo: false,
               fromRon: true,
 
-              fromRinshanPai: false,
-            },
-
-            additionalSpecialYaku: {
-              ...MahjongDefaultAdditionalSpecialYaku,
-              withHaitei: true,
+              fromRinshanPai: true,
             },
 
             jikaze: "2z",
@@ -322,7 +297,7 @@ describe('Haitei', () => {
             isDoubleYakuman: false,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[Haitei.name],
+            name: I18n.ja.yaku[RinshanKaihou.name],
             score: 1,
             calculationBasedScore: 1,
           }
