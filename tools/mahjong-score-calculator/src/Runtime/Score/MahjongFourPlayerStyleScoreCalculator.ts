@@ -243,6 +243,7 @@ export class MahjongFourPlayerStyleScoreCalculator {
               score: score.fu.value,
             });
           }
+
           return carry;
         },
         {
@@ -250,7 +251,6 @@ export class MahjongFourPlayerStyleScoreCalculator {
           appliedYakuList: [],
         },
       );
-
       tempScoreData.fu =
         tempScoreData.appliedFuList?.map((fu) => fu.isFu && fu.score).sum() ??
         0;
