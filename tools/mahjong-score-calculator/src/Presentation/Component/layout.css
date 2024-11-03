@@ -1,14 +1,15 @@
 body {
   background-color: #252525;
+  height: 100vh;
 }
 .layout-contents {
   background-color: #ffffff;
+  height: 100vh;
 }
 
 @media (min-width: 430px) {
   .layout-contents {
     width: 430px;
-    height: 100vh;
     position: absolute;
     left: calc(50% - 215px);
     top: 0;
