@@ -1,4 +1,4 @@
-import '../../../Utilities/Utilities';
+import "../../../Utilities/Utilities";
 import { describe, expect, test } from "vitest";
 import { Mahjong } from "../../Mahjong";
 import I18n from "../../../Lang/I18n";
@@ -7,79 +7,103 @@ import { Futei, Tsumo } from "../../../Fu";
 import { Dora, MenzenTsumo, Tanyao } from "../../../Yaku";
 
 const tanyaoExampleFormat: PaiName[] = [
-  "2m", "3m", "4m",
-  "5m", "6m", "7m",
+  "2m",
+  "3m",
+  "4m",
+  "5m",
+  "6m",
+  "7m",
 
-  "3p", "4p", "5p",
-  "6p", "7p", "8p",
+  "3p",
+  "4p",
+  "5p",
+  "6p",
+  "7p",
+  "8p",
 
-  "2s", "2s",
+  "2s",
+  "2s",
 ];
 
-describe('ScoreCalculation', () => {
-  describe('invalid format', () => {
-    test('over using pai', () => {
-      const score = () => new Mahjong(
-        ["1s", "1s", "1s", "1s", "1s"]
-      ).score.fourPlayerStyleScore
+describe("ScoreCalculation", () => {
+  describe("invalid format", () => {
+    test("over using pai", () => {
+      const score = () =>
+        new Mahjong(["1s", "1s", "1s", "1s", "1s"]).score.fourPlayerStyleScore;
 
-      expect(score).toThrow('PaiTypes are invalid')
-    })
+      expect(score).toThrow("PaiTypes are invalid");
+    });
 
-    test('invalid format', () => {
-      const score = () => new Mahjong(
-        [
-          "1m", "2m", "3m", "4m",
-          "1p", "2p", "3p", "4p",
-          "1s", "2s", "3s", "4s",
-          "1z", "1z",
-        ]
-      ).score.fourPlayerStyleScore
+    test("invalid format", () => {
+      const score = () =>
+        new Mahjong([
+          "1m",
+          "2m",
+          "3m",
+          "4m",
+          "1p",
+          "2p",
+          "3p",
+          "4p",
+          "1s",
+          "2s",
+          "3s",
+          "4s",
+          "1z",
+          "1z",
+        ]).score.fourPlayerStyleScore;
 
-      expect(score).toThrow('The mahjong scores are not available that reason for Yaku are not fulfilled, invalid format and so on')
-    })
+      expect(score).toThrow(
+        "The mahjong scores are not available that reason for Yaku are not fulfilled, invalid format and so on",
+      );
+    });
 
-    test('invalid yaku', () => {
-      const score = () => new Mahjong(
-        [
-          "1m", "2m", "3m",
-          "2m", "3m", "4m",
-          "1p", "2p", "3p",
-          "2s", "3s", "4s",
-          "1z", "1z",
-        ]
-      ).score.fourPlayerStyleScore
+    test("invalid yaku", () => {
+      const score = () =>
+        new Mahjong([
+          "1m",
+          "2m",
+          "3m",
+          "2m",
+          "3m",
+          "4m",
+          "1p",
+          "2p",
+          "3p",
+          "2s",
+          "3s",
+          "4s",
+          "1z",
+          "1z",
+        ]).score.fourPlayerStyleScore;
 
-      expect(score).toThrow('The mahjong scores are not available that reason for Yaku are not fulfilled, invalid format and so on')
-    })
-  })
+      expect(score).toThrow(
+        "The mahjong scores are not available that reason for Yaku are not fulfilled, invalid format and so on",
+      );
+    });
+  });
 
-  describe('Mangan', () => {
-    test('parent', () => {
-      const score = new Mahjong(
-        tanyaoExampleFormat,
-        {
-          hora: {
-            pai: "2s",
-            fromTsumo: true,
-            fromRon: false,
+  describe("Mangan", () => {
+    test("parent", () => {
+      const score = new Mahjong(tanyaoExampleFormat, {
+        hora: {
+          pai: "2s",
+          fromTsumo: true,
+          fromRon: false,
 
-            fromRinshanPai: false,
-          },
+          fromRinshanPai: false,
+        },
 
-          doraList: [
-            "2s",
-            "2m",
-          ],
-          // NOTE: Here is same of a mahjong parent
-          jikaze: "1z",
-          kaze: "1z",
-        }).score.fourPlayerStyleScore
+        doraList: ["2s", "2m"],
+        // NOTE: Here is same of a mahjong parent
+        jikaze: "1z",
+        kaze: "1z",
+      }).score.fourPlayerStyleScore;
 
-      expect(score?.score).deep.eq({ base: 12000, child: 4000 })
-      expect(score?.honba).eq(0)
-      expect(score?.fu).eq(30)
-      expect(score?.yaku).eq(5)
+      expect(score?.score).deep.eq({ base: 12000, child: 4000 });
+      expect(score?.honba).eq(0);
+      expect(score?.fu).eq(30);
+      expect(score?.yaku).eq(5);
       expect(score?.appliedFuList).deep.eq([
         {
           isDoubleYakuman: false,
@@ -95,7 +119,7 @@ describe('ScoreCalculation', () => {
           name: I18n.ja.fu[Tsumo.name],
           score: 2,
         },
-      ])
+      ]);
       expect(score?.appliedYakuList).deep.eq([
         {
           isDoubleYakuman: false,
@@ -121,35 +145,29 @@ describe('ScoreCalculation', () => {
           score: 1,
           calculationBasedScore: 1,
         },
-      ])
+      ]);
+    });
 
-    })
+    test("child", () => {
+      const score = new Mahjong(tanyaoExampleFormat, {
+        hora: {
+          pai: "2s",
+          fromTsumo: true,
+          fromRon: false,
 
-    test('child', () => {
-      const score = new Mahjong(
-        tanyaoExampleFormat,
-        {
-          hora: {
-            pai: "2s",
-            fromTsumo: true,
-            fromRon: false,
+          fromRinshanPai: false,
+        },
 
-            fromRinshanPai: false,
-          },
+        doraList: ["2s", "2m"],
+        // NOTE: Here is same of a mahjong parent
+        jikaze: "2z",
+        kaze: "1z",
+      }).score.fourPlayerStyleScore;
 
-          doraList: [
-            "2s",
-            "2m",
-          ],
-          // NOTE: Here is same of a mahjong parent
-          jikaze: "2z",
-          kaze: "1z",
-        }).score.fourPlayerStyleScore
-
-      expect(score?.score).deep.eq({ base: 8000, parent: 4000, child: 2000 })
-      expect(score?.honba).eq(0)
-      expect(score?.fu).eq(30)
-      expect(score?.yaku).eq(5)
+      expect(score?.score).deep.eq({ base: 8000, parent: 4000, child: 2000 });
+      expect(score?.honba).eq(0);
+      expect(score?.fu).eq(30);
+      expect(score?.yaku).eq(5);
       expect(score?.appliedFuList).deep.eq([
         {
           isDoubleYakuman: false,
@@ -165,7 +183,7 @@ describe('ScoreCalculation', () => {
           name: I18n.ja.fu[Tsumo.name],
           score: 2,
         },
-      ])
+      ]);
       expect(score?.appliedYakuList).deep.eq([
         {
           isDoubleYakuman: false,
@@ -191,39 +209,31 @@ describe('ScoreCalculation', () => {
           score: 1,
           calculationBasedScore: 1,
         },
-      ])
+      ]);
+    });
+  });
 
-    })
-  })
+  describe("HaneMan", () => {
+    test("parent", () => {
+      const score = new Mahjong(tanyaoExampleFormat, {
+        hora: {
+          pai: "2s",
+          fromTsumo: true,
+          fromRon: false,
 
-  describe('HaneMan', () => {
-    test('parent', () => {
-      const score = new Mahjong(
-        tanyaoExampleFormat,
-        {
-          hora: {
-            pai: "2s",
-            fromTsumo: true,
-            fromRon: false,
+          fromRinshanPai: false,
+        },
 
-            fromRinshanPai: false,
-          },
+        doraList: ["2s", "2m", "5p", "6p"],
+        // NOTE: Here is same of a mahjong parent
+        jikaze: "1z",
+        kaze: "1z",
+      }).score.fourPlayerStyleScore;
 
-          doraList: [
-            "2s",
-            "2m",
-            "5p",
-            "6p",
-          ],
-          // NOTE: Here is same of a mahjong parent
-          jikaze: "1z",
-          kaze: "1z",
-        }).score.fourPlayerStyleScore
-
-      expect(score?.score).deep.eq({ base: 18000, child: 6000 })
-      expect(score?.honba).eq(0)
-      expect(score?.fu).eq(30)
-      expect(score?.yaku).eq(7)
+      expect(score?.score).deep.eq({ base: 18000, child: 6000 });
+      expect(score?.honba).eq(0);
+      expect(score?.fu).eq(30);
+      expect(score?.yaku).eq(7);
       expect(score?.appliedFuList).deep.eq([
         {
           isDoubleYakuman: false,
@@ -239,7 +249,7 @@ describe('ScoreCalculation', () => {
           name: I18n.ja.fu[Tsumo.name],
           score: 2,
         },
-      ])
+      ]);
       expect(score?.appliedYakuList).deep.eq([
         {
           isDoubleYakuman: false,
@@ -265,37 +275,29 @@ describe('ScoreCalculation', () => {
           score: 1,
           calculationBasedScore: 1,
         },
-      ])
+      ]);
+    });
 
-    })
+    test("child", () => {
+      const score = new Mahjong(tanyaoExampleFormat, {
+        hora: {
+          pai: "2s",
+          fromTsumo: true,
+          fromRon: false,
 
-    test('child', () => {
-      const score = new Mahjong(
-        tanyaoExampleFormat,
-        {
-          hora: {
-            pai: "2s",
-            fromTsumo: true,
-            fromRon: false,
+          fromRinshanPai: false,
+        },
 
-            fromRinshanPai: false,
-          },
+        doraList: ["2s", "2m", "5p", "6p"],
+        // NOTE: Here is same of a mahjong parent
+        jikaze: "2z",
+        kaze: "1z",
+      }).score.fourPlayerStyleScore;
 
-          doraList: [
-            "2s",
-            "2m",
-            "5p",
-            "6p",
-          ],
-          // NOTE: Here is same of a mahjong parent
-          jikaze: "2z",
-          kaze: "1z",
-        }).score.fourPlayerStyleScore
-
-      expect(score?.score).deep.eq({ base: 12000, parent: 6000, child: 3000 })
-      expect(score?.honba).eq(0)
-      expect(score?.fu).eq(30)
-      expect(score?.yaku).eq(7)
+      expect(score?.score).deep.eq({ base: 12000, parent: 6000, child: 3000 });
+      expect(score?.honba).eq(0);
+      expect(score?.fu).eq(30);
+      expect(score?.yaku).eq(7);
       expect(score?.appliedFuList).deep.eq([
         {
           isDoubleYakuman: false,
@@ -311,7 +313,7 @@ describe('ScoreCalculation', () => {
           name: I18n.ja.fu[Tsumo.name],
           score: 2,
         },
-      ])
+      ]);
       expect(score?.appliedYakuList).deep.eq([
         {
           isDoubleYakuman: false,
@@ -337,41 +339,31 @@ describe('ScoreCalculation', () => {
           score: 1,
           calculationBasedScore: 1,
         },
-      ])
+      ]);
+    });
+  });
 
-    })
-  })
+  describe("BaiMan", () => {
+    test("parent", () => {
+      const score = new Mahjong(tanyaoExampleFormat, {
+        hora: {
+          pai: "2s",
+          fromTsumo: true,
+          fromRon: false,
 
-  describe('BaiMan', () => {
-    test('parent', () => {
-      const score = new Mahjong(
-        tanyaoExampleFormat,
-        {
-          hora: {
-            pai: "2s",
-            fromTsumo: true,
-            fromRon: false,
+          fromRinshanPai: false,
+        },
 
-            fromRinshanPai: false,
-          },
+        doraList: ["2s", "2m", "5p", "6p", "7p", "8p"],
+        // NOTE: Here is same of a mahjong parent
+        jikaze: "1z",
+        kaze: "1z",
+      }).score.fourPlayerStyleScore;
 
-          doraList: [
-            "2s",
-            "2m",
-            "5p",
-            "6p",
-            "7p",
-            "8p",
-          ],
-          // NOTE: Here is same of a mahjong parent
-          jikaze: "1z",
-          kaze: "1z",
-        }).score.fourPlayerStyleScore
-
-      expect(score?.score).deep.eq({ base: 24000, child: 8000 })
-      expect(score?.honba).eq(0)
-      expect(score?.fu).eq(30)
-      expect(score?.yaku).eq(9)
+      expect(score?.score).deep.eq({ base: 24000, child: 8000 });
+      expect(score?.honba).eq(0);
+      expect(score?.fu).eq(30);
+      expect(score?.yaku).eq(9);
       expect(score?.appliedFuList).deep.eq([
         {
           isDoubleYakuman: false,
@@ -387,7 +379,7 @@ describe('ScoreCalculation', () => {
           name: I18n.ja.fu[Tsumo.name],
           score: 2,
         },
-      ])
+      ]);
       expect(score?.appliedYakuList).deep.eq([
         {
           isDoubleYakuman: false,
@@ -413,39 +405,29 @@ describe('ScoreCalculation', () => {
           score: 1,
           calculationBasedScore: 1,
         },
-      ])
+      ]);
+    });
 
-    })
+    test("child", () => {
+      const score = new Mahjong(tanyaoExampleFormat, {
+        hora: {
+          pai: "2s",
+          fromTsumo: true,
+          fromRon: false,
 
-    test('child', () => {
-      const score = new Mahjong(
-        tanyaoExampleFormat,
-        {
-          hora: {
-            pai: "2s",
-            fromTsumo: true,
-            fromRon: false,
+          fromRinshanPai: false,
+        },
 
-            fromRinshanPai: false,
-          },
+        doraList: ["2s", "2m", "5p", "6p", "7p", "8p"],
+        // NOTE: Here is same of a mahjong parent
+        jikaze: "2z",
+        kaze: "1z",
+      }).score.fourPlayerStyleScore;
 
-          doraList: [
-            "2s",
-            "2m",
-            "5p",
-            "6p",
-            "7p",
-            "8p",
-          ],
-          // NOTE: Here is same of a mahjong parent
-          jikaze: "2z",
-          kaze: "1z",
-        }).score.fourPlayerStyleScore
-
-      expect(score?.score).deep.eq({ base: 16000, parent: 8000, child: 4000 })
-      expect(score?.honba).eq(0)
-      expect(score?.fu).eq(30)
-      expect(score?.yaku).eq(9)
+      expect(score?.score).deep.eq({ base: 16000, parent: 8000, child: 4000 });
+      expect(score?.honba).eq(0);
+      expect(score?.fu).eq(30);
+      expect(score?.yaku).eq(9);
       expect(score?.appliedFuList).deep.eq([
         {
           isDoubleYakuman: false,
@@ -461,7 +443,7 @@ describe('ScoreCalculation', () => {
           name: I18n.ja.fu[Tsumo.name],
           score: 2,
         },
-      ])
+      ]);
       expect(score?.appliedYakuList).deep.eq([
         {
           isDoubleYakuman: false,
@@ -487,44 +469,31 @@ describe('ScoreCalculation', () => {
           score: 1,
           calculationBasedScore: 1,
         },
-      ])
+      ]);
+    });
+  });
 
-    })
-  })
+  describe("SanBaiMan", () => {
+    test("parent", () => {
+      const score = new Mahjong(tanyaoExampleFormat, {
+        hora: {
+          pai: "2s",
+          fromTsumo: true,
+          fromRon: false,
 
-  describe('SanBaiMan', () => {
-    test('parent', () => {
-      const score = new Mahjong(
-        tanyaoExampleFormat,
-        {
-          hora: {
-            pai: "2s",
-            fromTsumo: true,
-            fromRon: false,
+          fromRinshanPai: false,
+        },
 
-            fromRinshanPai: false,
-          },
+        doraList: ["2s", "2m", "3m", "4m", "3p", "4p", "5p", "6p", "7p"],
+        // NOTE: Here is same of a mahjong parent
+        jikaze: "1z",
+        kaze: "1z",
+      }).score.fourPlayerStyleScore;
 
-          doraList: [
-            "2s",
-            "2m",
-            "3m",
-            "4m",
-            "3p",
-            "4p",
-            "5p",
-            "6p",
-            "7p",
-          ],
-          // NOTE: Here is same of a mahjong parent
-          jikaze: "1z",
-          kaze: "1z",
-        }).score.fourPlayerStyleScore
-
-      expect(score?.score).deep.eq({ base: 36000, child: 12000 })
-      expect(score?.honba).eq(0)
-      expect(score?.fu).eq(30)
-      expect(score?.yaku).eq(12)
+      expect(score?.score).deep.eq({ base: 36000, child: 12000 });
+      expect(score?.honba).eq(0);
+      expect(score?.fu).eq(30);
+      expect(score?.yaku).eq(12);
       expect(score?.appliedFuList).deep.eq([
         {
           isDoubleYakuman: false,
@@ -540,7 +509,7 @@ describe('ScoreCalculation', () => {
           name: I18n.ja.fu[Tsumo.name],
           score: 2,
         },
-      ])
+      ]);
       expect(score?.appliedYakuList).deep.eq([
         {
           isDoubleYakuman: false,
@@ -566,42 +535,29 @@ describe('ScoreCalculation', () => {
           score: 1,
           calculationBasedScore: 1,
         },
-      ])
+      ]);
+    });
 
-    })
+    test("child", () => {
+      const score = new Mahjong(tanyaoExampleFormat, {
+        hora: {
+          pai: "2s",
+          fromTsumo: true,
+          fromRon: false,
 
-    test('child', () => {
-      const score = new Mahjong(
-        tanyaoExampleFormat,
-        {
-          hora: {
-            pai: "2s",
-            fromTsumo: true,
-            fromRon: false,
+          fromRinshanPai: false,
+        },
 
-            fromRinshanPai: false,
-          },
+        doraList: ["2s", "2m", "3m", "4m", "3p", "4p", "5p", "6p", "7p"],
+        // NOTE: Here is same of a mahjong parent
+        jikaze: "2z",
+        kaze: "1z",
+      }).score.fourPlayerStyleScore;
 
-          doraList: [
-            "2s",
-            "2m",
-            "3m",
-            "4m",
-            "3p",
-            "4p",
-            "5p",
-            "6p",
-            "7p",
-          ],
-          // NOTE: Here is same of a mahjong parent
-          jikaze: "2z",
-          kaze: "1z",
-        }).score.fourPlayerStyleScore
-
-      expect(score?.score).deep.eq({ base: 24000, parent: 12000, child: 6000 })
-      expect(score?.honba).eq(0)
-      expect(score?.fu).eq(30)
-      expect(score?.yaku).eq(12)
+      expect(score?.score).deep.eq({ base: 24000, parent: 12000, child: 6000 });
+      expect(score?.honba).eq(0);
+      expect(score?.fu).eq(30);
+      expect(score?.yaku).eq(12);
       expect(score?.appliedFuList).deep.eq([
         {
           isDoubleYakuman: false,
@@ -617,7 +573,7 @@ describe('ScoreCalculation', () => {
           name: I18n.ja.fu[Tsumo.name],
           score: 2,
         },
-      ])
+      ]);
       expect(score?.appliedYakuList).deep.eq([
         {
           isDoubleYakuman: false,
@@ -643,8 +599,7 @@ describe('ScoreCalculation', () => {
           score: 1,
           calculationBasedScore: 1,
         },
-      ])
-
-    })
-  })
-})
+      ]);
+    });
+  });
+});

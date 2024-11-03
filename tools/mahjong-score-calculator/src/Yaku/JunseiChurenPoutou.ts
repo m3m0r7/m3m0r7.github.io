@@ -4,21 +4,21 @@ import { PaiPatternExtractor } from "../Runtime/Extractor/Extractor";
 import { PaiGenerator } from "../Utilities/PaiGenerator";
 
 export class JunseiChurenPoutou implements Yaku {
-  private paiPairCollection: PaiPairCollection
-  private option: MahjongOption
+  private paiPairCollection: PaiPairCollection;
+  private option: MahjongOption;
 
   constructor(paiPairCollection: PaiPairCollection, option: MahjongOption) {
-    this.paiPairCollection = paiPairCollection
-    this.option = option
+    this.paiPairCollection = paiPairCollection;
+    this.option = option;
   }
 
-  get type(): Yaku['type'] {
-    return 'DOUBLE_FULL'
+  get type(): Yaku["type"] {
+    return "DOUBLE_FULL";
   }
 
   get isFulfilled(): boolean {
     if (!this.option.enableDoubleYakuman) {
-      return false
+      return false;
     }
 
     // NOTE: The churen poutou is available to menzen only
@@ -26,6 +26,9 @@ export class JunseiChurenPoutou implements Yaku {
       return false;
     }
 
-    return this.paiPairCollection.isChurenPoutou && this.option.additionalSpecialYaku.withJunseiChurenPoutou
+    return (
+      this.paiPairCollection.isChurenPoutou &&
+      this.option.additionalSpecialYaku.withJunseiChurenPoutou
+    );
   }
 }

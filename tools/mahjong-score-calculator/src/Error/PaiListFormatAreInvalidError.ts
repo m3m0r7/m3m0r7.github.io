@@ -1,4 +1,1 @@
-export class PaiListFormatAreInvalidError extends Error {
-
-}
-
+export class PaiListFormatAreInvalidError extends Error {}

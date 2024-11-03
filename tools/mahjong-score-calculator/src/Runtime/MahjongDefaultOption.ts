@@ -9,7 +9,7 @@ import {
   Minkou,
   RenFonPai,
   SangenPai,
-  Tsumo
+  Tsumo,
 } from "../Fu";
 import {
   AkaDora,
@@ -36,7 +36,8 @@ import {
   JunseiChurenPoutou,
   KokushiMusou,
   KokushiMusou13MenMachi,
-  MenFon, MenzenTsumo,
+  MenFon,
+  MenzenTsumo,
   NagashiMangan,
   OpenRiichi,
   Pinfu,
@@ -56,32 +57,33 @@ import {
   Tenho,
   ToiToi,
   TsuIsou,
-  UraDora
+  UraDora,
 } from "../Yaku";
 import { MahjongOption } from "../@types/types";
 
-export const MahjongDefaultAdditionalSpecialYaku: MahjongOption['additionalSpecialYaku'] = {
-  withRiichi: false,
-  withDoubleRiichi: false,
-  withOpenRiichi: false,
-  withIppatsu: false,
-  withHaitei: false,
-  withHoutei: false,
-  withChanKan: false,
-  withTenho: false,
-  withChiho: false,
-  withNagashiMangan: false,
-  withJunseiChurenPoutou: false,
-  withKokushiMusou13MenMachi: false,
-}
+export const MahjongDefaultAdditionalSpecialYaku: MahjongOption["additionalSpecialYaku"] =
+  {
+    withRiichi: false,
+    withDoubleRiichi: false,
+    withOpenRiichi: false,
+    withIppatsu: false,
+    withHaitei: false,
+    withHoutei: false,
+    withChanKan: false,
+    withTenho: false,
+    withChiho: false,
+    withNagashiMangan: false,
+    withJunseiChurenPoutou: false,
+    withKokushiMusou13MenMachi: false,
+  };
 
-export const MahjongDefaultLocalRules: MahjongOption['localRules'] = {
+export const MahjongDefaultLocalRules: MahjongOption["localRules"] = {
   fu: {
     renfonPai: 4,
   },
   honba: 300,
   kuitan: true,
-}
+};
 
 // NOTE: The other property will be merged
 export const MahjongDefaultOption: Partial<MahjongOption> = {
@@ -157,4 +159,4 @@ export const MahjongDefaultOption: Partial<MahjongOption> = {
 
     ChiiToitsu,
   ],
-}
+};

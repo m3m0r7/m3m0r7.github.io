@@ -1,19 +1,25 @@
-import { MahjongOption, PaiGroupName, PaiName, Shuntsu, Yaku } from "../@types/types";
+import {
+  MahjongOption,
+  PaiGroupName,
+  PaiName,
+  Shuntsu,
+  Yaku,
+} from "../@types/types";
 import { PaiPairCollection } from "../Collection/Collection";
 import { PaiPatternExtractor } from "../Runtime/Extractor/Extractor";
 import { PaiGenerator } from "../Utilities/PaiGenerator";
 
 export class ChurenPoutou implements Yaku {
-  private paiPairCollection: PaiPairCollection
-  private option: MahjongOption
+  private paiPairCollection: PaiPairCollection;
+  private option: MahjongOption;
 
   constructor(paiPairCollection: PaiPairCollection, option: MahjongOption) {
-    this.paiPairCollection = paiPairCollection
-    this.option = option
+    this.paiPairCollection = paiPairCollection;
+    this.option = option;
   }
 
-  get type(): Yaku['type'] {
-    return 'FULL'
+  get type(): Yaku["type"] {
+    return "FULL";
   }
 
   get isFulfilled(): boolean {
@@ -27,6 +33,6 @@ export class ChurenPoutou implements Yaku {
       return false;
     }
 
-    return this.paiPairCollection.isChurenPoutou
+    return this.paiPairCollection.isChurenPoutou;
   }
 }

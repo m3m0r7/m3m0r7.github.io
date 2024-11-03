@@ -3,47 +3,53 @@ import { PaiPairCollection } from "../Collection/Collection";
 import { JunChanta } from "./JunChanta";
 
 export class RyanPeiKou implements Yaku {
-  private paiPairCollection: PaiPairCollection
-  private option: MahjongOption
+  private paiPairCollection: PaiPairCollection;
+  private option: MahjongOption;
 
   constructor(paiPairCollection: PaiPairCollection, option: MahjongOption) {
-    this.paiPairCollection = paiPairCollection
-    this.option = option
+    this.paiPairCollection = paiPairCollection;
+    this.option = option;
   }
 
-  get type(): Yaku['type'] {
-    return 'NORMAL'
+  get type(): Yaku["type"] {
+    return "NORMAL";
   }
 
   get han(): number {
-    return 3
+    return 3;
   }
 
   get isFulfilled(): boolean {
     // NOTE: IpeiKou/RyanPeikou is not fulfilled including furo in PaiPairs
     if (this.paiPairCollection.hasFuro) {
-      return false
+      return false;
     }
     for (let i = 0; i < this.paiPairCollection.paiPairs.length; i++) {
       const targetPaiPair = this.paiPairCollection.paiPairs[i];
       if (!targetPaiPair.isShuntsu) {
-        continue
+        continue;
       }
-      for (let j = i + 1, counter = 0; j < this.paiPairCollection.paiPairs.length; j++) {
+      for (
+        let j = i + 1, counter = 0;
+        j < this.paiPairCollection.paiPairs.length;
+        j++
+      ) {
         const sourcePaiPair = this.paiPairCollection.paiPairs[j];
         if (!sourcePaiPair.isShuntsu) {
-          continue
+          continue;
         }
 
-        if (targetPaiPair.pattern.includesWithMatrix(sourcePaiPair.pattern, 'AND')) {
-          counter++
+        if (
+          targetPaiPair.pattern.includesWithMatrix(sourcePaiPair.pattern, "AND")
+        ) {
+          counter++;
         }
 
         if (counter === 2) {
-          return true
+          return true;
         }
       }
     }
-    return false
+    return false;
   }
 }

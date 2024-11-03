@@ -1,4 +1,4 @@
-import '../../../Utilities/Utilities';
+import "../../../Utilities/Utilities";
 import { describe, expect, test } from "vitest";
 import { Mahjong } from "../../../Runtime/Mahjong";
 import I18n from "../../../Lang/I18n";
@@ -9,39 +9,46 @@ import { Chanta } from "../../Chanta";
 import { MenzenTsumo } from "../../MenzenTsumo";
 
 const chantaExampleFormat: PaiName[] = [
-  "1m", "2m", "3m",
-  "7m", "8m", "9m",
+  "1m",
+  "2m",
+  "3m",
+  "7m",
+  "8m",
+  "9m",
 
-  "1p", "2p", "3p",
-  "7p", "8p", "9p",
+  "1p",
+  "2p",
+  "3p",
+  "7p",
+  "8p",
+  "9p",
 
-  "2z", "2z",
+  "2z",
+  "2z",
 ];
 
-describe('Chanta', () => {
-  describe('fulfilled', () => {
-    describe('parent', () => {
-      test('tsumo', () => {
-        const score = new Mahjong(
-          chantaExampleFormat,
-          {
-            hora: {
-              pai: "2z",
-              fromTsumo: true,
-              fromRon: false,
+describe("Chanta", () => {
+  describe("fulfilled", () => {
+    describe("parent", () => {
+      test("tsumo", () => {
+        const score = new Mahjong(chantaExampleFormat, {
+          hora: {
+            pai: "2z",
+            fromTsumo: true,
+            fromRon: false,
 
-              fromRinshanPai: false,
-            },
+            fromRinshanPai: false,
+          },
 
-            // NOTE: Here is same of a mahjong parent
-            jikaze: "1z",
-            kaze: "1z",
-          }).score.fourPlayerStyleScore
+          // NOTE: Here is same of a mahjong parent
+          jikaze: "1z",
+          kaze: "1z",
+        }).score.fourPlayerStyleScore;
 
-        expect(score?.score).deep.eq({ base: 5800, child: 2000 })
-        expect(score?.honba).eq(0)
-        expect(score?.fu).eq(30)
-        expect(score?.yaku).eq(3)
+        expect(score?.score).deep.eq({ base: 5800, child: 2000 });
+        expect(score?.honba).eq(0);
+        expect(score?.fu).eq(30);
+        expect(score?.yaku).eq(3);
         expect(score?.appliedFuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -57,7 +64,7 @@ describe('Chanta', () => {
             name: I18n.ja.fu[Tsumo.name],
             score: 2,
           },
-        ])
+        ]);
         expect(score?.appliedYakuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -75,30 +82,27 @@ describe('Chanta', () => {
             score: 1,
             calculationBasedScore: 1,
           },
-        ])
+        ]);
+      });
+      test("ron", () => {
+        const score = new Mahjong(chantaExampleFormat, {
+          hora: {
+            pai: "2z",
+            fromTsumo: false,
+            fromRon: true,
 
-      })
-      test('ron', () => {
-        const score = new Mahjong(
-          chantaExampleFormat,
-          {
-            hora: {
-              pai: "2z",
-              fromTsumo: false,
-              fromRon: true,
+            fromRinshanPai: false,
+          },
 
-              fromRinshanPai: false,
-            },
+          // NOTE: Here is same of a mahjong parent
+          jikaze: "1z",
+          kaze: "1z",
+        }).score.fourPlayerStyleScore;
 
-            // NOTE: Here is same of a mahjong parent
-            jikaze: "1z",
-            kaze: "1z",
-          }).score.fourPlayerStyleScore
-
-        expect(score?.score).deep.eq({ base: 2900 })
-        expect(score?.honba).eq(0)
-        expect(score?.fu).eq(30)
-        expect(score?.yaku).eq(2)
+        expect(score?.score).deep.eq({ base: 2900 });
+        expect(score?.honba).eq(0);
+        expect(score?.fu).eq(30);
+        expect(score?.yaku).eq(2);
         expect(score?.appliedFuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -114,7 +118,7 @@ describe('Chanta', () => {
             name: I18n.ja.fu[MenzenKafu.name],
             score: 10,
           },
-        ])
+        ]);
         expect(score?.appliedYakuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -123,33 +127,30 @@ describe('Chanta', () => {
             name: I18n.ja.yaku[Chanta.name],
             score: 2,
             calculationBasedScore: 2,
-          }
-        ])
+          },
+        ]);
+      });
+    });
 
-      })
-    })
+    describe("child", () => {
+      test("tsumo", () => {
+        const score = new Mahjong(chantaExampleFormat, {
+          hora: {
+            pai: "2z",
+            fromTsumo: true,
+            fromRon: false,
 
-    describe('child', () => {
-      test('tsumo', () => {
-        const score = new Mahjong(
-          chantaExampleFormat,
-          {
-            hora: {
-              pai: "2z",
-              fromTsumo: true,
-              fromRon: false,
+            fromRinshanPai: false,
+          },
 
-              fromRinshanPai: false,
-            },
+          jikaze: "2z",
+          kaze: "1z",
+        }).score.fourPlayerStyleScore;
 
-            jikaze: "2z",
-            kaze: "1z",
-          }).score.fourPlayerStyleScore
-
-        expect(score?.score).deep.eq({ base: 3900, parent: 2000, child: 1000 })
-        expect(score?.honba).eq(0)
-        expect(score?.fu).eq(30)
-        expect(score?.yaku).eq(3)
+        expect(score?.score).deep.eq({ base: 3900, parent: 2000, child: 1000 });
+        expect(score?.honba).eq(0);
+        expect(score?.fu).eq(30);
+        expect(score?.yaku).eq(3);
         expect(score?.appliedFuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -172,7 +173,7 @@ describe('Chanta', () => {
             name: I18n.ja.fu[MenFonPai.name],
             score: 2,
           },
-        ])
+        ]);
         expect(score?.appliedYakuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -190,29 +191,26 @@ describe('Chanta', () => {
             score: 1,
             calculationBasedScore: 1,
           },
-        ])
+        ]);
+      });
+      test("ron", () => {
+        const score = new Mahjong(chantaExampleFormat, {
+          hora: {
+            pai: "2z",
+            fromTsumo: false,
+            fromRon: true,
 
-      })
-      test('ron', () => {
-        const score = new Mahjong(
-          chantaExampleFormat,
-          {
-            hora: {
-              pai: "2z",
-              fromTsumo: false,
-              fromRon: true,
+            fromRinshanPai: false,
+          },
 
-              fromRinshanPai: false,
-            },
+          jikaze: "2z",
+          kaze: "1z",
+        }).score.fourPlayerStyleScore;
 
-            jikaze: "2z",
-            kaze: "1z",
-          }).score.fourPlayerStyleScore
-
-        expect(score?.score).deep.eq({ base: 2600 })
-        expect(score?.honba).eq(0)
-        expect(score?.fu).eq(40)
-        expect(score?.yaku).eq(2)
+        expect(score?.score).deep.eq({ base: 2600 });
+        expect(score?.honba).eq(0);
+        expect(score?.fu).eq(40);
+        expect(score?.yaku).eq(2);
         expect(score?.appliedFuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -235,7 +233,7 @@ describe('Chanta', () => {
             name: I18n.ja.fu[MenFonPai.name],
             score: 2,
           },
-        ])
+        ]);
         expect(score?.appliedYakuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -244,41 +242,37 @@ describe('Chanta', () => {
             name: I18n.ja.yaku[Chanta.name],
             score: 2,
             calculationBasedScore: 2,
-          }
-        ])
+          },
+        ]);
+      });
 
-      })
+      test("with furo", () => {
+        const mahjong = new Mahjong(chantaExampleFormat, {
+          hora: {
+            pai: "2z",
+            fromTsumo: false,
+            fromRon: true,
 
+            fromRinshanPai: false,
+          },
 
-      test('with furo', () => {
-        const mahjong = new Mahjong(
-          chantaExampleFormat,
-          {
-            hora: {
-              pai: "2z",
-              fromTsumo: false,
-              fromRon: true,
-
-              fromRinshanPai: false,
-            },
-
-            jikaze: "2z",
-            kaze: "1z",
-          })
+          jikaze: "2z",
+          kaze: "1z",
+        });
 
         mahjong.updatePaiPairCollections((paiPairCollection) => {
-          paiPairCollection.paiPairs.map(paiPair => {
-            paiPair.isFuro = true
-            return paiPair
-          })
-          return paiPairCollection
-        })
+          paiPairCollection.paiPairs.map((paiPair) => {
+            paiPair.isFuro = true;
+            return paiPair;
+          });
+          return paiPairCollection;
+        });
 
-        const score = mahjong.score.fourPlayerStyleScore
-        expect(score?.score).deep.eq({ base: 1000 })
-        expect(score?.honba).eq(0)
-        expect(score?.fu).eq(30)
-        expect(score?.yaku).eq(1)
+        const score = mahjong.score.fourPlayerStyleScore;
+        expect(score?.score).deep.eq({ base: 1000 });
+        expect(score?.honba).eq(0);
+        expect(score?.fu).eq(30);
+        expect(score?.yaku).eq(1);
         expect(score?.appliedFuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -294,7 +288,7 @@ describe('Chanta', () => {
             name: I18n.ja.fu[MenFonPai.name],
             score: 2,
           },
-        ])
+        ]);
         expect(score?.appliedYakuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -303,10 +297,9 @@ describe('Chanta', () => {
             name: I18n.ja.yaku[Chanta.name],
             score: 1,
             calculationBasedScore: 1,
-          }
-        ])
-
-      })
-    })
-  })
-})
+          },
+        ]);
+      });
+    });
+  });
+});

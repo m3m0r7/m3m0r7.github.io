@@ -2,21 +2,21 @@ import { MahjongOption, Yaku } from "../@types/types";
 import { PaiPairCollection } from "../Collection/Collection";
 
 export class KazoeYakuman implements Yaku {
-  private countYaku: number
+  private countYaku: number;
 
   constructor(countYaku: number) {
-    this.countYaku = countYaku
+    this.countYaku = countYaku;
   }
 
-  get type(): Yaku['type'] {
-    return 'FULL'
+  get type(): Yaku["type"] {
+    return "FULL";
   }
 
   get availableHora(): boolean {
-    return false
+    return false;
   }
 
   get isFulfilled(): boolean {
-    return this.countYaku >= 13
+    return this.countYaku >= 13;
   }
 }

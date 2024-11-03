@@ -1,4 +1,1 @@
-export class CannotCalculateScoreError extends Error {
-
-}
-
+export class CannotCalculateScoreError extends Error {}

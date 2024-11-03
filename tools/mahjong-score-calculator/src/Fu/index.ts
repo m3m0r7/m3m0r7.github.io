@@ -22,4 +22,4 @@ export {
   ChanFonPai,
   SangenPai,
   RenFonPai,
-}
+};

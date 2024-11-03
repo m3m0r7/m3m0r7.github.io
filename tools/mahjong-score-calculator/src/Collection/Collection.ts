@@ -4,179 +4,197 @@ import { PaiGenerator } from "../Utilities/PaiGenerator";
 import { PaiListFormatAreInvalidError } from "../Error/PaiListFormatAreInvalidError";
 import { JantouNotFoundError } from "../Error/JantouNotFoundError";
 
-type CountOption = Omit<Required<Record<keyof PaiPair, boolean>>, 'pattern'>
+type CountOption = Omit<Required<Record<keyof PaiPair, boolean>>, "pattern">;
 
 export class PaiPairCollection {
-  readonly paiPairs: PaiPair[] = []
+  readonly paiPairs: PaiPair[] = [];
   constructor(paiPairs: PaiPair[]) {
-    this.paiPairs = paiPairs
+    this.paiPairs = paiPairs;
   }
 
   containsKoutsuOrKan(paiName: PaiName): boolean {
-    return this.paiPairs.some(paiPair => (paiPair.isKoutsu || paiPair.isKan) && paiPair.pattern.includes(paiName))
+    return this.paiPairs.some(
+      (paiPair) =>
+        (paiPair.isKoutsu || paiPair.isKan) &&
+        paiPair.pattern.includes(paiName),
+    );
   }
 
   containsJantou(paiName: PaiName): boolean {
     if (!PaiPatternExtractor.shouldToitsu(this.jantou.pattern)) {
-      return false
+      return false;
     }
-    return this.jantou.pattern.includes(paiName)
+    return this.jantou.pattern.includes(paiName);
   }
 
   containsShuntsu(paiNames: Shuntsu): boolean {
-    return this.paiPairs
-      .some(paiPair =>  paiPair.isShuntsu && paiPair.pattern.includesWithMatrix(paiNames, 'AND'))
+    return this.paiPairs.some(
+      (paiPair) =>
+        paiPair.isShuntsu &&
+        paiPair.pattern.includesWithMatrix(paiNames, "AND"),
+    );
   }
 
   get isChiiToitsu(): boolean {
-    return this.paiPairs.every(paiPair => paiPair.isToitsu)
+    return this.paiPairs.every((paiPair) => paiPair.isToitsu);
   }
 
   get isKokushiMusou(): boolean {
-    return this.paiPairs.some(paiPair => paiPair.isKokushi)
+    return this.paiPairs.some((paiPair) => paiPair.isKokushi);
   }
 
   get isChurenPoutou(): boolean {
-    return this.paiPairs.some(paiPair => paiPair.isChuren)
+    return this.paiPairs.some((paiPair) => paiPair.isChuren);
   }
 
   flat(): PaiName[] {
-    return this.paiPairs.reduce<PaiName[]>((carry, paiPair) => [...carry, ...paiPair.pattern], [])
+    return this.paiPairs.reduce<PaiName[]>(
+      (carry, paiPair) => [...carry, ...paiPair.pattern],
+      [],
+    );
   }
 
   get hasJantou(): boolean {
-    return this.count('isJantou') > 0
+    return this.count("isJantou") > 0;
   }
 
   get hasFuro(): boolean {
-    return this.count('isFuro') > 0
+    return this.count("isFuro") > 0;
   }
 
   get hasToitsu(): boolean {
-    return this.count('isToitsu') > 0
+    return this.count("isToitsu") > 0;
   }
 
   get hasKan(): boolean {
-    return this.count('isKan') > 0
+    return this.count("isKan") > 0;
   }
 
   get hasShuntsu(): boolean {
-    return this.count('isShuntsu') > 0
+    return this.count("isShuntsu") > 0;
   }
 
   get hasKoutsu(): boolean {
-    return this.count('isKoutsu') > 0
+    return this.count("isKoutsu") > 0;
   }
 
   get countJantou(): number {
-    return this.count('isJantou')
+    return this.count("isJantou");
   }
 
   get countAkaDora(): number {
-    return this.count('includeAkaDora')
+    return this.count("includeAkaDora");
   }
 
   get countFuro(): number {
-    return this.count('isFuro')
+    return this.count("isFuro");
   }
 
   get countToitsu(): number {
-    return this.count('isToitsu')
+    return this.count("isToitsu");
   }
 
   get countKan(): number {
-    return this.count('isKan')
+    return this.count("isKan");
   }
 
   get countShuntsu(): number {
-    return this.count('isShuntsu')
+    return this.count("isShuntsu");
   }
 
   get countKoutsu(): number {
-    return this.count('isKoutsu')
+    return this.count("isKoutsu");
   }
 
   countYaoChuHai(option: Partial<CountOption> = {}): number {
-    return this.countPai(
-      PaiGenerator.generateYaoChuHai(),
-      option,
-    )
+    return this.countPai(PaiGenerator.generateYaoChuHai(), option);
   }
 
   countChunChanPai(option: Partial<CountOption> = {}): number {
-    return this.countPai(
-      PaiGenerator.generateChunChanPai(),
-      option,
-    )
+    return this.countPai(PaiGenerator.generateChunChanPai(), option);
   }
 
-  countPai(targetPaiList: PaiName[], option: Partial<CountOption> = {}): number {
+  countPai(
+    targetPaiList: PaiName[],
+    option: Partial<CountOption> = {},
+  ): number {
     if (option.isKan !== undefined && option.isFuro !== undefined) {
       return this.paiPairs.reduce(
-        (sum, paiPair) => sum + (
-          paiPair.isKan && ((option.isFuro && paiPair.isFuro) || (!option.isFuro && !paiPair.isFuro)) && paiPair.pattern.includesWithMatrix(
-            targetPaiList,
-          ) ? 1 : 0),
+        (sum, paiPair) =>
+          sum +
+          (paiPair.isKan &&
+          ((option.isFuro && paiPair.isFuro) ||
+            (!option.isFuro && !paiPair.isFuro)) &&
+          paiPair.pattern.includesWithMatrix(targetPaiList)
+            ? 1
+            : 0),
         0,
-      )
+      );
     }
     if (option.isKoutsu !== undefined && option.isFuro !== undefined) {
       return this.paiPairs.reduce(
-        (sum, paiPair) => sum + (
-          paiPair.isKoutsu && ((option.isFuro && paiPair.isFuro) || (!option.isFuro && !paiPair.isFuro)) && paiPair.pattern.includesWithMatrix(
-            targetPaiList,
-          ) ? 1 : 0),
+        (sum, paiPair) =>
+          sum +
+          (paiPair.isKoutsu &&
+          ((option.isFuro && paiPair.isFuro) ||
+            (!option.isFuro && !paiPair.isFuro)) &&
+          paiPair.pattern.includesWithMatrix(targetPaiList)
+            ? 1
+            : 0),
         0,
-      )
+      );
     }
 
     if (option.isKan !== undefined) {
       return this.paiPairs.reduce(
-        (sum, paiPair) => sum + (
-          paiPair.isKan && paiPair.pattern.includesWithMatrix(
-            targetPaiList,
-          ) ? 1 : 0),
+        (sum, paiPair) =>
+          sum +
+          (paiPair.isKan && paiPair.pattern.includesWithMatrix(targetPaiList)
+            ? 1
+            : 0),
         0,
-      )
+      );
     }
 
     if (option.isKoutsu !== undefined) {
       return this.paiPairs.reduce(
-        (sum, paiPair) => sum + (
-          paiPair.isKoutsu && paiPair.pattern.includesWithMatrix(
-            targetPaiList,
-          ) ? 1 : 0),
+        (sum, paiPair) =>
+          sum +
+          (paiPair.isKoutsu && paiPair.pattern.includesWithMatrix(targetPaiList)
+            ? 1
+            : 0),
         0,
-      )
+      );
     }
 
     if (option.isFuro !== undefined) {
       return this.paiPairs.reduce(
-        (sum, paiPair) => sum + (
-          ((option.isFuro && paiPair.isFuro) || (!option.isFuro && !paiPair.isFuro)) && paiPair.pattern.includesWithMatrix(
-            targetPaiList,
-          ) ? 1 : 0),
+        (sum, paiPair) =>
+          sum +
+          (((option.isFuro && paiPair.isFuro) ||
+            (!option.isFuro && !paiPair.isFuro)) &&
+          paiPair.pattern.includesWithMatrix(targetPaiList)
+            ? 1
+            : 0),
         0,
-      )
+      );
     }
 
     return this.paiPairs.reduce(
-      (sum, paiPair) => sum + (
-        paiPair.pattern.includesWithMatrix(
-          targetPaiList,
-        ) ? 1 : 0),
+      (sum, paiPair) =>
+        sum + (paiPair.pattern.includesWithMatrix(targetPaiList) ? 1 : 0),
       0,
-    )
+    );
   }
 
   count(by: keyof PaiPair): number {
-    if (by === 'pattern') {
-      throw Error('Specified parameter is not allowed');
+    if (by === "pattern") {
+      throw Error("Specified parameter is not allowed");
     }
     let counter = 0;
     for (const paiPair of this.paiPairs) {
       if (paiPair[by]) {
-        counter++
+        counter++;
       }
     }
 
@@ -184,40 +202,43 @@ export class PaiPairCollection {
   }
 
   get jantou(): PaiPair {
-    const jantou = this.paiPairs.find((paiPair) => paiPair.isJantou)
+    const jantou = this.paiPairs.find((paiPair) => paiPair.isJantou);
 
     if (!jantou) {
-      throw new JantouNotFoundError('A Jantou is not found')
+      throw new JantouNotFoundError("A Jantou is not found");
     }
-    return jantou
+    return jantou;
   }
-
 }
 
 export class PaiCollection {
-  readonly paiList: PaiName[] = []
-  private paiPairList: PaiPair[] = []
-  length: number = 0
-
+  readonly paiList: PaiName[] = [];
+  private paiPairList: PaiPair[] = [];
+  length: number = 0;
 
   constructor(paiList: PaiName[]) {
-    this.paiList = paiList
-    this.validatePaiList()
+    this.paiList = paiList;
+    this.validatePaiList();
 
-    this.length = this.paiList.length
+    this.length = this.paiList.length;
   }
 
   isAvailablePai(name: string): name is PaiName {
-    const [extractedName, extractedGroup] = PaiPatternExtractor.extractPaiPair(name as PaiName);
+    const [extractedName, extractedGroup] = PaiPatternExtractor.extractPaiPair(
+      name as PaiName,
+    );
     return (
-      ["1", "2", "3", "4", "5", "6", "7"].includes(extractedName) && ["z"].includes(extractedGroup)
-    ) || (["1", "2", "3", "4", "5", "6", "7", "8", "9"].includes(extractedName) && ["m", "p", "s"].includes(extractedGroup));
+      (["1", "2", "3", "4", "5", "6", "7"].includes(extractedName) &&
+        ["z"].includes(extractedGroup)) ||
+      (["1", "2", "3", "4", "5", "6", "7", "8", "9"].includes(extractedName) &&
+        ["m", "p", "s"].includes(extractedGroup))
+    );
   }
 
   lookUpPredictionJantouList(): PaiPair[] {
-    const jantouList: PaiPair[] = []
+    const jantouList: PaiPair[] = [];
     // The max pai is 14 (Basically) + 4 (from wanpai maximally) = 18
-    for (let i = 0; i < (14 + 4); i++) {
+    for (let i = 0; i < 14 + 4; i++) {
       const paiList = this.paiList.slice(i, i + 2);
       if (paiList.length !== 2) {
         continue;
@@ -236,53 +257,47 @@ export class PaiCollection {
         isFuro: false,
         includeAkaDora: false,
         pattern: [paiList[0], paiList[1]],
-      })
+      });
     }
-    return jantouList
+    return jantouList;
   }
 
   extract(): PaiPairCollection[] {
     const predictionJantouList = this.lookUpPredictionJantouList();
     let paiPairs: PaiPairCollection[] = [];
 
-    const tryExtraction = (new PaiPatternExtractor(
-      new PaiCollection(this.paiList)
-    )).extract()
+    const tryExtraction = new PaiPatternExtractor(
+      new PaiCollection(this.paiList),
+    ).extract();
 
     // NOTE: The kokushi musou is in specially
-    const findKokushiMusou = tryExtraction
-      .find(paiPairs => paiPairs.some(paiPair => paiPair.isKokushi))
+    const findKokushiMusou = tryExtraction.find((paiPairs) =>
+      paiPairs.some((paiPair) => paiPair.isKokushi),
+    );
 
     if (findKokushiMusou) {
-      return [
-        new PaiPairCollection(findKokushiMusou),
-      ]
+      return [new PaiPairCollection(findKokushiMusou)];
     }
 
     // NOTE: The churen poutou is in specially
-    const findChurenPoutou = tryExtraction
-      .find(paiPairs => paiPairs.some(paiPair => paiPair.isChuren))
+    const findChurenPoutou = tryExtraction.find((paiPairs) =>
+      paiPairs.some((paiPair) => paiPair.isChuren),
+    );
 
     if (findChurenPoutou) {
-      return [
-        new PaiPairCollection(findChurenPoutou),
-      ]
+      return [new PaiPairCollection(findChurenPoutou)];
     }
 
     if (predictionJantouList.length === 0) {
-      return [
-        new PaiPairCollection(this.paiPairList),
-      ];
+      return [new PaiPairCollection(this.paiPairList)];
     }
     for (const jantou of predictionJantouList) {
       const extractor = new PaiPatternExtractor(
-        new PaiCollection(
-          this.diff(jantou),
-        ),
+        new PaiCollection(this.diff(jantou)),
       );
 
       for (const extractedPatterns of extractor.extract()) {
-        paiPairs.push(new PaiPairCollection([...extractedPatterns, jantou]))
+        paiPairs.push(new PaiPairCollection([...extractedPatterns, jantou]));
       }
     }
 
@@ -292,33 +307,42 @@ export class PaiCollection {
   private diff(removePaiList: PaiPair): PaiName[] {
     const targetRemovePaiList: PaiName[] = [...removePaiList.pattern];
     const newPaiName: PaiName[] = [];
-    const pickedPositions: number[] = []
+    const pickedPositions: number[] = [];
     for (let i = 0, j = 0; i < targetRemovePaiList.length; i++) {
       for (; j < this.paiList.length; j++) {
         if (pickedPositions.includes(j)) {
           continue;
         }
-        const [ aNumber, aGroup ] = PaiPatternExtractor.extractPaiPair(targetRemovePaiList[i])
-        const [ bNumber, bGroup ] = PaiPatternExtractor.extractPaiPair(this.paiList[j])
+        const [aNumber, aGroup] = PaiPatternExtractor.extractPaiPair(
+          targetRemovePaiList[i],
+        );
+        const [bNumber, bGroup] = PaiPatternExtractor.extractPaiPair(
+          this.paiList[j],
+        );
 
-        if (pickedPositions.length < removePaiList.pattern.length && `${aNumber}${aGroup}` === `${bNumber}${bGroup}`) {
-          pickedPositions.push(j)
+        if (
+          pickedPositions.length < removePaiList.pattern.length &&
+          `${aNumber}${aGroup}` === `${bNumber}${bGroup}`
+        ) {
+          pickedPositions.push(j);
           continue;
         }
 
         newPaiName.push(this.paiList[j]);
       }
     }
-    return newPaiName
+    return newPaiName;
   }
 
   private validatePaiList() {
     for (let i = 0; i < this.paiList.length; i++) {
       if (!this.isAvailablePai(this.paiList[i])) {
-        throw new PaiListFormatAreInvalidError(`The pai format is invalid: ${this.paiList[i]} (index#${i})`)
+        throw new PaiListFormatAreInvalidError(
+          `The pai format is invalid: ${this.paiList[i]} (index#${i})`,
+        );
       }
     }
   }
 }
 
-export default {}
+export default {};

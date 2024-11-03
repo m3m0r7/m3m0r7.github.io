@@ -1,10 +1,9 @@
-import './Utilities/Utilities';
+import "./Utilities/Utilities";
 import { Mahjong } from "./Runtime/Mahjong";
 import { PaiGenerator } from "./Utilities/PaiGenerator";
 import { MahjongDefaultAdditionalSpecialYaku } from "./Runtime/MahjongDefaultOption";
 import { PaiPatternExtractor } from "./Runtime/Extractor/Extractor";
 import { PaiName } from "./@types/types";
-
 
 // torima
 //
@@ -18,14 +17,21 @@ const mahjong = new Mahjong(
     //
     // "1m", "1m",
 
+    "1m",
+    "1m",
+    "1m",
+    "2m",
+    "2m",
+    "2m",
+    "3m",
+    "3m",
+    "3m",
+    "2p",
+    "3p",
+    "4p",
 
-
-    "1m", "1m", "1m",
-    "2m", "2m", "2m",
-    "3m", "3m", "3m",
-    "2p", "3p", "4p",
-
-    "2s", "2s",
+    "2s",
+    "2s",
 
     // "1mf", "2m", "3m",
     // "4m", "5m", "6m",
@@ -47,17 +53,14 @@ const mahjong = new Mahjong(
       withRiichi: true,
     },
 
-    uraDoraList: [
-      "2s",
-    ],
-
+    uraDoraList: ["2s"],
 
     jikaze: "2z",
     kaze: "1z",
-  }).score
+  },
+).score;
 
-console.log(mahjong.fourPlayerStyleScore)
-
+console.log(mahjong.fourPlayerStyleScore);
 
 // console.log(PaiPatternExtractor.sortByPaiName(
 //   [
@@ -122,4 +125,4 @@ console.log(mahjong.fourPlayerStyleScore)
 //
 // ], false)
 //
-export default {}
+export default {};

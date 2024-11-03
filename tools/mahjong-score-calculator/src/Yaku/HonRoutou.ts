@@ -4,25 +4,29 @@ import { PaiGenerator } from "../Utilities/PaiGenerator";
 import { Chinitsu } from "./Chinitsu";
 
 export class HonRoutou implements Yaku {
-  private paiPairCollection: PaiPairCollection
-  private option: MahjongOption
+  private paiPairCollection: PaiPairCollection;
+  private option: MahjongOption;
 
   constructor(paiPairCollection: PaiPairCollection, option: MahjongOption) {
-    this.paiPairCollection = paiPairCollection
-    this.option = option
+    this.paiPairCollection = paiPairCollection;
+    this.option = option;
   }
 
-  get type(): Yaku['type'] {
-    return 'NORMAL'
+  get type(): Yaku["type"] {
+    return "NORMAL";
   }
 
   get han(): number {
-    return 2
+    return 2;
   }
 
   get isFulfilled(): boolean {
     return this.paiPairCollection.paiPairs
-      .filter(v => !v.isJantou)
-      .every(paiPair => (paiPair.isKoutsu || paiPair.isKan || paiPair.isToitsu) && paiPair.pattern.includesWithMatrix(PaiGenerator.generateYaoChuHai()))
+      .filter((v) => !v.isJantou)
+      .every(
+        (paiPair) =>
+          (paiPair.isKoutsu || paiPair.isKan || paiPair.isToitsu) &&
+          paiPair.pattern.includesWithMatrix(PaiGenerator.generateYaoChuHai()),
+      );
   }
 }

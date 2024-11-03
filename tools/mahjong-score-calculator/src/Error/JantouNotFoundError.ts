@@ -1,4 +1,1 @@
-export class JantouNotFoundError extends Error {
-
-}
-
+export class JantouNotFoundError extends Error {}

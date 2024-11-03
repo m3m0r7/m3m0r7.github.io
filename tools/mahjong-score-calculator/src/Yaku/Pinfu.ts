@@ -2,46 +2,45 @@ import { MahjongOption, Yaku } from "../@types/types";
 import { PaiPairCollection } from "../Collection/Collection";
 
 export class Pinfu implements Yaku {
-  private paiPairCollection: PaiPairCollection
-  private option: MahjongOption
+  private paiPairCollection: PaiPairCollection;
+  private option: MahjongOption;
 
   constructor(paiPairCollection: PaiPairCollection, option: MahjongOption) {
-    this.paiPairCollection = paiPairCollection
-    this.option = option
+    this.paiPairCollection = paiPairCollection;
+    this.option = option;
   }
 
-  get type(): Yaku['type'] {
-    return 'NORMAL'
+  get type(): Yaku["type"] {
+    return "NORMAL";
   }
 
   get han(): number {
-    return 1
+    return 1;
   }
 
   get isFulfilled(): boolean {
-    const horaPai = this.option.hora.pai
+    const horaPai = this.option.hora.pai;
     if (!horaPai) {
-      return false
+      return false;
     }
 
     // NOTE: The pinfu yaku is not allowed furo
     if (this.paiPairCollection.hasFuro) {
-      return false
+      return false;
     }
 
     for (const paiPair of this.paiPairCollection.paiPairs) {
       // NOTE: The pinfu yaku waits only shuntsu, in other case, it is not fulfilled.
       if (!paiPair.isShuntsu) {
-        continue
+        continue;
       }
-      const [left, _, right] = paiPair.pattern
+      const [left, _, right] = paiPair.pattern;
 
       // NOTE: The pinfu yaku is not allowed to wait a centered pai in shuntsu.
       if (left === horaPai || right === horaPai) {
         return true;
       }
-
     }
-    return false
+    return false;
   }
 }
