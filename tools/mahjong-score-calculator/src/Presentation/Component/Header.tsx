@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { PaiGroupName } from "../../@types/types";
 import MahjongScoreArea from "./MahjongScoreArea";
 import MahjongPaiSelections from "./MahjongPaiSelections";
 import DoCalculateButton from "./DoCalculateButton";
 import OpenCalculationResultButton from "./OpenCalculationResultButton";
+import CalculationStepContext from "../Context/CalculationStepContext";
+import StepMessageButton from "./StepMessageButton";
 
 const Header = (props: { tabType: PaiGroupName | 'option', clickTab: (value: PaiGroupName | 'option') => void }) => {
+  const [calculationStep, setCalculationStep] = useContext(CalculationStepContext)
+
   return <div className="header">
     <h1 className="title">麻雀点数計算機β ver 0.29</h1>
     <MahjongScoreArea />
     <div className="pl-2 pr-2">
-      <OpenCalculationResultButton />
+      { (calculationStep?.step === 'select-pai' || calculationStep?.step === 'finish') && <OpenCalculationResultButton /> }
+      { (calculationStep?.step === 'select-dora' || calculationStep?.step === 'select-ura-dora' || calculationStep?.step === 'select-hora-pai') && <StepMessageButton /> }
     </div>
     <MahjongPaiSelections />
     <ul className="grid grid-cols-5 gap-1 pai-selection-tab">

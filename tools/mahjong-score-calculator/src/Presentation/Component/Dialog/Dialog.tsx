@@ -6,6 +6,7 @@ import './dialog.css'
 import DialogContext from "../../Context/DialogContext";
 import DialogScoreCalculation from "./DialogScoreCalculation";
 import DialogScoreDetails from "./DialogScoreDetails";
+import DialogResetCalculation from "./DialogResetCalculation";
 
 const Dialog = () => {
   const [dialog] = useContext(DialogContext)
@@ -17,6 +18,7 @@ const Dialog = () => {
     <DialogSelectPai />
     <DialogScoreCalculation />
     <DialogScoreDetails />
+    <DialogResetCalculation />
   </DialogOverlay>
 }
 

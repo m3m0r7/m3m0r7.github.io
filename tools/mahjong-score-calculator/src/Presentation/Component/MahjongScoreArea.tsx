@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { PaiGroupName, PaiName, ScoreData } from "../../@types/types";
+import { Hora, PaiGroupName, PaiName, ScoreData } from "../../@types/types";
 import { createURL } from "../Option";
 import CalculationStepContext from "../Context/CalculationStepContext";
 import { Mahjong } from "../../Runtime/Mahjong";
-import PaiSelectionContext from "../Context/PaiSelectionContext";
+import PaiSelectionContext, { PaiOptionInfo } from "../Context/PaiSelectionContext";
 import ScoreDataContext from "../Context/ScoreDataContext";
 import OptionContext from "../Context/OptionContext";
 import { MahjongDefaultAdditionalSpecialYaku, MahjongDefaultLocalRules } from "../../Runtime/MahjongDefaultOption";
@@ -27,6 +27,15 @@ const MahjongScoreArea = () => {
       selection.paiList.map((v) => `${v.pai}${v.isAkaDora ? 'a' : ''}${v.isFuro ? 'f' : ''}` as PaiName),
       {
         ...option,
+        hora: {
+          ...(option?.hora ?? {}),
+          pai: selection?.paiList?.find((paiOptionInfo: PaiOptionInfo) => paiOptionInfo.isHoraPai)?.pai
+            ?? selection?.paiList?.[0].pai
+            ?? '1m',
+          fromTsumo: option?.hora?.fromTsumo ?? false,
+          fromRon: option?.hora?.fromRon ?? false,
+          fromRinshanPai: option?.hora?.fromRinshanPai ?? false,
+        },
         localRules: {
           ...MahjongDefaultLocalRules,
           ...option?.localRules,
@@ -35,8 +44,8 @@ const MahjongScoreArea = () => {
           ...MahjongDefaultAdditionalSpecialYaku,
           ...(option?.additionalSpecialYaku ?? [])
         },
-        doraList: selection.doraList?.map((v) => v.pai) ?? [],
-        uraDoraList: selection.uraDoraList?.map((v) => v.pai) ?? [],
+        doraList: selection.paiList.filter(v => v.isDoraPai).map(v => v.pai),
+        uraDoraList: selection.paiList.filter(v => v.isUraDoraPai).map(v => v.pai),
       }
     )
 

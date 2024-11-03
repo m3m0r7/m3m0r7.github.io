@@ -11,14 +11,13 @@ export type PaiInfo = {
   isAkaDora: boolean,
   isHoraPai: boolean,
   isDoraPai: boolean,
+  isUraDoraPai: boolean,
 }
 
 export type PaiOptionInfo = (PaiInfo & PaiSelectionType);
 
 export type PaiOption = {
   paiList: PaiOptionInfo[],
-  doraList?: PaiSelectionType[],
-  uraDoraList?: PaiSelectionType[],
 }
 
 const PaiSelectionContext = createContext<[PaiOption, Dispatch<SetStateAction<PaiOption>>] | [null, null]>([null, null])

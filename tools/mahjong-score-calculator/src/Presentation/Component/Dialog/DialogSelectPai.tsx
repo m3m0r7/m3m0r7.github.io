@@ -32,6 +32,7 @@ const DialogSelectPai = () => {
           isDoraPai: doraRef.current?.checked ?? false,
           isFuro: furoRef.current?.checked ?? false,
           isAkaDora: furoRef.current?.checked ?? false,
+          isUraDoraPai: false,
         }
       ]
     })

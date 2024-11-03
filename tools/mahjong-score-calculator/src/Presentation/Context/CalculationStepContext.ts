@@ -9,6 +9,8 @@ export type CalculationStep = {
 } | {
   step: 'select-ura-dora'
 } | {
+  step: 'select-hora-pai'
+} | {
   step: 'finish'
 } | {
   step: 'error',

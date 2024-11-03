@@ -35,11 +35,7 @@ const DialogScoreCalculation = () => {
     return null
   }
 
-  const doCalculate = () => {
-    setCalculationStep?.({
-      step: 'finish',
-    })
-
+  const applyOptions = () => {
     const yakuList: HTMLInputElement[] = [...document.querySelectorAll<HTMLInputElement>('.DialogScoreCalculation [name="yaku[]"]:checked')]
     const honba = document.querySelector<HTMLInputElement>('.DialogScoreCalculation [name="honba"]:checked')?.value
     const horaFrom = document.querySelector<HTMLInputElement>('.DialogScoreCalculation [name="horaFrom"]:checked')?.value
@@ -57,6 +53,8 @@ const DialogScoreCalculation = () => {
         fromTsumo: Number(horaFrom) == 1 || rinshanKaihou,
         fromRinshanPai: rinshanKaihou,
       },
+      doraList: selection?.paiList?.filter(v => !v.isDoraPai).map(v => v.pai),
+      uraDoraList: selection?.paiList?.filter(v => !v.isUraDoraPai).map(v => v.pai),
       honba: Number(honba),
       kaze: chanFon as PaiKazeName,
       jikaze: menFon as PaiKazeName,
@@ -76,17 +74,23 @@ const DialogScoreCalculation = () => {
         withKokushiMusou13MenMachi: yakuList.some(yaku => yaku.value === KokushiMusou13MenMachi.name),
       },
     })
+  }
 
+  const doCalculate = () => {
+    setCalculationStep?.({
+      step: 'finish',
+    })
+    applyOptions()
     setDialog?.({
       open: false,
     })
   }
 
-  const nextStep = () => {
+  const doSelectDora = () => {
     setCalculationStep?.({
       step: 'select-dora',
     })
-
+    applyOptions()
     setDialog?.({
       open: false,
     })
@@ -281,11 +285,19 @@ const DialogScoreCalculation = () => {
     </div>
     <div className="dialog-footer mt-2 mb-3 ml-3 mr-3">
 
-      <button type="button" className="button primary-button outline-button w-full"
-              onClick={() => setDialog?.({ open: false })}>
-        戻る
-      </button>
-      <button type="button" className="button primary-button mt-2 w-full" onClick={doCalculate}>
+      <div className="grid grid-cols-2 gap-2">
+        <button type="button" className="button primary-button outline-button w-full"
+                onClick={() => setDialog?.({ open: false })}>
+          戻る
+        </button>
+
+        <button type="button" className="button primary-button w-full"
+                onClick={doSelectDora}>
+          ドラを選択する
+        </button>
+      </div>
+      <hr className="mt-2 mb-2" />
+      <button type="button" className="button primary-button w-full" onClick={doCalculate}>
         このまま計算する
       </button>
     </div>

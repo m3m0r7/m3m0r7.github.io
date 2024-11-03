@@ -10,6 +10,9 @@ export type DialogType = {
   openType: 'score-detail'
 } | {
   open: true
+  openType: 'reset-calculation'
+} | {
+  open: true
   openType: 'select-pai',
   value: PaiSelectionType,
 } | {

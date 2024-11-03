@@ -37,7 +37,7 @@ const App = () => {
 
         "2s",
         "2s",
-      ].map((pai) => ({ index: 0, isFuro: false, isHoraPai: false, isDoraPai: false, isAkaDora: false, pai: pai as PaiName }))
+      ].map((pai) => ({ index: 0, isFuro: false, isHoraPai: false, isDoraPai: false, isAkaDora: false, isUraDoraPai: false, pai: pai as PaiName }))
       // // NOTE: for testing automatically inputting
       // ...Array.from({ length: 9 }, (_, k) => k).map<PaiOptionInfo>(v => ({
       //   pai: `${v + 1}m` as PaiName,
