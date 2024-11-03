@@ -4,7 +4,14 @@
   },
   "devDependencies": {
     "@types/node": "^22.8.2",
+    "@types/react-dom": "^18.3.1",
+    "autoprefixer": "^10.4.20",
+    "css-loader": "^7.1.2",
+    "postcss": "^8.4.47",
+    "postcss-loader": "^8.1.1",
     "prettier": "^3.3.3",
+    "style-loader": "^4.0.0",
+    "tailwindcss": "^3.4.14",
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.2",
     "tsc-alias": "^1.8.10",
@@ -13,5 +20,9 @@
     "vitest": "^2.1.4",
     "webpack": "^5.95.0",
     "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   }
 }

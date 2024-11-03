@@ -1,0 +1,206 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --manzu-color: #E6444F;
+  --pinzu-color: #62488C;
+  --souzu-color: #84B368;
+  --tsupai-color: #888888;
+  --option-color: #E6992B;
+  --primary-color: #FF778E;
+
+  --secondary-color: #3F5270;
+}
+
+*, html {
+  font-family: "Noto Sans JP", sans-serif;
+}
+
+.pai-selection-tab {
+  min-width: calc(80px * 4);
+  margin: 0 10px;
+  margin-top: 10px;
+}
+
+.pai-selection-tab-item {
+  font-weight: bolder;
+  text-align: center;
+  padding: 10px;
+  border-radius: 8px 8px 0 0;
+  background-color: #E0E0E0;
+  color: #333333;
+  cursor: pointer;
+}
+
+a {
+  color: var(--primary-color);
+}
+
+.pai-selection-tab-item--active {
+  color: #FFFFFF;
+}
+
+.pai-selection-tab-item--active.pai-selection-tab-item--m, .pai-selection-tab-divider--m {
+  background-color: var(--manzu-color);
+}
+.pai-selection-tab-item--active.pai-selection-tab-item--p, .pai-selection-tab-divider--p {
+  background-color: var(--pinzu-color);
+}
+.pai-selection-tab-item--active.pai-selection-tab-item--s, .pai-selection-tab-divider--s {
+  background-color: var(--souzu-color);
+}
+.pai-selection-tab-item--active.pai-selection-tab-item--z, .pai-selection-tab-divider--z {
+  background-color: var(--tsupai-color);
+}
+.pai-selection-tab-item--active.pai-selection-tab-item--option, .pai-selection-tab-divider--option {
+  background-color: var(--option-color);
+}
+
+.pai-selection-tab-divider {
+  height: 5px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.footer {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  padding: 10px;
+  padding-top: 10px;
+  background-color: #333333;
+  color: #FFFFFF;
+  z-index: 5;
+  height: 75px;
+  box-sizing: border-box;
+}
+
+.footer p {
+  font-size: 10px;
+  text-align: center;
+}
+
+.footer p.copyright {
+  margin-top: 10px;
+}
+
+.header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  background-color: #FFFFFF;
+  box-sizing: border-box;
+}
+
+.pai-container {
+  margin-top: 384px;
+  margin-bottom: 95px;
+  padding: 10px;
+}
+
+.pai-selections {
+  margin: 10px;
+}
+
+.pai-selections li {
+  width: 44px;
+  height: 63px;
+  background-color: #EEEEEE;
+  border-radius: 5px;
+  border: 1px dashed #CCCCCC;
+  box-sizing: border-box;
+
+}
+
+.pai-selection-text {
+  font-size: 16px;
+  color: #888888;
+}
+
+.score-area {
+  margin: 10px;
+  padding: 10px;
+  background-color: #EEEEEE;
+  border: 1px solid #CCCCCC;
+  border-radius: 5px;
+
+}
+
+.score-area h2 {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.score-area--value {
+  margin-top: 8px;
+  font-size: 24px;
+}
+
+.score-area > div {
+  border-left: 1px dashed #CCCCCC;
+}
+
+.score-area > div:first-child {
+  border: none
+}
+
+.button {
+  text-align: center;
+  border-radius: 4px;
+  padding: 8px 0;
+  transition: opacity 0.2s ease;
+  box-sizing: border-box;
+}
+
+.button:hover {
+  opacity: 0.8;
+}
+
+.primary-button, .do-calculate-button {
+  background-color: var(--secondary-color);
+  color: #FFFFFF;
+}
+
+.primary-button.outline-button {
+  background: transparent;
+  border: 2px solid var(--secondary-color);
+  color: var(--secondary-color);
+}
+
+.calculation-result-button {
+  border: 2px solid #9F89A9;
+  color: #9F89A9;
+}
+
+.button[disabled] {
+  border-color: #EEEEEE;
+  background-color: #EEEEEE;
+  color: #CCCCCC;
+  cursor: not-allowed;
+}
+
+.calculation-button-position {
+  background-color: #FFFFFF;
+  position: fixed;
+  bottom: 85px;
+  width: 100%;
+}
+
+.pai-selections--pai {
+  background-position: 50% 50%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+}
+
+button.pai[disabled] {
+  filter: grayscale(100%);
+  cursor: pointer;
+  opacity: 0.5;
+}

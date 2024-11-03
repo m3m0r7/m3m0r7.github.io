@@ -286,8 +286,8 @@ export interface SystemOption {
 export interface MahjongOption extends SystemOption {
   hora: Hora;
   honba: number;
-  kaze: Pai<"1", "z"> | Pai<"2", "z"> | Pai<"3", "z"> | Pai<"4", "z">;
-  jikaze: Pai<"1", "z"> | Pai<"2", "z"> | Pai<"3", "z"> | Pai<"4", "z">;
+  kaze: PaiKazeName;
+  jikaze: PaiKazeName;
   uraDoraList: PaiName[];
   doraList: PaiName[];
   localRules: {
