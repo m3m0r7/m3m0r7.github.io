@@ -64,9 +64,47 @@ import {
   SangenPai,
   Tsumo
 } from "../Fu";
+import { PaiName, PaiNamePattern } from "../@types/types";
+import { PaiGenerator } from "../Utilities/PaiGenerator";
+import { PaiPatternExtractor } from "../Runtime/Extractor/Extractor";
+
+const paiNumberName = { "1": "一", "2": "二", "3": "三", "4": "四", "5": "五", "6": "六", "7": "七", "8": "八", "9": "九" }
+const paiGroupNamePatterns = {
+  m: {name: "萬子"},
+  p: {name: "筒子"},
+  s: {name: "索子"},
+  "1-4z": {name: "字牌", patterns: { "1": "東", "2": "南", "3": "西", "4": "北" }},
+  "5-7z": {name: "三元牌", patterns: {  "5": "白", "6": "発", "7": "中" }},
+}
+
+type TranslationType = Record<PaiName, { number: number, name: string, groupName: string }>
+const generateTranslation = (generator: PaiGenerator) => generator.generate()
+  .reduce<TranslationType>((carry, value) => {
+    const [ number, group ] = PaiPatternExtractor.extractPaiPair(value)
+    return {
+      ...carry,
+      [value]: {
+        number: parseInt(number),
+        name: paiNumberName[number],
+        groupName: group === 'z'
+          ? (
+            parseInt(number) > 4
+              ? paiGroupNamePatterns['5-7z'].name
+              : paiGroupNamePatterns['1-4z'].name
+          )
+          : paiGroupNamePatterns[group].name
+      },
+    }
+  }, {} as TranslationType)
 
 export default {
   ja: {
+    pai: {
+      ...(generateTranslation(new PaiGenerator('1', '9', 'm'))),
+      ...(generateTranslation(new PaiGenerator('1', '9', 'p'))),
+      ...(generateTranslation(new PaiGenerator('1', '9', 's'))),
+      ...(generateTranslation(new PaiGenerator('1', '7', 'z'))),
+    },
     fu: {
       [Futei.name]: '基本符',
       [Ankou.name]: '暗刻',

@@ -199,13 +199,6 @@ export class PaiCollection {
   private paiPairList: PaiPair[] = []
   length: number = 0
 
-  private paiNumberName = { "1": "一", "2": "二", "3": "三", "4": "四", "5": "五", "6": "六", "7": "七", "8": "八", "9": "九" }
-  private paiGroupNamePatterns: PaiNamePattern = {
-    "m": {name: "萬子"},
-    "p": {name: "筒子"},
-    "s": {name: "索子"},
-    "z": {name: "字牌・三元牌", patterns: { "1z": "東", "2z": "南", "3z": "西", "4z": "北", "5z": "白", "6z": "発", "7z": "中" }},
-  }
 
   constructor(paiList: PaiName[]) {
     this.paiList = paiList
@@ -285,7 +278,7 @@ export class PaiCollection {
       const extractor = new PaiPatternExtractor(
         new PaiCollection(
           this.diff(jantou),
-        )
+        ),
       );
 
       for (const extractedPatterns of extractor.extract()) {
@@ -299,11 +292,20 @@ export class PaiCollection {
   private diff(removePaiList: PaiPair): PaiName[] {
     const targetRemovePaiList: PaiName[] = [...removePaiList.pattern];
     const newPaiName: PaiName[] = [];
+    const pickedPositions: number[] = []
     for (let i = 0, j = 0; i < targetRemovePaiList.length; i++) {
       for (; j < this.paiList.length; j++) {
-        if (targetRemovePaiList[i] === this.paiList[j]) {
+        if (pickedPositions.includes(j)) {
           continue;
         }
+        const [ aNumber, aGroup ] = PaiPatternExtractor.extractPaiPair(targetRemovePaiList[i])
+        const [ bNumber, bGroup ] = PaiPatternExtractor.extractPaiPair(this.paiList[j])
+
+        if (pickedPositions.length < removePaiList.pattern.length && `${aNumber}${aGroup}` === `${bNumber}${bGroup}`) {
+          pickedPositions.push(j)
+          continue;
+        }
+
         newPaiName.push(this.paiList[j]);
       }
     }

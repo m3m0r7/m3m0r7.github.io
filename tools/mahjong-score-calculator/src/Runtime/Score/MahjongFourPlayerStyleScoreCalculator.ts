@@ -1,16 +1,24 @@
 import { MahjongFulfilledYakuValidator } from "../../Validator/MahjongFulfilledYakuValidator";
 import { MahjongFulfilledFuValidator } from "../../Validator/MahjongFulfilledFuValidator";
 import { PaiPairCollection } from "../../Collection/Collection";
-import { PlayStyle, Score, ScoreData, ScoreFu, ScoreYaku } from "../../@types/types";
+import {
+  CollectionAndScores,
+  PaiFormat,
+  PaiInfo, PaiName,
+  Score,
+  ScoreData,
+  ScoreFu,
+  ScoreTable,
+  ScoreYaku
+} from "../../@types/types";
 import { Mahjong } from "../Mahjong";
 import I18n from "../../Lang/I18n"
 import { ChiiToitsu, KazoeYakuman, NagashiMangan, Pinfu } from "../../Yaku";
-
-type ScoreTable = Record<number, Record<number, number>>
+import { PaiPatternExtractor } from "../Extractor/Extractor";
 
 export class MahjongFourPlayerStyleScoreCalculator {
   private paiPairCollections: PaiPairCollection[]
-  private calculatedYakuAndFu: Score[][]
+  private calculatedYakuAndFu: CollectionAndScores[]
   private mahjong: Mahjong
   private _scoreData: ScoreData | null = null
   private scoreTable: { parent: ScoreTable, child: ScoreTable } = {
@@ -32,7 +40,7 @@ export class MahjongFourPlayerStyleScoreCalculator {
     this.mahjong = mahjong
     this.paiPairCollections = paiPairCollections;
     this.calculatedYakuAndFu = this.paiPairCollections.map(collection => this.calculateYakuAndFu(collection))
-      .filter(score => score.length > 0)
+      .filter(collectionAndScores => collectionAndScores.scores.length > 0)
   }
 
   get isValid() {
@@ -46,7 +54,7 @@ export class MahjongFourPlayerStyleScoreCalculator {
     return this._scoreData = this.calculateScoreData(this.calculatedYakuAndFu)
   }
 
-  private calculateYakuAndFu(collection: PaiPairCollection): Score[] {
+  private calculateYakuAndFu(collection: PaiPairCollection): CollectionAndScores {
     const scores: Score[] = []
     const yakuValidator = new MahjongFulfilledYakuValidator(collection, this.mahjong.option);
 
@@ -70,14 +78,15 @@ export class MahjongFourPlayerStyleScoreCalculator {
       })))
     }
 
-    return scores
+    return { collection, scores }
   }
 
-  private calculateScoreData(yakuAndFuList: Score[][]): ScoreData | null {
+  private calculateScoreData(collectionAndScores: CollectionAndScores[]): ScoreData | null {
     let scoreData: Partial<ScoreData> | null = null;
 
-    for (const yakuAndFu of yakuAndFuList) {
-      if (!yakuAndFu.some(score => score.isYaku && (score.yaku.availableHora === undefined || score.yaku.availableHora))) {
+    for (const collectionAndScore of collectionAndScores) {
+      const yakuAndFu = collectionAndScore.scores
+      if (! yakuAndFu.some(score => score.isYaku && (score.yaku.availableHora === undefined || score.yaku.availableHora))) {
         continue;
       }
 
@@ -137,12 +146,12 @@ export class MahjongFourPlayerStyleScoreCalculator {
       //       It is not available under 30 pu and 1 han.
       //       And so, 20 pu 1 han is only available the menzen-tsumo and the pinfu yaku, and/or chiitoitsu which is minimally 25 fu 1 han.
       //       Therefore, which is needed to round up to 30 pu 1 han minimally.
-      if (tempScoreData.fu < 30 && !(yakuAndFu.find(value => value.isYaku) instanceof Pinfu) && !isChiiToitsu) {
+      if (tempScoreData.fu < 30 && ! (yakuAndFu.find(value => value.isYaku) instanceof Pinfu) && ! isChiiToitsu) {
         tempScoreData.fu = 30;
       }
 
-      let calculationYaku: ScoreData['yaku'] = tempScoreData.appliedYakuList?.map(yaku => !yaku.isYakuman && !yaku.isDoubleYakuman && (yaku.calculationBasedScore ?? yaku.score)).sum() ?? 0
-      tempScoreData.yaku = tempScoreData.appliedYakuList?.map(yaku => !yaku.isYakuman && !yaku.isDoubleYakuman && yaku.score).sum() ?? 0
+      let calculationYaku: ScoreData['yaku'] = tempScoreData.appliedYakuList?.map(yaku => ! yaku.isYakuman && ! yaku.isDoubleYakuman && (yaku.calculationBasedScore ?? yaku.score)).sum() ?? 0
+      tempScoreData.yaku = tempScoreData.appliedYakuList?.map(yaku => ! yaku.isYakuman && ! yaku.isDoubleYakuman && yaku.score).sum() ?? 0
 
       tempScoreData.yaku = tempScoreData.appliedYakuList?.some(yaku => yaku.isYakuman)
         ? calculationYaku = 'FULL'
@@ -189,7 +198,7 @@ export class MahjongFourPlayerStyleScoreCalculator {
           calculationBasedScore: fulfilledNagashiMangan.yaku.calculationBasedHan ?? fulfilledNagashiMangan.yaku.han,
         }]
 
-        if (!tempScoreData.appliedYakuList[0].isFu && !tempScoreData.appliedYakuList[0].isYakuman && !tempScoreData.appliedYakuList[0].isDoubleYakuman) {
+        if (! tempScoreData.appliedYakuList[0].isFu && ! tempScoreData.appliedYakuList[0].isYakuman && ! tempScoreData.appliedYakuList[0].isDoubleYakuman) {
           tempScoreData.yaku = tempScoreData.appliedYakuList[0].score
           calculationYaku = tempScoreData.appliedYakuList[0].calculationBasedScore ?? 5
         }
@@ -234,8 +243,26 @@ export class MahjongFourPlayerStyleScoreCalculator {
         }
       }
 
-      if (!scoreData || (tempScoreData?.score && scoreData.score?.base && tempScoreData.score.base > scoreData.score.base)) {
-        scoreData = tempScoreData
+      if (! scoreData || (tempScoreData?.score && scoreData.score?.base && tempScoreData.score.base > scoreData.score.base)) {
+        scoreData = {
+          ...tempScoreData,
+          paiPatterns: collectionAndScore.collection.paiPairs.reduce<PaiFormat[]>((paiList, paiPair) => {
+            paiList.push({
+              ...paiPair,
+              pattern: paiPair.pattern.map<PaiInfo>((paiName) => {
+                const [number, group, option ] = PaiPatternExtractor.extractPaiPair(paiName)
+                return {
+                  ...option,
+                  number: parseInt(number),
+                  name: I18n.ja.pai[`${number}${group}` as PaiName].name,
+                  group: I18n.ja.pai[`${number}${group}` as PaiName].groupName,
+                }
+              })
+            })
+
+            return paiList
+          }, [])
+        }
       }
     }
 
@@ -245,9 +272,11 @@ export class MahjongFourPlayerStyleScoreCalculator {
 
     return Object.assign<ScoreData, typeof scoreData>({
       score: { base: 0 },
+      paiPatterns: [],
       fu: 0,
       yaku: 0,
       honba: 0,
+
       appliedFuList: [],
       appliedYakuList: [],
     }, scoreData)

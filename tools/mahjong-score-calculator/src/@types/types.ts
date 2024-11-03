@@ -1,3 +1,5 @@
+import { PaiPairCollection } from "../Collection/Collection";
+
 type Repeat<T, N extends number, R extends T[] = []> =
   R['length'] extends N
     ? R
@@ -281,8 +283,21 @@ export type CalculatedScore = {
   calculationBasedScore?: number
 }
 
+export type PaiInfo = {
+  number: number
+  name: string
+  group: string
+  fromFuro: boolean
+  isAkaDora: boolean
+}
+
+export type PaiFormat = {
+  pattern: PaiInfo[],
+} & Omit<PaiPair, 'pattern'>
+
 export type ScoreData = {
   score: { base: number, parent?: number, child?: number }
+  paiPatterns: PaiFormat[],
   fu: number | null
   yaku: number | 'FULL' | 'DOUBLE_FULL'
   honba: number
@@ -291,5 +306,9 @@ export type ScoreData = {
 }
 
 export type PlayStyle = '4ma' | '3ma';
+
+export type ScoreTable = Record<number, Record<number, number>>
+export type CollectionAndScores = { collection: PaiPairCollection, scores: Score[] }
+
 
 export default {}

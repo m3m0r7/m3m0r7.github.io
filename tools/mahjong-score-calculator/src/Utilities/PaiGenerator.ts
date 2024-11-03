@@ -1,4 +1,4 @@
-import { OneToNine, PaiGroup, PaiGroupName, PaiName } from "../@types/types";
+import { OneToNine, PaiGroup, PaiGroupName, PaiName, Shuntsu } from "../@types/types";
 
 class PaiGeneratorCache {
   private static paiCache: Record<string, PaiName[]> = {}
@@ -99,5 +99,15 @@ export class PaiGenerator {
 
       `9${groupName}`, `9${groupName}`, `9${groupName}`,
     ] as PaiName[])
+  }
+
+  static generateShuntsuPatterns(): PaiName[][] {
+    let shuntsuPatterns: PaiName[][] = []
+    for (const groupName of [ 'm', 'p', 's' ]) {
+      for (let i = 1; i <= (9 - 2); i++) {
+        shuntsuPatterns.push([`${i}${groupName}`, `${i + 1}${groupName}`, `${i + 2}${groupName}`] as PaiName[])
+      }
+    }
+    return shuntsuPatterns
   }
 }

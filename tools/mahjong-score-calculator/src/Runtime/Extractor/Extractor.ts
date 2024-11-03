@@ -72,39 +72,63 @@ export class PaiPatternExtractor {
       return result
     }
 
-    // Split by groups
-    const newResult: PaiGroup<PaiName | null> = PaiPatternExtractor.splitByGroup(result)
+    // NOTE: Here is customised an interleaves logic for mahjong.
+    //       Mahjong sorting algo., is picking-up and grouping sequence able and remaining pais should regularly sort.
+    //       Especially, Ipeikou yaku and RyanPeikou (...and more) yaku needs/requires this algo.,.
+    const sortedResult: { original: PaiName[], sorted: PaiName[], pickedPositions: number[] } = {
+      original: result,
+      sorted: [],
+      pickedPositions: [],
+    }
+    const generatedShuntsuPatterns = PaiGenerator.generateShuntsuPatterns()
 
-    Object.keys(newResult).forEach(keyName => {
-      const groupName = keyName as PaiGroupName
+    for (let i = 0; i < generatedShuntsuPatterns.length;) {
+      const result: number[] = []
+      const shuntsuPattern = generatedShuntsuPatterns[i]
+      const shuntsuPatterns = [
+        PaiPatternExtractor.extractPaiPair(shuntsuPattern[0]),
+        PaiPatternExtractor.extractPaiPair(shuntsuPattern[1]),
+        PaiPatternExtractor.extractPaiPair(shuntsuPattern[2]),
+      ];
 
-      // NOTE: You should to decide length before process a loop because it will change orders based an array
-      let len = 0
+      for (let k = 0; k < shuntsuPatterns.length; k++) {
+        const [ aNumber, aGroup ] = shuntsuPatterns[k]
 
-      // NOTE: Here is definition a start pos
-      let i = 0;
-
-      do {
-        len = newResult[groupName].length
-
-        const appeared: PaiName[] = [];
-        for (; i < len; i++) {
-          const paiName = newResult[groupName][i]
-          if (paiName === null) {
-            continue
-          }
-          if (appeared.includes(paiName)) {
-            newResult[groupName].push(newResult[groupName][i])
-            newResult[groupName][i] = null
+        for (let i = 0; i < sortedResult.original.length; i++) {
+          if (sortedResult.pickedPositions.includes(i)) {
             continue;
           }
-          appeared.push(paiName)
+          const [ bNumber, bGroup ] = PaiPatternExtractor.extractPaiPair(sortedResult.original[i])
+          if (!result.includes(i) && `${aNumber}${aGroup}` === `${bNumber}${bGroup}`) {
+            result.push(i)
+            break;
+          }
         }
-      } while (len !== newResult[groupName].length)
-    })
 
-    return [...newResult.m, ...newResult.p, ...newResult.s, ...newResult.z]
-      .filter((v): v is PaiName => v != null);
+        if (result.length === 3) {
+          break
+        }
+      }
+
+      if (result.length === 3) {
+        sortedResult.pickedPositions.push(...result)
+        sortedResult.sorted.push(...result.map(v => sortedResult.original[v]))
+      }
+
+      if (result.length < 3) {
+        i++
+      }
+    }
+
+    for (let i = 0; i < sortedResult.original.length; i++) {
+      if (sortedResult.pickedPositions.includes(i)) {
+        continue
+      }
+      sortedResult.sorted.push(sortedResult.original[i])
+      sortedResult.pickedPositions.push(i)
+    }
+
+    return sortedResult.sorted
   }
 
   extractShuntsu(paiList: PaiName[]): [PaiPair[], number[]] {
