@@ -13,6 +13,9 @@ const MahjongPaiSelections = () => {
   }
 
   const removePai = (index: number) => {
+    setCalculationStep?.({
+      step: 'select-pai'
+    })
     setSelections?.({
       paiList: selection.paiList.filter((selection, k) => k !== index),
     })
