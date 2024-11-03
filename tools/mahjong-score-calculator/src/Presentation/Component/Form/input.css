@@ -1,6 +1,6 @@
 input[type="checkbox"] {
   appearance: none;
-  outline: 1px solid  #888888;
+  outline: 1px solid #888888;
   outline-offset: 2px;
   width: 14px;
   height: 14px;
@@ -14,12 +14,12 @@ input[type="checkbox"]:checked {
 }
 
 input[type="checkbox"]:checked:disabled {
-  background: #CCCCCC;
+  background: #cccccc;
 }
 
 input[type="radio"] {
   appearance: none;
-  outline: 1px solid  #888888;
+  outline: 1px solid #888888;
   outline-offset: 2px;
   width: 14px;
   height: 14px;
@@ -35,5 +35,5 @@ input[type="radio"]:checked {
 }
 
 input[type="radio"]:checked:disabled {
-  background: #CCCCCC;
+  background: #cccccc;
 }

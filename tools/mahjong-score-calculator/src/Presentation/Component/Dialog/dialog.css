@@ -6,22 +6,21 @@
   width: 100%;
   background-color: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(4px);
-  z-index: 100
+  z-index: 100;
 }
 
 .dialog {
   width: 100%;
   margin: 0 10px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border: 1px solid #888888;
   border-radius: 5px;
   box-sizing: border-box;
-
 }
 
 .dialog-title {
   background-color: var(--secondary-color);
-  color: #FFFFFF;
+  color: #ffffff;
   border-radius: 5px 5px 0 0;
   padding: 10px;
   box-sizing: border-box;

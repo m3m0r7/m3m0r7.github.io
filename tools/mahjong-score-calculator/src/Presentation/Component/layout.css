@@ -2,7 +2,7 @@ body {
   background-color: #252525;
 }
 .layout-contents {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
 }
 
 @media (min-width: 430px) {
@@ -12,6 +12,6 @@ body {
     position: absolute;
     left: calc(50% - 215px);
     top: 0;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
   }
 }

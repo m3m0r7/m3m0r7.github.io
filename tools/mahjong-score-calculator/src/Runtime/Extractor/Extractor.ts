@@ -179,7 +179,10 @@ export class PaiPatternExtractor {
     return [extractedPattern, solvedPositions];
   }
 
-  extractKoutsu(paiList: PaiName[], kanFriendly: boolean = true): [PaiPair[], number[]] {
+  extractKoutsu(
+    paiList: PaiName[],
+    kanFriendly: boolean = true,
+  ): [PaiPair[], number[]] {
     const extractedPattern: PaiPair[] = [];
     const remainingPaiList: PaiName[] = PaiPatternExtractor.sortByPaiName(
       paiList,
@@ -190,7 +193,10 @@ export class PaiPatternExtractor {
     for (let i = 0; i < remainingPaiList.length; i++) {
       const pattern = remainingPaiList.slice(i, i + 3);
 
-      if (kanFriendly && PaiPatternExtractor.shouldKan(remainingPaiList.slice(i, i + 4))) {
+      if (
+        kanFriendly &&
+        PaiPatternExtractor.shouldKan(remainingPaiList.slice(i, i + 4))
+      ) {
         extractedPattern.push(
           PaiPatternExtractor.createPaiPair(
             [
@@ -356,7 +362,7 @@ export class PaiPatternExtractor {
         [],
       );
 
-    for (const kanFriendly of [ true, false ]) {
+    for (const kanFriendly of [true, false]) {
       // NOTE: Shuntsu friendly
       const [
         shuntsuFriendlyShuntsuPatterns,

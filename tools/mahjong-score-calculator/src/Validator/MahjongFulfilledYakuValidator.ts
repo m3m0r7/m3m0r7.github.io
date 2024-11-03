@@ -48,7 +48,7 @@ export class MahjongFulfilledYakuValidator implements Validator {
           continue;
         }
 
-        throw e
+        throw e;
       }
 
       if (record !== null) {
