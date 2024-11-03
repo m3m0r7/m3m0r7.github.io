@@ -179,7 +179,7 @@ export class PaiPatternExtractor {
     return [extractedPattern, solvedPositions];
   }
 
-  extractKoutsu(paiList: PaiName[]): [PaiPair[], number[]] {
+  extractKoutsu(paiList: PaiName[], kanFriendly: boolean = true): [PaiPair[], number[]] {
     const extractedPattern: PaiPair[] = [];
     const remainingPaiList: PaiName[] = PaiPatternExtractor.sortByPaiName(
       paiList,
@@ -190,7 +190,7 @@ export class PaiPatternExtractor {
     for (let i = 0; i < remainingPaiList.length; i++) {
       const pattern = remainingPaiList.slice(i, i + 3);
 
-      if (PaiPatternExtractor.shouldKan(remainingPaiList.slice(i, i + 4))) {
+      if (kanFriendly && PaiPatternExtractor.shouldKan(remainingPaiList.slice(i, i + 4))) {
         extractedPattern.push(
           PaiPatternExtractor.createPaiPair(
             [
@@ -356,50 +356,54 @@ export class PaiPatternExtractor {
         [],
       );
 
-    // NOTE: Shuntsu friendly
-    const [
-      shuntsuFriendlyShuntsuPatterns,
-      shuntsuFriendlyShuntsuSolvedPositions,
-    ] = this.extractShuntsu(this.paiCollection.paiList);
-    const [
-      shuntsuFriendlyKoutsuPatterns,
-      shuntsuFriendlyKoutsuSolvedPositions,
-    ] = this.extractKoutsu(
-      reducer<PaiName>(
-        this.paiCollection.paiList,
+    for (const kanFriendly of [ true, false ]) {
+      // NOTE: Shuntsu friendly
+      const [
+        shuntsuFriendlyShuntsuPatterns,
         shuntsuFriendlyShuntsuSolvedPositions,
-      ),
-    );
-    const [shuntsuFriendlyUnknownPaiList] = this.extractUnknown(
-      reducer<PaiName>(this.paiCollection.paiList, [
-        ...shuntsuFriendlyShuntsuSolvedPositions,
-        ...shuntsuFriendlyKoutsuSolvedPositions,
-      ]),
-    );
-    paiPairList.push([
-      ...shuntsuFriendlyShuntsuPatterns,
-      ...shuntsuFriendlyKoutsuPatterns,
-      ...shuntsuFriendlyUnknownPaiList,
-    ]);
+      ] = this.extractShuntsu(this.paiCollection.paiList);
+      const [
+        shuntsuFriendlyKoutsuPatterns,
+        shuntsuFriendlyKoutsuSolvedPositions,
+      ] = this.extractKoutsu(
+        reducer<PaiName>(
+          this.paiCollection.paiList,
+          shuntsuFriendlyShuntsuSolvedPositions,
+        ),
+        kanFriendly,
+      );
+      const [shuntsuFriendlyUnknownPaiList] = this.extractUnknown(
+        reducer<PaiName>(this.paiCollection.paiList, [
+          ...shuntsuFriendlyShuntsuSolvedPositions,
+          ...shuntsuFriendlyKoutsuSolvedPositions,
+        ]),
+      );
+      paiPairList.push([
+        ...shuntsuFriendlyShuntsuPatterns,
+        ...shuntsuFriendlyKoutsuPatterns,
+        ...shuntsuFriendlyUnknownPaiList,
+      ]);
 
-    // NOTE: Non shuntsu friendly
-    const [koutsuPatterns, koutsuSolvedPositions] = this.extractKoutsu(
-      this.paiCollection.paiList,
-    );
-    const [shuntsuPatterns, shuntsuSolvedPositions] = this.extractShuntsu(
-      reducer<PaiName>(this.paiCollection.paiList, koutsuSolvedPositions),
-    );
-    const [unknownPaiList] = this.extractUnknown(
-      reducer<PaiName>(this.paiCollection.paiList, [
-        ...shuntsuSolvedPositions,
-        ...koutsuSolvedPositions,
-      ]),
-    );
-    paiPairList.push([
-      ...shuntsuPatterns,
-      ...koutsuPatterns,
-      ...unknownPaiList,
-    ]);
+      // NOTE: Non shuntsu friendly
+      const [koutsuPatterns, koutsuSolvedPositions] = this.extractKoutsu(
+        this.paiCollection.paiList,
+        kanFriendly,
+      );
+      const [shuntsuPatterns, shuntsuSolvedPositions] = this.extractShuntsu(
+        reducer<PaiName>(this.paiCollection.paiList, koutsuSolvedPositions),
+      );
+      const [unknownPaiList] = this.extractUnknown(
+        reducer<PaiName>(this.paiCollection.paiList, [
+          ...shuntsuSolvedPositions,
+          ...koutsuSolvedPositions,
+        ]),
+      );
+      paiPairList.push([
+        ...shuntsuPatterns,
+        ...koutsuPatterns,
+        ...unknownPaiList,
+      ]);
+    }
 
     // NOTE: chiitoitsu
     const [chiitoitsuPatterns, chiitoitsuSolvedPositions] =

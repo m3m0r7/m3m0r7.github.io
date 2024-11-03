@@ -5,40 +5,25 @@ import { MahjongDefaultAdditionalSpecialYaku } from "./Runtime/MahjongDefaultOpt
 import { PaiPatternExtractor } from "./Runtime/Extractor/Extractor";
 import { PaiName } from "./@types/types";
 
+
+console.log(PaiPatternExtractor.sortByPaiName([
+  "2m", "3m", "4m",
+  "3m", "4m", "5m",
+  "3p", "3p", "3p",
+  "2p", "3p", "4p",
+  "8s", "8s",
+], true))
+
 // torima
 //
 // // // これを治す
 const mahjong = new Mahjong(
   [
-    // "1m", "2m", "3m",
-    // "2m", "3m", "4m",
-    // "3m", "4m", "5m",
-    // "9m", "9m", "9m",
-    //
-    // "1m", "1m",
-
-    "1m",
-    "1m",
-    "1m",
-    "2m",
-    "2m",
-    "2m",
-    "3m",
-    "3m",
-    "3m",
-    "2p",
-    "3p",
-    "4p",
-
-    "2s",
-    "2s",
-
-    // "1mf", "2m", "3m",
-    // "4m", "5m", "6m",
-    // "7m", "8m", "9m",
-    // "2p", "3p", "4p",
-    //
-    // "2s", "2s",
+    "2m", "3m", "4m",
+    "3m", "4m", "5m",
+    "3p", "3p", "3p",
+    "2p", "3p", "4p",
+    "8s", "8s",
   ],
   {
     hora: {

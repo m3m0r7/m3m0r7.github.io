@@ -24,6 +24,7 @@ export class Tanyao implements Yaku {
     if (this.paiPairCollection.hasFuro && !this.option.localRules.kuitan) {
       return false;
     }
+
     for (const paiPair of this.paiPairCollection.paiPairs) {
       const hasYaoChuHai = paiPair.pattern.some((paiName) =>
         PaiGenerator.generateYaoChuHai().includes(paiName),

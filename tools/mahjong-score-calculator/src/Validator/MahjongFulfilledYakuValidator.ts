@@ -47,6 +47,8 @@ export class MahjongFulfilledYakuValidator implements Validator {
         if (e instanceof JantouNotFoundError) {
           continue;
         }
+
+        throw e
       }
 
       if (record !== null) {
