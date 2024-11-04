@@ -100,7 +100,7 @@ const MahjongScoreArea = () => {
         </h2>
       </div>
       <div className="text-center basis-1/4">
-        <span className="score-area--value">{scoreData?.yaku ?? "-"}</span>
+        <span className="score-area--value">{(scoreData?.yaku === 'FULL' ? '役満' : (scoreData?.yaku === 'DOUBLE_FULL' ? 'ダブル役満' : scoreData?.yaku)) ?? "-"}</span>
         <h2>
           <ruby>
             翻<rp>(</rp>

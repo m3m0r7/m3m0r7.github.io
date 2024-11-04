@@ -76,7 +76,6 @@ a {
 }
 
 .footer {
-  position: absolute;
   width: 100%;
   bottom: 0;
   padding: 10px;
@@ -84,7 +83,6 @@ a {
   background-color: #333333;
   color: #ffffff;
   z-index: 5;
-  height: 75px;
   box-sizing: border-box;
 }
 
@@ -108,7 +106,7 @@ a {
 .pai-container {
   padding: 10px;
   overflow: scroll;
-  height: calc(100vh - 514px);
+  height: calc(100dvh - 514px);
 }
 
 .pai-selections {
@@ -206,8 +204,6 @@ a {
 
 .calculation-button-position {
   background-color: #ffffff;
-  position: absolute;
-  bottom: 75px;
   width: 100%;
 }
 
