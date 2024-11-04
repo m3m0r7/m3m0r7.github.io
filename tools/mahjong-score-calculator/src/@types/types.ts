@@ -171,6 +171,7 @@ export type Shuntsu =
 export type Koutsu = Repeat<PaiName, 3>;
 export type Toitsu = Repeat<PaiName, 2>;
 export type Kan = Repeat<PaiName, 4>;
+export type AkaDoraPai = Pai<"5", "m"> | Pai<"5", "p"> | Pai<"5", "s">;
 
 export type ChiiToitsu = [
   ...Toitsu,
@@ -192,7 +193,7 @@ export type PaiPair =
       isKoutsu: false;
       isKan: false;
       isFuro: false;
-      includeAkaDora: boolean;
+      akaDora: AkaDoraPai | null;
       pattern: Toitsu;
     }
   | {
@@ -204,7 +205,7 @@ export type PaiPair =
       isKoutsu: false;
       isKan: false;
       isFuro: boolean;
-      includeAkaDora: boolean;
+      akaDora: AkaDoraPai | null;
       pattern: Shuntsu;
     }
   | {
@@ -216,7 +217,7 @@ export type PaiPair =
       isKoutsu: true;
       isKan: false;
       isFuro: boolean;
-      includeAkaDora: boolean;
+      akaDora: AkaDoraPai | null;
       pattern: Koutsu;
     }
   | {
@@ -228,7 +229,7 @@ export type PaiPair =
       isKoutsu: false;
       isKan: true;
       isFuro: boolean;
-      includeAkaDora: boolean;
+      akaDora: AkaDoraPai | null;
       pattern: Kan;
     }
   | {
@@ -240,7 +241,7 @@ export type PaiPair =
       isKoutsu: false;
       isKan: false;
       isFuro: false;
-      includeAkaDora: boolean;
+      akaDora: AkaDoraPai | null;
       pattern: PaiName[];
     }
   | {
@@ -252,7 +253,7 @@ export type PaiPair =
       isKoutsu: false;
       isKan: false;
       isFuro: false;
-      includeAkaDora: boolean;
+      akaDora: AkaDoraPai | null;
       pattern: PaiName[];
     }
   | {
@@ -264,7 +265,7 @@ export type PaiPair =
       isKoutsu: false;
       isKan: false;
       isFuro: false;
-      includeAkaDora: boolean;
+      akaDora: AkaDoraPai | null;
       pattern: PaiName[];
     };
 
@@ -296,6 +297,7 @@ export interface MahjongOption extends SystemOption {
     };
     honba: number;
     kuitan: boolean;
+    akaDora: boolean;
   };
   fuList: (new (...args: any[]) => Fu)[];
   yakuList: (new (...args: any[]) => Yaku)[];

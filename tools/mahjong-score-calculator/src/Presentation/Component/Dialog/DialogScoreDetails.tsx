@@ -209,9 +209,7 @@ const DialogScoreDetails = () => {
               <div className="col-span-6 grid grid-cols-3 gap-2">
                 {paiPair.pattern.map((pai, key2) => (
                   <div key={`${key}_${key2}`} className="text-center">
-                    {especiallyPaiPronunciation[
-                      pai.pai
-                    ] && (
+                    {especiallyPaiPronunciation[pai.pai] && (
                       <ruby>
                         {especiallyPaiPronunciation[pai.pai]}
                         <rp>(</rp>
@@ -231,6 +229,7 @@ const DialogScoreDetails = () => {
                       <>
                         <ruby>
                           {pai.name}
+                          {pai.group}
                           <rp>(</rp>
                           <rt>
                             {
@@ -238,13 +237,6 @@ const DialogScoreDetails = () => {
                                 pai.name as keyof (typeof I18n)["ja"]["pronunciation"]["number"]
                               ]
                             }
-                          </rt>
-                          <rp>)</rp>
-                        </ruby>
-                        <ruby>
-                          {pai.group}
-                          <rp>(</rp>
-                          <rt>
                             {
                               I18n.ja.pronunciation.group[
                                 pai.group as keyof (typeof I18n)["ja"]["pronunciation"]["group"]
@@ -262,7 +254,9 @@ const DialogScoreDetails = () => {
                 {paiPair.pattern.map((pai, key2) => (
                   <div key={`${key}_${key2}`}>
                     <img
-                      src={createURL(`images/pai/${pai.pai}.png`)}
+                      src={createURL(
+                        `images/pai/${pai.pai}${pai.isAkaDora ? "a" : ""}.png`,
+                      )}
                       width="100%"
                     />
                   </div>

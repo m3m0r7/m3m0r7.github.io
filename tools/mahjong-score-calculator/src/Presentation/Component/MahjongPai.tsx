@@ -3,12 +3,14 @@ import { PaiGroupName, PaiName } from "../../@types/types";
 import { createURL } from "../Option";
 import DialogContext from "../Context/DialogContext";
 import PaiSelectionContext from "../Context/PaiSelectionContext";
+import OptionContext from "../Context/OptionContext";
 
 const MahjongPai = (props: {
   number: number;
   index: number;
   type: PaiGroupName;
 }) => {
+  const [option, setOption] = useContext(OptionContext);
   const [dialog, setDialog] = useContext(DialogContext);
   const [_selections] = useContext(PaiSelectionContext);
 
@@ -21,6 +23,10 @@ const MahjongPai = (props: {
   }
 
   const pai = `${props.number}${props.type}` as PaiName;
+  const isAkaDora =
+    (option?.localRules?.akaDora ?? false) &&
+    props.index === 3 &&
+    (pai === "5m" || pai === "5p" || pai === "5s");
 
   const openDialog = () => {
     setDialog?.({
@@ -29,6 +35,7 @@ const MahjongPai = (props: {
       value: {
         pai,
         index: props.index,
+        isAkaDora,
       },
     });
   };
@@ -48,7 +55,9 @@ const MahjongPai = (props: {
         onClick={openDialog}
       >
         <img
-          src={createURL(`images/pai/${props.number}${props.type}.png`)}
+          src={createURL(
+            `images/pai/${props.number}${props.type}${isAkaDora ? "a" : ""}.png`,
+          )}
           width="100%"
         />
       </button>

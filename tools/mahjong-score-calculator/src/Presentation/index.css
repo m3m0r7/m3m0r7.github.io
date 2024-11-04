@@ -240,22 +240,14 @@ a {
 
 .pai-selections li.pai-selections--pai--hora {
   border: 2px solid #e0901d;
-  filter: contrast(200%);
 }
 
 .pai-selections li.pai-selections--pai--dora {
   border: 2px solid #e13a3a;
-  filter: contrast(200%);
 }
 
 .pai-selections li.pai-selections--pai--ura-dora {
   border: 2px solid #d21de0;
-  filter: contrast(200%);
-}
-
-.pai-selections li.pai-selections--pai--aka-dora {
-  border: 2px solid #a61816;
-  filter: contrast(200%);
 }
 
 button.pai[disabled] {

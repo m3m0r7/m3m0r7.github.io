@@ -4,6 +4,7 @@ import { PaiName } from "../../@types/types";
 export type PaiSelectionType = {
   pai: PaiName;
   index: number;
+  isAkaDora: boolean;
 };
 
 export type PaiInfo = {

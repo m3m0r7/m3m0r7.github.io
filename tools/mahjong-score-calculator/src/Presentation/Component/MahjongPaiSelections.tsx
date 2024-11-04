@@ -125,7 +125,7 @@ const MahjongPaiSelections = () => {
             <div
               className="pai-selections--pai"
               style={{
-                backgroundImage: `url(${createURL(`images/pai/${v.pai}.png`)})`,
+                backgroundImage: `url(${createURL(`images/pai/${v.pai}${v.isAkaDora ? "a" : ""}.png`)})`,
               }}
             ></div>
           </li>

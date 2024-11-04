@@ -83,7 +83,7 @@ export class PaiPairCollection {
   }
 
   get countAkaDora(): number {
-    return this.count("includeAkaDora");
+    return this.count("akaDora");
   }
 
   get countFuro(): number {
@@ -255,7 +255,7 @@ export class PaiCollection {
         isKoutsu: false,
         isKan: false,
         isFuro: false,
-        includeAkaDora: false,
+        akaDora: null,
         pattern: [paiList[0], paiList[1]],
       });
     }

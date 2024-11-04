@@ -36,6 +36,7 @@ export class Mahjong {
           },
           honba: 300,
           kuitan: true,
+          akaDora: true,
           ...MahjongDefaultOption.localRules,
         },
         fuList: MahjongDefaultOption.fuList ?? [],

@@ -5,10 +5,15 @@ import OptionContext from "../Context/OptionContext";
 import { PaiName } from "../../@types/types";
 import PaiSelectionContext from "../Context/PaiSelectionContext";
 import { PaiGenerator } from "../../Utilities/PaiGenerator";
+import CalculationStepContext from "../Context/CalculationStepContext";
+import { MahjongDefaultLocalRules } from "../../Runtime/MahjongDefaultOption";
 
 const MahjongOption = () => {
   const [selection, setSelection] = useContext(PaiSelectionContext);
   const [option, setOption] = useContext(OptionContext);
+  const [calculationStep, setCalculationStep] = useContext(
+    CalculationStepContext,
+  );
 
   const applyTanyao = () => {
     const paiList = [
@@ -39,6 +44,10 @@ const MahjongOption = () => {
     }));
     paiList[0].isHoraPai = true;
 
+    setCalculationStep?.({
+      step: "select-pai",
+    });
+
     setSelection?.({
       paiList,
     });
@@ -58,6 +67,10 @@ const MahjongOption = () => {
       pai: pai as PaiName,
     }));
     paiList[0].isHoraPai = true;
+
+    setCalculationStep?.({
+      step: "select-pai",
+    });
 
     setSelection?.({
       paiList,
@@ -197,6 +210,10 @@ const MahjongOption = () => {
         },
       ],
     });
+
+    setCalculationStep?.({
+      step: "select-pai",
+    });
   };
 
   return (
@@ -221,8 +238,38 @@ const MahjongOption = () => {
       <ul>
         <li>
           <label>
-            <CheckBox defaultChecked={option?.localRules?.kuitan} />
+            <CheckBox
+              defaultChecked={option?.localRules?.kuitan}
+              onClick={(e) =>
+                setOption?.({
+                  ...option,
+                  localRules: {
+                    ...MahjongDefaultLocalRules,
+                    ...option?.localRules,
+                    kuitan: e.currentTarget.checked,
+                  },
+                })
+              }
+            />
             喰いタン
+          </label>
+        </li>
+        <li>
+          <label>
+            <CheckBox
+              defaultChecked={option?.localRules?.akaDora}
+              onClick={(e) =>
+                setOption?.({
+                  ...option,
+                  localRules: {
+                    ...MahjongDefaultLocalRules,
+                    ...option?.localRules,
+                    akaDora: e.currentTarget.checked,
+                  },
+                })
+              }
+            />
+            赤ドラ
           </label>
         </li>
       </ul>

@@ -14,7 +14,6 @@ const DialogSelectPai = () => {
   const horaRef = useRef<HTMLInputElement | null>(null);
   const doraRef = useRef<HTMLInputElement | null>(null);
   const furoRef = useRef<HTMLInputElement | null>(null);
-  const akaDoraRef = useRef<HTMLInputElement | null>(null);
 
   if (!dialog || !setDialog || !dialog.open || name !== dialog.openType) {
     return null;
@@ -32,7 +31,7 @@ const DialogSelectPai = () => {
           isHoraPai: horaRef.current?.checked ?? false,
           isDoraPai: doraRef.current?.checked ?? false,
           isFuro: furoRef.current?.checked ?? false,
-          isAkaDora: furoRef.current?.checked ?? false,
+          isAkaDora: dialog.value.isAkaDora,
           isUraDoraPai: false,
         },
       ],
@@ -65,15 +64,6 @@ const DialogSelectPai = () => {
               鳴いた牌ですか？（ポン/チー/カン）
             </label>
           </li>
-
-          {parseInt(number) === 5 && (
-            <li className="mb-2">
-              <label className="align-middle">
-                <CheckBox ref={akaDoraRef} />
-                赤ドラですか？
-              </label>
-            </li>
-          )}
         </ul>
       </div>
       <div className="dialog-footer mt-2 mb-3 grid grid-cols-2 gap-2 ml-3 mr-3">

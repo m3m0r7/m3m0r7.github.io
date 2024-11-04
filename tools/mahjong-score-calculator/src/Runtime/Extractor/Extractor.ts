@@ -29,6 +29,16 @@ export class PaiPatternExtractor {
       return `${name}${group}`;
     });
 
+    let akaDora = pattern.find((paiName) => {
+      const [_name, _group, attr] = PaiPatternExtractor.extractPaiPair(paiName);
+      return attr.isAkaDora;
+    });
+
+    if (akaDora) {
+      const [number, group] = PaiPatternExtractor.extractPaiPair(akaDora);
+      akaDora = `${number}${group}` as PaiName;
+    }
+
     return {
       isKokushi: false,
       isChuren: false,
@@ -42,11 +52,7 @@ export class PaiPatternExtractor {
           PaiPatternExtractor.extractPaiPair(paiName);
         return attr.fromFuro;
       }),
-      includeAkaDora: pattern.some((paiName) => {
-        const [_name, _group, attr] =
-          PaiPatternExtractor.extractPaiPair(paiName);
-        return attr.isAkaDora;
-      }),
+      akaDora,
       ...option,
       pattern: convertedNormallyPattern,
     } as PaiPair;
@@ -296,7 +302,7 @@ export class PaiPatternExtractor {
             isKoutsu: false,
             isKan: false,
             isFuro: false,
-            includeAkaDora: false,
+            akaDora: null,
             pattern: paiList,
           },
         ],
@@ -338,7 +344,7 @@ export class PaiPatternExtractor {
                 isKoutsu: false,
                 isKan: false,
                 isFuro: false,
-                includeAkaDora: false,
+                akaDora: null,
                 pattern: remainingPaiList,
               },
             ],

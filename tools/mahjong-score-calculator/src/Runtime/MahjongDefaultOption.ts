@@ -84,6 +84,7 @@ export const MahjongDefaultLocalRules: MahjongOption["localRules"] = {
   },
   honba: 300,
   kuitan: true,
+  akaDora: true,
 };
 
 // NOTE: The other property will be merged

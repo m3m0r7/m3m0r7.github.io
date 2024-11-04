@@ -96,6 +96,7 @@ const App = () => {
             },
             honba: optionParam.localRules?.honba ?? 300,
             kuitan: optionParam.localRules?.kuitan ?? true,
+            akaDora: optionParam.localRules?.akaDora ?? true,
           },
           fuList: MahjongDefaultOption.fuList ?? [],
           yakuList: MahjongDefaultOption.yakuList ?? [],
