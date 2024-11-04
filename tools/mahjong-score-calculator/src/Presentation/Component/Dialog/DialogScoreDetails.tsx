@@ -3,7 +3,12 @@ import DialogContext, { DialogType } from "../../Context/DialogContext";
 import ScoreDataContext from "../../Context/ScoreDataContext";
 import MahjongScoreArea from "../MahjongScoreArea";
 import OptionContext from "../../Context/OptionContext";
-import { PaiFormat } from "../../../@types/types";
+import {
+  PaiFormat,
+  PaiKazeName,
+  PaiName,
+  PaiSangenName,
+} from "../../../@types/types";
 import { createURL } from "../../Option";
 import I18n from "../../../Lang/I18n";
 
@@ -30,7 +35,7 @@ const DialogScoreDetails = () => {
     "5z": "白",
     "6z": "發",
     "7z": "中",
-  };
+  } as Record<PaiName, string>;
 
   return (
     <div className="dialog">
@@ -204,14 +209,18 @@ const DialogScoreDetails = () => {
               <div className="col-span-6 grid grid-cols-3 gap-2">
                 {paiPair.pattern.map((pai, key2) => (
                   <div key={`${key}_${key2}`} className="text-center">
-                    {especiallyPaiPronunciation[pai.pai] && (
+                    {especiallyPaiPronunciation[
+                      pai.pai
+                    ] && (
                       <ruby>
                         {especiallyPaiPronunciation[pai.pai]}
                         <rp>(</rp>
                         <rt>
                           {
                             I18n.ja.pronunciation.group[
-                              especiallyPaiPronunciation[pai.pai]
+                              especiallyPaiPronunciation[
+                                pai.pai
+                              ] as keyof (typeof I18n)["ja"]["pronunciation"]["group"]
                             ]
                           }
                         </rt>
@@ -223,13 +232,25 @@ const DialogScoreDetails = () => {
                         <ruby>
                           {pai.name}
                           <rp>(</rp>
-                          <rt>{I18n.ja.pronunciation.number[pai.name]}</rt>
+                          <rt>
+                            {
+                              I18n.ja.pronunciation.number[
+                                pai.name as keyof (typeof I18n)["ja"]["pronunciation"]["number"]
+                              ]
+                            }
+                          </rt>
                           <rp>)</rp>
                         </ruby>
                         <ruby>
                           {pai.group}
                           <rp>(</rp>
-                          <rt>{I18n.ja.pronunciation.group[pai.group]}</rt>
+                          <rt>
+                            {
+                              I18n.ja.pronunciation.group[
+                                pai.group as keyof (typeof I18n)["ja"]["pronunciation"]["group"]
+                              ]
+                            }
+                          </rt>
                           <rp>)</rp>
                         </ruby>
                       </>
