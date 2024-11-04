@@ -4,7 +4,6 @@ body {
 }
 .layout-contents {
   background-color: #ffffff;
-  height: 100dvh;
 }
 
 @media (min-width: 430px) {

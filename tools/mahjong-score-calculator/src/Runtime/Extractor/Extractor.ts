@@ -506,7 +506,13 @@ export class PaiPatternExtractor {
   ): [
     keyof PaiNumberName,
     PaiGroupName,
-    { isAkaDora: boolean; fromFuro: boolean },
+    {
+      isAkaDora: boolean;
+      fromFuro: boolean;
+      isUraDora?: boolean;
+      isDora?: boolean;
+      isHoraPai?: boolean;
+    },
   ] {
     const paiAttr = paiName.substring(2) as PaiAttr;
     return [
@@ -515,6 +521,9 @@ export class PaiPatternExtractor {
       {
         isAkaDora: paiAttr.includes("a"),
         fromFuro: paiAttr.includes("f"),
+        ...(paiAttr.includes("u") ? { isUraDora: paiAttr.includes("u") } : {}),
+        ...(paiAttr.includes("d") ? { isDora: paiAttr.includes("d") } : {}),
+        ...(paiAttr.includes("h") ? { isHoraPai: paiAttr.includes("h") } : {}),
       },
     ];
   }

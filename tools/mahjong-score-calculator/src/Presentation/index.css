@@ -32,6 +32,12 @@ html {
   background-color: #e0e0e0;
   color: #333333;
   cursor: pointer;
+  height: 44px;
+  box-sizing: border-box;
+}
+
+ruby {
+  line-height: 14px;
 }
 
 a {
@@ -106,20 +112,29 @@ a {
 .pai-container {
   padding: 10px;
   overflow: scroll;
-  height: calc(100dvh - 514px);
+  height: calc(100dvh - 523px);
+  box-sizing: border-box;
 }
 
 .pai-selections {
   margin: 10px;
 }
 
-.pai-selections li {
+.pai-selections > li {
   width: 44px;
   height: 63px;
   background-color: #eeeeee;
   border-radius: 5px;
   border: 1px dashed #cccccc;
   box-sizing: border-box;
+}
+
+.pai-selections > li.col-span-2 {
+  width: initial;
+  height: initial;
+  background-color: initial;
+  border-radius: initial;
+  border: initial;
 }
 
 .pai-selection-text {
@@ -169,6 +184,7 @@ a {
 .do-calculate-button {
   background-color: var(--secondary-color);
   color: #ffffff;
+  border: 2px solid var(--secondary-color);
 }
 
 .secondary-button {
@@ -178,7 +194,7 @@ a {
 
 .secondary-button.outline-button {
   background: transparent;
-  border: 2px solid #e0901d;
+  border: 1px solid #e0901d;
   color: #e0901d;
 }
 
@@ -196,10 +212,10 @@ a {
 }
 
 .button[disabled] {
-  border-color: #eeeeee;
   background-color: #eeeeee;
   color: #cccccc;
   cursor: not-allowed;
+  border: 2px solid #eeeeee;
 }
 
 .calculation-button-position {
@@ -239,4 +255,29 @@ button.pai[disabled] {
   filter: grayscale(200%);
   cursor: pointer;
   opacity: 0.5;
+}
+
+.share-button {
+  border: 1px solid #888888;
+  padding: 4px;
+  font-size: 12px;
+  border-radius: 4px;
+  color: #888888;
+}
+
+ruby {
+  display: ruby;
+}
+
+rb {
+  display: ruby-base;
+}
+
+rt {
+  display: ruby-text;
+}
+
+rt {
+  font-size: 10px;
+  margin-bottom: -6px;
 }

@@ -100,14 +100,28 @@ const MahjongScoreArea = () => {
         </h2>
       </div>
       <div className="text-center basis-1/4">
-        <span className="score-area--value">{(scoreData?.yaku === 'FULL' ? '役満' : (scoreData?.yaku === 'DOUBLE_FULL' ? 'ダブル役満' : scoreData?.yaku)) ?? "-"}</span>
-        <h2>
-          <ruby>
-            翻<rp>(</rp>
-            <rt>はん</rt>
-            <rp>)</rp>
-          </ruby>
-        </h2>
+        <span className="score-area--value">
+          {(scoreData?.yaku === "FULL" ? (
+            "役満"
+          ) : scoreData?.yaku === "DOUBLE_FULL" ? (
+            <>
+              ダブル
+              <br />
+              役満
+            </>
+          ) : (
+            scoreData?.yaku
+          )) ?? "-"}
+        </span>
+        {scoreData?.yaku !== "FULL" && scoreData?.yaku !== "DOUBLE_FULL" && (
+          <h2>
+            <ruby>
+              翻<rp>(</rp>
+              <rt>はん</rt>
+              <rp>)</rp>
+            </ruby>
+          </h2>
+        )}
       </div>
       {scoreData?.score.parent && scoreData?.score.child && (
         <div className="text-center basis-2/4">
