@@ -50,6 +50,7 @@ import { SuAnkouTankiMachi } from "./SuAnkouTankiMachi";
 import { NagashiMangan } from "./NagashiMangan";
 import { KazoeYakuman } from "./KazoeYakuman";
 import { MenzenTsumo } from "./MenzenTsumo";
+import { PaRenChan } from "./PaRenChan";
 
 export {
   Tanyao,
@@ -104,4 +105,5 @@ export {
   NagashiMangan,
   KazoeYakuman,
   MenzenTsumo,
+  PaRenChan,
 };

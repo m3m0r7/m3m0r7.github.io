@@ -28,7 +28,7 @@ const ippatsuRiichiExampleFormat: PaiName[] = [
   "2s",
 ];
 
-describe("Riichi", () => {
+describe("Ippatsu", () => {
   describe("fulfilled", () => {
     describe("parent", () => {
       test("tsumo", () => {

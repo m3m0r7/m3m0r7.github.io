@@ -14,7 +14,7 @@ import {
 } from "../../@types/types";
 import { Mahjong } from "../Mahjong";
 import I18n from "../../Lang/I18n";
-import { ChiiToitsu, KazoeYakuman, NagashiMangan, Pinfu } from "../../Yaku";
+import { ChiiToitsu, KazoeYakuman, NagashiMangan, PaRenChan, Pinfu } from "../../Yaku";
 import { PaiPatternExtractor } from "../Extractor/Extractor";
 
 export class MahjongFourPlayerStyleScoreCalculator {
@@ -308,8 +308,7 @@ export class MahjongFourPlayerStyleScoreCalculator {
 
       tempScoreData.honba = this.mahjong.option.honba;
 
-      let baseScore =
-        tempScoreData.honba * this.mahjong.option.localRules.honba;
+      let baseScore = 0;
       const isParent = this.mahjong.option.jikaze === "1z";
       const roundUpScore = (score: number): number =>
         Math.ceil(score / 100) * 100;
@@ -392,22 +391,27 @@ export class MahjongFourPlayerStyleScoreCalculator {
           ] ?? 0;
       }
 
+      // NOTE: The PaRenChan yaku is not add additional round score
+      const additionalRoundScore = yakuAndFu.find(
+        (value) => value.isYaku && value.yaku instanceof PaRenChan,
+      ) ? 0 : tempScoreData.honba * this.mahjong.option.localRules.honba;
+
       if (this.mahjong.option.hora.fromTsumo) {
         if (isParent) {
           tempScoreData.score = {
             base: baseScore,
-            child: roundUpScore(baseScore / 3),
+            child: roundUpScore(baseScore / 3) + additionalRoundScore,
           };
         } else {
           tempScoreData.score = {
             base: baseScore,
-            parent: roundUpScore(baseScore / 2),
-            child: roundUpScore(baseScore / 4),
+            parent: roundUpScore(baseScore / 2) + additionalRoundScore,
+            child: roundUpScore(baseScore / 4) + additionalRoundScore,
           };
         }
       } else {
         tempScoreData.score = {
-          base: baseScore,
+          base: baseScore + additionalRoundScore,
         };
       }
 

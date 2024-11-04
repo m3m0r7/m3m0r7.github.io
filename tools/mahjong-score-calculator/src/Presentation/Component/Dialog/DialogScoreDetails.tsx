@@ -34,7 +34,7 @@ const DialogScoreDetails = () => {
             <div>和了</div>
             <div>{option?.hora?.fromTsumo ? "門前清自摸和" : "ロン"}</div>
             <div>本場</div>
-            <div>{(option?.honba ?? 0) * (option?.localRules?.honba ?? 0)}</div>
+            <div>{option?.honba ?? 0} 本場 ({(option?.honba ?? 0) * (option?.localRules?.honba ?? 0)} 点)</div>
           </li>
         </ul>
 

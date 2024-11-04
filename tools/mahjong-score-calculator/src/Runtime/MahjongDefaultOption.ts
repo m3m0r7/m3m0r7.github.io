@@ -39,7 +39,7 @@ import {
   MenFon,
   MenzenTsumo,
   NagashiMangan,
-  OpenRiichi,
+  OpenRiichi, PaRenChan,
   Pinfu,
   RenFon,
   Riichi,
@@ -124,6 +124,7 @@ export const MahjongDefaultOption: Partial<MahjongOption> = {
     SuAnkou,
     KokushiMusou,
     ChurenPoutou,
+    PaRenChan,
 
     // NOTE: Normally yaku
     IkkiTsuukan,
