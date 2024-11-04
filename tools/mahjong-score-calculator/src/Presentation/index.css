@@ -16,6 +16,7 @@
 *,
 html {
   font-family: "Noto Sans JP", sans-serif;
+  overflow: hidden;
 }
 
 .pai-selection-tab {
@@ -112,7 +113,7 @@ a {
 .pai-container {
   padding: 10px;
   overflow: scroll;
-  height: calc(100dvh - 523px);
+  height: calc(100dvh - 533px);
   box-sizing: border-box;
 }
 
