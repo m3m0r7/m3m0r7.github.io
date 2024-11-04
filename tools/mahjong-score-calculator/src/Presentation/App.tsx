@@ -145,7 +145,6 @@ const App = () => {
         <PaiSelectionContext.Provider value={paiSelections}>
           <OptionContext.Provider value={option}>
             <DialogContext.Provider value={dialog}>
-              /
               <Layout>
                 <Header tabType={tabType} clickTab={(v) => setTabType(v)} />
 
