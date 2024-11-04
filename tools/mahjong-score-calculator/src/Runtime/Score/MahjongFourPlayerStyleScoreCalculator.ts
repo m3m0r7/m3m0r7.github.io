@@ -434,6 +434,7 @@ export class MahjongFourPlayerStyleScoreCalculator {
                 return {
                   ...option,
                   number: parseInt(number),
+                  pai: `${number}${group}` as PaiName,
                   name: I18n.ja.pai[`${number}${group}` as PaiName].name,
                   group: I18n.ja.pai[`${number}${group}` as PaiName].groupName,
                 };

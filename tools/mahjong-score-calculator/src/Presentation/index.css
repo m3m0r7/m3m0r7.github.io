@@ -117,7 +117,7 @@ a {
 .pai-container {
   padding: 10px;
   overflow: scroll;
-  height: calc(100dvh - 523px);
+  height: calc(100dvh - 518px);
   box-sizing: border-box;
 }
 
@@ -153,6 +153,7 @@ a {
   background-color: #eeeeee;
   border: 1px solid #cccccc;
   border-radius: 5px;
+  height: 82px;
 }
 
 .score-area h2 {
@@ -268,6 +269,7 @@ button.pai[disabled] {
   font-size: 12px;
   border-radius: 4px;
   color: #888888;
+  cursor: pointer;
 }
 
 .pai-selection-tab-item ruby, .pai-selection-tab-item rb, .pai-selection-tab-item rt, .pai-selection-tab-item rp {
