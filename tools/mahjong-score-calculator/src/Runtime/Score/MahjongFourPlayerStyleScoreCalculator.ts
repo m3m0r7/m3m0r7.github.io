@@ -14,7 +14,13 @@ import {
 } from "../../@types/types";
 import { Mahjong } from "../Mahjong";
 import I18n from "../../Lang/I18n";
-import { ChiiToitsu, KazoeYakuman, NagashiMangan, PaRenChan, Pinfu } from "../../Yaku";
+import {
+  ChiiToitsu,
+  KazoeYakuman,
+  NagashiMangan,
+  PaRenChan,
+  Pinfu,
+} from "../../Yaku";
 import { PaiPatternExtractor } from "../Extractor/Extractor";
 
 export class MahjongFourPlayerStyleScoreCalculator {
@@ -394,7 +400,9 @@ export class MahjongFourPlayerStyleScoreCalculator {
       // NOTE: The PaRenChan yaku is not add additional round score
       const additionalRoundScore = yakuAndFu.find(
         (value) => value.isYaku && value.yaku instanceof PaRenChan,
-      ) ? 0 : tempScoreData.honba * this.mahjong.option.localRules.honba;
+      )
+        ? 0
+        : tempScoreData.honba * this.mahjong.option.localRules.honba;
 
       if (this.mahjong.option.hora.fromTsumo) {
         if (isParent) {

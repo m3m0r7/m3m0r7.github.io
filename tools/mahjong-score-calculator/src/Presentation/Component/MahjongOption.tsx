@@ -67,25 +67,137 @@ const MahjongOption = () => {
   const applyTanyaoButDoubleYakuman = () => {
     setSelection?.({
       paiList: [
-        { pai: "2m", index: 0, isFuro: false, isHoraPai: false, isDoraPai: false, isAkaDora: false, isUraDoraPai: false, },
-        { pai: "3m", index: 0, isFuro: false, isHoraPai: false, isDoraPai: false, isAkaDora: false, isUraDoraPai: false, },
-        { pai: "4m", index: 0, isFuro: false, isHoraPai: false, isDoraPai: false, isAkaDora: false, isUraDoraPai: false, },
-        { pai: "2m", index: 1, isFuro: false, isHoraPai: false, isDoraPai: false, isAkaDora: false, isUraDoraPai: false, },
-        { pai: "3m", index: 1, isFuro: false, isHoraPai: false, isDoraPai: false, isAkaDora: false, isUraDoraPai: false, },
-        { pai: "4m", index: 1, isFuro: false, isHoraPai: false, isDoraPai: false, isAkaDora: false, isUraDoraPai: false, },
-        { pai: "2m", index: 2, isFuro: false, isHoraPai: false, isDoraPai: false, isAkaDora: false, isUraDoraPai: false, },
-        { pai: "3m", index: 2, isFuro: false, isHoraPai: false, isDoraPai: false, isAkaDora: false, isUraDoraPai: false, },
-        { pai: "4m", index: 2, isFuro: false, isHoraPai: false, isDoraPai: false, isAkaDora: false, isUraDoraPai: false, },
+        {
+          pai: "2m",
+          index: 0,
+          isFuro: false,
+          isHoraPai: false,
+          isDoraPai: false,
+          isAkaDora: false,
+          isUraDoraPai: false,
+        },
+        {
+          pai: "3m",
+          index: 0,
+          isFuro: false,
+          isHoraPai: false,
+          isDoraPai: false,
+          isAkaDora: false,
+          isUraDoraPai: false,
+        },
+        {
+          pai: "4m",
+          index: 0,
+          isFuro: false,
+          isHoraPai: false,
+          isDoraPai: false,
+          isAkaDora: false,
+          isUraDoraPai: false,
+        },
+        {
+          pai: "2m",
+          index: 1,
+          isFuro: false,
+          isHoraPai: false,
+          isDoraPai: false,
+          isAkaDora: false,
+          isUraDoraPai: false,
+        },
+        {
+          pai: "3m",
+          index: 1,
+          isFuro: false,
+          isHoraPai: false,
+          isDoraPai: false,
+          isAkaDora: false,
+          isUraDoraPai: false,
+        },
+        {
+          pai: "4m",
+          index: 1,
+          isFuro: false,
+          isHoraPai: false,
+          isDoraPai: false,
+          isAkaDora: false,
+          isUraDoraPai: false,
+        },
+        {
+          pai: "2m",
+          index: 2,
+          isFuro: false,
+          isHoraPai: false,
+          isDoraPai: false,
+          isAkaDora: false,
+          isUraDoraPai: false,
+        },
+        {
+          pai: "3m",
+          index: 2,
+          isFuro: false,
+          isHoraPai: false,
+          isDoraPai: false,
+          isAkaDora: false,
+          isUraDoraPai: false,
+        },
+        {
+          pai: "4m",
+          index: 2,
+          isFuro: false,
+          isHoraPai: false,
+          isDoraPai: false,
+          isAkaDora: false,
+          isUraDoraPai: false,
+        },
 
-        { pai: "2p", index: 0, isFuro: false, isHoraPai: false, isDoraPai: false, isAkaDora: false, isUraDoraPai: false, },
-        { pai: "2p", index: 1, isFuro: false, isHoraPai: false, isDoraPai: false, isAkaDora: false, isUraDoraPai: false, },
-        { pai: "2p", index: 2, isFuro: false, isHoraPai: false, isDoraPai: false, isAkaDora: false, isUraDoraPai: false, },
+        {
+          pai: "2p",
+          index: 0,
+          isFuro: false,
+          isHoraPai: false,
+          isDoraPai: false,
+          isAkaDora: false,
+          isUraDoraPai: false,
+        },
+        {
+          pai: "2p",
+          index: 1,
+          isFuro: false,
+          isHoraPai: false,
+          isDoraPai: false,
+          isAkaDora: false,
+          isUraDoraPai: false,
+        },
+        {
+          pai: "2p",
+          index: 2,
+          isFuro: false,
+          isHoraPai: false,
+          isDoraPai: false,
+          isAkaDora: false,
+          isUraDoraPai: false,
+        },
 
-        { pai: "5m", index: 0, isFuro: false, isHoraPai: false, isDoraPai: false, isAkaDora: false, isUraDoraPai: false, },
-        { pai: "5m", index: 1, isFuro: false, isHoraPai: true, isDoraPai: false, isAkaDora: false, isUraDoraPai: false, },
+        {
+          pai: "5m",
+          index: 0,
+          isFuro: false,
+          isHoraPai: false,
+          isDoraPai: false,
+          isAkaDora: false,
+          isUraDoraPai: false,
+        },
+        {
+          pai: "5m",
+          index: 1,
+          isFuro: false,
+          isHoraPai: true,
+          isDoraPai: false,
+          isAkaDora: false,
+          isUraDoraPai: false,
+        },
       ],
     });
-  }
+  };
 
   return (
     <div>
@@ -93,13 +205,13 @@ const MahjongOption = () => {
       <ul>
         <li>
           <label>
-            <Radio checked disabled/>
+            <Radio checked disabled />
             四人麻雀
           </label>
         </li>
         <li>
           <label>
-            <Radio disabled/>
+            <Radio disabled />
             三人麻雀（未実装）
           </label>
         </li>
@@ -109,7 +221,7 @@ const MahjongOption = () => {
       <ul>
         <li>
           <label>
-            <CheckBox defaultChecked={option?.localRules?.kuitan}/>
+            <CheckBox defaultChecked={option?.localRules?.kuitan} />
             喰いタン
           </label>
         </li>
@@ -167,7 +279,6 @@ const MahjongOption = () => {
         className="button primary-button w-full mt-2 outline-button"
         onClick={applyKokushiMusou}
       >
-
         <ruby>
           国士無双
           <rp>(</rp>
@@ -181,7 +292,6 @@ const MahjongOption = () => {
         className="button primary-button w-full mt-2 outline-button"
         onClick={applyTanyaoButDoubleYakuman}
       >
-
         <ruby>
           断么九
           <rp>(</rp>

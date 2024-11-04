@@ -87,10 +87,12 @@ const MahjongScoreArea = () => {
     );
   }
 
-  const showFuBox = (scoreData?.appliedFuList?.length ?? 0) > 0 || calculationStep?.step !== 'finish'
+  const showFuBox =
+    (scoreData?.appliedFuList?.length ?? 0) > 0 ||
+    calculationStep?.step !== "finish";
   return (
     <div className="score-area flex items-center">
-      {showFuBox &&
+      {showFuBox && (
         <div className="text-center basis-1/4">
           <span className="score-area--value">{scoreData?.fu ?? "-"}</span>
           <h2>
@@ -101,15 +103,17 @@ const MahjongScoreArea = () => {
             </ruby>
           </h2>
         </div>
-      }
-      <div className={showFuBox ? "text-center basis-1/4" : "text-center basis-2/4"}>
+      )}
+      <div
+        className={
+          showFuBox ? "text-center basis-1/4" : "text-center basis-2/4"
+        }
+      >
         <span className="score-area--value">
           {(scoreData?.yaku === "FULL" ? (
             "役満"
           ) : scoreData?.yaku === "DOUBLE_FULL" ? (
-            <>
-              ダブル役満
-            </>
+            <>ダブル役満</>
           ) : (
             scoreData?.yaku
           )) ?? "-"}
@@ -134,9 +138,7 @@ const MahjongScoreArea = () => {
       )}
       {!scoreData?.score.parent && scoreData?.score.child && (
         <div className="text-center basis-2/4">
-          <span className="score-area--value">
-            {scoreData?.score.child}
-          </span>
+          <span className="score-area--value">{scoreData?.score.child}</span>
           <h2>オール</h2>
         </div>
       )}

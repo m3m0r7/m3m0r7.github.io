@@ -501,9 +501,7 @@ export class PaiPatternExtractor {
     return `${aName}${aGroup}` === `${bName}${bGroup}`;
   }
 
-  static extractPaiPair(
-    paiName: PaiName,
-  ): [
+  static extractPaiPair(paiName: PaiName): [
     keyof PaiNumberName,
     PaiGroupName,
     {

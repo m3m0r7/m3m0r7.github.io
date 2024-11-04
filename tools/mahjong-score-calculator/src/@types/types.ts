@@ -389,7 +389,7 @@ export type PaiInfo = {
   number: number;
   name: string;
   group: string;
-  pai: PaiName,
+  pai: PaiName;
   fromFuro: boolean;
   isAkaDora: boolean;
 };

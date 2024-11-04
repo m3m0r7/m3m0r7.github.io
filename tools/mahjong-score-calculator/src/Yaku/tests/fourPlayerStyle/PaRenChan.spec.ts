@@ -183,7 +183,6 @@ describe("PaRenChan", () => {
 
         const score = mahjong.score.fourPlayerStyleScore;
 
-
         expect(score?.score).deep.eq({ base: 32000 });
         expect(score?.honba).eq(8);
         expect(score?.fu).eq(null);
