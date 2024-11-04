@@ -7,6 +7,9 @@ input[type="checkbox"] {
   vertical-align: middle;
   margin-right: 8px;
   margin-left: 3px;
+  position: relative;
+  top: -2px;
+  border-radius: 0;
 }
 
 input[type="checkbox"]:checked {
