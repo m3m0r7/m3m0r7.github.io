@@ -26,11 +26,16 @@ const StepMessageButton = () => {
         });
       } else {
         setCalculationStep?.({
-          step: "select-hora-pai",
+          step: "select-furo-pai",
         });
       }
     }
     if (calculationStep?.step === "select-ura-dora") {
+      setCalculationStep?.({
+        step: "select-hora-pai",
+      });
+    }
+    if (calculationStep?.step === "select-furo-pai") {
       setCalculationStep?.({
         step: "select-hora-pai",
       });
@@ -68,7 +73,9 @@ const StepMessageButton = () => {
       className="button secondary-button w-full"
       onClick={doSelectUraDora}
     >
-      {calculationStep?.step === "select-dora" ? "ドラ" : "裏ドラ"}
+      {calculationStep?.step === "select-dora" && "ドラ"}
+      {calculationStep?.step === "select-ura-dora" && "裏ドラ"}
+      {calculationStep?.step === "select-furo-pai" && "鳴いた牌"}
       を選びおわったら、ここをクリックして次へ
     </button>
   );

@@ -26,6 +26,7 @@ const Header = (props: {
         )}
         {(calculationStep?.step === "select-dora" ||
           calculationStep?.step === "select-ura-dora" ||
+          calculationStep?.step === "select-furo-pai" ||
           calculationStep?.step === "select-hora-pai") && <StepMessageButton />}
       </div>
       <MahjongPaiSelections />

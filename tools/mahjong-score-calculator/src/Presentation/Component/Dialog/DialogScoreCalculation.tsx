@@ -455,7 +455,7 @@ const DialogScoreCalculation = () => {
             className="button primary-button w-full"
             onClick={doSelectDora}
           >
-            ドラを選択する
+            詳細設定へ（ドラ等）
           </button>
         </div>
         <hr className="mt-2 mb-2" />

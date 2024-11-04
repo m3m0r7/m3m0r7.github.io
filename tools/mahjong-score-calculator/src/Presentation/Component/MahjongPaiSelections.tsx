@@ -26,13 +26,23 @@ const MahjongPaiSelections = () => {
   };
 
   const selectHora = (index: number) => {
-    const hora = selection.paiList[index];
+    const pai = selection.paiList[index];
 
     setSelections?.({
       ...selection,
       paiList: selection.paiList.map((v, k) => ({
         ...v,
-        isHoraPai: k === index ? !hora.isHoraPai : false,
+        isHoraPai: k === index ? !pai.isHoraPai : false,
+      })),
+    });
+  };
+
+  const selectFuro = (index: number) => {
+    setSelections?.({
+      ...selection,
+      paiList: selection.paiList.map((v, k) => ({
+        ...v,
+        isFuro: k === index ? !v.isFuro : v.isFuro,
       })),
     });
   };
@@ -118,9 +128,11 @@ const MahjongPaiSelections = () => {
                 ? selectDora(k)
                 : calculationStep?.step === "select-hora-pai"
                   ? selectHora(k)
-                  : removePai(k)
+                  : calculationStep?.step === "select-furo-pai"
+                    ? selectFuro(k)
+                    : removePai(k)
             }
-            className={`pai-selection-text flex w-full items-center justify-center  ${selection.paiList[k].isDoraPai ? "pai-selections--pai--dora" : ""} ${selection.paiList[k].isUraDoraPai ? "pai-selections--pai--ura-dora" : ""} ${selection.paiList[k].isAkaDora ? "pai-selections--pai--aka-dora" : ""} ${selection.paiList[k].isHoraPai ? "pai-selections--pai--hora" : ""}`}
+            className={`pai-selection-text flex w-full items-center justify-center  ${selection.paiList[k].isDoraPai ? "pai-selections--pai--dora" : ""} ${selection.paiList[k].isUraDoraPai ? "pai-selections--pai--ura-dora" : ""} ${selection.paiList[k].isAkaDora ? "pai-selections--pai--aka-dora" : ""} ${selection.paiList[k].isHoraPai ? "pai-selections--pai--hora" : ""} ${selection.paiList[k].isFuro ? "pai-selections--pai--furo" : ""}`}
           >
             <div
               className="pai-selections--pai"

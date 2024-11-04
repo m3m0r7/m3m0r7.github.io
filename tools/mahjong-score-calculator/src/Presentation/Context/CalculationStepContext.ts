@@ -13,6 +13,9 @@ export type CalculationStep =
       step: "select-ura-dora";
     }
   | {
+      step: "select-furo-pai";
+    }
+  | {
       step: "select-hora-pai";
     }
   | {

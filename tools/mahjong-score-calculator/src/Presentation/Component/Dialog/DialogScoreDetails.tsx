@@ -252,7 +252,10 @@ const DialogScoreDetails = () => {
               </div>
               <div className="col-span-4 grid grid-cols-3 gap-2">
                 {paiPair.pattern.map((pai, key2) => (
-                  <div key={`${key}_${key2}`}>
+                  <div
+                    key={`${key}_${key2}`}
+                    className={pai.fromFuro ? "pai-selections--pai--furo" : ""}
+                  >
                     <img
                       src={createURL(
                         `images/pai/${pai.pai}${pai.isAkaDora ? "a" : ""}.png`,

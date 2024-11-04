@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import DialogOverlay from "./DialogOverlay";
-import DialogSelectPai from "./DialogSelectPai";
 
 import "./dialog.css";
 import DialogContext from "../../Context/DialogContext";
@@ -18,7 +17,6 @@ const Dialog = () => {
     <DialogOverlay
       className={`${dialog.open ? "" : "hidden"} flex items-center justify-center`}
     >
-      <DialogSelectPai />
       <DialogScoreCalculation />
       <DialogScoreDetails />
       <DialogResetCalculation />

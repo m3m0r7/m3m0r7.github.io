@@ -4,6 +4,7 @@ import { createURL } from "../Option";
 import DialogContext from "../Context/DialogContext";
 import PaiSelectionContext from "../Context/PaiSelectionContext";
 import OptionContext from "../Context/OptionContext";
+import { PaiPatternExtractor } from "../../Runtime/Extractor/Extractor";
 
 const MahjongPai = (props: {
   number: number;
@@ -13,6 +14,7 @@ const MahjongPai = (props: {
   const [option, setOption] = useContext(OptionContext);
   const [dialog, setDialog] = useContext(DialogContext);
   const [_selections] = useContext(PaiSelectionContext);
+  const [paiSelections, setPaiSelections] = useContext(PaiSelectionContext);
 
   const selection = _selections ?? {
     paiList: [],
@@ -28,15 +30,21 @@ const MahjongPai = (props: {
     props.index === 3 &&
     (pai === "5m" || pai === "5p" || pai === "5s");
 
-  const openDialog = () => {
-    setDialog?.({
-      open: true,
-      openType: "select-pai",
-      value: {
-        pai,
-        index: props.index,
-        isAkaDora,
-      },
+  const registerPai = () => {
+    const [number] = PaiPatternExtractor.extractPaiPair(pai);
+    setPaiSelections?.({
+      paiList: [
+        ...(paiSelections?.paiList ?? []),
+        {
+          index: props.index,
+          pai,
+          isHoraPai: false,
+          isDoraPai: false,
+          isFuro: false,
+          isAkaDora,
+          isUraDoraPai: false,
+        },
+      ],
     });
   };
 
@@ -52,7 +60,7 @@ const MahjongPai = (props: {
               selection.pai === pai && selection.index === props.index,
           )
         }
-        onClick={openDialog}
+        onClick={registerPai}
       >
         <img
           src={createURL(
