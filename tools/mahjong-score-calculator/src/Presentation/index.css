@@ -117,7 +117,7 @@ a {
 .pai-container {
   padding: 10px;
   overflow: scroll;
-  height: calc(100dvh - 524px);
+  height: calc(100dvh - 523px);
   box-sizing: border-box;
 }
 
