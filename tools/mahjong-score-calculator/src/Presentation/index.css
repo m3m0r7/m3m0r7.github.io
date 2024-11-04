@@ -270,19 +270,32 @@ button.pai[disabled] {
   color: #888888;
 }
 
-ruby {
-  display: ruby;
+.pai-selection-tab-item ruby, .pai-selection-tab-item rb, .pai-selection-tab-item rt, .pai-selection-tab-item rp {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
 }
 
-rb {
+.pai-selection-tab-item ruby {
+  display: ruby;
+  position: relative;
+  top: 0.25em
+}
+
+.pai-selection-tab-item rb {
   display: ruby-base;
 }
 
-rt {
+.pai-selection-tab-item rt {
   display: ruby-text;
+  font-size: 10px;
+  margin-top: 2px;
+  margin-bottom: -8px;
 }
 
-rt {
-  font-size: 10px;
-  margin-bottom: -6px;
+/* NOTE: Safari (of course cellphones equals) have <ruby> baseline bug. here is fixed and alignment ruby for tabs */
+_::-webkit-full-page-media, _:future, :root .pai-selection-tab-item ruby {
+  top: -0.25em
 }
