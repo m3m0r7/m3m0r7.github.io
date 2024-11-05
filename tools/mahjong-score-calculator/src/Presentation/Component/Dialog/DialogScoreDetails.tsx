@@ -139,14 +139,14 @@ const DialogScoreDetails = () => {
                           <rp>)</rp>
                         </ruby>
                       </div>
-                      <div>+{fu.score}</div>
+                      <div>+{fu.score} 符</div>
                     </li>
                   ),
               )}
               {roundedUpFu > 0 ? (
                 <li className="grid grid-cols-2">
                   <div>切り上げ</div>
-                  <div>+{roundedUpFu}</div>
+                  <div>+{roundedUpFu} 符</div>
                 </li>
               ) : null}
             </ul>
@@ -180,7 +180,7 @@ const DialogScoreDetails = () => {
                   {yaku.isYakuman && <div>役満</div>}
                   {yaku.isDoubleYakuman && <div>ダブル役満</div>}
                   {!yaku.isYakuman && !yaku.isDoubleYakuman && (
-                    <div>+{yaku.score}</div>
+                    <div>+{yaku.score} 翻</div>
                   )}
                 </li>
               ),
@@ -196,14 +196,14 @@ const DialogScoreDetails = () => {
           {scoreData?.score.parent && (
             <li className="grid grid-cols-2">
               <div>親の支払い</div>
-              <div>{scoreData?.score.parent}</div>
+              <div>{scoreData?.score.parent} 点</div>
             </li>
           )}
 
           {scoreData?.score.child && (
             <li className="grid grid-cols-2">
               <div>子の支払い</div>
-              <div>{scoreData?.score.child}</div>
+              <div>{scoreData?.score.child} 点</div>
             </li>
           )}
         </ul>
@@ -355,6 +355,14 @@ const DialogScoreDetails = () => {
                     順子
                     <rp>(</rp>
                     <rt>シュンツ</rt>
+                    <rp>)</rp>
+                  </ruby>
+                )}
+                {paiPair.isKan && (
+                  <ruby>
+                    槓子
+                    <rp>(</rp>
+                    <rt>カン</rt>
                     <rp>)</rp>
                   </ruby>
                 )}

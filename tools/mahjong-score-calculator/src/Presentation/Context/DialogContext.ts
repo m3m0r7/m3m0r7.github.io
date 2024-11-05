@@ -17,6 +17,10 @@ export type DialogType =
     }
   | {
       open: true;
+      openType: "confirm-kan";
+    }
+  | {
+      open: true;
       openType: "select-pai";
       value: PaiSelectionType;
     }

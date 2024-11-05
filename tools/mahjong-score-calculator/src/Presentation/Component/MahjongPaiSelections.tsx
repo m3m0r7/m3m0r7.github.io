@@ -19,6 +19,8 @@ const MahjongPaiSelections = () => {
 
   const selection = _selections ?? {
     paiList: [],
+    needsRinshanPai: 0,
+    rinshanPaiList: [],
   };
 
   const removePai = (index: number) => {
@@ -26,9 +28,8 @@ const MahjongPaiSelections = () => {
       step: "select-pai",
     });
     setSelections?.({
+      ...selection,
       paiList: selection.paiList.filter((selection, k) => k !== index),
-      needsRinshanPai: 0,
-      rinshanPaiList: [],
     });
   };
 
@@ -41,8 +42,6 @@ const MahjongPaiSelections = () => {
         ...v,
         isHoraPai: k === index ? !pai.isHoraPai : false,
       })),
-      needsRinshanPai: 0,
-      rinshanPaiList: [],
     });
   };
 
@@ -53,8 +52,6 @@ const MahjongPaiSelections = () => {
         ...v,
         isFuro: k === index ? !v.isFuro : v.isFuro,
       })),
-      needsRinshanPai: 0,
-      rinshanPaiList: [],
     });
   };
 
@@ -144,6 +141,24 @@ const MahjongPaiSelections = () => {
                     : removePai(k)
             }
             className={`pai-selection-text flex w-full items-center justify-center  ${selection.paiList[k].isDoraPai ? "pai-selections--pai--dora" : ""} ${selection.paiList[k].isUraDoraPai ? "pai-selections--pai--ura-dora" : ""} ${selection.paiList[k].isAkaDora ? "pai-selections--pai--aka-dora" : ""} ${selection.paiList[k].isHoraPai ? "pai-selections--pai--hora" : ""} ${selection.paiList[k].isFuro ? "pai-selections--pai--furo" : ""}`}
+          >
+            <div
+              className="pai-selections--pai"
+              style={{
+                backgroundImage: `url(${createURL(`images/pai/${v.pai}${v.isAkaDora ? "a" : ""}.png`)})`,
+              }}
+            ></div>
+          </li>
+        ))}
+
+        {selection.rinshanPaiList.map((v, k) => (
+          <li
+            onClick={() =>
+              calculationStep?.step === "select-dora" ||
+              calculationStep?.step === "select-ura-dora"
+                ? selectDora(k)
+                : removePai(k)
+            }
           >
             <div
               className="pai-selections--pai"

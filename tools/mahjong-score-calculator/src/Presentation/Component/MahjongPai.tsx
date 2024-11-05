@@ -18,6 +18,8 @@ const MahjongPai = (props: {
 
   const selection = _selections ?? {
     paiList: [],
+    needsRinshanPai: 0,
+    rinshanPaiList: [],
   };
 
   if (!dialog || !setDialog) {
@@ -31,8 +33,20 @@ const MahjongPai = (props: {
     (pai === "5m" || pai === "5p" || pai === "5s");
 
   const registerPai = () => {
+    // NOTE: If already selected same 3 pai, confirming to user "want you to kan?".
+    const paiList = selection.paiList.filter((v) => {
+      const [aNumber, aGroup] = PaiPatternExtractor.extractPaiPair(v.pai);
+      const [bNumber, bGroup] = PaiPatternExtractor.extractPaiPair(pai);
+
+      return `${aNumber}${aGroup}` === `${bNumber}${bGroup}`;
+    });
+
     const [number] = PaiPatternExtractor.extractPaiPair(pai);
     setPaiSelections?.({
+      ...(paiSelections ?? {
+        needsRinshanPai: 0,
+        rinshanPaiList: [],
+      }),
       paiList: [
         ...(paiSelections?.paiList ?? []),
         {
@@ -45,9 +59,14 @@ const MahjongPai = (props: {
           isUraDoraPai: false,
         },
       ],
-      needsRinshanPai: 0,
-      rinshanPaiList: [],
     });
+
+    if (paiList.length === 3) {
+      setDialog?.({
+        open: true,
+        openType: "confirm-kan",
+      });
+    }
   };
 
   return (
@@ -56,7 +75,8 @@ const MahjongPai = (props: {
         type="button"
         className="pai"
         disabled={
-          selection.paiList.length >= 14 ||
+          selection.paiList.length + selection.rinshanPaiList.length >=
+            14 + selection.needsRinshanPai ||
           selection.paiList.some(
             (selection) =>
               selection.pai === pai && selection.index === props.index,
