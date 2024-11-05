@@ -212,7 +212,7 @@ const DialogScoreDetails = () => {
           {!scoreData?.score.child && !scoreData?.score.parent && (
             <div>
               <h2 className="font-bold mb-2">ロン相手</h2>
-              <ul>
+              <ul className="grid grid-cols-1 score-bar-description--layout">
                 {calculateTransitionScoreBars(scoreData?.score.base ?? 0).map(
                   ([name, count]) => (
                     <li
@@ -239,7 +239,7 @@ const DialogScoreDetails = () => {
           {scoreData?.score.parent && (
             <div>
               <h2 className="font-bold mb-2">親</h2>
-              <ul className="grid grid-cols-1 gap-3">
+              <ul className="grid grid-cols-1 score-bar-description--layout">
                 {calculateTransitionScoreBars(scoreData?.score.parent ?? 0).map(
                   ([name, count]) => (
                     <li
