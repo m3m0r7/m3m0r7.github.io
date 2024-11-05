@@ -25,7 +25,10 @@ import CalculationStepContext, {
 import ScoreDataContext from "./Context/ScoreDataContext";
 import Layout from "./Component/Layout";
 import { PaiPatternExtractor } from "../Runtime/Extractor/Extractor";
-import SystemOptionContext, { SystemDefaultOption, SystemOption } from "./Context/SystemOptionContext";
+import SystemOptionContext, {
+  SystemDefaultOption,
+  SystemOption,
+} from "./Context/SystemOptionContext";
 
 const App = () => {
   const [tabType, setTabType] = useState<PaiGroupName | "option">("m");

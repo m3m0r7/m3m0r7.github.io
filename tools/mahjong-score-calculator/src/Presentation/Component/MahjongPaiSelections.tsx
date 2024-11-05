@@ -1,14 +1,18 @@
 import React, { useContext, useEffect } from "react";
 import { createURL } from "../Option";
-import PaiSelectionContext, { PaiOptionInfo } from "../Context/PaiSelectionContext";
+import PaiSelectionContext, {
+  PaiOptionInfo,
+} from "../Context/PaiSelectionContext";
 import CalculationStepContext from "../Context/CalculationStepContext";
 import ScoreDataContext from "../Context/ScoreDataContext";
 import { PaiName } from "../../@types/types";
 import ShareButton from "./ShareButton";
+import SystemOptionContext from "../Context/SystemOptionContext";
 
 const MahjongPaiSelections = () => {
   const [_selections, setSelections] = useContext(PaiSelectionContext);
   const [scoreData] = useContext(ScoreDataContext);
+  const [systemOption] = useContext(SystemOptionContext);
   const [calculationStep, setCalculationStep] = useContext(
     CalculationStepContext,
   );
@@ -75,7 +79,6 @@ const MahjongPaiSelections = () => {
     });
   };
 
-
   useEffect(() => {
     if (calculationStep?.step !== "finish") {
       return;
@@ -85,29 +88,34 @@ const MahjongPaiSelections = () => {
       return;
     }
 
+    if (!systemOption?.ripai) {
+      return;
+    }
+
     const orderedPositions: PaiName[] = [];
 
-    scoreData?.paiPatterns.forEach(paiPatterns => {
-      paiPatterns.pattern.forEach(paiInfo => {
-        orderedPositions.push(paiInfo.pai)
-      })
-    })
+    scoreData?.paiPatterns.forEach((paiPatterns) => {
+      paiPatterns.pattern.forEach((paiInfo) => {
+        orderedPositions.push(paiInfo.pai);
+      });
+    });
 
-    const pickedPosition: number[] = []
+    const pickedPosition: number[] = [];
     setSelections?.({
       ...selection,
       paiList: orderedPositions.map(
-        (paiName, k) => selection.paiList.find((pai, index) => {
-          const result = pai.pai === paiName && !pickedPosition.includes(index)
-          if (result) {
-            pickedPosition.push(index)
-          }
-          return result
-        }
-      ) as PaiOptionInfo)
-    })
-
-  }, [scoreData, calculationStep?.step])
+        (paiName, k) =>
+          selection.paiList.find((pai, index) => {
+            const result =
+              pai.pai === paiName && !pickedPosition.includes(index);
+            if (result) {
+              pickedPosition.push(index);
+            }
+            return result;
+          }) as PaiOptionInfo,
+      ),
+    });
+  }, [scoreData, systemOption?.ripai, calculationStep?.step]);
 
   return (
     <div>
@@ -135,18 +143,27 @@ const MahjongPaiSelections = () => {
             ></div>
           </li>
         ))}
-        {Array.from({ length: (14 + 4) - selection.paiList.length }, (_, k) => k).map(
-          (k) => (
-            <li
-              key={k}
-              className="pai-selection-text flex w-full items-center justify-center"
-            >
-              <div>
-                <div className="text-center">{ (selection.paiList.length + k) >= 14 ? <>嶺<br />上<br />牌</> : '牌'}</div>
+        {Array.from(
+          { length: 14 + 4 - selection.paiList.length },
+          (_, k) => k,
+        ).map((k) => (
+          <li
+            key={k}
+            className="pai-selection-text flex w-full items-center justify-center"
+          >
+            <div>
+              <div className="text-center">
+                {selection.paiList.length + k >= 14 ? (
+                  <>
+                    嶺<br />上<br />牌
+                  </>
+                ) : (
+                  "牌"
+                )}
               </div>
-            </li>
-          ),
-        )}
+            </div>
+          </li>
+        ))}
         <li className="col-span-2 place-self-center">
           <ShareButton />
         </li>

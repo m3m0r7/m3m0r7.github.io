@@ -43,7 +43,7 @@ const StepMessageButton = () => {
       });
     }
     if (calculationStep?.step === "select-hora-pai") {
-      setScoreData?.(null)
+      setScoreData?.(null);
       setCalculationStep?.({
         step: "finish",
       });

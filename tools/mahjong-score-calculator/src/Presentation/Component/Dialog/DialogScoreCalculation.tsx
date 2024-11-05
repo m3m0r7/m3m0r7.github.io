@@ -112,7 +112,7 @@ const DialogScoreCalculation = () => {
   };
 
   const doCalculate = () => {
-    setScoreData?.(null)
+    setScoreData?.(null);
     setCalculationStep?.({
       step: "finish",
     });

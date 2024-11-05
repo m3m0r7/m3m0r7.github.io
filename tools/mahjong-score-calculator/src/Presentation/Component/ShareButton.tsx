@@ -57,12 +57,11 @@ const ShareButton = () => {
     }, 1500);
   };
 
-
   return (
     <div className="share-button" onClick={shareButton}>
       {copied ? "✅️ コピー" : "📋️ URL"}
     </div>
-  )
-}
+  );
+};
 
-export default ShareButton
+export default ShareButton;

@@ -7,7 +7,9 @@ import PaiSelectionContext from "../Context/PaiSelectionContext";
 import { PaiGenerator } from "../../Utilities/PaiGenerator";
 import CalculationStepContext from "../Context/CalculationStepContext";
 import { MahjongDefaultLocalRules } from "../../Runtime/MahjongDefaultOption";
-import SystemOptionContext, { SystemDefaultOption } from "../Context/SystemOptionContext";
+import SystemOptionContext, {
+  SystemDefaultOption,
+} from "../Context/SystemOptionContext";
 
 const MahjongOption = () => {
   const [selection, setSelection] = useContext(PaiSelectionContext);
@@ -224,13 +226,13 @@ const MahjongOption = () => {
       <ul>
         <li>
           <label>
-            <Radio disabled defaultChecked={systemOption?.playStyle === 4}/>
+            <Radio disabled defaultChecked={systemOption?.playStyle === 4} />
             四人麻雀
           </label>
         </li>
         <li>
           <label>
-            <Radio disabled defaultChecked={systemOption?.playStyle === 3}/>
+            <Radio disabled defaultChecked={systemOption?.playStyle === 3} />
             三人麻雀（未実装）
           </label>
         </li>
@@ -343,7 +345,8 @@ const MahjongOption = () => {
               <rp>(</rp>
               <rt>リーパイ</rt>
               <rp>)</rp>
-            </ruby>する
+            </ruby>
+            する
           </label>
         </li>
       </ul>
