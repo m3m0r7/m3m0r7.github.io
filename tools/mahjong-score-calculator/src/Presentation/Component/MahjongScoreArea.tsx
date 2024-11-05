@@ -182,7 +182,9 @@ const MahjongScoreArea = () => {
       </div>
       <hr className="mt-2 mb-2" />
       <div>
-        <ul className={`applied-yaku-list align-middle grid grid-cols-${(scoreData?.appliedYakuList?.length ?? 0) >= 4 ? '4' : `${scoreData?.appliedYakuList?.length ?? 4}`} gap-1`}>
+        <ul
+          className={`applied-yaku-list align-middle grid grid-cols-${(scoreData?.appliedYakuList?.length ?? 0) >= 4 ? "4" : `${scoreData?.appliedYakuList?.length ?? 4}`} gap-1`}
+        >
           {scoreData?.appliedYakuList.slice(0, 3).map((score, key) => (
             <li
               key={key}
