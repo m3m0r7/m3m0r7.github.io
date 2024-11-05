@@ -24,6 +24,8 @@ const DialogResetCalculation = () => {
   const resetAll = () => {
     setPaiSelections?.({
       paiList: [],
+      needsRinshanPai: 0,
+      rinshanPaiList: [],
     });
     setOption?.(MahjongDefaultOption);
     setScoreData?.(null);

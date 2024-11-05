@@ -45,6 +45,8 @@ const MahjongPai = (props: {
           isUraDoraPai: false,
         },
       ],
+      needsRinshanPai: 0,
+      rinshanPaiList: [],
     });
   };
 

@@ -13,6 +13,8 @@ const DoCalculateButton = () => {
   const [_selection] = useContext(PaiSelectionContext);
   const selection = _selection ?? {
     paiList: [],
+    needsRinshanPai: 0,
+    rinshanPaiList: [],
   };
 
   const startScoreCalculation = () => {
@@ -34,7 +36,10 @@ const DoCalculateButton = () => {
     return (
       <button
         type="button"
-        disabled={selection.paiList.length < 14}
+        disabled={
+          selection.paiList.length + selection.rinshanPaiList.length <
+          14 + selection.needsRinshanPai
+        }
         className="button do-calculate-button outline-button w-full"
         onClick={resetAll}
       >
@@ -46,8 +51,11 @@ const DoCalculateButton = () => {
   return (
     <button
       type="button"
-      disabled={selection.paiList.length < 14}
-      className="button do-calculate-button w-full"
+      disabled={
+        selection.paiList.length + selection.rinshanPaiList.length <
+        14 + selection.needsRinshanPai
+      }
+      className="button do-calculate-button button--with-reflecting-animation w-full"
       onClick={startScoreCalculation}
     >
       点数計算を開始する

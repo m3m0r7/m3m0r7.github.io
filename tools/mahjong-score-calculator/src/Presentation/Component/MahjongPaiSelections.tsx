@@ -27,6 +27,8 @@ const MahjongPaiSelections = () => {
     });
     setSelections?.({
       paiList: selection.paiList.filter((selection, k) => k !== index),
+      needsRinshanPai: 0,
+      rinshanPaiList: [],
     });
   };
 
@@ -39,6 +41,8 @@ const MahjongPaiSelections = () => {
         ...v,
         isHoraPai: k === index ? !pai.isHoraPai : false,
       })),
+      needsRinshanPai: 0,
+      rinshanPaiList: [],
     });
   };
 
@@ -49,6 +53,8 @@ const MahjongPaiSelections = () => {
         ...v,
         isFuro: k === index ? !v.isFuro : v.isFuro,
       })),
+      needsRinshanPai: 0,
+      rinshanPaiList: [],
     });
   };
 
@@ -76,6 +82,8 @@ const MahjongPaiSelections = () => {
         }
         return pai;
       }),
+      needsRinshanPai: 0,
+      rinshanPaiList: [],
     });
   };
 
@@ -114,6 +122,8 @@ const MahjongPaiSelections = () => {
             return result;
           }) as PaiOptionInfo,
       ),
+      needsRinshanPai: 0,
+      rinshanPaiList: [],
     });
   }, [scoreData, systemOption?.ripai, calculationStep?.step]);
 

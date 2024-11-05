@@ -11,6 +11,7 @@
   --primary-color: #ff778e;
 
   --secondary-color: #3f5270;
+  --thirdly-color: #e0901d;
 }
 
 *,
@@ -198,16 +199,49 @@ a {
   border: 2px solid var(--secondary-color);
 }
 
+.button--with-reflecting-animation:not([disabled]) {
+  position: relative;
+  animation: backgroundReflectionSecondaryColor 3s infinite ease-in-out;
+  overflow: hidden;
+}
+
+.button--with-reflecting-animation:not([disabled])::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  filter: blur(24px);
+  transform: rotate(135deg);
+  animation: reflecting-animation 5s infinite ease-in-out;
+}
+
+@keyframes reflecting-animation {
+  0% {
+    transform: translateX(-100%) rotate(-135deg);
+  }
+  100% {
+    transform: translateX(100%) rotate(-135deg);
+  }
+}
+
 .secondary-button {
-  background-color: #e0901d;
+  background-color: var(--thirdly-color);
   color: #ffffff;
-  border: 2px solid #e0901d;
+  border: 2px solid var(--thirdly-color);
 }
 
 .secondary-button.outline-button {
   background: transparent;
-  border: 2px solid #e0901d;
-  color: #e0901d;
+  border: 2px solid var(--thirdly-color);
+  color: var(--thirdly-color);
 }
 
 .primary-button.outline-button,
@@ -315,6 +349,25 @@ button.pai[disabled] {
 .applied-yaku-list li.applied-yaku-list--message {
   background-color: #cccccc;
   color: #666666;
+}
+
+.automatic-jantaku-bar {
+  width: 123px;
+  height: 10px;
+  box-sizing: border-box;
+  border: 1px solid #888888;
+  border-radius: 2px;
+}
+
+.score-bar-description--layout > li {
+  padding-bottom: calc(0.25rem * 2);
+  padding-top: calc(0.25rem * 2);
+  border: 1px solid #888888;
+  margin-top: -1px;
+}
+
+.score-bar-description--layout > li:first-child {
+  margin-top: initial;
 }
 
 /* NOTE: Safari (of course cellphones equals) have <ruby> baseline bug. here is fixed and alignment ruby for tabs */

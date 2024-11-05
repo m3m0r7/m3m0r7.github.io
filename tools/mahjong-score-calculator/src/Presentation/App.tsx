@@ -38,6 +38,8 @@ const App = () => {
 
   const paiSelections = useState<PaiOption>({
     paiList: [],
+    needsRinshanPai: 0,
+    rinshanPaiList: [],
   });
 
   const option = useState<Partial<Option>>(MahjongDefaultOption);
@@ -52,15 +54,17 @@ const App = () => {
 
   useEffect(() => {
     const url = new URL(location.href);
-    const paiList = (
-      url.searchParams
-        .get("paiList")
-        ?.split(/((?:[1-9][mps]|[1-7]z)[auhdf]*)/i) ?? []
-    ).filter((v) => v);
+    const parsePaiListFromSearchParams = (name: string) =>
+      (
+        url.searchParams.get(name)?.split(/((?:[1-9][mps]|[1-7]z)[auhdf]*)/i) ??
+        []
+      ).filter((v) => v);
 
-    const paiNames: PaiName[] = [];
-    paiSelections[1]({
-      paiList: paiList.map((pai) => {
+    const paiList = parsePaiListFromSearchParams("paiList");
+    const rinshanPaiList = parsePaiListFromSearchParams("rinshanPaiList");
+
+    const parsePaiList = (paiListParams: string[]) =>
+      paiListParams.map((pai) => {
         const [number, group, option] = PaiPatternExtractor.extractPaiPair(
           pai as PaiName,
         );
@@ -76,7 +80,13 @@ const App = () => {
           isFuro: option.fromFuro,
           isDoraPai: option.isDora ?? false,
         };
-      }),
+      });
+
+    const paiNames: PaiName[] = [];
+    paiSelections[1]({
+      paiList: parsePaiList(paiList),
+      needsRinshanPai: rinshanPaiList.length,
+      rinshanPaiList: parsePaiList(rinshanPaiList),
     });
 
     if (url.searchParams.has("option")) {

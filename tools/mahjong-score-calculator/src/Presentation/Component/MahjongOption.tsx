@@ -54,6 +54,8 @@ const MahjongOption = () => {
 
     setSelection?.({
       paiList,
+      needsRinshanPai: 0,
+      rinshanPaiList: [],
     });
   };
 
@@ -78,6 +80,8 @@ const MahjongOption = () => {
 
     setSelection?.({
       paiList,
+      needsRinshanPai: 0,
+      rinshanPaiList: [],
     });
   };
 
@@ -213,6 +217,8 @@ const MahjongOption = () => {
           isUraDoraPai: false,
         },
       ],
+      needsRinshanPai: 0,
+      rinshanPaiList: [],
     });
 
     setCalculationStep?.({
@@ -292,16 +298,24 @@ const MahjongOption = () => {
         </li>
       </ul>
 
-      <h2 className="font-bold mt-4 text-xl">連風牌の符</h2>
+      <h2 className="font-bold mt-4 text-xl">
+        <ruby>
+          連風牌
+          <rp>(</rp>
+          <rt>レンフォンパイ</rt>
+          <rp>)</rp>
+        </ruby>
+        の符計算
+      </h2>
       <ul className="grid grid-cols-4">
         <li className="mb-2">
           <label className="align-middle">
             <Radio
               name="renFon"
-              value="0"
-              defaultChecked={option?.localRules?.fu.renfonPai === 0}
+              value="4"
+              defaultChecked={option?.localRules?.fu.renfonPai === 4}
             />
-            符なし
+            4 符
           </label>
         </li>
         <li className="mb-2">
@@ -312,16 +326,6 @@ const MahjongOption = () => {
               defaultChecked={option?.localRules?.fu.renfonPai === 2}
             />
             2 符
-          </label>
-        </li>
-        <li className="mb-2">
-          <label className="align-middle">
-            <Radio
-              name="renFon"
-              value="4"
-              defaultChecked={option?.localRules?.fu.renfonPai === 4}
-            />
-            4 符
           </label>
         </li>
       </ul>
@@ -346,7 +350,21 @@ const MahjongOption = () => {
               <rt>リーパイ</rt>
               <rp>)</rp>
             </ruby>
-            する
+            （並べ替え）する
+          </label>
+        </li>
+        <li>
+          <label>
+            <CheckBox
+              defaultChecked={systemOption?.ripai ?? false}
+              onClick={(e) =>
+                setSystemOption?.({
+                  ...SystemDefaultOption,
+                  with500ScoreBar: e.currentTarget.checked,
+                })
+              }
+            />
+            500点棒を含めて計算する
           </label>
         </li>
       </ul>

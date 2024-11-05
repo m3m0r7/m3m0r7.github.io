@@ -1,5 +1,7 @@
 import React, { useContext, useState } from "react";
-import PaiSelectionContext from "../Context/PaiSelectionContext";
+import PaiSelectionContext, {
+  PaiOptionInfo,
+} from "../Context/PaiSelectionContext";
 import CalculationStepContext from "../Context/CalculationStepContext";
 import OptionContext from "../Context/OptionContext";
 
@@ -13,33 +15,39 @@ const ShareButton = () => {
 
   const selection = _selections ?? {
     paiList: [],
+    needsRinshanPai: 0,
+    rinshanPaiList: [],
   };
 
   const createFullURL = () => {
     const defaultUrl = new URL(location.href);
+    const toPaiText = (pai: PaiOptionInfo) => {
+      let text: string = pai.pai;
+      if (pai.isDoraPai) {
+        text += "d";
+      }
+      if (pai.isHoraPai) {
+        text += "h";
+      }
+      if (pai.isUraDoraPai) {
+        text += "u";
+      }
+      if (pai.isFuro) {
+        text += "f";
+      }
+      if (pai.isAkaDora) {
+        text += "a";
+      }
+      return text;
+    };
+
     defaultUrl.searchParams.set(
       "paiList",
-      selection.paiList
-        .map((pai) => {
-          let text: string = pai.pai;
-          if (pai.isDoraPai) {
-            text += "d";
-          }
-          if (pai.isHoraPai) {
-            text += "h";
-          }
-          if (pai.isUraDoraPai) {
-            text += "u";
-          }
-          if (pai.isFuro) {
-            text += "f";
-          }
-          if (pai.isAkaDora) {
-            text += "a";
-          }
-          return text;
-        })
-        .join(""),
+      selection.paiList.map(toPaiText).join(""),
+    );
+    defaultUrl.searchParams.set(
+      "rinshanPaiList",
+      selection.rinshanPaiList.map(toPaiText).join(""),
     );
 
     if (calculationStep?.step) {

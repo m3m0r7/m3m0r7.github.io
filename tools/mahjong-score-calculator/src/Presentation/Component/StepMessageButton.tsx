@@ -62,7 +62,7 @@ const StepMessageButton = () => {
     return (
       <button
         type="button"
-        className="button secondary-button w-full"
+        className="button secondary-button button--with-reflecting-animation w-full"
         onClick={doSelectUraDora}
       >
         和了（あがり）牌を選んで点数の結果を確認
@@ -73,7 +73,7 @@ const StepMessageButton = () => {
   return (
     <button
       type="button"
-      className="button secondary-button w-full"
+      className="button secondary-button button--with-reflecting-animation w-full"
       onClick={doSelectUraDora}
     >
       {calculationStep?.step === "select-dora" && "ドラ"}

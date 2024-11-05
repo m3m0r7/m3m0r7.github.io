@@ -1,5 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Hora, PaiGroupName, PaiName, ScoreData } from "../../@types/types";
+import {
+  CalculatedScore,
+  Hora,
+  PaiGroupName,
+  PaiName,
+  ScoreData,
+} from "../../@types/types";
 import { createURL } from "../Option";
 import CalculationStepContext from "../Context/CalculationStepContext";
 import { Mahjong } from "../../Runtime/Mahjong";
@@ -118,6 +124,25 @@ const MahjongScoreArea = () => {
     !scoreData?.appliedYakuList.some(
       (score) => score.isYakuman || score.isDoubleYakuman,
     );
+
+  const summarizedAppliedYakuList: CalculatedScore[] | undefined =
+    scoreData?.appliedYakuList
+      .filter((v) => !v.isFu)
+      .sort((a, b) => {
+        if (a.isFu || b.isFu) {
+          return 0;
+        }
+        if (
+          a.isYakuman ||
+          b.isYakuman ||
+          a.isDoubleYakuman ||
+          b.isDoubleYakuman
+        ) {
+          return 0;
+        }
+        return b.score - a.score;
+      });
+
   return (
     <div className="score-area">
       <div className="score-area--data flex items-center">
@@ -185,7 +210,7 @@ const MahjongScoreArea = () => {
         <ul
           className={`applied-yaku-list align-middle grid grid-cols-${(scoreData?.appliedYakuList?.length ?? 0) >= 4 ? "4" : `${scoreData?.appliedYakuList?.length ?? 4}`} gap-1`}
         >
-          {scoreData?.appliedYakuList.slice(0, 3).map((score, key) => (
+          {summarizedAppliedYakuList?.slice(0, 3).map((score, key) => (
             <li
               key={key}
               className={
@@ -224,7 +249,23 @@ const MahjongScoreArea = () => {
             </li>
           ))}
           {(scoreData?.appliedYakuList?.length ?? 0) > 3 && (
-            <li className="applied-yaku-list--message">…</li>
+            <li className="applied-yaku-list--message">
+              他
+              {Number(scoreData?.yaku) -
+                Number(
+                  summarizedAppliedYakuList
+                    ?.slice(0, 3)
+                    .map(
+                      (v) =>
+                        !v.isFu &&
+                        !v.isYakuman &&
+                        !v.isDoubleYakuman &&
+                        v.score,
+                    )
+                    .sum(),
+                )}
+              翻
+            </li>
           )}
           {!scoreData?.appliedYakuList && (
             <li className="col-span-4 applied-yaku-list--message">
