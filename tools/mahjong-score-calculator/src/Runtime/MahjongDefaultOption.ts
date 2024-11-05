@@ -91,6 +91,7 @@ export const MahjongDefaultLocalRules: MahjongOption["localRules"] = {
 export const MahjongDefaultOption: Partial<MahjongOption> = {
   localRules: MahjongDefaultLocalRules,
   additionalSpecialYaku: MahjongDefaultAdditionalSpecialYaku,
+  enableDoubleYakuman: true,
   fuList: [
     Futei,
     Ankou,

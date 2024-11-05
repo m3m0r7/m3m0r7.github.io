@@ -7,10 +7,12 @@ import PaiSelectionContext from "../Context/PaiSelectionContext";
 import { PaiGenerator } from "../../Utilities/PaiGenerator";
 import CalculationStepContext from "../Context/CalculationStepContext";
 import { MahjongDefaultLocalRules } from "../../Runtime/MahjongDefaultOption";
+import SystemOptionContext, { SystemDefaultOption } from "../Context/SystemOptionContext";
 
 const MahjongOption = () => {
   const [selection, setSelection] = useContext(PaiSelectionContext);
   const [option, setOption] = useContext(OptionContext);
+  const [systemOption, setSystemOption] = useContext(SystemOptionContext);
   const [calculationStep, setCalculationStep] = useContext(
     CalculationStepContext,
   );
@@ -222,20 +224,34 @@ const MahjongOption = () => {
       <ul>
         <li>
           <label>
-            <Radio checked disabled />
+            <Radio disabled defaultChecked={systemOption?.playStyle === 4}/>
             四人麻雀
           </label>
         </li>
         <li>
           <label>
-            <Radio disabled />
+            <Radio disabled defaultChecked={systemOption?.playStyle === 3}/>
             三人麻雀（未実装）
           </label>
         </li>
       </ul>
 
-      <h2 className="font-bold mt-4 text-xl">一般的な設定</h2>
+      <h2 className="font-bold mt-4 text-xl">麻雀のルール</h2>
       <ul>
+        <li>
+          <label>
+            <CheckBox
+              defaultChecked={option?.enableDoubleYakuman}
+              onClick={(e) =>
+                setOption?.({
+                  ...option,
+                  enableDoubleYakuman: e.currentTarget.checked,
+                })
+              }
+            />
+            ダブル役満
+          </label>
+        </li>
         <li>
           <label>
             <CheckBox
@@ -307,6 +323,31 @@ const MahjongOption = () => {
           </label>
         </li>
       </ul>
+
+      <h2 className="font-bold mt-4 text-xl">システムの設定</h2>
+      <ul>
+        <li>
+          <label>
+            <CheckBox
+              defaultChecked={systemOption?.ripai ?? false}
+              onClick={(e) =>
+                setSystemOption?.({
+                  ...SystemDefaultOption,
+                  ripai: e.currentTarget.checked,
+                })
+              }
+            />
+            点数計算後に選択された牌を
+            <ruby>
+              理牌
+              <rp>(</rp>
+              <rt>リーパイ</rt>
+              <rp>)</rp>
+            </ruby>する
+          </label>
+        </li>
+      </ul>
+
       <h2 className="font-bold mt-4 text-xl">お試し</h2>
       <button
         type="button"

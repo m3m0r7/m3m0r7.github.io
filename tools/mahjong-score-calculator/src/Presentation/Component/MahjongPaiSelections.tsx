@@ -1,16 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { createURL } from "../Option";
-import PaiSelectionContext from "../Context/PaiSelectionContext";
+import PaiSelectionContext, { PaiOptionInfo } from "../Context/PaiSelectionContext";
 import CalculationStepContext from "../Context/CalculationStepContext";
-import OptionContext from "../Context/OptionContext";
+import ScoreDataContext from "../Context/ScoreDataContext";
+import { PaiName } from "../../@types/types";
+import ShareButton from "./ShareButton";
 
 const MahjongPaiSelections = () => {
   const [_selections, setSelections] = useContext(PaiSelectionContext);
-  const [option] = useContext(OptionContext);
+  const [scoreData] = useContext(ScoreDataContext);
   const [calculationStep, setCalculationStep] = useContext(
     CalculationStepContext,
   );
-  const [copied, setCopied] = useState(false);
 
   const selection = _selections ?? {
     paiList: [],
@@ -74,51 +75,43 @@ const MahjongPaiSelections = () => {
     });
   };
 
-  const createFullURL = () => {
-    const defaultUrl = new URL(location.href);
-    defaultUrl.searchParams.set(
-      "paiList",
-      selection.paiList
-        .map((pai) => {
-          let text: string = pai.pai;
-          if (pai.isDoraPai) {
-            text += "d";
-          }
-          if (pai.isHoraPai) {
-            text += "h";
-          }
-          if (pai.isUraDoraPai) {
-            text += "u";
-          }
-          if (pai.isFuro) {
-            text += "f";
-          }
-          if (pai.isAkaDora) {
-            text += "a";
-          }
-          return text;
-        })
-        .join(""),
-    );
 
-    if (calculationStep?.step) {
-      defaultUrl.searchParams.set("calculationStep", calculationStep.step);
+  useEffect(() => {
+    if (calculationStep?.step !== "finish") {
+      return;
     }
-    defaultUrl.searchParams.set("option", JSON.stringify(option));
-    return defaultUrl.toString();
-  };
 
-  const shareButton = () => {
-    navigator.clipboard.writeText(createFullURL());
-    setCopied(true);
-    setTimeout(() => {
-      setCopied(false);
-    }, 1500);
-  };
+    if (scoreData === null) {
+      return;
+    }
+
+    const orderedPositions: PaiName[] = [];
+
+    scoreData?.paiPatterns.forEach(paiPatterns => {
+      paiPatterns.pattern.forEach(paiInfo => {
+        orderedPositions.push(paiInfo.pai)
+      })
+    })
+
+    const pickedPosition: number[] = []
+    setSelections?.({
+      ...selection,
+      paiList: orderedPositions.map(
+        (paiName, k) => selection.paiList.find((pai, index) => {
+          const result = pai.pai === paiName && !pickedPosition.includes(index)
+          if (result) {
+            pickedPosition.push(index)
+          }
+          return result
+        }
+      ) as PaiOptionInfo)
+    })
+
+  }, [scoreData, calculationStep?.step])
 
   return (
     <div>
-      <ul className="grid grid-cols-8 gap-1 pai-selections">
+      <ul className="grid grid-cols-10 gap-1 pai-selections">
         {selection.paiList.map((v, k) => (
           <li
             key={k}
@@ -142,22 +135,20 @@ const MahjongPaiSelections = () => {
             ></div>
           </li>
         ))}
-        {Array.from({ length: 14 - selection.paiList.length }, (_, k) => k).map(
+        {Array.from({ length: (14 + 4) - selection.paiList.length }, (_, k) => k).map(
           (k) => (
             <li
               key={k}
               className="pai-selection-text flex w-full items-center justify-center"
             >
               <div>
-                <div className="text-center">牌</div>
+                <div className="text-center">{ (selection.paiList.length + k) >= 14 ? <>嶺<br />上<br />牌</> : '牌'}</div>
               </div>
             </li>
           ),
         )}
         <li className="col-span-2 place-self-center">
-          <div className="share-button" onClick={shareButton}>
-            {copied ? "✅️ コピー" : "📋️ URLを共有"}
-          </div>
+          <ShareButton />
         </li>
       </ul>
     </div>

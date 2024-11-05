@@ -25,6 +25,7 @@ import CalculationStepContext, {
 import ScoreDataContext from "./Context/ScoreDataContext";
 import Layout from "./Component/Layout";
 import { PaiPatternExtractor } from "../Runtime/Extractor/Extractor";
+import SystemOptionContext, { SystemDefaultOption, SystemOption } from "./Context/SystemOptionContext";
 
 const App = () => {
   const [tabType, setTabType] = useState<PaiGroupName | "option">("m");
@@ -44,6 +45,7 @@ const App = () => {
     step: "select-pai",
   });
   const scoreData = useState<ScoreData | null>(null);
+  const systemOption = useState<SystemOption>(SystemDefaultOption);
 
   useEffect(() => {
     const url = new URL(location.href);
@@ -143,27 +145,29 @@ const App = () => {
     <ScoreDataContext.Provider value={scoreData}>
       <CalculationStepContext.Provider value={calculationStep}>
         <PaiSelectionContext.Provider value={paiSelections}>
-          <OptionContext.Provider value={option}>
-            <DialogContext.Provider value={dialog}>
-              <Layout>
-                <Header tabType={tabType} clickTab={(v) => setTabType(v)} />
+          <SystemOptionContext.Provider value={systemOption}>
+            <OptionContext.Provider value={option}>
+              <DialogContext.Provider value={dialog}>
+                <Layout>
+                  <Header tabType={tabType} clickTab={(v) => setTabType(v)} />
 
-                <div className="pai-container">
-                  {tabType !== "option" && <MahjongPaiList type={tabType} />}
-                  {tabType === "option" && <MahjongOption />}
-                </div>
-
-                <div className="calculation-button-position">
-                  <div className="bg-white p-2">
-                    <DoCalculateButton />
+                  <div className="pai-container">
+                    {tabType !== "option" && <MahjongPaiList type={tabType} />}
+                    {tabType === "option" && <MahjongOption />}
                   </div>
-                </div>
 
-                <Dialog />
-                <Footer />
-              </Layout>
-            </DialogContext.Provider>
-          </OptionContext.Provider>
+                  <div className="calculation-button-position">
+                    <div className="bg-white p-2">
+                      <DoCalculateButton />
+                    </div>
+                  </div>
+
+                  <Dialog />
+                  <Footer />
+                </Layout>
+              </DialogContext.Provider>
+            </OptionContext.Provider>
+          </SystemOptionContext.Provider>
         </PaiSelectionContext.Provider>
       </CalculationStepContext.Provider>
     </ScoreDataContext.Provider>

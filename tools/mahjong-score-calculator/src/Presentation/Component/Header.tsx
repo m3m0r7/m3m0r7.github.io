@@ -21,6 +21,7 @@ const Header = (props: {
       <MahjongScoreArea />
       <div className="pl-2 pr-2">
         {(calculationStep?.step === "select-pai" ||
+          calculationStep?.step === "error" ||
           calculationStep?.step === "finish") && (
           <OpenCalculationResultButton />
         )}

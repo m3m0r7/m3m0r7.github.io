@@ -118,7 +118,8 @@ a {
 .pai-container {
   padding: 10px;
   overflow: scroll;
-  height: calc(100dvh - 518px);
+  /* NOTE: The device height - (header height + footer height + calc btn height) */
+  height: calc(100dvh - (427px + 65px + 60px));
   box-sizing: border-box;
 }
 
@@ -127,8 +128,7 @@ a {
 }
 
 .pai-selections > li {
-  width: 44px;
-  height: 63px;
+  height: 50px;
   background-color: #eeeeee;
   border-radius: 5px;
   border: 1px dashed #cccccc;
@@ -144,8 +144,9 @@ a {
 }
 
 .pai-selection-text {
-  font-size: 16px;
+  font-size: 12px;
   color: #888888;
+  line-height: 12px
 }
 
 .score-area {
@@ -154,7 +155,6 @@ a {
   background-color: #eeeeee;
   border: 1px solid #cccccc;
   border-radius: 5px;
-  height: 82px;
 }
 
 .score-area h2 {
@@ -167,11 +167,15 @@ a {
   font-size: 24px;
 }
 
-.score-area > div {
+.score-area--data {
+  height: 79px;
+}
+
+.score-area--data > div {
   border-left: 1px dashed #cccccc;
 }
 
-.score-area > div:first-child {
+.score-area--data > div:first-child {
   border: none;
 }
 
@@ -298,9 +302,38 @@ button.pai[disabled] {
   margin-bottom: -8px;
 }
 
+.applied-yaku-list li {
+  border-radius: 4px;
+  font-size: 12px;
+  text-align: center;
+  color: #FFFFFF;
+  padding: 4px 4px;
+  height: 26px;
+  box-sizing: border-box;
+}
+
+.applied-yaku-list li.applied-yaku-list--message {
+  background-color: #cccccc;
+  color: #666666;
+}
+
 /* NOTE: Safari (of course cellphones equals) have <ruby> baseline bug. here is fixed and alignment ruby for tabs */
 _::-webkit-full-page-media,
 _:future,
-:root .pai-selection-tab-item ruby {
+:root .pai-selection-tab-item ruby
+{
   top: -0.25em;
+}
+
+_::-webkit-full-page-media,
+_:future,
+:root .applied-yaku-list ruby {
+  position: relative;
+  top: -0.5em;
+}
+
+_::-webkit-full-page-media,
+_:future,
+:root .applied-yaku-list rt {
+  margin-bottom: -0.25em;
 }

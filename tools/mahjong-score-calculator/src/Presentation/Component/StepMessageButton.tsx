@@ -2,12 +2,14 @@ import React, { useContext } from "react";
 import CalculationStepContext from "../Context/CalculationStepContext";
 import OptionContext from "../Context/OptionContext";
 import PaiSelectionContext from "../Context/PaiSelectionContext";
+import ScoreDataContext from "../Context/ScoreDataContext";
 
 const StepMessageButton = () => {
   const [calculationStep, setCalculationStep] = useContext(
     CalculationStepContext,
   );
   const [option, setOption] = useContext(OptionContext);
+  const [scoreData, setScoreData] = useContext(ScoreDataContext);
   const [_selection] = useContext(PaiSelectionContext);
 
   const selection = _selection ?? {
@@ -41,6 +43,7 @@ const StepMessageButton = () => {
       });
     }
     if (calculationStep?.step === "select-hora-pai") {
+      setScoreData?.(null)
       setCalculationStep?.({
         step: "finish",
       });

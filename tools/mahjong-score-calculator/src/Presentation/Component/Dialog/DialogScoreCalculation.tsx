@@ -24,11 +24,13 @@ import { MahjongDefaultAdditionalSpecialYaku } from "../../../Runtime/MahjongDef
 import PaiSelectionContext, {
   PaiOptionInfo,
 } from "../../Context/PaiSelectionContext";
+import ScoreDataContext from "../../Context/ScoreDataContext";
 
 const name: DialogType["openType"] = "score-calculation";
 
 const DialogScoreCalculation = () => {
   const [dialog, setDialog] = useContext(DialogContext);
+  const [scoreData, setScoreData] = useContext(ScoreDataContext);
   const [option, setOption] = useContext(OptionContext);
   const [calculationStep, setCalculationStep] = useContext(
     CalculationStepContext,
@@ -110,6 +112,7 @@ const DialogScoreCalculation = () => {
   };
 
   const doCalculate = () => {
+    setScoreData?.(null)
     setCalculationStep?.({
       step: "finish",
     });
