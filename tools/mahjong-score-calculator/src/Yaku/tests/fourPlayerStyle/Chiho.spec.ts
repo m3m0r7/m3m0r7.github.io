@@ -46,7 +46,7 @@ describe("Chiho", () => {
           // NOTE: Here is same of a mahjong parent
           jikaze: "1z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 48000, child: 16000 });
         expect(score?.honba).eq(0);
@@ -80,7 +80,7 @@ describe("Chiho", () => {
           // NOTE: Here is same of a mahjong parent
           jikaze: "1z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 48000 });
         expect(score?.honba).eq(0);
@@ -116,7 +116,7 @@ describe("Chiho", () => {
 
           jikaze: "2z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({
           base: 32000,
@@ -153,7 +153,7 @@ describe("Chiho", () => {
 
           jikaze: "2z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 32000 });
         expect(score?.honba).eq(0);

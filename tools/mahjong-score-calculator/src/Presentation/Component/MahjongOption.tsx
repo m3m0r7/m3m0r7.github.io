@@ -2,11 +2,13 @@ import React, { useContext } from "react";
 import CheckBox from "./Form/CheckBox";
 import Radio from "./Form/Radio";
 import OptionContext from "../Context/OptionContext";
-import { PaiName } from "../../@types/types";
 import PaiSelectionContext from "../Context/PaiSelectionContext";
-import { PaiGenerator } from "../../Utilities/PaiGenerator";
 import CalculationStepContext from "../Context/CalculationStepContext";
-import { MahjongDefaultLocalRules } from "../../Runtime/MahjongDefaultOption";
+import {
+  MahjonDefauThreePlayStyleRules,
+  MahjongDefaultLocalRules,
+  MahjongDefaultOption,
+} from "../../Runtime/MahjongDefaultOption";
 import SystemOptionContext, {
   SystemDefaultOption,
 } from "../Context/SystemOptionContext";
@@ -27,14 +29,32 @@ const MahjongOption = () => {
       <ul>
         <li>
           <label>
-            <Radio disabled defaultChecked={systemOption?.playStyle === 4} />
+            <Radio
+              name="play-style"
+              onClick={(e) =>
+                setOption?.({
+                  ...option,
+                  playStyle: e.currentTarget.checked ? 4 : 3,
+                })
+              }
+              defaultChecked={option?.playStyle === 4}
+            />
             四人麻雀
           </label>
         </li>
         <li>
           <label>
-            <Radio disabled defaultChecked={systemOption?.playStyle === 3} />
-            三人麻雀（未実装）
+            <Radio
+              name="play-style"
+              onClick={(e) =>
+                setOption?.({
+                  ...option,
+                  playStyle: e.currentTarget.checked ? 3 : 4,
+                })
+              }
+              defaultChecked={option?.playStyle === 3}
+            />
+            三人麻雀
           </label>
         </li>
       </ul>
@@ -89,6 +109,62 @@ const MahjongOption = () => {
               }
             />
             赤ドラ
+          </label>
+        </li>
+      </ul>
+
+      <h2 className="font-bold mt-4 text-xl">三人麻雀ルール</h2>
+      <h3 className="font-bold mt-2">点数の支払い</h3>
+      <ul>
+        <li>
+          <label>
+            <Radio
+              name="three-play-style-scoring"
+              disabled={option?.playStyle !== 3}
+              defaultChecked={
+                option?.localRules?.threePlayStyle.scoring ===
+                "DISCOUNTED_TSUMO"
+              }
+              onClick={(e) =>
+                setOption?.({
+                  ...MahjongDefaultOption,
+                  ...option,
+                  localRules: {
+                    ...MahjongDefaultLocalRules,
+                    threePlayStyle: {
+                      ...MahjonDefauThreePlayStyleRules,
+                      scoring: "DISCOUNTED_TSUMO",
+                    },
+                  },
+                })
+              }
+            />
+            ツモ損
+          </label>
+        </li>
+        <li>
+          <label>
+            <Radio
+              name="three-play-style-scoring"
+              disabled={option?.playStyle !== 3}
+              defaultChecked={
+                option?.localRules?.threePlayStyle.scoring === "SPLIT"
+              }
+              onClick={(e) =>
+                setOption?.({
+                  ...MahjongDefaultOption,
+                  ...option,
+                  localRules: {
+                    ...MahjongDefaultLocalRules,
+                    threePlayStyle: {
+                      ...MahjonDefauThreePlayStyleRules,
+                      scoring: "SPLIT",
+                    },
+                  },
+                })
+              }
+            />
+            北家折半
           </label>
         </li>
       </ul>

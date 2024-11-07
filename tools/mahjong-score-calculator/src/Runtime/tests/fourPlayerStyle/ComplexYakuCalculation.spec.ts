@@ -31,7 +31,7 @@ describe("ComplexYakuCalculation", () => {
           {
             doraList: ["2m"],
           },
-        ).score.fourPlayerStyleScore;
+        ).calculator.value;
 
         expect(score?.score).deep.eq({ base: 11600 });
         expect(score?.fu).eq(30);
@@ -97,7 +97,7 @@ describe("ComplexYakuCalculation", () => {
             doraList: ["2m"],
             jikaze: "2z",
           },
-        ).score.fourPlayerStyleScore;
+        ).calculator.value;
 
         expect(score?.score).deep.eq({ base: 7700 });
         expect(score?.fu).eq(30);

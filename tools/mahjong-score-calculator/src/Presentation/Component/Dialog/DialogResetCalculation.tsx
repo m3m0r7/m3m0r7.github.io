@@ -5,6 +5,9 @@ import OptionContext from "../../Context/OptionContext";
 import { MahjongDefaultOption } from "../../../Runtime/MahjongDefaultOption";
 import ScoreDataContext from "../../Context/ScoreDataContext";
 import CalculationStepContext from "../../Context/CalculationStepContext";
+import SystemOptionContext, {
+  SystemDefaultOption,
+} from "../../Context/SystemOptionContext";
 
 const name: DialogType["openType"] = "reset-calculation";
 
@@ -15,6 +18,7 @@ const DialogResetCalculation = () => {
   const [dialog, setDialog] = useContext(DialogContext);
   const [paiSelections, setPaiSelections] = useContext(PaiSelectionContext);
   const [option, setOption] = useContext(OptionContext);
+  const [systemOption, setSystemOption] = useContext(SystemOptionContext);
   const [scoreData, setScoreData] = useContext(ScoreDataContext);
 
   if (!dialog || !setDialog || !dialog.open || name !== dialog.openType) {
@@ -29,6 +33,9 @@ const DialogResetCalculation = () => {
     setScoreData?.(null);
     setCalculationStep?.({
       step: "select-pai",
+    });
+    setSystemOption?.({
+      ...SystemDefaultOption,
     });
     setDialog?.({ open: false });
   };

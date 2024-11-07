@@ -60,7 +60,7 @@ import {
   TsuIsou,
   UraDora,
 } from "../Yaku";
-import { MahjongOption } from "../@types/types";
+import { MahjongOption, ThreeMahjongPayType } from "../@types/types";
 
 export const MahjongDefaultAdditionalSpecialYaku: MahjongOption["additionalSpecialYaku"] =
   {
@@ -76,7 +76,16 @@ export const MahjongDefaultAdditionalSpecialYaku: MahjongOption["additionalSpeci
     withNagashiMangan: false,
   };
 
+export const MahjonDefauThreePlayStyleRules: MahjongOption["localRules"]["threePlayStyle"] =
+  {
+    scoring: "DISCOUNTED_TSUMO",
+    roundUpUnder1000: false,
+  };
+
 export const MahjongDefaultLocalRules: MahjongOption["localRules"] = {
+  threePlayStyle: {
+    ...MahjonDefauThreePlayStyleRules,
+  },
   fu: {
     renfonPai: 4,
   },
@@ -87,6 +96,7 @@ export const MahjongDefaultLocalRules: MahjongOption["localRules"] = {
 
 // NOTE: The other property will be merged
 export const MahjongDefaultOption: Partial<MahjongOption> = {
+  playStyle: 4,
   localRules: MahjongDefaultLocalRules,
   additionalSpecialYaku: MahjongDefaultAdditionalSpecialYaku,
   enableDoubleYakuman: true,

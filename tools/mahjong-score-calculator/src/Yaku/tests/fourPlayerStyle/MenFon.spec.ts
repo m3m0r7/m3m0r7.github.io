@@ -44,7 +44,7 @@ describe("MenFon", () => {
           // NOTE: Here is same of a mahjong parent
           jikaze: "2z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 2000, parent: 1000, child: 500 });
         expect(score?.honba).eq(0);
@@ -105,7 +105,7 @@ describe("MenFon", () => {
           // NOTE: Here is same of a mahjong parent
           jikaze: "2z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 1300 });
         expect(score?.honba).eq(0);
@@ -160,7 +160,7 @@ describe("MenFon", () => {
 
           jikaze: "2z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 2000, parent: 1000, child: 500 });
         expect(score?.honba).eq(0);
@@ -220,7 +220,7 @@ describe("MenFon", () => {
 
           jikaze: "2z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 1300 });
         expect(score?.honba).eq(0);
@@ -283,7 +283,7 @@ describe("MenFon", () => {
           return paiPairCollection;
         });
 
-        const score = mahjong.score.fourPlayerStyleScore;
+        const score = mahjong.calculator.value;
 
         expect(score?.score).deep.eq({ base: 1000 });
         expect(score?.honba).eq(0);
@@ -350,7 +350,7 @@ describe("MenFon", () => {
               jikaze: "1z",
               kaze: "1z",
             },
-          ).score.fourPlayerStyleScore;
+          ).calculator.value;
 
         expect(score).toThrow(
           "The mahjong scores are not available that reason for Yaku are not fulfilled, invalid format and so on",

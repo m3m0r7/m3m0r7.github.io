@@ -102,6 +102,11 @@ const App = () => {
           doraList: optionParam.doraList ?? [],
           uraDoraList: optionParam.uraDoraList ?? [],
           localRules: {
+            threePlayStyle: {
+              scoring: optionParam.localRules.scoring ?? "DISCOUNTED_TSUMO",
+              roundUpUnder1000:
+                optionParam.localRules.roundUpUnder1000 ?? false,
+            },
             fu: {
               renfonPai: optionParam.localRules?.fu?.renfonPai ?? 4,
             },

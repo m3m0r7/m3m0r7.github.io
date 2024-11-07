@@ -25,7 +25,7 @@ describe("JunseiChurenPoutou", () => {
             jikaze: "1z",
             kaze: "1z",
           },
-        ).score.fourPlayerStyleScore;
+        ).calculator.value;
 
         expect(score?.score).deep.eq({ base: 96000, child: 32000 });
         expect(score?.honba).eq(0);
@@ -57,7 +57,7 @@ describe("JunseiChurenPoutou", () => {
             jikaze: "1z",
             kaze: "1z",
           },
-        ).score.fourPlayerStyleScore;
+        ).calculator.value;
 
         expect(score?.score).deep.eq({ base: 96000 });
         expect(score?.honba).eq(0);
@@ -91,7 +91,7 @@ describe("JunseiChurenPoutou", () => {
             jikaze: "2z",
             kaze: "1z",
           },
-        ).score.fourPlayerStyleScore;
+        ).calculator.value;
 
         expect(score?.score).deep.eq({
           base: 64000,
@@ -126,7 +126,7 @@ describe("JunseiChurenPoutou", () => {
             jikaze: "2z",
             kaze: "1z",
           },
-        ).score.fourPlayerStyleScore;
+        ).calculator.value;
 
         expect(score?.score).deep.eq({ base: 64000 });
         expect(score?.honba).eq(0);

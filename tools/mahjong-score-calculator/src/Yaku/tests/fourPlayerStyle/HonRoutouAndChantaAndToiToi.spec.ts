@@ -42,35 +42,13 @@ describe("HonRoutou, chanta and ToiToi", () => {
           // NOTE: Here is same of a mahjong parent
           jikaze: "1z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 12000, child: 4000 });
         expect(score?.honba).eq(0);
-        expect(score?.fu).eq(40);
+        expect(score?.fu).eq(null);
         expect(score?.yaku).eq(5);
-        expect(score?.appliedFuList).deep.eq([
-          {
-            isYakuman: false,
-            isDoubleYakuman: false,
-            isFu: true,
-            name: I18n.ja.fu[Futei.name],
-            score: 20,
-          },
-          {
-            isYakuman: false,
-            isDoubleYakuman: false,
-            isFu: true,
-            name: I18n.ja.fu[Minkou.name],
-            score: 16,
-          },
-          {
-            isYakuman: false,
-            isDoubleYakuman: false,
-            isFu: true,
-            name: I18n.ja.fu[Tsumo.name],
-            score: 2,
-          },
-        ]);
+        expect(score?.appliedFuList).deep.eq([]);
         expect(score?.appliedYakuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -111,28 +89,13 @@ describe("HonRoutou, chanta and ToiToi", () => {
           // NOTE: Here is same of a mahjong parent
           jikaze: "1z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 12000 });
         expect(score?.honba).eq(0);
-        expect(score?.fu).eq(40);
+        expect(score?.fu).eq(null);
         expect(score?.yaku).eq(5);
-        expect(score?.appliedFuList).deep.eq([
-          {
-            isYakuman: false,
-            isDoubleYakuman: false,
-            isFu: true,
-            name: I18n.ja.fu[Futei.name],
-            score: 20,
-          },
-          {
-            isYakuman: false,
-            isDoubleYakuman: false,
-            isFu: true,
-            name: I18n.ja.fu[Minkou.name],
-            score: 16,
-          },
-        ]);
+        expect(score?.appliedFuList).deep.eq([]);
         expect(score?.appliedYakuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -175,35 +138,13 @@ describe("HonRoutou, chanta and ToiToi", () => {
 
           jikaze: "2z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 8000, parent: 4000, child: 2000 });
         expect(score?.honba).eq(0);
-        expect(score?.fu).eq(40);
+        expect(score?.fu).eq(null);
         expect(score?.yaku).eq(5);
-        expect(score?.appliedFuList).deep.eq([
-          {
-            isYakuman: false,
-            isDoubleYakuman: false,
-            isFu: true,
-            name: I18n.ja.fu[Futei.name],
-            score: 20,
-          },
-          {
-            isYakuman: false,
-            isDoubleYakuman: false,
-            isFu: true,
-            name: I18n.ja.fu[Minkou.name],
-            score: 16,
-          },
-          {
-            isYakuman: false,
-            isDoubleYakuman: false,
-            isFu: true,
-            name: I18n.ja.fu[Tsumo.name],
-            score: 2,
-          },
-        ]);
+        expect(score?.appliedFuList).deep.eq([]);
         expect(score?.appliedYakuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -243,28 +184,13 @@ describe("HonRoutou, chanta and ToiToi", () => {
 
           jikaze: "2z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 8000 });
         expect(score?.honba).eq(0);
-        expect(score?.fu).eq(40);
+        expect(score?.fu).eq(null);
         expect(score?.yaku).eq(5);
-        expect(score?.appliedFuList).deep.eq([
-          {
-            isYakuman: false,
-            isDoubleYakuman: false,
-            isFu: true,
-            name: I18n.ja.fu[Futei.name],
-            score: 20,
-          },
-          {
-            isYakuman: false,
-            isDoubleYakuman: false,
-            isFu: true,
-            name: I18n.ja.fu[Minkou.name],
-            score: 16,
-          },
-        ]);
+        expect(score?.appliedFuList).deep.eq([]);
         expect(score?.appliedYakuList).deep.eq([
           {
             isDoubleYakuman: false,

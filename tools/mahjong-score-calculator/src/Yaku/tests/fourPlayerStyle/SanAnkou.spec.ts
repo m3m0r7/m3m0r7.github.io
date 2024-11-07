@@ -41,7 +41,7 @@ describe("SanAnkou", () => {
           // NOTE: Here is same of a mahjong parent
           jikaze: "1z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 7700, child: 2600 });
         expect(score?.honba).eq(0);
@@ -102,7 +102,7 @@ describe("SanAnkou", () => {
           // NOTE: Here is same of a mahjong parent
           jikaze: "1z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 4800 });
         expect(score?.honba).eq(0);
@@ -157,7 +157,7 @@ describe("SanAnkou", () => {
 
           jikaze: "2z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 5200, parent: 2600, child: 1300 });
         expect(score?.honba).eq(0);
@@ -217,7 +217,7 @@ describe("SanAnkou", () => {
 
           jikaze: "2z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 3200 });
         expect(score?.honba).eq(0);

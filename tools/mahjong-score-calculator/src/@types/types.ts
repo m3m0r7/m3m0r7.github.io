@@ -317,14 +317,21 @@ export interface SystemOption {
   logger: (...message: string[]) => void;
 }
 
+export type ThreeMahjongPayType = "DISCOUNTED_TSUMO" | "SPLIT";
+
 export interface MahjongOption extends SystemOption {
   hora: Hora;
   honba: number;
+  playStyle: 3 | 4;
   kaze: PaiKazeName;
   jikaze: PaiKazeName;
   uraDoraList: PaiName[];
   doraList: PaiName[];
   localRules: {
+    threePlayStyle: {
+      scoring: ThreeMahjongPayType;
+      roundUpUnder1000: boolean;
+    };
     fu: {
       renfonPai: number;
     };
@@ -435,6 +442,14 @@ export type ScoreData = {
   paiPatterns: PaiFormat[];
   fu: number | null;
   yaku: number | "FULL" | "DOUBLE_FULL";
+  yakuType:
+    | "NORMAL"
+    | "MANGAN"
+    | "HANEMAN"
+    | "BAIMAN"
+    | "SANBAIMAN"
+    | "YAKUMAN"
+    | "DOUBLE_YAKUMAN";
   honba: number;
   appliedFuList: CalculatedScore[];
   appliedYakuList: CalculatedScore[];
@@ -446,6 +461,11 @@ export type ScoreTable = Record<number, Record<number, number>>;
 export type CollectionAndScores = {
   collection: PaiPairCollection;
   scores: Score[];
+};
+
+export type ScoreCalculator = {
+  get isValid(): boolean;
+  get score(): ScoreData | null;
 };
 
 export default {};

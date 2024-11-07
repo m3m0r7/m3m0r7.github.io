@@ -93,7 +93,7 @@ const MahjongScoreArea = () => {
     );
 
     try {
-      setScoreData?.(mahjong.score.fourPlayerStyleScore);
+      setScoreData?.(mahjong.calculator.value);
     } catch (e) {
       setCalculationStep?.({
         step: "error",

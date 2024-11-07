@@ -41,35 +41,13 @@ describe("Honitsu", () => {
           // NOTE: Here is same of a mahjong parent
           jikaze: "1z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 12000, child: 4000 });
         expect(score?.honba).eq(0);
-        expect(score?.fu).eq(40);
+        expect(score?.fu).eq(null);
         expect(score?.yaku).eq(4);
-        expect(score?.appliedFuList).deep.eq([
-          {
-            isDoubleYakuman: false,
-            isFu: true,
-            isYakuman: false,
-            name: I18n.ja.fu[Futei.name],
-            score: 20,
-          },
-          {
-            isDoubleYakuman: false,
-            isFu: true,
-            isYakuman: false,
-            name: I18n.ja.fu[Ankou.name],
-            score: 16,
-          },
-          {
-            isDoubleYakuman: false,
-            isFu: true,
-            isYakuman: false,
-            name: I18n.ja.fu[Tsumo.name],
-            score: 2,
-          },
-        ]);
+        expect(score?.appliedFuList).deep.eq([]);
         expect(score?.appliedYakuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -102,7 +80,7 @@ describe("Honitsu", () => {
           // NOTE: Here is same of a mahjong parent
           jikaze: "1z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 9600 });
         expect(score?.honba).eq(0);
@@ -157,35 +135,13 @@ describe("Honitsu", () => {
 
           jikaze: "2z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 8000, parent: 4000, child: 2000 });
         expect(score?.honba).eq(0);
-        expect(score?.fu).eq(40);
+        expect(score?.fu).eq(null);
         expect(score?.yaku).eq(4);
-        expect(score?.appliedFuList).deep.eq([
-          {
-            isDoubleYakuman: false,
-            isFu: true,
-            isYakuman: false,
-            name: I18n.ja.fu[Futei.name],
-            score: 20,
-          },
-          {
-            isDoubleYakuman: false,
-            isFu: true,
-            isYakuman: false,
-            name: I18n.ja.fu[Ankou.name],
-            score: 16,
-          },
-          {
-            isDoubleYakuman: false,
-            isFu: true,
-            isYakuman: false,
-            name: I18n.ja.fu[Tsumo.name],
-            score: 2,
-          },
-        ]);
+        expect(score?.appliedFuList).deep.eq([]);
         expect(score?.appliedYakuList).deep.eq([
           {
             isDoubleYakuman: false,
@@ -217,7 +173,7 @@ describe("Honitsu", () => {
 
           jikaze: "2z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 6400 });
         expect(score?.honba).eq(0);
@@ -280,7 +236,7 @@ describe("Honitsu", () => {
           return paiPairCollection;
         });
 
-        const score = mahjong.score.fourPlayerStyleScore;
+        const score = mahjong.calculator.value;
         expect(score?.score).deep.eq({ base: 2000 });
         expect(score?.honba).eq(0);
         expect(score?.fu).eq(30);

@@ -43,7 +43,7 @@ describe("RinshanKaihou", () => {
           // NOTE: Here is same of a mahjong parent
           jikaze: "1z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 2900, child: 1000 });
         expect(score?.honba).eq(0);
@@ -106,7 +106,7 @@ describe("RinshanKaihou", () => {
 
           jikaze: "2z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 2000, parent: 1000, child: 500 });
         expect(score?.honba).eq(0);

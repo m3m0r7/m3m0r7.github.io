@@ -50,7 +50,7 @@ describe("NagashiMangan", () => {
           // NOTE: Here is same of a mahjong parent
           jikaze: "1z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 12000, child: 4000 });
         expect(score?.honba).eq(0);
@@ -86,7 +86,7 @@ describe("NagashiMangan", () => {
           // NOTE: Here is same of a mahjong parent
           jikaze: "1z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 12000 });
         expect(score?.honba).eq(0);
@@ -124,7 +124,7 @@ describe("NagashiMangan", () => {
 
           jikaze: "2z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 8000, parent: 4000, child: 2000 });
         expect(score?.honba).eq(0);
@@ -159,7 +159,7 @@ describe("NagashiMangan", () => {
 
           jikaze: "2z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 8000 });
         expect(score?.honba).eq(0);

@@ -130,7 +130,14 @@ const DialogScoreCalculation = () => {
     <div className="DialogScoreCalculation dialog">
       <div className="dialog-title">点数計算の設定をしてください</div>
       <div className="dialog-contents">
-        <h2 className="font-bold text-xl">和了（あがり方）</h2>
+        <h2 className="font-bold text-xl">
+          <ruby>
+            和了方
+            <rp>(</rp>
+            <rt>アガリカタ</rt>
+            <rp>)</rp>
+          </ruby>
+        </h2>
         <ul className="grid grid-cols-2">
           <li className="mb-2">
             <label className="align-middle">
@@ -151,7 +158,14 @@ const DialogScoreCalculation = () => {
           </li>
         </ul>
 
-        <h2 className="font-bold mt-4 text-xl">場風（チャンフォン）</h2>
+        <h2 className="font-bold mt-4 text-xl">
+          <ruby>
+            場風
+            <rp>(</rp>
+            <rt>チャンフォン</rt>
+            <rp>)</rp>
+          </ruby>
+        </h2>
         <ul className="grid grid-cols-2">
           <li className="mb-2">
             <label className="align-middle">
@@ -168,7 +182,7 @@ const DialogScoreCalculation = () => {
               <Radio name="chanFon" value="2z" />
               <ruby>
                 南<rp>(</rp>
-                <rt>トン</rt>
+                <rt>ナン</rt>
                 <rp>)</rp>
               </ruby>
             </label>
@@ -195,7 +209,14 @@ const DialogScoreCalculation = () => {
           </li>
         </ul>
 
-        <h2 className="font-bold mt-4 text-xl">自風（メンフォン）</h2>
+        <h2 className="font-bold mt-4 text-xl">
+          <ruby>
+            自風
+            <rp>(</rp>
+            <rt>メンフォン</rt>
+            <rp>)</rp>
+          </ruby>
+        </h2>
         <ul className="grid grid-cols-2">
           <li className="mb-2">
             <label className="align-middle">
@@ -206,13 +227,14 @@ const DialogScoreCalculation = () => {
                 <rp>)</rp>
               </ruby>
             </label>
+            （親）
           </li>
           <li className="mb-2">
             <label className="align-middle">
               <Radio name="menFon" value="2z" />
               <ruby>
                 南<rp>(</rp>
-                <rt>トン</rt>
+                <rt>ナン</rt>
                 <rp>)</rp>
               </ruby>
             </label>

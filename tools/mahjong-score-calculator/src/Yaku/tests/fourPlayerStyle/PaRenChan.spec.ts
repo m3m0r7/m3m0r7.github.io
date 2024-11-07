@@ -42,7 +42,7 @@ describe("PaRenChan", () => {
           kaze: "1z",
 
           honba: 8,
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 48000, child: 16000 });
         expect(score?.honba).eq(8);
@@ -73,7 +73,7 @@ describe("PaRenChan", () => {
           kaze: "1z",
 
           honba: 8,
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 48000 });
         expect(score?.honba).eq(8);
@@ -106,7 +106,7 @@ describe("PaRenChan", () => {
           kaze: "1z",
 
           honba: 8,
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({
           base: 32000,
@@ -140,7 +140,7 @@ describe("PaRenChan", () => {
           kaze: "1z",
 
           honba: 8,
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 32000 });
         expect(score?.honba).eq(8);
@@ -181,7 +181,7 @@ describe("PaRenChan", () => {
           return paiPairCollection;
         });
 
-        const score = mahjong.score.fourPlayerStyleScore;
+        const score = mahjong.calculator.value;
 
         expect(score?.score).deep.eq({ base: 32000 });
         expect(score?.honba).eq(8);

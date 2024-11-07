@@ -73,6 +73,11 @@ const MahjongPai = (props: {
       .map((v) => `${v.pai}${v.isKanPai ? "k" : ""}` as PaiName),
   );
 
+  const isThreePlayerStyleAndAvailableManzu =
+    option?.playStyle === 3 &&
+    !(props.number === 1 || props.number === 9) &&
+    props.type === "m";
+
   return (
     <div>
       <button
@@ -84,7 +89,8 @@ const MahjongPai = (props: {
             (selection) =>
               selection.pai.replace("k", "") === pai.replace("k", "") &&
               selection.index === props.index,
-          )
+          ) ||
+          isThreePlayerStyleAndAvailableManzu
         }
         onClick={registerPai}
       >

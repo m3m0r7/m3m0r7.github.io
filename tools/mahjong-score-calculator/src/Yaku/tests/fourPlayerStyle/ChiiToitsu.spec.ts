@@ -43,7 +43,7 @@ describe("ChiiToitsu", () => {
           // NOTE: Here is same of a mahjong parent
           jikaze: "1z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 4800, child: 1600 });
         expect(score?.honba).eq(0);
@@ -91,7 +91,7 @@ describe("ChiiToitsu", () => {
           // NOTE: Here is same of a mahjong parent
           jikaze: "1z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 2400 });
         expect(score?.honba).eq(0);
@@ -133,7 +133,7 @@ describe("ChiiToitsu", () => {
 
           jikaze: "2z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 3200, parent: 1600, child: 800 });
         expect(score?.honba).eq(0);
@@ -180,7 +180,7 @@ describe("ChiiToitsu", () => {
 
           jikaze: "2z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 1600 });
         expect(score?.honba).eq(0);

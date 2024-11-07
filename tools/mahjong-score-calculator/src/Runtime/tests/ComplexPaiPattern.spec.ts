@@ -19,7 +19,7 @@ describe("ComplexPaiPattern", () => {
       "7m",
       "8s",
       "8s",
-    ]).score.fourPlayerStyleScore;
+    ]).calculator.value;
 
     expect(score?.yaku).eq(1);
     expect(score?.fu).eq(30);
@@ -41,7 +41,7 @@ describe("ComplexPaiPattern", () => {
       "4p",
       "8s",
       "8s",
-    ]).score.fourPlayerStyleScore;
+    ]).calculator.value;
 
     expect(score?.yaku).eq(1);
     expect(score?.fu).eq(30);
@@ -63,7 +63,7 @@ describe("ComplexPaiPattern", () => {
       "4p",
       "8s",
       "8s",
-    ]).score.fourPlayerStyleScore;
+    ]).calculator.value;
 
     expect(score?.yaku).eq(1);
     expect(score?.fu).eq(30);
@@ -86,7 +86,7 @@ describe("ComplexPaiPattern", () => {
       "4p",
       "8s",
       "8s",
-    ]).score.fourPlayerStyleScore;
+    ]).calculator.value;
 
     expect(score?.yaku).eq(1);
     expect(score?.fu).eq(40);
@@ -112,7 +112,7 @@ describe("ComplexPaiPattern", () => {
 
       "4s",
       "4s",
-    ]).score.fourPlayerStyleScore;
+    ]).calculator.value;
 
     expect(score?.yaku).eq(2);
     expect(score?.fu).eq(30);
@@ -140,7 +140,7 @@ describe("ComplexPaiPattern", () => {
 
       "4s",
       "4s",
-    ]).score.fourPlayerStyleScore;
+    ]).calculator.value;
 
     // NOTE: Here is IpeiKou
     expect(score?.yaku).eq(1);
@@ -169,7 +169,7 @@ describe("ComplexPaiPattern", () => {
 
         "4s",
         "4s",
-      ]).score.fourPlayerStyleScore;
+      ]).calculator.value;
 
     expect(score).toThrow(
       "The mahjong scores are not available that reason for Yaku are not fulfilled, invalid format and so on",
@@ -203,7 +203,7 @@ describe("ComplexPaiPattern", () => {
 
         "4s",
         "4s",
-      ]).score.fourPlayerStyleScore;
+      ]).calculator.value;
 
     expect(score).toThrow(
       "The mahjong scores are not available that reason for Yaku are not fulfilled, invalid format and so on",

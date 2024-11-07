@@ -39,7 +39,7 @@ describe("SuAnkouTankiMachi", () => {
           // NOTE: Here is same of a mahjong parent
           jikaze: "1z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 96000, child: 32000 });
         expect(score?.honba).eq(0);
@@ -68,7 +68,7 @@ describe("SuAnkouTankiMachi", () => {
           // NOTE: Here is same of a mahjong parent
           jikaze: "1z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 96000 });
         expect(score?.honba).eq(0);
@@ -99,7 +99,7 @@ describe("SuAnkouTankiMachi", () => {
 
           jikaze: "2z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({
           base: 64000,
@@ -131,7 +131,7 @@ describe("SuAnkouTankiMachi", () => {
 
           jikaze: "2z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 64000 });
         expect(score?.honba).eq(0);

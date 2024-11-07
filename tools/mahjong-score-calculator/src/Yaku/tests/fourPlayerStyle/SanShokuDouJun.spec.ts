@@ -51,7 +51,7 @@ describe("SanShokuDouJun", () => {
           // NOTE: Here is same of a mahjong parent
           jikaze: "1z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 5800, child: 2000 });
         expect(score?.honba).eq(0);
@@ -112,7 +112,7 @@ describe("SanShokuDouJun", () => {
           // NOTE: Here is same of a mahjong parent
           jikaze: "1z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 3900 });
         expect(score?.honba).eq(0);
@@ -167,7 +167,7 @@ describe("SanShokuDouJun", () => {
 
           jikaze: "2z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 3900, parent: 2000, child: 1000 });
         expect(score?.honba).eq(0);
@@ -227,7 +227,7 @@ describe("SanShokuDouJun", () => {
 
           jikaze: "2z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 2600 });
         expect(score?.honba).eq(0);
@@ -290,7 +290,7 @@ describe("SanShokuDouJun", () => {
           return paiPairCollection;
         });
 
-        const score = mahjong.score.fourPlayerStyleScore;
+        const score = mahjong.calculator.value;
         expect(score?.score).deep.eq({ base: 1000 });
         expect(score?.honba).eq(0);
         expect(score?.fu).eq(30);

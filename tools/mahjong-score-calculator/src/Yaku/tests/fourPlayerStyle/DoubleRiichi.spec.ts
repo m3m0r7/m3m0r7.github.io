@@ -51,7 +51,7 @@ describe("DoubleRiichi", () => {
             ...MahjongDefaultAdditionalSpecialYaku,
             withDoubleRiichi: true,
           },
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 5800, child: 2000 });
         expect(score?.honba).eq(0);
@@ -110,7 +110,7 @@ describe("DoubleRiichi", () => {
             ...MahjongDefaultAdditionalSpecialYaku,
             withDoubleRiichi: true,
           },
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 2900 });
         expect(score?.honba).eq(0);
@@ -163,7 +163,7 @@ describe("DoubleRiichi", () => {
             ...MahjongDefaultAdditionalSpecialYaku,
             withDoubleRiichi: true,
           },
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 3900, parent: 2000, child: 1000 });
         expect(score?.honba).eq(0);
@@ -221,7 +221,7 @@ describe("DoubleRiichi", () => {
             ...MahjongDefaultAdditionalSpecialYaku,
             withDoubleRiichi: true,
           },
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 2000 });
         expect(score?.honba).eq(0);
@@ -283,7 +283,7 @@ describe("DoubleRiichi", () => {
             return paiPairCollection;
           });
 
-          return mahjong.score.fourPlayerStyleScore;
+          return mahjong.calculator.value;
         };
 
         expect(score).toThrow(

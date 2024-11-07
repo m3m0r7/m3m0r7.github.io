@@ -42,7 +42,7 @@ describe("DaiSanGen", () => {
           // NOTE: Here is same of a mahjong parent
           jikaze: "1z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 48000, child: 16000 });
         expect(score?.honba).eq(0);
@@ -71,7 +71,7 @@ describe("DaiSanGen", () => {
           // NOTE: Here is same of a mahjong parent
           jikaze: "1z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 48000 });
         expect(score?.honba).eq(0);
@@ -102,7 +102,7 @@ describe("DaiSanGen", () => {
 
           jikaze: "2z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({
           base: 32000,
@@ -134,7 +134,7 @@ describe("DaiSanGen", () => {
 
           jikaze: "2z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 32000 });
         expect(score?.honba).eq(0);
@@ -173,7 +173,7 @@ describe("DaiSanGen", () => {
           return paiPairCollection;
         });
 
-        const score = mahjong.score.fourPlayerStyleScore;
+        const score = mahjong.calculator.value;
         expect(score?.score).deep.eq({ base: 32000 });
         expect(score?.honba).eq(0);
         expect(score?.fu).eq(null);

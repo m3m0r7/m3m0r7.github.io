@@ -52,7 +52,7 @@ describe("UraDora", () => {
           // NOTE: Here is same of a mahjong parent
           jikaze: "1z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 11600, child: 3900 });
         expect(score?.honba).eq(0);
@@ -128,7 +128,7 @@ describe("UraDora", () => {
           // NOTE: Here is same of a mahjong parent
           jikaze: "1z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 7700 });
         expect(score?.honba).eq(0);
@@ -198,7 +198,7 @@ describe("UraDora", () => {
 
           jikaze: "2z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 7700, parent: 3900, child: 2000 });
         expect(score?.honba).eq(0);
@@ -273,7 +273,7 @@ describe("UraDora", () => {
 
           jikaze: "2z",
           kaze: "1z",
-        }).score.fourPlayerStyleScore;
+        }).calculator.value;
 
         expect(score?.score).deep.eq({ base: 5200 });
         expect(score?.honba).eq(0);
@@ -352,7 +352,7 @@ describe("UraDora", () => {
             return paiPairCollection;
           });
 
-          return mahjong.score.fourPlayerStyleScore;
+          return mahjong.calculator.value;
         };
         expect(score).toThrow(
           "The mahjong scores are not available that reason for Yaku are not fulfilled, invalid format and so on",
