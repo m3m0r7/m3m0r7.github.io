@@ -3,6 +3,7 @@ import CalculationStepContext from "../Context/CalculationStepContext";
 import OptionContext from "../Context/OptionContext";
 import PaiSelectionContext from "../Context/PaiSelectionContext";
 import ScoreDataContext from "../Context/ScoreDataContext";
+import { convertToNormalPai } from "../../Utilities/Converter";
 
 const StepMessageButton = () => {
   const [calculationStep, setCalculationStep] = useContext(
@@ -51,10 +52,10 @@ const StepMessageButton = () => {
         ...option,
         doraList: selection?.paiList
           ?.filter((v) => v.isDoraPai)
-          .map((v) => v.pai),
+          .map((v) => convertToNormalPai(v.pai) ?? "1m"),
         uraDoraList: selection?.paiList
           ?.filter((v) => v.isUraDoraPai)
-          .map((v) => v.pai),
+          .map((v) => convertToNormalPai(v.pai) ?? "1m"),
       });
     }
   };

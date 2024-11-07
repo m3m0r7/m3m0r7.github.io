@@ -3,6 +3,7 @@ import { PaiPatternExtractor } from "../Runtime/Extractor/Extractor";
 import { PaiGenerator } from "../Utilities/PaiGenerator";
 import { PaiListFormatAreInvalidError } from "../Error/PaiListFormatAreInvalidError";
 import { JantouNotFoundError } from "../Error/JantouNotFoundError";
+import { convertToNormalPai } from "../Utilities/Converter";
 
 type CountOption = Omit<Required<Record<keyof PaiPair, boolean>>, "pattern">;
 
@@ -306,6 +307,7 @@ export class PaiCollection {
 
   private diff(removePaiList: PaiPair): PaiName[] {
     const targetRemovePaiList: PaiName[] = [...removePaiList.pattern];
+
     const newPaiName: PaiName[] = [];
     const pickedPositions: number[] = [];
     for (let i = 0, j = 0; i < targetRemovePaiList.length; i++) {
@@ -313,17 +315,10 @@ export class PaiCollection {
         if (pickedPositions.includes(j)) {
           continue;
         }
-        const [aNumber, aGroup] = PaiPatternExtractor.extractPaiPair(
-          targetRemovePaiList[i],
-        );
-        const [bNumber, bGroup] = PaiPatternExtractor.extractPaiPair(
-          this.paiList[j],
-        );
+        const a = convertToNormalPai(targetRemovePaiList[i]);
+        const b = convertToNormalPai(this.paiList[j]);
 
-        if (
-          pickedPositions.length < removePaiList.pattern.length &&
-          `${aNumber}${aGroup}` === `${bNumber}${bGroup}`
-        ) {
+        if (pickedPositions.length < removePaiList.pattern.length && a === b) {
           pickedPositions.push(j);
           continue;
         }

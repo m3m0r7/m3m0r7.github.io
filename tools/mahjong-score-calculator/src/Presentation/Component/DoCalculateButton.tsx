@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
-import { PaiGroupName } from "../../@types/types";
+import { PaiGroupName, PaiName } from "../../@types/types";
 import { createURL } from "../Option";
 import PaiSelectionContext from "../Context/PaiSelectionContext";
 import DialogContext from "../Context/DialogContext";
 import CalculationStepContext from "../Context/CalculationStepContext";
+import { PaiPatternExtractor } from "../../Runtime/Extractor/Extractor";
 
 const DoCalculateButton = () => {
   const [dialog, setDialog] = useContext(DialogContext);
@@ -13,8 +14,6 @@ const DoCalculateButton = () => {
   const [_selection] = useContext(PaiSelectionContext);
   const selection = _selection ?? {
     paiList: [],
-    needsRinshanPai: 0,
-    rinshanPaiList: [],
   };
 
   const startScoreCalculation = () => {
@@ -32,14 +31,17 @@ const DoCalculateButton = () => {
     });
   };
 
+  const needsRinshanPai = PaiPatternExtractor.needsRinshanPaiByPaiNameList(
+    selection.paiList
+      .filter((v) => v.pai)
+      .map((v) => `${v.pai}${v.isKanPai ? "k" : ""}` as PaiName),
+  );
+
   if (calculationStep?.step !== "select-pai") {
     return (
       <button
         type="button"
-        disabled={
-          selection.paiList.length + selection.rinshanPaiList.length <
-          14 + selection.needsRinshanPai
-        }
+        disabled={selection.paiList.length < 14 + needsRinshanPai}
         className="button do-calculate-button outline-button w-full"
         onClick={resetAll}
       >
@@ -51,10 +53,7 @@ const DoCalculateButton = () => {
   return (
     <button
       type="button"
-      disabled={
-        selection.paiList.length + selection.rinshanPaiList.length <
-        14 + selection.needsRinshanPai
-      }
+      disabled={selection.paiList.length < 14 + needsRinshanPai}
       className="button do-calculate-button button--with-reflecting-animation w-full"
       onClick={startScoreCalculation}
     >

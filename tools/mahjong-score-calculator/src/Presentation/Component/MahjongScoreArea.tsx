@@ -19,6 +19,7 @@ import {
   MahjongDefaultLocalRules,
 } from "../../Runtime/MahjongDefaultOption";
 import I18n from "../../Lang/I18n";
+import { convertToNormalPai } from "../../Utilities/Converter";
 
 const colorGradientByHan = {
   1: "#000080",
@@ -65,11 +66,11 @@ const MahjongScoreArea = () => {
         hora: {
           ...(option?.hora ?? {}),
           pai:
-            selection?.paiList?.find(
-              (paiOptionInfo: PaiOptionInfo) => paiOptionInfo.isHoraPai,
-            )?.pai ??
-            selection?.paiList?.[0].pai ??
-            "1m",
+            convertToNormalPai(
+              selection?.paiList?.find(
+                (paiOptionInfo: PaiOptionInfo) => paiOptionInfo.isHoraPai,
+              )?.pai ?? selection?.paiList?.[0].pai,
+            ) ?? "1m",
           fromTsumo: option?.hora?.fromTsumo ?? false,
           fromRon: option?.hora?.fromRon ?? false,
           fromRinshanPai: option?.hora?.fromRinshanPai ?? false,
@@ -84,10 +85,10 @@ const MahjongScoreArea = () => {
         },
         doraList: selection.paiList
           .filter((v) => v.isDoraPai)
-          .map((v) => v.pai),
+          .map((v) => convertToNormalPai(v.pai) ?? "1m"),
         uraDoraList: selection.paiList
           .filter((v) => v.isUraDoraPai)
-          .map((v) => v.pai),
+          .map((v) => convertToNormalPai(v.pai) ?? "1m"),
       },
     );
 

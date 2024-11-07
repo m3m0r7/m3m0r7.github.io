@@ -13,14 +13,10 @@ export class SuAnkouTankiMachi implements Yaku {
   }
 
   get type(): Yaku["type"] {
-    return "DOUBLE_FULL";
+    return this.option.enableDoubleYakuman ? "DOUBLE_FULL" : "FULL";
   }
 
   get isFulfilled(): boolean {
-    if (!this.option.enableDoubleYakuman) {
-      return false;
-    }
-
     return (
       this.paiPairCollection.paiPairs.some(
         (v) => v.isJantou && v.pattern.includes(this.option.hora.pai),

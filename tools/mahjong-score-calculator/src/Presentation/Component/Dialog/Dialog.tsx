@@ -7,6 +7,7 @@ import DialogScoreCalculation from "./DialogScoreCalculation";
 import DialogScoreDetails from "./DialogScoreDetails";
 import DialogResetCalculation from "./DialogResetCalculation";
 import DialogConfirmKan from "./DialogConfirmKan";
+import DialogInputSupport from "./DialogInputSupport";
 
 const Dialog = () => {
   const [dialog] = useContext(DialogContext);
@@ -18,6 +19,7 @@ const Dialog = () => {
     <DialogOverlay
       className={`${dialog.open ? "" : "hidden"} flex items-center justify-center`}
     >
+      <DialogInputSupport />
       <DialogConfirmKan />
       <DialogScoreCalculation />
       <DialogScoreDetails />

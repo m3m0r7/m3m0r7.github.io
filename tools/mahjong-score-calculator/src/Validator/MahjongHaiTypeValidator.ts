@@ -1,5 +1,6 @@
 import { MahjongOption, PaiName, Validator } from "../@types/types";
 import { PaiGenerator } from "../Utilities/PaiGenerator";
+import { PaiPatternExtractor } from "../Runtime/Extractor/Extractor";
 
 export class MahjongHaiTypeValidator implements Validator {
   readonly paiList: PaiName[];
@@ -29,6 +30,27 @@ export class MahjongHaiTypeValidator implements Validator {
       }
     }
 
+    if (!this.validateKan()) {
+      return false;
+    }
+
     return true;
+  }
+
+  private validateKan(): boolean {
+    return Object.values(
+      this.paiList
+        .filter((v) => {
+          const [_name, _group, option] = PaiPatternExtractor.extractPaiPair(v);
+          return option.isKanPai;
+        })
+        .reduce<Record<string, number>>((carry, pai) => {
+          const [name, group, option] = PaiPatternExtractor.extractPaiPair(pai);
+          return {
+            ...carry,
+            [`${name}${group}`]: (carry[`${name}${group}`] ?? 0) + 1,
+          };
+        }, {}),
+    ).every((v) => v === 4);
   }
 }

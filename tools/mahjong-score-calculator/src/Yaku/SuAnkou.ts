@@ -21,7 +21,7 @@ export class SuAnkou implements Yaku {
       i++
     ) {
       const paiPair = this.paiPairCollection.paiPairs[i];
-      if (!paiPair.isFuro && (paiPair.isKoutsu || paiPair.isKan)) {
+      if (!paiPair.isFuro && paiPair.isKoutsu) {
         counter++;
       }
 

@@ -13,11 +13,16 @@ export type DialogType =
     }
   | {
       open: true;
+      openType: "input-support";
+    }
+  | {
+      open: true;
       openType: "reset-calculation";
     }
   | {
       open: true;
       openType: "confirm-kan";
+      value: PaiName;
     }
   | {
       open: true;

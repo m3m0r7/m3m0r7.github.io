@@ -4,6 +4,7 @@ import PaiSelectionContext from "../../Context/PaiSelectionContext";
 import OptionContext from "../../Context/OptionContext";
 import ScoreDataContext from "../../Context/ScoreDataContext";
 import CalculationStepContext from "../../Context/CalculationStepContext";
+import { PaiName } from "../../../@types/types";
 
 const name: DialogType["openType"] = "confirm-kan";
 
@@ -22,13 +23,17 @@ const DialogConfirmKan = () => {
 
   const doKan = () => {
     setPaiSelections?.({
-      ...(paiSelections ?? {
-        needsRinshanPai: 0,
-        rinshanPaiList: [],
-      }),
-      needsRinshanPai: (paiSelections?.needsRinshanPai ?? 0) + 1,
-      rinshanPaiList: [...paiSelections?.rinshanPaiList],
-      paiList: [...paiSelections?.paiList],
+      ...(paiSelections ?? {}),
+      paiList:
+        paiSelections?.paiList.map((v) =>
+          v.pai === dialog.value
+            ? {
+                ...v,
+                pai: `${v.pai}k` as PaiName,
+                isKanPai: true,
+              }
+            : v,
+        ) ?? [],
     });
 
     setDialog?.({

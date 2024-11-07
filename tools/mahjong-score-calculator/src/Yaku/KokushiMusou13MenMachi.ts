@@ -13,17 +13,16 @@ export class KokushiMusou13MenMachi implements Yaku {
   }
 
   get type(): Yaku["type"] {
-    return "DOUBLE_FULL";
+    return this.option.enableDoubleYakuman ? "DOUBLE_FULL" : "FULL";
   }
 
   get isFulfilled(): boolean {
-    if (!this.option.enableDoubleYakuman) {
-      return false;
-    }
-
     return (
       this.paiPairCollection.isKokushiMusou &&
-      this.option.additionalSpecialYaku.withKokushiMusou13MenMachi
+      this.paiPairCollection.paiPairs.every(
+        (pattern) =>
+          pattern.pattern.map((v) => v === this.option.hora.pai).sum() >= 2,
+      )
     );
   }
 }

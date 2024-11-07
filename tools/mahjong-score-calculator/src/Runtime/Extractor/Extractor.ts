@@ -12,6 +12,7 @@ import {
 } from "../../@types/types";
 import { PaiCollection } from "../../Collection/Collection";
 import { PaiGenerator } from "../../Utilities/PaiGenerator";
+import { convertToNormalPai } from "../../Utilities/Converter";
 
 export class PaiPatternExtractor {
   private paiCollection: PaiCollection;
@@ -161,7 +162,10 @@ export class PaiPatternExtractor {
     return sortedResult.sorted;
   }
 
-  extractShuntsu(paiList: PaiName[]): [PaiPair[], number[]] {
+  extractShuntsu(
+    paiList: PaiName[],
+    ignorePositions: number[] = [],
+  ): [PaiPair[], number[]] {
     const extractedPattern: PaiPair[] = [];
     const remainingPaiList: PaiName[] = PaiPatternExtractor.sortByPaiName(
       paiList,
@@ -171,6 +175,10 @@ export class PaiPatternExtractor {
 
     for (let i = 0; i < remainingPaiList.length; i++) {
       const pattern = remainingPaiList.slice(i, i + 3);
+
+      if (ignorePositions.includes(i)) {
+        continue;
+      }
 
       if (PaiPatternExtractor.shouldShuntsu(pattern)) {
         extractedPattern.push(
@@ -368,28 +376,29 @@ export class PaiPatternExtractor {
         [],
       );
 
-    for (const kanFriendly of [true, false]) {
+    for (const kanFriendly of [false, true]) {
       // NOTE: Shuntsu friendly
       const [
         shuntsuFriendlyShuntsuPatterns,
         shuntsuFriendlyShuntsuSolvedPositions,
       ] = this.extractShuntsu(this.paiCollection.paiList);
+
+      const excludedShuntsuFriendlyPatterns = reducer<PaiName>(
+        this.paiCollection.paiList,
+        shuntsuFriendlyShuntsuSolvedPositions,
+      );
+
       const [
         shuntsuFriendlyKoutsuPatterns,
         shuntsuFriendlyKoutsuSolvedPositions,
-      ] = this.extractKoutsu(
-        reducer<PaiName>(
-          this.paiCollection.paiList,
-          shuntsuFriendlyShuntsuSolvedPositions,
-        ),
-        kanFriendly,
-      );
+      ] = this.extractKoutsu(excludedShuntsuFriendlyPatterns, kanFriendly);
+
       const [shuntsuFriendlyUnknownPaiList] = this.extractUnknown(
-        reducer<PaiName>(this.paiCollection.paiList, [
-          ...shuntsuFriendlyShuntsuSolvedPositions,
+        reducer<PaiName>(excludedShuntsuFriendlyPatterns, [
           ...shuntsuFriendlyKoutsuSolvedPositions,
         ]),
       );
+
       paiPairList.push([
         ...shuntsuFriendlyShuntsuPatterns,
         ...shuntsuFriendlyKoutsuPatterns,
@@ -401,15 +410,19 @@ export class PaiPatternExtractor {
         this.paiCollection.paiList,
         kanFriendly,
       );
+
+      const excludedKoutsuPatterns = reducer<PaiName>(
+        this.paiCollection.paiList,
+        koutsuSolvedPositions,
+      );
+
       const [shuntsuPatterns, shuntsuSolvedPositions] = this.extractShuntsu(
-        reducer<PaiName>(this.paiCollection.paiList, koutsuSolvedPositions),
+        excludedKoutsuPatterns,
       );
       const [unknownPaiList] = this.extractUnknown(
-        reducer<PaiName>(this.paiCollection.paiList, [
-          ...shuntsuSolvedPositions,
-          ...koutsuSolvedPositions,
-        ]),
+        reducer<PaiName>(excludedKoutsuPatterns, [...shuntsuSolvedPositions]),
       );
+
       paiPairList.push([
         ...shuntsuPatterns,
         ...koutsuPatterns,
@@ -423,6 +436,8 @@ export class PaiPatternExtractor {
     const [chiitoitsuUnknownPaiList] = this.extractUnknown(
       reducer<PaiName>(this.paiCollection.paiList, chiitoitsuSolvedPositions),
     );
+
+    const chiitoitsu = [...chiitoitsuPatterns, ...chiitoitsuUnknownPaiList];
     paiPairList.push([...chiitoitsuPatterns, ...chiitoitsuUnknownPaiList]);
 
     // NOTE: kokushimusou
@@ -470,10 +485,27 @@ export class PaiPatternExtractor {
       return false;
     }
 
-    const [aName, aGroup] = PaiPatternExtractor.extractPaiPair(pattern[0]);
-    const [bName, bGroup] = PaiPatternExtractor.extractPaiPair(pattern[1]);
-    const [cName, cGroup] = PaiPatternExtractor.extractPaiPair(pattern[2]);
-    const [dName, dGroup] = PaiPatternExtractor.extractPaiPair(pattern[3]);
+    const [aName, aGroup, aOption] = PaiPatternExtractor.extractPaiPair(
+      pattern[0],
+    );
+    const [bName, bGroup, bOption] = PaiPatternExtractor.extractPaiPair(
+      pattern[1],
+    );
+    const [cName, cGroup, cOption] = PaiPatternExtractor.extractPaiPair(
+      pattern[2],
+    );
+    const [dName, dGroup, dOption] = PaiPatternExtractor.extractPaiPair(
+      pattern[3],
+    );
+
+    if (
+      !aOption.isKanPai ||
+      !bOption.isKanPai ||
+      !cOption.isKanPai ||
+      !dOption.isKanPai
+    ) {
+      return false;
+    }
 
     return (
       `${aName}${aGroup}` === `${bName}${bGroup}` &&
@@ -487,13 +519,11 @@ export class PaiPatternExtractor {
       return false;
     }
 
-    const [aName, aGroup] = PaiPatternExtractor.extractPaiPair(pattern[0]);
-    const [bName, bGroup] = PaiPatternExtractor.extractPaiPair(pattern[1]);
-    const [cName, cGroup] = PaiPatternExtractor.extractPaiPair(pattern[2]);
-
     return (
-      `${aName}${aGroup}` === `${bName}${bGroup}` &&
-      `${bName}${bGroup}` === `${cName}${cGroup}`
+      convertToNormalPai(pattern[0], false) ===
+        convertToNormalPai(pattern[1], false) &&
+      convertToNormalPai(pattern[1], false) ===
+        convertToNormalPai(pattern[2], false)
     );
   }
 
@@ -502,9 +532,10 @@ export class PaiPatternExtractor {
       return false;
     }
 
-    const [aName, aGroup] = PaiPatternExtractor.extractPaiPair(pattern[0]);
-    const [bName, bGroup] = PaiPatternExtractor.extractPaiPair(pattern[1]);
-    return `${aName}${aGroup}` === `${bName}${bGroup}`;
+    return (
+      convertToNormalPai(pattern[0], false) ===
+      convertToNormalPai(pattern[1], false)
+    );
   }
 
   static extractPaiPair(paiName: PaiName): [
@@ -516,20 +547,35 @@ export class PaiPatternExtractor {
       isUraDora?: boolean;
       isDora?: boolean;
       isHoraPai?: boolean;
+      isKanPai: boolean;
     },
   ] {
-    const paiAttr = paiName.substring(2) as PaiAttr;
     return [
       paiName.substring(0, 1) as keyof PaiNumberName,
-      paiName.substring(1, 2) as PaiGroupName,
+      (paiName.includes("m")
+        ? "m"
+        : paiName.includes("p")
+          ? "p"
+          : paiName.includes("s")
+            ? "s"
+            : "z") as PaiGroupName,
       {
-        isAkaDora: paiAttr.includes("a"),
-        fromFuro: paiAttr.includes("f"),
-        ...(paiAttr.includes("u") ? { isUraDora: paiAttr.includes("u") } : {}),
-        ...(paiAttr.includes("d") ? { isDora: paiAttr.includes("d") } : {}),
-        ...(paiAttr.includes("h") ? { isHoraPai: paiAttr.includes("h") } : {}),
+        isAkaDora: paiName.includes("a"),
+        fromFuro: paiName.includes("f"),
+        isKanPai: paiName.includes("k"),
+        ...(paiName.includes("u") ? { isUraDora: paiName.includes("u") } : {}),
+        ...(paiName.includes("d") ? { isDora: paiName.includes("d") } : {}),
+        ...(paiName.includes("h") ? { isHoraPai: paiName.includes("h") } : {}),
       },
     ];
+  }
+
+  static needsRinshanPaiByPaiNameList(paiNameList: PaiName[]) {
+    return Math.floor(
+      paiNameList.filter((v) => {
+        return v.includes("k");
+      }).length / 4,
+    );
   }
 }
 

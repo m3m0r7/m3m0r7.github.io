@@ -1,11 +1,10 @@
 import "../../../Utilities/Utilities";
 import { describe, expect, test } from "vitest";
 import { Mahjong } from "../../../Runtime/Mahjong";
-import { PaiGenerator } from "../../../Utilities/PaiGenerator";
 import I18n from "../../../Lang/I18n";
 import { PaiName } from "../../../@types/types";
 import { ChiiToitsu } from "../../ChiiToitsu";
-import { Futei, MenzenKafu } from "../../../Fu";
+import { Futei } from "../../../Fu";
 import { MenzenTsumo } from "../../MenzenTsumo";
 
 const chiiToitsuExampleFormat: PaiName[] = [
@@ -23,6 +22,9 @@ const chiiToitsuExampleFormat: PaiName[] = [
 
   "1s",
   "1s",
+
+  "2s",
+  "2s",
 ];
 
 describe("ChiiToitsu", () => {

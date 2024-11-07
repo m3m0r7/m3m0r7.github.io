@@ -8,6 +8,7 @@ import {
 import { MahjongHaiTypeValidator } from "../Validator/MahjongHaiTypeValidator";
 import { PaiListFormatAreInvalidError } from "../Error/PaiListFormatAreInvalidError";
 import { MahjongScoreCalculator } from "./Score/MahjongScoreCalculator";
+import { convertToNormalPai } from "../Utilities/Converter";
 
 export class Mahjong {
   readonly option: MahjongOption;
@@ -20,7 +21,7 @@ export class Mahjong {
       {
         ...MahjongDefaultOption,
         hora: {
-          pai: paiList[paiList.length - 1],
+          pai: convertToNormalPai(paiList[paiList.length - 1]) ?? "1m",
           fromRon: false,
           fromTsumo: false,
           fromRinshanPai: false,
@@ -45,7 +46,19 @@ export class Mahjong {
         logger: (...message: string[]) => console.info(...message),
         additionalSpecialYaku: MahjongDefaultAdditionalSpecialYaku,
       },
-      option,
+      {
+        ...option,
+        hora: {
+          fromRon: false,
+          fromTsumo: false,
+          fromRinshanPai: false,
+          ...option.hora,
+          pai:
+            convertToNormalPai(option.hora?.pai) ??
+            convertToNormalPai(paiList[paiList.length - 1]) ??
+            "1m",
+        },
+      },
     );
 
     if (!new MahjongHaiTypeValidator(paiList, this.option).validate()) {

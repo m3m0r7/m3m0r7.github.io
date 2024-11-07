@@ -9,7 +9,7 @@ export class MahjongScoreCalculator {
 
   constructor(mahjong: Mahjong, paiPairCollections: PaiPairCollection[]) {
     this.mahjong = mahjong;
-    this.paiPairCollections = paiPairCollections;
+    this.paiPairCollections = paiPairCollections; //.filter(v => v.paiPairs.every(paiPair => paiPair.pattern.length >= 2));
   }
 
   get fourPlayerStyleScore() {

@@ -216,7 +216,7 @@ const DialogScoreDetails = () => {
                 {calculateTransitionScoreBars(scoreData?.score.base ?? 0).map(
                   ([name, count]) => (
                     <li
-                      className={`grid items-center grid-cols-6 ${count === 0 ? "opacity-30" : ""}`}
+                      className={`grid items-center grid-cols-6 ${count === 0 ? "opacity-10" : ""}`}
                     >
                       <div className="col-span-2 place-self-center">
                         <img src={createURL(`images/bar/${name}.png`)} />
@@ -243,7 +243,7 @@ const DialogScoreDetails = () => {
                 {calculateTransitionScoreBars(scoreData?.score.parent ?? 0).map(
                   ([name, count]) => (
                     <li
-                      className={`grid items-center grid-cols-6 ${count === 0 ? "opacity-30" : ""}`}
+                      className={`grid items-center grid-cols-6 ${count === 0 ? "opacity-10" : ""}`}
                     >
                       <div className="col-span-2 place-self-center">
                         <img src={createURL(`images/bar/${name}.png`)} />
@@ -270,7 +270,7 @@ const DialogScoreDetails = () => {
                 {calculateTransitionScoreBars(scoreData?.score.child ?? 0).map(
                   ([name, count]) => (
                     <li
-                      className={`grid items-center grid-cols-6 ${count === 0 ? "opacity-30" : ""}`}
+                      className={`grid items-center grid-cols-6 ${count === 0 ? "opacity-10" : ""}`}
                     >
                       <div className="col-span-2 place-self-center">
                         <img src={createURL(`images/bar/${name}.png`)} />

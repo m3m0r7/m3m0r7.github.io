@@ -13,22 +13,30 @@ export class JunseiChurenPoutou implements Yaku {
   }
 
   get type(): Yaku["type"] {
-    return "DOUBLE_FULL";
+    return this.option.enableDoubleYakuman ? "DOUBLE_FULL" : "FULL";
   }
 
   get isFulfilled(): boolean {
-    if (!this.option.enableDoubleYakuman) {
-      return false;
-    }
-
     // NOTE: The churen poutou is available to menzen only
     if (this.paiPairCollection.hasFuro) {
       return false;
     }
 
+    const m: PaiName[][] = this.paiPairCollection.paiPairs.map((paiPair) =>
+      paiPair.pattern.diff(PaiGenerator.generateChurenPoutou9MenMachi("m")),
+    );
+    const p: PaiName[][] = this.paiPairCollection.paiPairs.map((paiPair) =>
+      paiPair.pattern.diff(PaiGenerator.generateChurenPoutou9MenMachi("p")),
+    );
+    const s: PaiName[][] = this.paiPairCollection.paiPairs.map((paiPair) =>
+      paiPair.pattern.diff(PaiGenerator.generateChurenPoutou9MenMachi("s")),
+    );
+
     return (
       this.paiPairCollection.isChurenPoutou &&
-      this.option.additionalSpecialYaku.withJunseiChurenPoutou
+      ((m[0].length === 1 && m[0].includes(this.option.hora.pai)) ||
+        (p[0].length === 1 && p[0].includes(this.option.hora.pai)) ||
+        (s[0].length === 1 && s[0].includes(this.option.hora.pai)))
     );
   }
 }

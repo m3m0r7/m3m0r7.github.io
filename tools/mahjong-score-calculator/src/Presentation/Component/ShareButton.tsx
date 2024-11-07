@@ -15,8 +15,6 @@ const ShareButton = () => {
 
   const selection = _selections ?? {
     paiList: [],
-    needsRinshanPai: 0,
-    rinshanPaiList: [],
   };
 
   const createFullURL = () => {
@@ -44,10 +42,6 @@ const ShareButton = () => {
     defaultUrl.searchParams.set(
       "paiList",
       selection.paiList.map(toPaiText).join(""),
-    );
-    defaultUrl.searchParams.set(
-      "rinshanPaiList",
-      selection.rinshanPaiList.map(toPaiText).join(""),
     );
 
     if (calculationStep?.step) {

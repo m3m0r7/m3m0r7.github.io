@@ -14,7 +14,7 @@ describe("KokushiMusou", () => {
           [...PaiGenerator.generateKokushiMusou13MenMachi(), "1m"],
           {
             hora: {
-              pai: "1m",
+              pai: "9m",
               fromTsumo: true,
               fromRon: false,
 
@@ -46,7 +46,7 @@ describe("KokushiMusou", () => {
           [...PaiGenerator.generateKokushiMusou13MenMachi(), "1m"],
           {
             hora: {
-              pai: "1m",
+              pai: "9m",
               fromTsumo: false,
               fromRon: true,
 
@@ -81,7 +81,7 @@ describe("KokushiMusou", () => {
           [...PaiGenerator.generateKokushiMusou13MenMachi(), "1m"],
           {
             hora: {
-              pai: "1m",
+              pai: "9m",
               fromTsumo: true,
               fromRon: false,
 
@@ -116,7 +116,7 @@ describe("KokushiMusou", () => {
           [...PaiGenerator.generateKokushiMusou13MenMachi(), "1m"],
           {
             hora: {
-              pai: "1m",
+              pai: "9m",
               fromTsumo: false,
               fromRon: true,
 

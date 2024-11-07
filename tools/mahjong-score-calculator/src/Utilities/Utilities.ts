@@ -4,6 +4,7 @@ interface Array<T> {
   includesWithMatrix<U = T>(items: U[], type?: "OR" | "AND"): boolean;
   sum(): number;
   same<T>(arr: T[]): boolean;
+  diff<T>(arr: T[]): T[];
 }
 
 Array.prototype.chunk = function (size: number) {
@@ -35,4 +36,15 @@ Array.prototype.sum = function (): number {
 
 Array.prototype.same = function <T>(arr: T[]): boolean {
   return JSON.stringify(this) === JSON.stringify(arr);
+};
+
+Array.prototype.diff = function <T>(arr: T[]): T[] {
+  const n = [...this];
+  for (const item of arr) {
+    const index = n.indexOf(item);
+    if (index !== -1) {
+      n.splice(index, 1);
+    }
+  }
+  return n;
 };

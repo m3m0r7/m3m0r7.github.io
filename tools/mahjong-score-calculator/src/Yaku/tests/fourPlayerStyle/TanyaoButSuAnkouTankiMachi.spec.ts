@@ -1,31 +1,48 @@
 import "../../../Utilities/Utilities";
 import { describe, expect, test } from "vitest";
 import { Mahjong } from "../../../Runtime/Mahjong";
-import { PaiGenerator } from "../../../Utilities/PaiGenerator";
 import I18n from "../../../Lang/I18n";
-import { KokushiMusou13MenMachi } from "../../KokushiMusou13MenMachi";
-import { MahjongDefaultAdditionalSpecialYaku } from "../../../Runtime/MahjongDefaultOption";
+import { PaiName } from "../../../@types/types";
+import { SuAnkouTankiMachi } from "../../SuAnkouTankiMachi";
 
-describe("KokushiMusou13MenMachi", () => {
+const tanyaoButSuAnkouTankiMachiExampleFormat: PaiName[] = [
+  "2m",
+  "3m",
+  "4m",
+
+  "2m",
+  "3m",
+  "4m",
+
+  "2m",
+  "3m",
+  "4m",
+
+  "2p",
+  "2p",
+  "2p",
+
+  "5m",
+  "5m",
+];
+
+describe("SuAnkouTankiMachi", () => {
   describe("fulfilled", () => {
     describe("parent", () => {
       test("tsumo", () => {
-        const score = new Mahjong(
-          [...PaiGenerator.generateKokushiMusou13MenMachi(), "1m"],
-          {
-            hora: {
-              pai: "1m",
-              fromTsumo: true,
-              fromRon: false,
+        const score = new Mahjong(tanyaoButSuAnkouTankiMachiExampleFormat, {
+          hora: {
+            pai: "5m",
+            fromTsumo: true,
+            fromRon: false,
 
-              fromRinshanPai: false,
-            },
-
-            // NOTE: Here is same of a mahjong parent
-            jikaze: "1z",
-            kaze: "1z",
+            fromRinshanPai: false,
           },
-        ).score.fourPlayerStyleScore;
+
+          // NOTE: Here is same of a mahjong parent
+          jikaze: "1z",
+          kaze: "1z",
+        }).score.fourPlayerStyleScore;
 
         expect(score?.score).deep.eq({ base: 96000, child: 32000 });
         expect(score?.honba).eq(0);
@@ -37,27 +54,24 @@ describe("KokushiMusou13MenMachi", () => {
             isDoubleYakuman: true,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[KokushiMusou13MenMachi.name],
+            name: I18n.ja.yaku[SuAnkouTankiMachi.name],
           },
         ]);
       });
       test("ron", () => {
-        const score = new Mahjong(
-          [...PaiGenerator.generateKokushiMusou13MenMachi(), "1m"],
-          {
-            hora: {
-              pai: "1m",
-              fromTsumo: false,
-              fromRon: true,
+        const score = new Mahjong(tanyaoButSuAnkouTankiMachiExampleFormat, {
+          hora: {
+            pai: "5m",
+            fromTsumo: false,
+            fromRon: true,
 
-              fromRinshanPai: false,
-            },
-
-            // NOTE: Here is same of a mahjong parent
-            jikaze: "1z",
-            kaze: "1z",
+            fromRinshanPai: false,
           },
-        ).score.fourPlayerStyleScore;
+
+          // NOTE: Here is same of a mahjong parent
+          jikaze: "1z",
+          kaze: "1z",
+        }).score.fourPlayerStyleScore;
 
         expect(score?.score).deep.eq({ base: 96000 });
         expect(score?.honba).eq(0);
@@ -69,7 +83,7 @@ describe("KokushiMusou13MenMachi", () => {
             isDoubleYakuman: true,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[KokushiMusou13MenMachi.name],
+            name: I18n.ja.yaku[SuAnkouTankiMachi.name],
           },
         ]);
       });
@@ -77,21 +91,18 @@ describe("KokushiMusou13MenMachi", () => {
 
     describe("child", () => {
       test("tsumo", () => {
-        const score = new Mahjong(
-          [...PaiGenerator.generateKokushiMusou13MenMachi(), "1m"],
-          {
-            hora: {
-              pai: "1m",
-              fromTsumo: true,
-              fromRon: false,
+        const score = new Mahjong(tanyaoButSuAnkouTankiMachiExampleFormat, {
+          hora: {
+            pai: "5m",
+            fromTsumo: true,
+            fromRon: false,
 
-              fromRinshanPai: false,
-            },
-
-            jikaze: "2z",
-            kaze: "1z",
+            fromRinshanPai: false,
           },
-        ).score.fourPlayerStyleScore;
+
+          jikaze: "2z",
+          kaze: "1z",
+        }).score.fourPlayerStyleScore;
 
         expect(score?.score).deep.eq({
           base: 64000,
@@ -107,26 +118,23 @@ describe("KokushiMusou13MenMachi", () => {
             isDoubleYakuman: true,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[KokushiMusou13MenMachi.name],
+            name: I18n.ja.yaku[SuAnkouTankiMachi.name],
           },
         ]);
       });
       test("ron", () => {
-        const score = new Mahjong(
-          [...PaiGenerator.generateKokushiMusou13MenMachi(), "1m"],
-          {
-            hora: {
-              pai: "1m",
-              fromTsumo: false,
-              fromRon: true,
+        const score = new Mahjong(tanyaoButSuAnkouTankiMachiExampleFormat, {
+          hora: {
+            pai: "5m",
+            fromTsumo: false,
+            fromRon: true,
 
-              fromRinshanPai: false,
-            },
-
-            jikaze: "2z",
-            kaze: "1z",
+            fromRinshanPai: false,
           },
-        ).score.fourPlayerStyleScore;
+
+          jikaze: "2z",
+          kaze: "1z",
+        }).score.fourPlayerStyleScore;
 
         expect(score?.score).deep.eq({ base: 64000 });
         expect(score?.honba).eq(0);
@@ -138,7 +146,7 @@ describe("KokushiMusou13MenMachi", () => {
             isDoubleYakuman: true,
             isFu: false,
             isYakuman: false,
-            name: I18n.ja.yaku[KokushiMusou13MenMachi.name],
+            name: I18n.ja.yaku[SuAnkouTankiMachi.name],
           },
         ]);
       });

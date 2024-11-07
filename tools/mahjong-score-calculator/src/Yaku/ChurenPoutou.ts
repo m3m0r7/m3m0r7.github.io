@@ -1,12 +1,5 @@
-import {
-  MahjongOption,
-  PaiGroupName,
-  PaiName,
-  Shuntsu,
-  Yaku,
-} from "../@types/types";
+import { MahjongOption, PaiName, Yaku } from "../@types/types";
 import { PaiPairCollection } from "../Collection/Collection";
-import { PaiPatternExtractor } from "../Runtime/Extractor/Extractor";
 import { PaiGenerator } from "../Utilities/PaiGenerator";
 
 export class ChurenPoutou implements Yaku {
@@ -28,11 +21,21 @@ export class ChurenPoutou implements Yaku {
       return false;
     }
 
-    // NOTE: The churen poutou is available to menzen only
-    if (this.paiPairCollection.hasFuro) {
-      return false;
-    }
+    const m: PaiName[][] = this.paiPairCollection.paiPairs.map((paiPair) =>
+      paiPair.pattern.diff(PaiGenerator.generateChurenPoutou9MenMachi("m")),
+    );
+    const p: PaiName[][] = this.paiPairCollection.paiPairs.map((paiPair) =>
+      paiPair.pattern.diff(PaiGenerator.generateChurenPoutou9MenMachi("p")),
+    );
+    const s: PaiName[][] = this.paiPairCollection.paiPairs.map((paiPair) =>
+      paiPair.pattern.diff(PaiGenerator.generateChurenPoutou9MenMachi("s")),
+    );
 
-    return this.paiPairCollection.isChurenPoutou;
+    return (
+      this.paiPairCollection.isChurenPoutou &&
+      ((m[0].length === 1 && !m[0].includes(this.option.hora.pai)) ||
+        (p[0].length === 1 && !p[0].includes(this.option.hora.pai)) ||
+        (s[0].length === 1 && !s[0].includes(this.option.hora.pai)))
+    );
   }
 }

@@ -10,6 +10,7 @@ import { MahjongDefaultLocalRules } from "../../Runtime/MahjongDefaultOption";
 import SystemOptionContext, {
   SystemDefaultOption,
 } from "../Context/SystemOptionContext";
+import DialogContext from "../Context/DialogContext";
 
 const MahjongOption = () => {
   const [selection, setSelection] = useContext(PaiSelectionContext);
@@ -18,213 +19,7 @@ const MahjongOption = () => {
   const [calculationStep, setCalculationStep] = useContext(
     CalculationStepContext,
   );
-
-  const applyTanyao = () => {
-    const paiList = [
-      "2m",
-      "3m",
-      "4m",
-      "5m",
-      "6m",
-      "7m",
-
-      "3p",
-      "4p",
-      "5p",
-      "6p",
-      "7p",
-      "8p",
-
-      "2s",
-      "2s",
-    ].map((pai) => ({
-      index: 0,
-      isFuro: false,
-      isHoraPai: false,
-      isDoraPai: false,
-      isAkaDora: false,
-      isUraDoraPai: false,
-      pai: pai as PaiName,
-    }));
-    paiList[0].isHoraPai = true;
-
-    setCalculationStep?.({
-      step: "select-pai",
-    });
-
-    setSelection?.({
-      paiList,
-      needsRinshanPai: 0,
-      rinshanPaiList: [],
-    });
-  };
-
-  const applyKokushiMusou = () => {
-    const paiList = [
-      ...PaiGenerator.generateKokushiMusou13MenMachi(),
-      "1m",
-    ].map((pai) => ({
-      index: 0,
-      isFuro: false,
-      isHoraPai: false,
-      isDoraPai: false,
-      isAkaDora: false,
-      isUraDoraPai: false,
-      pai: pai as PaiName,
-    }));
-    paiList[0].isHoraPai = true;
-
-    setCalculationStep?.({
-      step: "select-pai",
-    });
-
-    setSelection?.({
-      paiList,
-      needsRinshanPai: 0,
-      rinshanPaiList: [],
-    });
-  };
-
-  const applyTanyaoButDoubleYakuman = () => {
-    setSelection?.({
-      paiList: [
-        {
-          pai: "2m",
-          index: 0,
-          isFuro: false,
-          isHoraPai: false,
-          isDoraPai: false,
-          isAkaDora: false,
-          isUraDoraPai: false,
-        },
-        {
-          pai: "3m",
-          index: 0,
-          isFuro: false,
-          isHoraPai: false,
-          isDoraPai: false,
-          isAkaDora: false,
-          isUraDoraPai: false,
-        },
-        {
-          pai: "4m",
-          index: 0,
-          isFuro: false,
-          isHoraPai: false,
-          isDoraPai: false,
-          isAkaDora: false,
-          isUraDoraPai: false,
-        },
-        {
-          pai: "2m",
-          index: 1,
-          isFuro: false,
-          isHoraPai: false,
-          isDoraPai: false,
-          isAkaDora: false,
-          isUraDoraPai: false,
-        },
-        {
-          pai: "3m",
-          index: 1,
-          isFuro: false,
-          isHoraPai: false,
-          isDoraPai: false,
-          isAkaDora: false,
-          isUraDoraPai: false,
-        },
-        {
-          pai: "4m",
-          index: 1,
-          isFuro: false,
-          isHoraPai: false,
-          isDoraPai: false,
-          isAkaDora: false,
-          isUraDoraPai: false,
-        },
-        {
-          pai: "2m",
-          index: 2,
-          isFuro: false,
-          isHoraPai: false,
-          isDoraPai: false,
-          isAkaDora: false,
-          isUraDoraPai: false,
-        },
-        {
-          pai: "3m",
-          index: 2,
-          isFuro: false,
-          isHoraPai: false,
-          isDoraPai: false,
-          isAkaDora: false,
-          isUraDoraPai: false,
-        },
-        {
-          pai: "4m",
-          index: 2,
-          isFuro: false,
-          isHoraPai: false,
-          isDoraPai: false,
-          isAkaDora: false,
-          isUraDoraPai: false,
-        },
-
-        {
-          pai: "2p",
-          index: 0,
-          isFuro: false,
-          isHoraPai: false,
-          isDoraPai: false,
-          isAkaDora: false,
-          isUraDoraPai: false,
-        },
-        {
-          pai: "2p",
-          index: 1,
-          isFuro: false,
-          isHoraPai: false,
-          isDoraPai: false,
-          isAkaDora: false,
-          isUraDoraPai: false,
-        },
-        {
-          pai: "2p",
-          index: 2,
-          isFuro: false,
-          isHoraPai: false,
-          isDoraPai: false,
-          isAkaDora: false,
-          isUraDoraPai: false,
-        },
-
-        {
-          pai: "5m",
-          index: 0,
-          isFuro: false,
-          isHoraPai: false,
-          isDoraPai: false,
-          isAkaDora: false,
-          isUraDoraPai: false,
-        },
-        {
-          pai: "5m",
-          index: 1,
-          isFuro: false,
-          isHoraPai: true,
-          isDoraPai: false,
-          isAkaDora: false,
-          isUraDoraPai: false,
-        },
-      ],
-      needsRinshanPai: 0,
-      rinshanPaiList: [],
-    });
-
-    setCalculationStep?.({
-      step: "select-pai",
-    });
-  };
+  const [dialog, setDialog] = useContext(DialogContext);
 
   return (
     <div>
@@ -314,6 +109,18 @@ const MahjongOption = () => {
               name="renFon"
               value="4"
               defaultChecked={option?.localRules?.fu.renfonPai === 4}
+              onClick={(e) =>
+                setOption?.({
+                  ...option,
+                  localRules: {
+                    ...MahjongDefaultLocalRules,
+                    ...option?.localRules,
+                    fu: {
+                      renfonPai: Number(e.currentTarget.value),
+                    },
+                  },
+                })
+              }
             />
             4 符
           </label>
@@ -324,6 +131,18 @@ const MahjongOption = () => {
               name="renFon"
               value="2"
               defaultChecked={option?.localRules?.fu.renfonPai === 2}
+              onClick={(e) =>
+                setOption?.({
+                  ...option,
+                  localRules: {
+                    ...MahjongDefaultLocalRules,
+                    ...option?.localRules,
+                    fu: {
+                      renfonPai: Number(e.currentTarget.value),
+                    },
+                  },
+                })
+              }
             />
             2 符
           </label>
@@ -369,45 +188,14 @@ const MahjongOption = () => {
         </li>
       </ul>
 
-      <h2 className="font-bold mt-4 text-xl">お試し</h2>
+      <h2 className="font-bold mt-4 text-xl">入力サポート</h2>
+      <p>点数計算時の役の入力をサポートします</p>
       <button
         type="button"
         className="button primary-button w-full mt-2 outline-button"
-        onClick={applyTanyao}
+        onClick={() => setDialog?.({ open: true, openType: "input-support" })}
       >
-        <ruby>
-          断么九
-          <rp>(</rp>
-          <rt>タンヤオ</rt>
-          <rp>)</rp>
-        </ruby>
-        の計算をしてみる
-      </button>
-      <button
-        type="button"
-        className="button primary-button w-full mt-2 outline-button"
-        onClick={applyKokushiMusou}
-      >
-        <ruby>
-          国士無双
-          <rp>(</rp>
-          <rt>コクシムソウ</rt>
-          <rp>)</rp>
-        </ruby>
-        の計算をしてみる
-      </button>
-      <button
-        type="button"
-        className="button primary-button w-full mt-2 outline-button"
-        onClick={applyTanyaoButDoubleYakuman}
-      >
-        <ruby>
-          断么九
-          <rp>(</rp>
-          <rt>タンヤオ</rt>
-          <rp>)</rp>
-        </ruby>
-        （AA でおなじみの方）の計算をしてみる
+        入力サポートを開く
       </button>
 
       <h2 className="font-bold mt-4 text-xl">注意事項</h2>

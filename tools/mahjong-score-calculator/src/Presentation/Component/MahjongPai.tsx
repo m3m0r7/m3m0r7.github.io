@@ -18,8 +18,6 @@ const MahjongPai = (props: {
 
   const selection = _selections ?? {
     paiList: [],
-    needsRinshanPai: 0,
-    rinshanPaiList: [],
   };
 
   if (!dialog || !setDialog) {
@@ -43,10 +41,7 @@ const MahjongPai = (props: {
 
     const [number] = PaiPatternExtractor.extractPaiPair(pai);
     setPaiSelections?.({
-      ...(paiSelections ?? {
-        needsRinshanPai: 0,
-        rinshanPaiList: [],
-      }),
+      ...(paiSelections ?? {}),
       paiList: [
         ...(paiSelections?.paiList ?? []),
         {
@@ -57,6 +52,7 @@ const MahjongPai = (props: {
           isFuro: false,
           isAkaDora,
           isUraDoraPai: false,
+          isKanPai: false,
         },
       ],
     });
@@ -65,9 +61,17 @@ const MahjongPai = (props: {
       setDialog?.({
         open: true,
         openType: "confirm-kan",
+        // NOTE: Remove kan information
+        value: pai.replace("k", "") as PaiName,
       });
     }
   };
+
+  const needsRinshanPai = PaiPatternExtractor.needsRinshanPaiByPaiNameList(
+    selection.paiList
+      .filter((v) => v.pai)
+      .map((v) => `${v.pai}${v.isKanPai ? "k" : ""}` as PaiName),
+  );
 
   return (
     <div>
@@ -75,11 +79,11 @@ const MahjongPai = (props: {
         type="button"
         className="pai"
         disabled={
-          selection.paiList.length + selection.rinshanPaiList.length >=
-            14 + selection.needsRinshanPai ||
+          selection.paiList.length >= 14 + needsRinshanPai ||
           selection.paiList.some(
             (selection) =>
-              selection.pai === pai && selection.index === props.index,
+              selection.pai.replace("k", "") === pai.replace("k", "") &&
+              selection.index === props.index,
           )
         }
         onClick={registerPai}

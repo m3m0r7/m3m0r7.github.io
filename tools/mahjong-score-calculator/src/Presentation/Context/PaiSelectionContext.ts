@@ -13,14 +13,13 @@ export type PaiInfo = {
   isHoraPai: boolean;
   isDoraPai: boolean;
   isUraDoraPai: boolean;
+  isKanPai: boolean;
 };
 
 export type PaiOptionInfo = PaiInfo & PaiSelectionType;
 
 export type PaiOption = {
   paiList: PaiOptionInfo[];
-  needsRinshanPai: number;
-  rinshanPaiList: PaiOptionInfo[];
 };
 
 const PaiSelectionContext = createContext<

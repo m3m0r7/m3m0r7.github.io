@@ -21,11 +21,6 @@ describe("JunseiChurenPoutou", () => {
               fromRinshanPai: false,
             },
 
-            additionalSpecialYaku: {
-              ...MahjongDefaultAdditionalSpecialYaku,
-              withJunseiChurenPoutou: true,
-            },
-
             // NOTE: Here is same of a mahjong parent
             jikaze: "1z",
             kaze: "1z",
@@ -56,11 +51,6 @@ describe("JunseiChurenPoutou", () => {
               fromRon: true,
 
               fromRinshanPai: false,
-            },
-
-            additionalSpecialYaku: {
-              ...MahjongDefaultAdditionalSpecialYaku,
-              withJunseiChurenPoutou: true,
             },
 
             // NOTE: Here is same of a mahjong parent
@@ -98,11 +88,6 @@ describe("JunseiChurenPoutou", () => {
               fromRinshanPai: false,
             },
 
-            additionalSpecialYaku: {
-              ...MahjongDefaultAdditionalSpecialYaku,
-              withJunseiChurenPoutou: true,
-            },
-
             jikaze: "2z",
             kaze: "1z",
           },
@@ -136,11 +121,6 @@ describe("JunseiChurenPoutou", () => {
               fromRon: true,
 
               fromRinshanPai: false,
-            },
-
-            additionalSpecialYaku: {
-              ...MahjongDefaultAdditionalSpecialYaku,
-              withJunseiChurenPoutou: true,
             },
 
             jikaze: "2z",

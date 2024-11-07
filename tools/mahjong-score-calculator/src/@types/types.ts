@@ -35,8 +35,17 @@ export type PaiGroupJi = "z";
 export type PaiGroupSuuPai = PaiGroupManzu | PaiGroupPinzu | PaiGroupSouzu;
 export type PaiGroupName = PaiGroupSuuPai | PaiGroupJi;
 
-// NOTE: The a is an Aka Dora, f is a Furo
-export type PaiAttr = GenerateCombinationsFromString<"a" | "f" | "", 3>;
+// NOTE: The
+//      `a` is an Aka Dora
+//      `f` is a Furo
+//      `h` is a hora pai
+//      `u` is a ura dora
+//      `d` is a dora
+//      `k` is a kan pai
+export type PaiAttr = GenerateCombinationsFromString<
+  "a" | "f" | "k" | "h" | "u" | "d" | "",
+  6
+>;
 
 export type PaiNormal<
   T extends OneToNine,
@@ -80,7 +89,31 @@ export type PaiList<K extends PaiGroupName> =
   | Pai<"6", K, "f">
   | Pai<"7", K, "f">
   | Pai<"8", K, "f">
-  | Pai<"9", K, "f">;
+  | Pai<"9", K, "f">
+
+  // NOTE: With Kan
+  | Pai<"1", K, "k">
+  | Pai<"2", K, "k">
+  | Pai<"3", K, "k">
+  | Pai<"4", K, "k">
+  | Pai<"5", K, "k">
+  | Pai<"5", K, "ka">
+  | Pai<"6", K, "k">
+  | Pai<"7", K, "k">
+  | Pai<"8", K, "k">
+  | Pai<"9", K, "k">
+
+  // NOTE: With Kan and furo
+  | Pai<"1", K, "kf">
+  | Pai<"2", K, "kf">
+  | Pai<"3", K, "kf">
+  | Pai<"4", K, "kf">
+  | Pai<"5", K, "kf">
+  | Pai<"5", K, "kaf">
+  | Pai<"6", K, "kf">
+  | Pai<"7", K, "kf">
+  | Pai<"8", K, "kf">
+  | Pai<"9", K, "kf">;
 
 export type PaiManzuName = PaiList<"m">;
 export type PaiPinzuName = PaiList<"p">;
@@ -317,9 +350,6 @@ export interface MahjongOption extends SystemOption {
     withTenho: boolean;
     withChiho: boolean;
     withNagashiMangan: boolean;
-
-    withKokushiMusou13MenMachi: boolean;
-    withJunseiChurenPoutou: boolean;
   };
 }
 

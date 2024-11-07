@@ -277,6 +277,15 @@ a {
   width: 100%;
 }
 
+.pai-selections--pai-ura {
+  background-color: #dd4c47;
+  box-shadow:
+    inset -2px 0 2px rgb(128, 128, 128, 0.5),
+    inset -4px 0 2px rgb(128, 128, 128, 0.25),
+    inset -6px 0 2px rgb(128, 128, 128, 0.165);
+  border-radius: 4px;
+}
+
 .pai-selections li.pai-selections--pai--hora {
   border: 2px solid #e0901d;
 }
@@ -291,6 +300,8 @@ a {
 
 .pai-selections li.pai-selections--pai--furo {
   transform: rotate(-90deg);
+  position: relative;
+  top: 6px;
 }
 
 button.pai[disabled] {

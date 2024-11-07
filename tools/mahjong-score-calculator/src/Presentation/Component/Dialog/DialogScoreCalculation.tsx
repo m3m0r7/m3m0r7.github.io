@@ -77,10 +77,10 @@ const DialogScoreCalculation = () => {
         fromRinshanPai: rinshanKaihou,
       },
       doraList: selection?.paiList
-        ?.filter((v) => !v.isDoraPai)
+        ?.filter((v) => v.isDoraPai)
         .map((v) => v.pai),
       uraDoraList: selection?.paiList
-        ?.filter((v) => !v.isUraDoraPai)
+        ?.filter((v) => v.isUraDoraPai)
         .map((v) => v.pai),
       honba: Number(honba),
       kaze: chanFon as PaiKazeName,
@@ -100,12 +100,6 @@ const DialogScoreCalculation = () => {
         withChiho: yakuList.some((yaku) => yaku.value === Chiho.name),
         withNagashiMangan: yakuList.some(
           (yaku) => yaku.value === NagashiMangan.name,
-        ),
-        withJunseiChurenPoutou: yakuList.some(
-          (yaku) => yaku.value === JunseiChurenPoutou.name,
-        ),
-        withKokushiMusou13MenMachi: yakuList.some(
-          (yaku) => yaku.value === KokushiMusou13MenMachi.name,
         ),
       },
     });
@@ -400,28 +394,6 @@ const DialogScoreCalculation = () => {
                 地和
                 <rp>(</rp>
                 <rt>チーホウ</rt>
-                <rp>)</rp>
-              </ruby>
-            </label>
-          </li>
-          <li className="mb-2">
-            <label className="align-middle">
-              <CheckBox name="yaku[]" value={JunseiChurenPoutou.name} />
-              <ruby>
-                純正九蓮宝燈
-                <rp>(</rp>
-                <rt>ジュンセイチュウレンポウトウ</rt>
-                <rp>)</rp>
-              </ruby>
-            </label>
-          </li>
-          <li className="mb-2">
-            <label className="align-middle">
-              <CheckBox name="yaku[]" value={KokushiMusou13MenMachi.name} />
-              <ruby>
-                国士無双13面待ち
-                <rp>(</rp>
-                <rt>コクシムソウジュウサンメンマチ</rt>
                 <rp>)</rp>
               </ruby>
             </label>

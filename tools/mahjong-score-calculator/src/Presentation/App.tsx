@@ -38,8 +38,6 @@ const App = () => {
 
   const paiSelections = useState<PaiOption>({
     paiList: [],
-    needsRinshanPai: 0,
-    rinshanPaiList: [],
   });
 
   const option = useState<Partial<Option>>(MahjongDefaultOption);
@@ -61,7 +59,6 @@ const App = () => {
       ).filter((v) => v);
 
     const paiList = parsePaiListFromSearchParams("paiList");
-    const rinshanPaiList = parsePaiListFromSearchParams("rinshanPaiList");
 
     const parsePaiList = (paiListParams: string[]) =>
       paiListParams.map((pai) => {
@@ -79,14 +76,13 @@ const App = () => {
           isUraDoraPai: option.isUraDora ?? false,
           isFuro: option.fromFuro,
           isDoraPai: option.isDora ?? false,
+          isKanPai: option.isKanPai ?? false,
         };
       });
 
     const paiNames: PaiName[] = [];
     paiSelections[1]({
       paiList: parsePaiList(paiList),
-      needsRinshanPai: rinshanPaiList.length,
-      rinshanPaiList: parsePaiList(rinshanPaiList),
     });
 
     if (url.searchParams.has("option")) {
@@ -129,10 +125,6 @@ const App = () => {
             withChiho: optionParam.additionalSpecialYaku?.withChiho,
             withNagashiMangan:
               optionParam.additionalSpecialYaku?.withNagashiMangan,
-            withKokushiMusou13MenMachi:
-              optionParam.additionalSpecialYaku?.withKokushiMusou13MenMachi,
-            withJunseiChurenPoutou:
-              optionParam.additionalSpecialYaku?.withJunseiChurenPoutou,
           },
         });
       } catch (e) {}
