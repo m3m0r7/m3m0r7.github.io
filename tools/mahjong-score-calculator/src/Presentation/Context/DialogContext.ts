@@ -21,6 +21,11 @@ export type DialogType =
     }
   | {
       open: true;
+      openType: "pe-nuki";
+      index: number;
+    }
+  | {
+      open: true;
       openType: "confirm-kan";
       value: PaiName;
     }

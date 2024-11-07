@@ -1,6 +1,7 @@
-import { MahjongOption, Yaku } from "../@types/types";
+import { MahjongOption, PaiName, Yaku } from "../@types/types";
 import { PaiPairCollection } from "../Collection/Collection";
 import { PaiGenerator } from "../Utilities/PaiGenerator";
+import { convertToNormalPai } from "../Utilities/Converter";
 
 export class Chinitsu implements Yaku {
   private paiPairCollection: PaiPairCollection;
@@ -24,7 +25,7 @@ export class Chinitsu implements Yaku {
       const result: boolean[] = [];
       for (const paiPair of this.paiPairCollection.paiPairs) {
         const hasSameColored = paiPair.pattern.every((paiName) =>
-          pai.includes(paiName),
+          pai.includes(convertToNormalPai(paiName) as PaiName),
         );
 
         result.push(hasSameColored);

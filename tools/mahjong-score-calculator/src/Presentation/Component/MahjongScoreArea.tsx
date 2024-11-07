@@ -121,10 +121,7 @@ const MahjongScoreArea = () => {
   }
 
   const showFuBox =
-    (scoreData?.appliedFuList?.length ?? 0) > 0 &&
-    !scoreData?.appliedYakuList.some(
-      (score) => score.isYakuman || score.isDoubleYakuman,
-    );
+    !scoreData || (scoreData?.fu !== null && scoreData?.yakuType === "NORMAL");
 
   const summarizedAppliedYakuList: CalculatedScore[] | undefined =
     scoreData?.appliedYakuList
@@ -165,15 +162,13 @@ const MahjongScoreArea = () => {
           }
         >
           <span className="score-area--value">
-            {(scoreData?.yaku === "FULL" ? (
-              "役満"
-            ) : scoreData?.yaku === "DOUBLE_FULL" ? (
-              <>ダブル役満</>
-            ) : (
-              scoreData?.yaku
-            )) ?? "-"}
+            {scoreData
+              ? scoreData?.yakuType === "NORMAL"
+                ? scoreData?.yaku
+                : `${option?.jikaze === "1z" ? "親" : ""}${I18n.ja.pronunciation.yakuType[scoreData?.yakuType ?? "NORMAL"]}`
+              : "-"}
           </span>
-          {scoreData?.yaku !== "FULL" && scoreData?.yaku !== "DOUBLE_FULL" && (
+          {(!scoreData || scoreData?.yakuType === "NORMAL") && (
             <h2>
               <ruby>
                 翻<rp>(</rp>

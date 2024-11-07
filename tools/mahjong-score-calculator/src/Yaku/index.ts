@@ -51,6 +51,7 @@ import { NagashiMangan } from "./NagashiMangan";
 import { KazoeYakuman } from "./KazoeYakuman";
 import { MenzenTsumo } from "./MenzenTsumo";
 import { PaRenChan } from "./PaRenChan";
+import { PeNuki } from "./PeNuki";
 
 export {
   Tanyao,
@@ -106,4 +107,5 @@ export {
   KazoeYakuman,
   MenzenTsumo,
   PaRenChan,
+  PeNuki,
 };

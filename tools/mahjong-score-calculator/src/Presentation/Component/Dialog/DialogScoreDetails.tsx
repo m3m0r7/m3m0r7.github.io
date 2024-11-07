@@ -3,12 +3,7 @@ import DialogContext, { DialogType } from "../../Context/DialogContext";
 import ScoreDataContext from "../../Context/ScoreDataContext";
 import MahjongScoreArea from "../MahjongScoreArea";
 import OptionContext from "../../Context/OptionContext";
-import {
-  PaiFormat,
-  PaiKazeName,
-  PaiName,
-  PaiSangenName,
-} from "../../../@types/types";
+import { PaiName } from "../../../@types/types";
 import { createURL } from "../../Option";
 import I18n from "../../../Lang/I18n";
 import SystemOptionContext from "../../Context/SystemOptionContext";
@@ -104,6 +99,14 @@ const DialogScoreDetails = () => {
             <div>{option?.jikaze === "1z" ? "はい" : "いいえ"}</div>
             <div>和了</div>
             <div>{option?.hora?.fromTsumo ? "門前清自摸和" : "ロン"}</div>
+            <div>翻数</div>
+            <div>
+              {scoreData?.yaku !== "FULL" && scoreData?.yaku !== "DOUBLE_FULL"
+                ? `${scoreData?.fu ?? 0}符${scoreData?.yaku ?? 0}翻`
+                : I18n.ja.pronunciation.yakuType[
+                    scoreData?.yakuType ?? "NORMAL"
+                  ]}
+            </div>
             <div>本場</div>
             <div>
               {option?.honba ?? 0} 本場 (
@@ -191,7 +194,7 @@ const DialogScoreDetails = () => {
         <ul>
           <li className="grid grid-cols-2">
             <div>点数</div>
-            <div>{scoreData?.score.base}</div>
+            <div>{scoreData?.score.base} 点</div>
           </li>
           {scoreData?.score.parent && (
             <li className="grid grid-cols-2">
@@ -211,7 +214,7 @@ const DialogScoreDetails = () => {
         <div className="grid grid-cols-1 gap-3">
           {!scoreData?.score.child && !scoreData?.score.parent && (
             <div>
-              <h2 className="font-bold mb-2">ロン相手</h2>
+              <h2 className="font-bold mb-2">ロン相手から和了した人に移動</h2>
               <ul className="grid grid-cols-1 score-bar-description--layout">
                 {calculateTransitionScoreBars(scoreData?.score.base ?? 0).map(
                   ([name, count]) => (
@@ -238,7 +241,7 @@ const DialogScoreDetails = () => {
 
           {scoreData?.score.parent && (
             <div>
-              <h2 className="font-bold mb-2">親</h2>
+              <h2 className="font-bold mb-2">親から和了した人に移動</h2>
               <ul className="grid grid-cols-1 score-bar-description--layout">
                 {calculateTransitionScoreBars(scoreData?.score.parent ?? 0).map(
                   ([name, count]) => (
@@ -265,7 +268,7 @@ const DialogScoreDetails = () => {
 
           {scoreData?.score.child && (
             <div>
-              <h2 className="font-bold mb-2">子</h2>
+              <h2 className="font-bold mb-2">子から和了した人に移動</h2>
               <ul className="grid grid-cols-1 score-bar-description--layout">
                 {calculateTransitionScoreBars(scoreData?.score.child ?? 0).map(
                   ([name, count]) => (

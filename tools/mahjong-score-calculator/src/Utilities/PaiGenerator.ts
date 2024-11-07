@@ -62,7 +62,7 @@ export class PaiGenerator {
       new PaiGenerator("1", "9", "p").generate(),
     );
     const s = PaiGeneratorCache.getOrSet("oneToNineSozu", () =>
-      new PaiGenerator("1", "9", "m").generate(),
+      new PaiGenerator("1", "9", "s").generate(),
     );
     return {
       m,

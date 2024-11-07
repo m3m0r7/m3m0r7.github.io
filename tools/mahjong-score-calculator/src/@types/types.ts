@@ -327,6 +327,7 @@ export interface MahjongOption extends SystemOption {
   jikaze: PaiKazeName;
   uraDoraList: PaiName[];
   doraList: PaiName[];
+  peNukiList: PaiName[];
   localRules: {
     threePlayStyle: {
       scoring: ThreeMahjongPayType;

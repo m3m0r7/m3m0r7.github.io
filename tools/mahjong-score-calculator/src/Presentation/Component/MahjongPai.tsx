@@ -5,6 +5,7 @@ import DialogContext from "../Context/DialogContext";
 import PaiSelectionContext from "../Context/PaiSelectionContext";
 import OptionContext from "../Context/OptionContext";
 import { PaiPatternExtractor } from "../../Runtime/Extractor/Extractor";
+import { convertToNormalPai } from "../../Utilities/Converter";
 
 const MahjongPai = (props: {
   number: number;
@@ -67,6 +68,14 @@ const MahjongPai = (props: {
     }
   };
 
+  const peNuki = () => {
+    setDialog?.({
+      open: true,
+      openType: "pe-nuki",
+      index: props.index,
+    });
+  };
+
   const needsRinshanPai = PaiPatternExtractor.needsRinshanPaiByPaiNameList(
     selection.paiList
       .filter((v) => v.pai)
@@ -78,6 +87,8 @@ const MahjongPai = (props: {
     !(props.number === 1 || props.number === 9) &&
     props.type === "m";
 
+  const wasPeNuki = pai === "4z" && selection.peNukiList?.includes(props.index);
+
   return (
     <div>
       <button
@@ -87,12 +98,13 @@ const MahjongPai = (props: {
           selection.paiList.length >= 14 + needsRinshanPai ||
           selection.paiList.some(
             (selection) =>
-              selection.pai.replace("k", "") === pai.replace("k", "") &&
+              convertToNormalPai(selection.pai) === convertToNormalPai(pai) &&
               selection.index === props.index,
           ) ||
-          isThreePlayerStyleAndAvailableManzu
+          isThreePlayerStyleAndAvailableManzu ||
+          wasPeNuki
         }
-        onClick={registerPai}
+        onClick={option?.playStyle === 3 && pai === "4z" ? peNuki : registerPai}
       >
         <img
           src={createURL(

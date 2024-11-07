@@ -34,6 +34,7 @@ export class Mahjong {
         jikaze: "1z",
         doraList: [],
         uraDoraList: [],
+        peNukiList: option.peNukiList ?? [],
         localRules: {
           threePlayStyle: {
             ...MahjonDefauThreePlayStyleRules,

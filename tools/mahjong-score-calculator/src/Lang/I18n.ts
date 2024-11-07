@@ -32,6 +32,7 @@ import {
   NagashiMangan,
   OpenRiichi,
   PaRenChan,
+  PeNuki,
   Pinfu,
   RenFon,
   Riichi,
@@ -124,6 +125,15 @@ export default {
     },
 
     pronunciation: {
+      yakuType: {
+        NORMAL: "通常",
+        MANGAN: "満貫",
+        HANEMAN: "跳満",
+        BAIMAN: "倍満",
+        SANBAIMAN: "三倍満",
+        YAKUMAN: "役満",
+        DOUBLE_YAKUMAN: "ダブル役満",
+      },
       group: {
         萬子: "ワン",
         筒子: "ピン",
@@ -193,8 +203,8 @@ export default {
         清老頭: "チンロウトウ",
         四槓子: "スーカンツ",
         字一色: "ツーイーソー",
-        天和: "テンホー",
-        地和: "チーホー",
+        天和: "テンホウ",
+        地和: "チーホウ",
         緑一色: "リューイーソー",
         国士無双: "コクシムソウ",
         九蓮宝燈: "チュウレンポウトウ",
@@ -278,6 +288,7 @@ export default {
       [Dora.name]: "ドラ",
       [UraDora.name]: "裏ドラ",
       [AkaDora.name]: "赤ドラ",
+      [PeNuki.name]: "北抜き",
     },
   },
 };

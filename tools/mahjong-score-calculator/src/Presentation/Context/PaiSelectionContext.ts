@@ -20,6 +20,7 @@ export type PaiOptionInfo = PaiInfo & PaiSelectionType;
 
 export type PaiOption = {
   paiList: PaiOptionInfo[];
+  peNukiList?: number[];
 };
 
 const PaiSelectionContext = createContext<
