@@ -25,9 +25,36 @@ const DialogPeNuki = () => {
     return null;
   }
 
+  const registerPai = () => {
+    setPaiSelections?.({
+      paiList: [
+        ...(paiSelections?.paiList ?? []),
+        {
+          pai: "4z",
+          index: dialog.index,
+          isFuro: false,
+          isAkaDora: false,
+          isHoraPai: false,
+          isDoraPai: false,
+          isUraDoraPai: false,
+          isKanPai: false,
+        },
+      ],
+      peNukiList: paiSelections?.peNukiList ?? [],
+    });
+    setScoreData?.(null);
+    setCalculationStep?.({
+      step: "select-pai",
+    });
+    setSystemOption?.({
+      ...SystemDefaultOption,
+    });
+    setDialog?.({ open: false });
+  };
+
   const doPeNuki = () => {
     setPaiSelections?.({
-      paiList: [],
+      paiList: paiSelections?.paiList ?? [],
       peNukiList: [...(paiSelections?.peNukiList ?? []), dialog.index],
     });
     setOption?.({
@@ -61,6 +88,13 @@ const DialogPeNuki = () => {
         <button
           type="button"
           className="button primary-button"
+          onClick={registerPai}
+        >
+          手持ち牌に加える
+        </button>
+        <button
+          type="button"
+          className="button primary-button col-span-2"
           onClick={doPeNuki}
         >
           北抜きする

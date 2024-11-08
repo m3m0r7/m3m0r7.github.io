@@ -87,23 +87,38 @@ const MahjongPai = (props: {
     !(props.number === 1 || props.number === 9) &&
     props.type === "m";
 
-  const wasPeNuki = pai === "4z" && selection.peNukiList?.includes(props.index);
+  const wasPeNuki =
+    option?.playStyle === 3 &&
+    pai === "4z" &&
+    (selection.peNukiList?.includes(props.index) ?? false);
+
+  const disableCondition =
+    selection.paiList.length >= 14 + needsRinshanPai ||
+    selection.paiList.some(
+      (selection) =>
+        convertToNormalPai(selection.pai) === convertToNormalPai(pai) &&
+        selection.index === props.index,
+    ) ||
+    isThreePlayerStyleAndAvailableManzu ||
+    wasPeNuki;
+
+  const isPeNukiAble =
+    option?.playStyle === 3 &&
+    pai === "4z" &&
+    !(selection.peNukiList?.includes(props.index) ?? false) &&
+    !(
+      selection.paiList?.some(
+        (paiOptionInfo) =>
+          paiOptionInfo.pai === pai && paiOptionInfo.index === props.index,
+      ) ?? false
+    );
 
   return (
     <div>
       <button
         type="button"
         className="pai"
-        disabled={
-          selection.paiList.length >= 14 + needsRinshanPai ||
-          selection.paiList.some(
-            (selection) =>
-              convertToNormalPai(selection.pai) === convertToNormalPai(pai) &&
-              selection.index === props.index,
-          ) ||
-          isThreePlayerStyleAndAvailableManzu ||
-          wasPeNuki
-        }
+        disabled={!isPeNukiAble && disableCondition}
         onClick={option?.playStyle === 3 && pai === "4z" ? peNuki : registerPai}
       >
         <img
