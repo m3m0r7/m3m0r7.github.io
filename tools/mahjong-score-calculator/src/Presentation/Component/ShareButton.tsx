@@ -60,7 +60,7 @@ const ShareButton = () => {
   };
 
   return (
-    <div className="share-button" onClick={shareButton}>
+    <div className="small-button share-button" onClick={shareButton}>
       {copied ? "✅️ コピー" : "📋️ URL"}
     </div>
   );

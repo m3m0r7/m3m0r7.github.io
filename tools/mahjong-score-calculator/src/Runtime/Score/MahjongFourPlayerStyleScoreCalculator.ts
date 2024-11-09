@@ -1,29 +1,7 @@
-import { MahjongFulfilledYakuValidator } from "../../Validator/MahjongFulfilledYakuValidator";
-import { MahjongFulfilledFuValidator } from "../../Validator/MahjongFulfilledFuValidator";
 import { PaiPairCollection } from "../../Collection/Collection";
-import {
-  CollectionAndScores,
-  PaiFormat,
-  PaiInfo,
-  PaiName,
-  Score,
-  ScoreCalculator,
-  ScoreData,
-  ScoreFu,
-  ScoreTable,
-  ScoreYaku,
-} from "../../@types/types";
+import { MahjongOption, ScoreCalculator, ScoreData } from "../../@types/types";
 import { Mahjong } from "../Mahjong";
-import I18n from "../../Lang/I18n";
-import {
-  ChiiToitsu,
-  KazoeYakuman,
-  NagashiMangan,
-  PaRenChan,
-  Pinfu,
-} from "../../Yaku";
-import { PaiPatternExtractor } from "../Extractor/Extractor";
-import { scoreTable, roundUpScore } from "./MahjongScore";
+import { roundUpScore } from "./MahjongScore";
 import { MahjongScoreCalculator } from "./MahjongScoreCalculator";
 
 export class MahjongFourPlayerStyleScoreCalculator implements ScoreCalculator {
@@ -47,29 +25,42 @@ export class MahjongFourPlayerStyleScoreCalculator implements ScoreCalculator {
     return (this._scoreData = this.calculateScoreData());
   }
 
+  static calculateParentAndChildScore(
+    option: Partial<MahjongOption>,
+    baseScore: number,
+    additionalRoundScore: number,
+    isParent: boolean,
+  ) {
+    if (option.hora?.fromTsumo) {
+      if (isParent) {
+        return {
+          base: baseScore,
+          child: roundUpScore(baseScore / 3) + additionalRoundScore,
+        };
+      } else {
+        return {
+          base: baseScore,
+          parent: roundUpScore(baseScore / 2) + additionalRoundScore,
+          child: roundUpScore(baseScore / 4) + additionalRoundScore,
+        };
+      }
+    }
+    return {
+      base: baseScore + additionalRoundScore,
+    };
+  }
+
   private calculateScoreData(): ScoreData | null {
     return new MahjongScoreCalculator(
       this.mahjong,
       this.paiPairCollections,
-    ).calculate((baseScore, additionalRoundScore, isParent) => {
-      if (this.mahjong.option.hora.fromTsumo) {
-        if (isParent) {
-          return {
-            base: baseScore,
-            child: roundUpScore(baseScore / 3) + additionalRoundScore,
-          };
-        } else {
-          return {
-            base: baseScore,
-            parent: roundUpScore(baseScore / 2) + additionalRoundScore,
-            child: roundUpScore(baseScore / 4) + additionalRoundScore,
-          };
-        }
-      } else {
-        return {
-          base: baseScore + additionalRoundScore,
-        };
-      }
-    });
+    ).calculate((baseScore, additionalRoundScore, isParent) =>
+      MahjongFourPlayerStyleScoreCalculator.calculateParentAndChildScore(
+        this.mahjong.option,
+        baseScore,
+        additionalRoundScore,
+        isParent,
+      ),
+    );
   }
 }

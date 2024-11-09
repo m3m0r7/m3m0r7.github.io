@@ -1,9 +1,5 @@
 import { PaiPairCollection } from "../../Collection/Collection";
-import {
-  CollectionAndScores,
-  ScoreCalculator,
-  ScoreData,
-} from "../../@types/types";
+import { MahjongOption, ScoreCalculator, ScoreData } from "../../@types/types";
 import { Mahjong } from "../Mahjong";
 import { MahjongScoreCalculator } from "./MahjongScoreCalculator";
 import { roundUpScore } from "./MahjongScore";
@@ -29,53 +25,64 @@ export class MahjongThreePlayerStyleScoreCalculator implements ScoreCalculator {
     return (this._scoreData = this.calculateScoreData());
   }
 
+  static calculateParentAndChildScore(
+    option: Partial<MahjongOption>,
+    baseScore: number,
+    additionalRoundScore: number,
+    isParent: boolean,
+  ) {
+    if (option.hora?.fromTsumo) {
+      const tsumoZon =
+        option.localRules?.threePlayStyle?.scoring === "DISCOUNTED_TSUMO";
+
+      if (tsumoZon) {
+        if (isParent) {
+          const base = roundUpScore(baseScore / 3) * 2;
+          return {
+            base,
+            child: roundUpScore(base / 2) + additionalRoundScore,
+          };
+        } else {
+          const base = roundUpScore(baseScore / 4 + (baseScore / 4) * 2);
+          return {
+            base,
+            parent: roundUpScore((baseScore / 4) * 2) + additionalRoundScore,
+            child: roundUpScore(baseScore / 4) + additionalRoundScore,
+          };
+        }
+      } else {
+        const pePay = roundUpScore(baseScore / 4 / 2);
+
+        if (isParent) {
+          return {
+            base: baseScore,
+            child: roundUpScore(baseScore / 3 + pePay) + additionalRoundScore,
+          };
+        } else {
+          return {
+            base: baseScore,
+            parent: roundUpScore(baseScore / 2 + pePay) + additionalRoundScore,
+            child: roundUpScore(baseScore / 4 + pePay) + additionalRoundScore,
+          };
+        }
+      }
+    }
+    return {
+      base: baseScore + additionalRoundScore,
+    };
+  }
+
   private calculateScoreData(): ScoreData | null {
     return new MahjongScoreCalculator(
       this.mahjong,
       this.paiPairCollections,
-    ).calculate((baseScore, additionalRoundScore, isParent) => {
-      if (this.mahjong.option.hora.fromTsumo) {
-        const tsumoZon =
-          this.mahjong.option.localRules.threePlayStyle.scoring ===
-          "DISCOUNTED_TSUMO";
-
-        if (tsumoZon) {
-          if (isParent) {
-            const base = roundUpScore(baseScore / 3) * 2;
-            return {
-              base,
-              child: roundUpScore(base / 2) + additionalRoundScore,
-            };
-          } else {
-            const base = roundUpScore(baseScore / 4 + (baseScore / 4) * 2);
-            return {
-              base,
-              parent: roundUpScore((baseScore / 4) * 2) + additionalRoundScore,
-              child: roundUpScore(baseScore / 4) + additionalRoundScore,
-            };
-          }
-        } else {
-          const pePay = roundUpScore(baseScore / 4 / 2);
-
-          if (isParent) {
-            return {
-              base: baseScore,
-              child: roundUpScore(baseScore / 3 + pePay) + additionalRoundScore,
-            };
-          } else {
-            return {
-              base: baseScore,
-              parent:
-                roundUpScore(baseScore / 2 + pePay) + additionalRoundScore,
-              child: roundUpScore(baseScore / 4 + pePay) + additionalRoundScore,
-            };
-          }
-        }
-      } else {
-        return {
-          base: baseScore + additionalRoundScore,
-        };
-      }
-    });
+    ).calculate((baseScore, additionalRoundScore, isParent) =>
+      MahjongThreePlayerStyleScoreCalculator.calculateParentAndChildScore(
+        this.mahjong.option,
+        baseScore,
+        additionalRoundScore,
+        isParent,
+      ),
+    );
   }
 }

@@ -21,6 +21,10 @@ export type DialogType =
     }
   | {
       open: true;
+      openType: "score-list-view";
+    }
+  | {
+      open: true;
       openType: "pe-nuki";
       index: number;
     }

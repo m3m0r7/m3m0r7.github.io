@@ -1,4 +1,5 @@
 import { PaiPairCollection } from "../Collection/Collection";
+import { roundUpScore } from "../Runtime/Score/MahjongScore";
 
 type Repeat<T, N extends number, R extends T[] = []> = R["length"] extends N
   ? R

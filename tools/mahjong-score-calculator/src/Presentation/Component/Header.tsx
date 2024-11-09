@@ -6,6 +6,7 @@ import DoCalculateButton from "./DoCalculateButton";
 import OpenCalculationResultButton from "./OpenCalculationResultButton";
 import CalculationStepContext from "../Context/CalculationStepContext";
 import StepMessageButton from "./StepMessageButton";
+import DialogContext from "../Context/DialogContext";
 
 const Header = (props: {
   tabType: PaiGroupName | "option";
@@ -14,10 +15,23 @@ const Header = (props: {
   const [calculationStep, setCalculationStep] = useContext(
     CalculationStepContext,
   );
+  const [dialog, setDialog] = useContext(DialogContext);
 
   return (
     <div className="header">
-      <h1 className="title">麻雀点数計算機β ver 0.29</h1>
+      <div className="title-container flex justify-between">
+        <h1 className="title">麻雀点数計算機</h1>
+        <div className="place-self-center">
+          <div
+            className="small-button"
+            onClick={() =>
+              setDialog?.({ open: true, openType: "score-list-view" })
+            }
+          >
+            📊 点数表
+          </div>
+        </div>
+      </div>
       <MahjongScoreArea />
       <div className="pl-2 pr-2">
         {(calculationStep?.step === "select-pai" ||

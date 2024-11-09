@@ -29,6 +29,7 @@ import SystemOptionContext, {
   SystemDefaultOption,
   SystemOption,
 } from "./Context/SystemOptionContext";
+import { createFrameSet } from "./Context/FrameSetContext";
 
 const App = () => {
   const [tabType, setTabType] = useState<PaiGroupName | "option">("m");
@@ -154,9 +155,15 @@ const App = () => {
   return (
     <ScoreDataContext.Provider value={scoreData}>
       <CalculationStepContext.Provider value={calculationStep}>
-        <PaiSelectionContext.Provider value={paiSelections}>
-          <SystemOptionContext.Provider value={systemOption}>
-            <OptionContext.Provider value={option}>
+        <PaiSelectionContext.Provider
+          value={createFrameSet<PaiOption>(paiSelections)}
+        >
+          <SystemOptionContext.Provider
+            value={createFrameSet<SystemOption>(systemOption)}
+          >
+            <OptionContext.Provider
+              value={createFrameSet<Partial<Option>>(option)}
+            >
               <DialogContext.Provider value={dialog}>
                 <Layout>
                   <Header tabType={tabType} clickTab={(v) => setTabType(v)} />
