@@ -38,16 +38,18 @@ export class MahjongThreePlayerStyleScoreCalculator implements ScoreCalculator {
       if (tsumoZon) {
         if (isParent) {
           const base = roundUpScore(baseScore / 3) * 2;
+          const childScore = roundUpScore((baseScore / 4) * 2)
           return {
             base,
-            child: roundUpScore(base / 2) + additionalRoundScore,
+            child: childScore + additionalRoundScore,
           };
         } else {
           const base = roundUpScore(baseScore / 4 + (baseScore / 4) * 2);
+          const childScore = base / 2
           return {
             base,
-            parent: roundUpScore((baseScore / 4) * 2) + additionalRoundScore,
-            child: roundUpScore(baseScore / 4) + additionalRoundScore,
+            parent: roundUpScore(base) + additionalRoundScore,
+            child: roundUpScore(base / 3) + additionalRoundScore,
           };
         }
       } else {
