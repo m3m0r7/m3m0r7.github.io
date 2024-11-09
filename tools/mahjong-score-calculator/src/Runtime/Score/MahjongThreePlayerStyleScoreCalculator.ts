@@ -48,8 +48,8 @@ export class MahjongThreePlayerStyleScoreCalculator implements ScoreCalculator {
           const childScore = base / 2
           return {
             base,
-            parent: roundUpScore(base) + additionalRoundScore,
-            child: roundUpScore(base / 3) + additionalRoundScore,
+            parent: roundUpScore(baseScore / 2) + additionalRoundScore,
+            child: roundUpScore(base / 2) + additionalRoundScore,
           };
         }
       } else {
