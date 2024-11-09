@@ -8,6 +8,8 @@ import CalculationStepContext from "../../Context/CalculationStepContext";
 import SystemOptionContext, {
   SystemDefaultOption,
 } from "../../Context/SystemOptionContext";
+import { PaiPatternExtractor } from "../../../Runtime/Extractor/Extractor";
+import { PaiName } from "../../../@types/types";
 
 const name: DialogType["openType"] = "pe-nuki";
 
@@ -71,6 +73,12 @@ const DialogPeNuki = () => {
     setDialog?.({ open: false });
   };
 
+  const needsRinshanPai = PaiPatternExtractor.needsRinshanPaiByPaiNameList(
+    (paiSelections?.paiList ?? [])
+      .filter((v) => v.pai)
+      .map((v) => `${v.pai}${v.isKanPai ? "k" : ""}` as PaiName),
+  );
+
   return (
     <div className="dialog">
       <div className="dialog-title">北抜きの確認</div>
@@ -87,6 +95,9 @@ const DialogPeNuki = () => {
         </button>
         <button
           type="button"
+          disabled={
+            (paiSelections?.paiList?.length ?? 0) >= 14 + needsRinshanPai
+          }
           className="button primary-button"
           onClick={registerPai}
         >
