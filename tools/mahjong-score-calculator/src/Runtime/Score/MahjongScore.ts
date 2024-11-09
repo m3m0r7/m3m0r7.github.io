@@ -187,9 +187,6 @@ export class MahjongScore {
       );
     }
 
-    return new MahjongFourPlayerStyleScoreCalculator(
-      this.mahjong,
-      this.paiPairCollections,
-    );
+    return scoreCalculator;
   }
 }

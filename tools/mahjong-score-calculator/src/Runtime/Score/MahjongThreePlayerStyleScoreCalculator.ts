@@ -39,8 +39,6 @@ export class MahjongThreePlayerStyleScoreCalculator implements ScoreCalculator {
           this.mahjong.option.localRules.threePlayStyle.scoring ===
           "DISCOUNTED_TSUMO";
 
-        console.log(tsumoZon);
-
         if (tsumoZon) {
           if (isParent) {
             const base = roundUpScore(baseScore / 3) * 2;

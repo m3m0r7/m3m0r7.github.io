@@ -1,6 +1,7 @@
 import { MahjongOption, PaiName, Validator } from "../@types/types";
 import { PaiGenerator } from "../Utilities/PaiGenerator";
 import { PaiPatternExtractor } from "../Runtime/Extractor/Extractor";
+import { convertToNormalPai } from "../Utilities/Converter";
 
 export class MahjongHaiTypeValidator implements Validator {
   readonly paiList: PaiName[];
@@ -13,7 +14,9 @@ export class MahjongHaiTypeValidator implements Validator {
 
   validate(): boolean {
     const availablePaiList = [
-      ...new PaiGenerator("1", "9", "m").generate(),
+      ...(this.option.playStyle === 3
+        ? ["1m", "9m"]
+        : new PaiGenerator("1", "9", "m").generate()),
       ...new PaiGenerator("1", "9", "p").generate(),
       ...new PaiGenerator("1", "9", "s").generate(),
       ...new PaiGenerator("1", "7", "z").generate(),
@@ -23,8 +26,12 @@ export class MahjongHaiTypeValidator implements Validator {
     );
 
     for (let i = 0; i < this.paiList.length; i++) {
-      const targetPaiName = this.paiList[i];
-      availablePaiList[targetPaiName] = availablePaiList[targetPaiName] - 1;
+      const targetPaiName = convertToNormalPai(this.paiList[i], false);
+      if (!targetPaiName) {
+        return false;
+      }
+      availablePaiList[targetPaiName] =
+        (availablePaiList[targetPaiName] ?? 0) - 1;
       if (availablePaiList[targetPaiName] < 0) {
         return false;
       }

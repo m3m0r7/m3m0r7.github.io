@@ -24,12 +24,9 @@ const DialogInputSupport = () => {
 
   const applyTanyao = () => {
     const paiList = [
-      "2m",
-      "3m",
-      "4m",
-      "5m",
-      "6m",
-      "7m",
+      ...(option?.playStyle === 3
+        ? ["2s", "3s", "4s", "5s", "6s", "7s"]
+        : ["2m", "3m", "4m", "5m", "6m", "7m"]),
 
       "3p",
       "4p",
@@ -289,7 +286,7 @@ const DialogInputSupport = () => {
   const applySuKantsu = () => {
     setPaiSelections?.({
       paiList: [
-        ...["5m"].repeat(2).map((v, k) => ({
+        ...[option?.playStyle === 3 ? "1m" : "5m"].repeat(2).map((v, k) => ({
           pai: v as PaiName,
           index: k % 3,
           isFuro: false,
@@ -300,10 +297,10 @@ const DialogInputSupport = () => {
           isKanPai: false,
         })),
         ...[
-          ...["1mk"].repeat(4),
-          ...["2mk"].repeat(4),
-          ...["3mk"].repeat(4),
-          ...["4mk"].repeat(4),
+          ...[option?.playStyle === 3 ? "1sk" : "1mk"].repeat(4),
+          ...[option?.playStyle === 3 ? "9sk" : "2mk"].repeat(4),
+          ...[option?.playStyle === 3 ? "3sk" : "3mk"].repeat(4),
+          ...[option?.playStyle === 3 ? "3pk" : "4mk"].repeat(4),
         ].map((v, k) => ({
           pai: v as PaiName,
           index: k % 3,
@@ -327,15 +324,26 @@ const DialogInputSupport = () => {
   const applyChiiToitsu = () => {
     setPaiSelections?.({
       paiList: [
-        ...[
-          ...["1m"].repeat(2),
-          ...["3m"].repeat(2),
-          ...["4m"].repeat(2),
-          ...["7s"].repeat(2),
-          ...["9s"].repeat(2),
-          ...["1z"].repeat(2),
-          ...["2z"].repeat(2),
-        ].map((v, k) => ({
+        ...(option?.playStyle === 3
+          ? [
+              ...["2p"].repeat(2),
+              ...["3s"].repeat(2),
+              ...["4s"].repeat(2),
+              ...["7s"].repeat(2),
+              ...["9s"].repeat(2),
+              ...["1z"].repeat(2),
+              ...["2z"].repeat(2),
+            ]
+          : [
+              ...["1m"].repeat(2),
+              ...["3m"].repeat(2),
+              ...["4m"].repeat(2),
+              ...["7s"].repeat(2),
+              ...["9s"].repeat(2),
+              ...["1z"].repeat(2),
+              ...["2z"].repeat(2),
+            ]
+        ).map((v, k) => ({
           pai: v as PaiName,
           index: k % 2,
           isFuro: false,
@@ -379,6 +387,7 @@ const DialogInputSupport = () => {
         </button>
         <button
           type="button"
+          disabled={option?.playStyle === 3}
           className="button primary-button w-full mt-2 outline-button"
           onClick={applySanShokuDouJun}
         >
@@ -436,6 +445,7 @@ const DialogInputSupport = () => {
         <h2 className="font-bold mt-4 text-xl">その他</h2>
         <button
           type="button"
+          disabled={option?.playStyle === 3}
           className="button primary-button w-full mt-2 outline-button"
           onClick={applyTanyaoButDoubleYakuman}
         >

@@ -7,12 +7,12 @@ import { Futei, Tsumo } from "../../../Fu";
 import { Dora, MenzenTsumo, Tanyao } from "../../../Yaku";
 
 const tanyaoExampleFormat: PaiName[] = [
-  "2m",
-  "3m",
-  "4m",
-  "5m",
-  "6m",
-  "7m",
+  "2s",
+  "3s",
+  "4s",
+  "5s",
+  "6s",
+  "7s",
 
   "3p",
   "4p",
@@ -21,11 +21,11 @@ const tanyaoExampleFormat: PaiName[] = [
   "7p",
   "8p",
 
-  "2s",
-  "2s",
+  "8s",
+  "8s",
 ];
 
-describe("ScoreCalculation  or Three Player", () => {
+describe("ScoreCalculation and Three Player", () => {
   describe("invalid format", () => {
     test("over using pai", () => {
       const score = () =>
@@ -40,10 +40,10 @@ describe("ScoreCalculation  or Three Player", () => {
       const score = () =>
         new Mahjong(
           [
-            "1m",
-            "2m",
-            "3m",
-            "4m",
+            "3s",
+            "4s",
+            "5s",
+            "6s",
             "1p",
             "2p",
             "3p",
@@ -69,12 +69,12 @@ describe("ScoreCalculation  or Three Player", () => {
       const score = () =>
         new Mahjong(
           [
-            "1m",
-            "2m",
-            "3m",
-            "2m",
-            "3m",
-            "4m",
+            "4s",
+            "5s",
+            "6s",
+            "7s",
+            "9s",
+            "4s",
             "1p",
             "2p",
             "3p",
@@ -99,7 +99,7 @@ describe("ScoreCalculation  or Three Player", () => {
     test("parent", () => {
       const score = new Mahjong(tanyaoExampleFormat, {
         hora: {
-          pai: "2s",
+          pai: "8s",
           fromTsumo: true,
           fromRon: false,
 
@@ -107,13 +107,13 @@ describe("ScoreCalculation  or Three Player", () => {
         },
 
         playStyle: 3,
-        doraList: ["2s", "2m"],
+        doraList: ["2s", "3s", "5p"],
         // NOTE: Here is same of a mahjong parent
         jikaze: "1z",
         kaze: "1z",
       }).calculator.value;
 
-      expect(score?.score).deep.eq({ base: 12000, child: 4000 });
+      expect(score?.score).deep.eq({ base: 8000, child: 4000 });
       expect(score?.honba).eq(0);
       expect(score?.fu).eq(null);
       expect(score?.yaku).eq(5);
@@ -149,21 +149,21 @@ describe("ScoreCalculation  or Three Player", () => {
     test("child", () => {
       const score = new Mahjong(tanyaoExampleFormat, {
         hora: {
-          pai: "2s",
+          pai: "8s",
           fromTsumo: true,
           fromRon: false,
 
           fromRinshanPai: false,
         },
 
-        doraList: ["2s", "2m"],
+        doraList: ["2s", "3s", "5p"],
         // NOTE: Here is same of a mahjong parent
         jikaze: "2z",
         kaze: "1z",
         playStyle: 3,
       }).calculator.value;
 
-      expect(score?.score).deep.eq({ base: 8000, parent: 4000, child: 2000 });
+      expect(score?.score).deep.eq({ base: 6000, parent: 4000, child: 2000 });
       expect(score?.honba).eq(0);
       expect(score?.fu).eq(null);
       expect(score?.yaku).eq(5);
@@ -201,21 +201,21 @@ describe("ScoreCalculation  or Three Player", () => {
     test("parent", () => {
       const score = new Mahjong(tanyaoExampleFormat, {
         hora: {
-          pai: "2s",
+          pai: "8s",
           fromTsumo: true,
           fromRon: false,
 
           fromRinshanPai: false,
         },
 
-        doraList: ["2s", "2m", "5p", "6p"],
+        doraList: ["2s", "3s", "5p", "6p", "7p"],
         // NOTE: Here is same of a mahjong parent
         jikaze: "1z",
         kaze: "1z",
         playStyle: 3,
       }).calculator.value;
 
-      expect(score?.score).deep.eq({ base: 18000, child: 6000 });
+      expect(score?.score).deep.eq({ base: 12000, child: 6000 });
       expect(score?.honba).eq(0);
       expect(score?.fu).eq(null);
       expect(score?.yaku).eq(7);
@@ -251,20 +251,20 @@ describe("ScoreCalculation  or Three Player", () => {
     test("child", () => {
       const score = new Mahjong(tanyaoExampleFormat, {
         hora: {
-          pai: "2s",
+          pai: "8s",
           fromTsumo: true,
           fromRon: false,
 
           fromRinshanPai: false,
         },
         playStyle: 3,
-        doraList: ["2s", "2m", "5p", "6p"],
+        doraList: ["2s", "3s", "5p", "6p", "7p"],
         // NOTE: Here is same of a mahjong parent
         jikaze: "2z",
         kaze: "1z",
       }).calculator.value;
 
-      expect(score?.score).deep.eq({ base: 12000, parent: 6000, child: 3000 });
+      expect(score?.score).deep.eq({ base: 9000, parent: 6000, child: 3000 });
       expect(score?.honba).eq(0);
       expect(score?.fu).eq(null);
       expect(score?.yaku).eq(7);
@@ -302,21 +302,21 @@ describe("ScoreCalculation  or Three Player", () => {
     test("parent", () => {
       const score = new Mahjong(tanyaoExampleFormat, {
         hora: {
-          pai: "2s",
+          pai: "8s",
           fromTsumo: true,
           fromRon: false,
 
           fromRinshanPai: false,
         },
 
-        doraList: ["2s", "2m", "5p", "6p", "7p", "8p"],
+        doraList: ["2s", "3s", "3p", "4p", "5p", "6p", "7p"],
         // NOTE: Here is same of a mahjong parent
         jikaze: "1z",
         kaze: "1z",
         playStyle: 3,
       }).calculator.value;
 
-      expect(score?.score).deep.eq({ base: 24000, child: 8000 });
+      expect(score?.score).deep.eq({ base: 16000, child: 8000 });
       expect(score?.honba).eq(0);
       expect(score?.fu).eq(null);
       expect(score?.yaku).eq(9);
@@ -352,21 +352,21 @@ describe("ScoreCalculation  or Three Player", () => {
     test("child", () => {
       const score = new Mahjong(tanyaoExampleFormat, {
         hora: {
-          pai: "2s",
+          pai: "8s",
           fromTsumo: true,
           fromRon: false,
 
           fromRinshanPai: false,
         },
 
-        doraList: ["2s", "2m", "5p", "6p", "7p", "8p"],
+        doraList: ["2s", "3s", "3p", "4p", "5p", "6p", "7p"],
         // NOTE: Here is same of a mahjong parent
         jikaze: "2z",
         kaze: "1z",
         playStyle: 3,
       }).calculator.value;
 
-      expect(score?.score).deep.eq({ base: 16000, parent: 8000, child: 4000 });
+      expect(score?.score).deep.eq({ base: 12000, parent: 8000, child: 4000 });
       expect(score?.honba).eq(0);
       expect(score?.fu).eq(null);
       expect(score?.yaku).eq(9);
@@ -404,21 +404,21 @@ describe("ScoreCalculation  or Three Player", () => {
     test("parent", () => {
       const score = new Mahjong(tanyaoExampleFormat, {
         hora: {
-          pai: "2s",
+          pai: "8s",
           fromTsumo: true,
           fromRon: false,
 
           fromRinshanPai: false,
         },
 
-        doraList: ["2s", "2m", "3m", "4m", "3p", "4p", "5p", "6p", "7p"],
+        doraList: ["5s", "2s", "3s", "4s", "3p", "4p", "5p", "6p", "7p", "8p"],
         // NOTE: Here is same of a mahjong parent
         jikaze: "1z",
         kaze: "1z",
         playStyle: 3,
       }).calculator.value;
 
-      expect(score?.score).deep.eq({ base: 36000, child: 12000 });
+      expect(score?.score).deep.eq({ base: 24000, child: 12000 });
       expect(score?.honba).eq(0);
       expect(score?.fu).eq(null);
       expect(score?.yaku).eq(12);
@@ -454,21 +454,21 @@ describe("ScoreCalculation  or Three Player", () => {
     test("child", () => {
       const score = new Mahjong(tanyaoExampleFormat, {
         hora: {
-          pai: "2s",
+          pai: "8s",
           fromTsumo: true,
           fromRon: false,
 
           fromRinshanPai: false,
         },
 
-        doraList: ["2s", "2m", "3m", "4m", "3p", "4p", "5p", "6p", "7p"],
+        doraList: ["5s", "2s", "3s", "4s", "3p", "4p", "5p", "6p", "7p", "8p"],
         // NOTE: Here is same of a mahjong parent
         jikaze: "2z",
         kaze: "1z",
         playStyle: 3,
       }).calculator.value;
 
-      expect(score?.score).deep.eq({ base: 24000, parent: 12000, child: 6000 });
+      expect(score?.score).deep.eq({ base: 18000, parent: 12000, child: 6000 });
       expect(score?.honba).eq(0);
       expect(score?.fu).eq(null);
       expect(score?.yaku).eq(12);

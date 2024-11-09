@@ -11,12 +11,12 @@ describe("ComplexYakuCalculation for Three Player", () => {
       test("parent", () => {
         const score = new Mahjong(
           [
-            "2m",
-            "3m",
-            "4m",
-            "2m",
-            "3m",
-            "4m",
+            "2s",
+            "3s",
+            "4s",
+            "2s",
+            "3s",
+            "4s",
 
             "3p",
             "4p",
@@ -25,12 +25,12 @@ describe("ComplexYakuCalculation for Three Player", () => {
             "7p",
             "8p",
 
-            "2s",
-            "2s",
+            "5s",
+            "5s",
           ],
           {
             playStyle: 3,
-            doraList: ["2m"],
+            doraList: ["2s"],
           },
         ).calculator.value;
 
@@ -77,12 +77,12 @@ describe("ComplexYakuCalculation for Three Player", () => {
       test("child", () => {
         const score = new Mahjong(
           [
-            "2m",
-            "3m",
-            "4m",
-            "2m",
-            "3m",
-            "4m",
+            "2s",
+            "3s",
+            "4s",
+            "2s",
+            "3s",
+            "4s",
 
             "3p",
             "4p",
@@ -91,12 +91,12 @@ describe("ComplexYakuCalculation for Three Player", () => {
             "7p",
             "8p",
 
-            "2s",
-            "2s",
+            "5s",
+            "5s",
           ],
           {
             playStyle: 3,
-            doraList: ["2m"],
+            doraList: ["2s"],
             jikaze: "2z",
           },
         ).calculator.value;
