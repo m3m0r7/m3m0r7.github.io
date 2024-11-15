@@ -176,6 +176,16 @@
       "authors": [
         {
           "title": {
+            "en": "めもりーちゃんの PHP でプログラミング入門",
+            "ja": "めもりーちゃんの PHP でプログラミング入門"
+          },
+          "image": "memory_chan.png",
+          "published_at": "2024/12/4",
+          "link": "https://www.amazon.co.jp/dp/4297145871/",
+          "tags": ["Sole-authored", "PHP"]
+        },
+        {
+          "title": {
             "en": "Swooleで学ぶPHP非同期処理",
             "ja": "Swooleで学ぶPHP非同期処理"
           },
