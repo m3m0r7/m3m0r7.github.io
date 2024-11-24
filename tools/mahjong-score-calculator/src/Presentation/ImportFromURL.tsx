@@ -19,6 +19,7 @@ const ImportFromURL = () => {
         []
       ).filter((v) => v);
 
+    const paiNames: PaiName[] = [];
     const paiList = parsePaiListFromSearchParams("paiList");
 
     const parsePaiList = (paiListParams: string[]) =>
@@ -47,7 +48,6 @@ const ImportFromURL = () => {
       return;
     }
 
-    const paiNames: PaiName[] = [];
     setPaiSelections?.({
       paiList: importedPaiList,
     });
