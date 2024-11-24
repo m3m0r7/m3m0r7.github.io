@@ -27,7 +27,7 @@ const KeyboardShortcutSupportedForSelectionPai = () => {
         const number = Number(previousKeyCode)
         const type = e.key as unknown as PaiGroupName
 
-        const completionPai = `${previousKeyCode}${e.key}` as PaiName
+        const completionPai = `${previousKeyCode}${type}` as PaiName
 
         let registerPais: PaiOptionType['paiList']  = paiSelections?.paiList ?? []
         let paiNames: PaiName[] = []
@@ -56,7 +56,10 @@ const KeyboardShortcutSupportedForSelectionPai = () => {
           const [number] = PaiPatternExtractor.extractPaiPair(paiName)
 
           const isHoraPai = modes.includes('h')
-          const isAkaDora = !registerPais.find(paiOptionInfo => paiOptionInfo.isAkaDora) && modes.includes('a') && number === '5'
+          const isAkaDora = !registerPais.find(paiOptionInfo => {
+            const [_, group] = PaiPatternExtractor.extractPaiPair(paiOptionInfo.pai)
+            return paiOptionInfo.isAkaDora && group === type
+          }) && modes.includes('a') && number === '5'
 
           // NOTE: Akadora is always indexed 3
           const index = isAkaDora
