@@ -11,16 +11,20 @@ import MahjongOption from "./Component/MahjongOption";
 import Footer from "./Component/Footer";
 import Header from "./Component/Header";
 import DoCalculateButton from "./Component/DoCalculateButton";
-import {
-  MahjongDefaultAdditionalSpecialYaku,
-  MahjongDefaultOption,
-} from "../Runtime/MahjongDefaultOption";
-import DialogContext, { DialogType } from "./Context/DialogContext";
+import { MahjongDefaultOption } from "../Runtime/MahjongDefaultOption";
+import DialogContext, {
+  DialogInitial,
+  DialogType,
+} from "./Context/DialogContext";
 import OptionContext from "./Context/OptionContext";
 import Dialog from "./Component/Dialog/Dialog";
-import PaiSelectionContext, { PaiOption } from "./Context/PaiSelectionContext";
+import PaiSelectionContext, {
+  PaiOptionInitial,
+  PaiOptionType,
+} from "./Context/PaiSelectionContext";
 import CalculationStepContext, {
-  CalculationStep,
+  CalculationStepInitial,
+  CalculationStepType,
 } from "./Context/CalculationStepContext";
 import ScoreDataContext from "./Context/ScoreDataContext";
 import Layout from "./Component/Layout";
@@ -29,7 +33,13 @@ import SystemOptionContext, {
   SystemDefaultOption,
   SystemOption,
 } from "./Context/SystemOptionContext";
-import { createFrameSet } from "./Context/FrameSetContext";
+import FrameSetContext, { createFrameSet } from "./Context/FrameSetContext";
+import DrawerMenuContext, {
+  DrawerMenuInitial,
+  DrawerMenuType,
+} from "./Context/DrawerMenuContext";
+import Drawer from "./Component/Drawer/Drawer";
+import { CookiesProvider, useCookies } from "react-cookie";
 
 const App = () => {
   const [tabType, setTabType] = useState<PaiGroupName | "option">("m");
@@ -37,17 +47,15 @@ const App = () => {
     Record<number, PaiName>
   >({});
 
-  const paiSelections = useState<PaiOption>({
-    paiList: [],
-  });
+  const paiSelections = useState<PaiOptionType>(PaiOptionInitial);
 
-  const option = useState<Partial<Option>>(MahjongDefaultOption);
-  const dialog = useState<DialogType>({
-    open: false,
-  });
-  const calculationStep = useState<CalculationStep>({
-    step: "select-pai",
-  });
+  const [cookies, setCookie, removeCookie] = useCookies();
+  const drawer = useState<DrawerMenuType>(DrawerMenuInitial);
+  const option = useState<Partial<Option>>(
+    cookies.option ?? MahjongDefaultOption,
+  );
+  const dialog = useState<DialogType>(DialogInitial);
+  const calculationStep = useState<CalculationStepType>(CalculationStepInitial);
   const scoreData = useState<ScoreData | null>(null);
   const systemOption = useState<SystemOption>(SystemDefaultOption);
 
@@ -153,41 +161,53 @@ const App = () => {
   }, []);
 
   return (
-    <ScoreDataContext.Provider value={scoreData}>
-      <CalculationStepContext.Provider value={calculationStep}>
-        <PaiSelectionContext.Provider
-          value={createFrameSet<PaiOption>(paiSelections)}
-        >
-          <SystemOptionContext.Provider
-            value={createFrameSet<SystemOption>(systemOption)}
-          >
-            <OptionContext.Provider
-              value={createFrameSet<Partial<Option>>(option)}
+    <CookiesProvider>
+      <FrameSetContext>
+        <ScoreDataContext.Provider value={scoreData}>
+          <CalculationStepContext.Provider value={calculationStep}>
+            <PaiSelectionContext.Provider
+              value={createFrameSet<PaiOptionType>(paiSelections)}
             >
-              <DialogContext.Provider value={dialog}>
-                <Layout>
-                  <Header tabType={tabType} clickTab={(v) => setTabType(v)} />
+              <SystemOptionContext.Provider
+                value={createFrameSet<SystemOption>(systemOption)}
+              >
+                <OptionContext.Provider
+                  value={createFrameSet<Partial<Option>>(option)}
+                >
+                  <DialogContext.Provider value={dialog}>
+                    <DrawerMenuContext.Provider value={drawer}>
+                      <Layout>
+                        <Header
+                          tabType={tabType}
+                          clickTab={(v) => setTabType(v)}
+                        />
 
-                  <div className="pai-container">
-                    {tabType !== "option" && <MahjongPaiList type={tabType} />}
-                    {tabType === "option" && <MahjongOption />}
-                  </div>
+                        <div className="pai-container">
+                          {tabType !== "option" && (
+                            <MahjongPaiList type={tabType} />
+                          )}
+                          {tabType === "option" && <MahjongOption />}
+                        </div>
 
-                  <div className="calculation-button-position">
-                    <div className="bg-white p-2">
-                      <DoCalculateButton />
-                    </div>
-                  </div>
+                        <div className="calculation-button-position">
+                          <div className="bg-white p-2">
+                            <DoCalculateButton />
+                          </div>
+                        </div>
 
-                  <Dialog />
-                  <Footer />
-                </Layout>
-              </DialogContext.Provider>
-            </OptionContext.Provider>
-          </SystemOptionContext.Provider>
-        </PaiSelectionContext.Provider>
-      </CalculationStepContext.Provider>
-    </ScoreDataContext.Provider>
+                        <Dialog />
+                        <Drawer />
+                        <Footer />
+                      </Layout>
+                    </DrawerMenuContext.Provider>
+                  </DialogContext.Provider>
+                </OptionContext.Provider>
+              </SystemOptionContext.Provider>
+            </PaiSelectionContext.Provider>
+          </CalculationStepContext.Provider>
+        </ScoreDataContext.Provider>
+      </FrameSetContext>
+    </CookiesProvider>
   );
 };
 

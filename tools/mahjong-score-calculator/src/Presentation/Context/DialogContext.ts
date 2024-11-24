@@ -1,6 +1,6 @@
 import { createContext, Dispatch, SetStateAction } from "react";
 import { PaiName } from "../../@types/types";
-import { PaiOption, PaiSelectionType } from "./PaiSelectionContext";
+import { PaiOptionType, PaiSelectionType } from "./PaiSelectionContext";
 
 export type DialogType =
   | {
@@ -25,6 +25,10 @@ export type DialogType =
     }
   | {
       open: true;
+      openType: "attention";
+    }
+  | {
+      open: true;
       openType: "pe-nuki";
       index: number;
     }
@@ -41,8 +45,12 @@ export type DialogType =
   | {
       open: true;
       openType: "score-calculation";
-      value: PaiOption;
+      value: PaiOptionType;
     };
+
+export const DialogInitial: DialogType = {
+  open: false,
+};
 
 const DialogContext = createContext<
   [DialogType, Dispatch<SetStateAction<DialogType>>] | [null, null]

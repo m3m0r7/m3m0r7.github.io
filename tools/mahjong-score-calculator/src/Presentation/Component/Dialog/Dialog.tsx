@@ -10,6 +10,7 @@ import DialogConfirmKan from "./DialogConfirmKan";
 import DialogInputSupport from "./DialogInputSupport";
 import DialogPeNuki from "./DialogPeNuki";
 import DialogScoreListView from "./DialogScoreListView";
+import DialogAttention from "./DialogAttention";
 
 const Dialog = () => {
   const [dialog] = useContext(DialogContext);
@@ -21,6 +22,7 @@ const Dialog = () => {
     <DialogOverlay
       className={`${dialog.open ? "" : "hidden"} flex items-center justify-center`}
     >
+      <DialogAttention />
       <DialogScoreListView />
       <DialogPeNuki />
       <DialogInputSupport />

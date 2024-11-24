@@ -1,14 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
+import { useCookies } from "react-cookie";
 
 const Footer = () => {
+  const [cookies, setCookie, removeCookie] = useCookies();
+  const [clickedCookie, setClickedCookie] = useState(
+    cookies.agreeCookie == "1",
+  );
+
+  const ok = () => {
+    setClickedCookie(true);
+    setCookie("agreeCookie", "1");
+    console.log(cookies.agreeCookie);
+  };
+
   return (
-    <div className="footer">
-      <p className="notice">
-        このツールは <a href="https://x.com/m3m0r7">@m3m0r7</a>{" "}
-        によって個人開発されたものです。本ツールを利用して生じた如何なる問題の責任は一切負いません。不具合や追加要望などは
-        <a href="https://github.com/m3m0r7">GitHub</a>{" "}
-        よりご依頼またはプルリクエストください。
-      </p>
+    <div className={clickedCookie ? "hidden" : ""}>
+      <div className="footer">
+        <div>
+          当サイトでは、サイトの利便性向上を目的に Cookie
+          を使用しています。当サイトをご利用いただくことで Cookie
+          の利用を同意したものとみなします。
+        </div>
+        <div className="place-self-center">
+          <div className="footer-ok-button" onClick={ok}>
+            OK
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

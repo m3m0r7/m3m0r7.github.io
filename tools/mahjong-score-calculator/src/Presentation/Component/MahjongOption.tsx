@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import CheckBox from "./Form/CheckBox";
 import Radio from "./Form/Radio";
 import OptionContext from "../Context/OptionContext";
@@ -13,8 +13,10 @@ import SystemOptionContext, {
   SystemDefaultOption,
 } from "../Context/SystemOptionContext";
 import DialogContext from "../Context/DialogContext";
+import { useCookies } from "react-cookie";
 
 const MahjongOption = () => {
+  const [cookies, setCookie, removeCookie] = useCookies();
   const [selection, setSelection] = useContext(PaiSelectionContext);
   const [option, setOption] = useContext(OptionContext);
   const [systemOption, setSystemOption] = useContext(SystemOptionContext);
@@ -22,6 +24,10 @@ const MahjongOption = () => {
     CalculationStepContext,
   );
   const [dialog, setDialog] = useContext(DialogContext);
+
+  useEffect(() => {
+    setCookie("option", option);
+  }, [JSON.stringify(option)]);
 
   return (
     <div>

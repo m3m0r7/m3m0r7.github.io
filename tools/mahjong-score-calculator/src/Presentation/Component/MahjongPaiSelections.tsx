@@ -6,7 +6,6 @@ import PaiSelectionContext, {
 import CalculationStepContext from "../Context/CalculationStepContext";
 import ScoreDataContext from "../Context/ScoreDataContext";
 import { PaiInfo, PaiName } from "../../@types/types";
-import ShareButton from "./ShareButton";
 import SystemOptionContext from "../Context/SystemOptionContext";
 import { PaiPatternExtractor } from "../../Runtime/Extractor/Extractor";
 import OptionContext from "../Context/OptionContext";
@@ -235,7 +234,7 @@ const MahjongPaiSelections = () => {
 
   return (
     <div>
-      <ul className="grid grid-cols-10 gap-1 pai-selections">
+      <ul className="grid grid-cols-9 gap-1 pai-selections">
         {selection.paiList
           .filter((v) => !v.isKanPai)
           .map((v, k) => {
@@ -318,9 +317,7 @@ const MahjongPaiSelections = () => {
             </li>
           );
         })}
-        <li className="col-span-2 place-self-center">
-          <ShareButton />
-        </li>
+        <li className="col-span-2 place-self-center"></li>
       </ul>
     </div>
   );

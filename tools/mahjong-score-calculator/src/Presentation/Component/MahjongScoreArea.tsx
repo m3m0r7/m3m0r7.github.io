@@ -17,6 +17,7 @@ import OptionContext from "../Context/OptionContext";
 import {
   MahjongDefaultAdditionalSpecialYaku,
   MahjongDefaultLocalRules,
+  MahjongDefaultOption,
 } from "../../Runtime/MahjongDefaultOption";
 import I18n from "../../Lang/I18n";
 import { convertToNormalPai } from "../../Utilities/Converter";
@@ -75,6 +76,8 @@ const MahjongScoreArea = () => {
           fromRon: option?.hora?.fromRon ?? false,
           fromRinshanPai: option?.hora?.fromRinshanPai ?? false,
         },
+        fuList: MahjongDefaultOption.fuList,
+        yakuList: MahjongDefaultOption.yakuList,
         localRules: {
           ...MahjongDefaultLocalRules,
           ...option?.localRules,
@@ -95,6 +98,7 @@ const MahjongScoreArea = () => {
     try {
       setScoreData?.(mahjong.calculator.value);
     } catch (e) {
+      console.log(e);
       setCalculationStep?.({
         step: "error",
         message: "役がないか、フォーマットが正しくありません",
@@ -265,7 +269,7 @@ const MahjongScoreArea = () => {
           )}
           {!scoreData?.appliedYakuList && (
             <li className="col-span-4 applied-yaku-list--message">
-              下記から牌を選んでください
+              ここに成立した役の一部が表示されます
             </li>
           )}
         </ul>

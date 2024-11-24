@@ -2,11 +2,14 @@ import React, { useContext } from "react";
 import { PaiGroupName } from "../../@types/types";
 import MahjongScoreArea from "./MahjongScoreArea";
 import MahjongPaiSelections from "./MahjongPaiSelections";
-import DoCalculateButton from "./DoCalculateButton";
 import OpenCalculationResultButton from "./OpenCalculationResultButton";
 import CalculationStepContext from "../Context/CalculationStepContext";
 import StepMessageButton from "./StepMessageButton";
 import DialogContext from "../Context/DialogContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import DrawerMenuContext from "../Context/DrawerMenuContext";
+import Navigator from "./Navigator";
 
 const Header = (props: {
   tabType: PaiGroupName | "option";
@@ -15,7 +18,7 @@ const Header = (props: {
   const [calculationStep, setCalculationStep] = useContext(
     CalculationStepContext,
   );
-  const [dialog, setDialog] = useContext(DialogContext);
+  const [drawer, setDrawer] = useContext(DrawerMenuContext);
 
   return (
     <div className="header">
@@ -23,12 +26,10 @@ const Header = (props: {
         <h1 className="title">麻雀点数計算機</h1>
         <div className="place-self-center">
           <div
-            className="small-button"
-            onClick={() =>
-              setDialog?.({ open: true, openType: "score-list-view" })
-            }
+            className="open-drawer-menu-button"
+            onClick={() => setDrawer?.({ open: true })}
           >
-            📊 点数表
+            <FontAwesomeIcon icon={faBars} />
           </div>
         </div>
       </div>
@@ -44,7 +45,12 @@ const Header = (props: {
           calculationStep?.step === "select-furo-pai" ||
           calculationStep?.step === "select-hora-pai") && <StepMessageButton />}
       </div>
-      <MahjongPaiSelections />
+      <div className="mt-2 ml-2 mr-2">
+        <Navigator />
+      </div>
+      <div className="mt-2 ml-2 mr-2">
+        <MahjongPaiSelections />
+      </div>
       <ul className="grid grid-cols-5 gap-1 pai-selection-tab">
         <li
           className={`pai-selection-tab-item pai-selection-tab-item--m ${props.tabType === "m" ? "pai-selection-tab-item--active" : ""}`}

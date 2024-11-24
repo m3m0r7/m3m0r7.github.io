@@ -18,13 +18,17 @@ export type PaiInfo = {
 
 export type PaiOptionInfo = PaiInfo & PaiSelectionType;
 
-export type PaiOption = {
+export type PaiOptionType = {
   paiList: PaiOptionInfo[];
   peNukiList?: number[];
 };
 
+export const PaiOptionInitial = {
+  paiList: [],
+};
+
 const PaiSelectionContext = createContext<
-  [PaiOption, Dispatch<SetStateAction<PaiOption>>] | [null, null]
+  [PaiOptionType, Dispatch<SetStateAction<PaiOptionType>>] | [null, null]
 >([null, null]);
 
 export default PaiSelectionContext;

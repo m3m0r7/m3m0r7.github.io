@@ -1,8 +1,6 @@
 import { createContext, Dispatch, SetStateAction } from "react";
-import { PaiName } from "../../@types/types";
-import { PaiOption, PaiSelectionType } from "./PaiSelectionContext";
 
-export type CalculationStep =
+export type CalculationStepType =
   | {
       step: "select-pai";
     }
@@ -26,8 +24,13 @@ export type CalculationStep =
       message: string;
     };
 
-const CalculationStepContext = createContext<
-  [CalculationStep, Dispatch<SetStateAction<CalculationStep>>] | [null, null]
+export const CalculationStepInitial: CalculationStepType = {
+  step: "select-pai",
+};
+
+const CalculationStepTypeContext = createContext<
+  | [CalculationStepType, Dispatch<SetStateAction<CalculationStepType>>]
+  | [null, null]
 >([null, null]);
 
-export default CalculationStepContext;
+export default CalculationStepTypeContext;
