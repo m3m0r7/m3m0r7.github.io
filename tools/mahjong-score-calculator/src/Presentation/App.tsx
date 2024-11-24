@@ -1,45 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import MahjongPaiList from "./Component/MahjongPaiList";
 import "./index.css";
-import {
-  MahjongOption as Option,
-  PaiGroupName,
-  PaiName,
-  ScoreData,
-} from "../@types/types";
+import { MahjongOption as Option, PaiGroupName, PaiName, ScoreData, } from "../@types/types";
 import MahjongOption from "./Component/MahjongOption";
 import Footer from "./Component/Footer";
 import Header from "./Component/Header";
 import DoCalculateButton from "./Component/DoCalculateButton";
 import { MahjongDefaultOption } from "../Runtime/MahjongDefaultOption";
-import DialogContext, {
-  DialogInitial,
-  DialogType,
-} from "./Context/DialogContext";
+import DialogContext, { DialogInitial, DialogType, } from "./Context/DialogContext";
 import OptionContext from "./Context/OptionContext";
 import Dialog from "./Component/Dialog/Dialog";
-import PaiSelectionContext, {
-  PaiOptionInitial,
-  PaiOptionType,
-} from "./Context/PaiSelectionContext";
-import CalculationStepContext, {
-  CalculationStepInitial,
-  CalculationStepType,
-} from "./Context/CalculationStepContext";
+import PaiSelectionContext, { PaiOptionInitial, PaiOptionType, } from "./Context/PaiSelectionContext";
+import CalculationStepContext, { CalculationStepInitial, CalculationStepType, } from "./Context/CalculationStepContext";
 import ScoreDataContext from "./Context/ScoreDataContext";
 import Layout from "./Component/Layout";
-import { PaiPatternExtractor } from "../Runtime/Extractor/Extractor";
-import SystemOptionContext, {
-  SystemDefaultOption,
-  SystemOption,
-} from "./Context/SystemOptionContext";
+import SystemOptionContext, { SystemDefaultOption, SystemOption, } from "./Context/SystemOptionContext";
 import FrameSetContext, { createFrameSet } from "./Context/FrameSetContext";
-import DrawerMenuContext, {
-  DrawerMenuInitial,
-  DrawerMenuType,
-} from "./Context/DrawerMenuContext";
+import DrawerMenuContext, { DrawerMenuInitial, DrawerMenuType, } from "./Context/DrawerMenuContext";
 import Drawer from "./Component/Drawer/Drawer";
 import { CookiesProvider, useCookies } from "react-cookie";
+import ImportFromURL from "./ImportFromURL";
+import KeyboardShortcut from "./KeyboardShortcut/KeyboardShortcut";
 
 const App = () => {
   const [tabType, setTabType] = useState<PaiGroupName | "option">("m");
@@ -59,107 +40,6 @@ const App = () => {
   const scoreData = useState<ScoreData | null>(null);
   const systemOption = useState<SystemOption>(SystemDefaultOption);
 
-  useEffect(() => {
-    const url = new URL(location.href);
-    const parsePaiListFromSearchParams = (name: string) =>
-      (
-        url.searchParams.get(name)?.split(/((?:[1-9][mps]|[1-7]z)[auhdf]*)/i) ??
-        []
-      ).filter((v) => v);
-
-    const paiList = parsePaiListFromSearchParams("paiList");
-
-    const parsePaiList = (paiListParams: string[]) =>
-      paiListParams.map((pai) => {
-        const [number, group, option] = PaiPatternExtractor.extractPaiPair(
-          pai as PaiName,
-        );
-        const paiName = `${number}${group}` as PaiName;
-        let index = paiNames.filter((v) => v !== paiName).sum();
-        paiNames.push(paiName);
-        return {
-          pai: paiName,
-          index,
-          isHoraPai: option.isHoraPai ?? false,
-          isAkaDora: option.isAkaDora ?? false,
-          isUraDoraPai: option.isUraDora ?? false,
-          isFuro: option.fromFuro,
-          isDoraPai: option.isDora ?? false,
-          isKanPai: option.isKanPai ?? false,
-        };
-      });
-
-    const paiNames: PaiName[] = [];
-    paiSelections[1]({
-      paiList: parsePaiList(paiList),
-    });
-
-    if (url.searchParams.has("option")) {
-      try {
-        const optionParam = JSON.parse(url.searchParams.get("option") ?? "");
-        option[1]({
-          ...MahjongDefaultOption,
-          hora: {
-            pai: optionParam.hora.fromPai ?? paiList[paiList.length - 1],
-            fromRon: optionParam.hora.fromRon ?? false,
-            fromTsumo: optionParam.hora.fromTsumo ?? false,
-            fromRinshanPai: optionParam.hora.fromRinshanPai ?? false,
-          },
-          honba: optionParam.honba ?? 0,
-          kaze: optionParam.kaze ?? "1z",
-          jikaze: optionParam.jikaze ?? "1z",
-          doraList: optionParam.doraList ?? [],
-          uraDoraList: optionParam.uraDoraList ?? [],
-          localRules: {
-            threePlayStyle: {
-              scoring: optionParam.localRules.scoring ?? "DISCOUNTED_TSUMO",
-              roundUpUnder1000:
-                optionParam.localRules.roundUpUnder1000 ?? false,
-            },
-            fu: {
-              renfonPai: optionParam.localRules?.fu?.renfonPai ?? 4,
-            },
-            honba: optionParam.localRules?.honba ?? 300,
-            kuitan: optionParam.localRules?.kuitan ?? true,
-            akaDora: optionParam.localRules?.akaDora ?? true,
-          },
-          fuList: MahjongDefaultOption.fuList ?? [],
-          yakuList: MahjongDefaultOption.yakuList ?? [],
-          enableDoubleYakuman: true,
-          additionalSpecialYaku: {
-            withRiichi: optionParam.additionalSpecialYaku?.withRiichi,
-            withDoubleRiichi:
-              optionParam.additionalSpecialYaku?.withDoubleRiichi,
-            withOpenRiichi: optionParam.additionalSpecialYaku?.withOpenRiichi,
-            withIppatsu: optionParam.additionalSpecialYaku?.withIppatsu,
-            withHaitei: optionParam.additionalSpecialYaku?.withHaitei,
-            withHoutei: optionParam.additionalSpecialYaku?.withHoutei,
-            withChanKan: optionParam.additionalSpecialYaku?.withChanKan,
-            withTenho: optionParam.additionalSpecialYaku?.withTenho,
-            withChiho: optionParam.additionalSpecialYaku?.withChiho,
-            withNagashiMangan:
-              optionParam.additionalSpecialYaku?.withNagashiMangan,
-          },
-        });
-      } catch (e) {}
-    }
-
-    if (url.searchParams.has("calculationStep")) {
-      const step = url.searchParams.get("calculationStep");
-      if (
-        step === "finish" ||
-        step === "select-pai" ||
-        step === "select-dora" ||
-        step === "select-ura-dora" ||
-        step === "select-hora-pai"
-      ) {
-        calculationStep[1]({
-          step,
-        });
-      }
-    }
-  }, []);
-
   return (
     <CookiesProvider>
       <FrameSetContext>
@@ -176,6 +56,8 @@ const App = () => {
                 >
                   <DialogContext.Provider value={dialog}>
                     <DrawerMenuContext.Provider value={drawer}>
+                      <ImportFromURL />
+                      <KeyboardShortcut />
                       <Layout>
                         <Header
                           tabType={tabType}

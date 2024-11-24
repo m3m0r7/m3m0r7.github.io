@@ -11,6 +11,7 @@ import DialogInputSupport from "./DialogInputSupport";
 import DialogPeNuki from "./DialogPeNuki";
 import DialogScoreListView from "./DialogScoreListView";
 import DialogAttention from "./DialogAttention";
+import DialogHelp from "./DialogHelp";
 
 const Dialog = () => {
   const [dialog] = useContext(DialogContext);
@@ -30,6 +31,7 @@ const Dialog = () => {
       <DialogScoreCalculation />
       <DialogScoreDetails />
       <DialogResetCalculation />
+      <DialogHelp />
     </DialogOverlay>
   );
 };

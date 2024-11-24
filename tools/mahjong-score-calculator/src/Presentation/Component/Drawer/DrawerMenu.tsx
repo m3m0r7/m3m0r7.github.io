@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChartSimple,
-  faCheck,
+  faCheck, faCircleQuestion,
   faShareFromSquare,
   faTriangleExclamation,
 } from "@fortawesome/free-solid-svg-icons";
@@ -84,6 +84,15 @@ const DrawerMenu = () => {
     }, 1500);
   };
 
+  const showDialogHelp = () => {
+    closeDrawer();
+
+    setDialog?.({
+      open: true,
+      openType: "help",
+    });
+  }
+
   const showDialogAttention = () => {
     closeDrawer();
 
@@ -91,7 +100,7 @@ const DrawerMenu = () => {
       open: true,
       openType: "attention",
     });
-  };
+  }
 
   return (
     <div className="drawer-menu">
@@ -100,23 +109,29 @@ const DrawerMenu = () => {
         <ul className="drawer-menu-list">
           <li onClick={showScoreListView}>
             <span>
-              <FontAwesomeIcon icon={faChartSimple} />
+              <FontAwesomeIcon icon={faChartSimple}/>
             </span>
             <span>点数計算表</span>
           </li>
           <li onClick={shareURL}>
             <span>
               {copied ? (
-                <FontAwesomeIcon icon={faCheck} />
+                <FontAwesomeIcon icon={faCheck}/>
               ) : (
-                <FontAwesomeIcon icon={faShareFromSquare} />
+                <FontAwesomeIcon icon={faShareFromSquare}/>
               )}
             </span>
             <span>{copied ? "コピー完了" : "URL のシェア"}</span>
           </li>
+          <li onClick={showDialogHelp}>
+            <span>
+              <FontAwesomeIcon icon={faCircleQuestion}/>
+            </span>
+            <span>ヘルプ</span>
+          </li>
           <li onClick={showDialogAttention}>
             <span>
-              <FontAwesomeIcon icon={faTriangleExclamation} />
+              <FontAwesomeIcon icon={faTriangleExclamation}/>
             </span>
             <span>当サイトにおける注意事項</span>
           </li>

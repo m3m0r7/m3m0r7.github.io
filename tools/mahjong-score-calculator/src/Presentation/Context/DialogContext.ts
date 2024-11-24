@@ -20,9 +20,13 @@ export type DialogType =
       openType: "reset-calculation";
     }
   | {
-      open: true;
-      openType: "score-list-view";
-    }
+  open: true;
+  openType: "score-list-view";
+}
+  | {
+  open: true;
+  openType: "help";
+}
   | {
       open: true;
       openType: "attention";
