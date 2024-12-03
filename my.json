@@ -8,6 +8,7 @@
       "Born in 1994. Although I majored in network and computer engineering in the university's information science department, my interest in practical work grew, and I joined the company where I had been working part-time as a web engineer since high school.",
       "After that, I worked at multiple venture companies, startup companies, and listed companies as a software engineer and executive officer CTO.",
       "In April 2024, I joined HowTelevision, Inc., and was appointed CTO of its subsidiary, Liiga Inc.",
+      "Then, in the same year, I was promoted to CTO at HowTelevision Inc., the parent company of Liiga Inc.",
       null,
       "Feel free to contact me for consultation developing, technical advisories and interviews."
     ],
@@ -15,11 +16,28 @@
       "1994年生まれ。大学の情報系学部でネットワーク・コンピューター工学を専攻するも、実務への関心が高まり、高校時代Webエンジニアとしてアルバイトをしていた会社にそのまま入社。",
       "その後、複数のベンチャー企業やスタートアップ企業，上場企業でソフトウェアエンジニアや執行役員 CTO として活動。",
       "2024 年 4 月に株式会社ハウテレビジョンに入社し、そのまま子会社である Liiga 株式会社の CTO に就任。",
+      "同年 12 月に親会社である株式会社ハウテレビジョンの CTO に就任。",
       null,
       "開発業務・技術顧問業務・登壇依頼・執筆などのお仕事依頼等はお気軽にご連絡ください。"
     ]
   },
   "experiences": [
+    {
+      "name": {
+        "en": "HowTelevision, Inc.",
+        "ja": "HowTelevision, Inc."
+      },
+      "positions": [
+        {
+          "name": {
+            "en": "Chief Technology Officer",
+            "ja": "CTO"
+          },
+          "start": "2024/12",
+          "end": null
+        }
+      ]
+    },
     {
       "name": {
         "en": "Liiga, Inc.",
@@ -32,7 +50,7 @@
             "ja": "CTO"
           },
           "start": "2024/4",
-          "end": null
+          "end": "2024/12"
         }
       ]
     },
