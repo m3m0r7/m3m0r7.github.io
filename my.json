@@ -20,6 +20,22 @@
   "experiences": [
     {
       "name": {
+        "en": "Zaimo, Inc.",
+        "ja": "Zaimo, Inc."
+      },
+      "positions": [
+        {
+          "name": {
+            "en": "Chief Technology Officer",
+            "ja": "CTO"
+          },
+          "start": "2025/7",
+          "end": null
+        }
+      ]
+    },
+    {
+      "name": {
         "en": "HowTelevision, Inc.",
         "ja": "HowTelevision, Inc."
       },
