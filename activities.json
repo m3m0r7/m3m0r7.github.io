@@ -1,5 +1,75 @@
 [
   {
+    "published_at": "2025-11-08T00:00:00+09:00",
+    "url": "https://speakerdeck.com/m3m0r7/must-to-learn-php-standards-in-ai-era",
+    "title": "AI 時代だからこそ学ぶべき PHP の基礎",
+    "tags": [
+      "Talk",
+      "Tech"
+    ],
+    "location": "PHP Conference Fukuoka 2025"
+  },
+  {
+    "published_at": "2025-05-23T00:00:00+09:00",
+    "url": "https://speakerdeck.com/m3m0r7/understanding-and-implementing-jvm-with-php",
+    "title": "JVM の仕組みを理解して PHP で実装してみよう",
+    "tags": [
+      "Talk",
+      "Tech"
+    ],
+    "location": "Nextbeat Tech Bar: Java/JVM祭り"
+  },
+  {
+    "published_at": "2025-03-23T00:00:00+09:00",
+    "url": "https://speakerdeck.com/m3m0r7/a-code-golfer-way",
+    "title": "コードゴルファー道",
+    "tags": [
+      "Talk",
+      "Tech"
+    ],
+    "location": "PHPerKaigi 2025"
+  },
+  {
+    "published_at": "2024-12-22T00:00:00+09:00",
+    "url": "https://speakerdeck.com/m3m0r7/how-to-make-an-os-in-php",
+    "title": "ChatGPT とつくる PHP で OS 実装",
+    "tags": [
+      "Talk",
+      "Tech"
+    ],
+    "location": "PHP Conference Japan 2024"
+  },
+  {
+    "published_at": "2024-12-03T00:00:00+09:00",
+    "url": "https://speakerdeck.com/m3m0r7/deep-dive-tech-debt-on-business",
+    "title": "事業観点から見る技術的負債の返済",
+    "tags": [
+      "Talk",
+      "Business"
+    ],
+    "location": "Findy"
+  },
+  {
+    "published_at": "2024-10-30T00:00:00+09:00",
+    "url": "https://speakerdeck.com/m3m0r7/how-to-write-php-as-an-assembly",
+    "title": "PHP でアセンブリ言語のように書く技術",
+    "tags": [
+      "Talk",
+      "Tech"
+    ],
+    "location": "PHP 勉強会 169"
+  },
+  {
+    "published_at": "2024-09-25T00:00:00+09:00",
+    "url": "https://speakerdeck.com/m3m0r7/how-to-write-php-like-assembly",
+    "title": "PHP でアセンブリっぽく書く技術",
+    "tags": [
+      "Talk",
+      "Tech"
+    ],
+    "location": "低レイヤゆるっと LT 大会"
+  },
+  {
     "published_at": "2024-08-19T00:00:00+09:00",
     "url": "https://globalbrains.connpass.com/event/324893/",
     "title": "プロダクトの正しい「やめ方」〜スタートアップのCTOは大きな決断にどう向き合うか？〜",
