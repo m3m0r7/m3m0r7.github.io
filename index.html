@@ -155,7 +155,8 @@
     }
 
     #opener + .info-contents {
-      display: block;
+      display: flex;
+      flex-direction: column;
       position: fixed;
       top: 0;
       left: 0;
@@ -184,14 +185,79 @@
     }
 
     .info-contents-container-scrollable {
-      height: calc(100% - 40px - 40px);
+      flex: 1;
+      min-height: 0;
       box-sizing: border-box;
       overflow: scroll;
-      margin-top: 40px;
+      margin-top: 24px;
     }
 
     .info-contents-container {
       display: flex;
+    }
+
+    .info-contents-container.is-empty {
+      display: none;
+    }
+
+    .info-contents-empty {
+      display: none;
+      margin: 24px 0 0 166px;
+      color: #666666;
+      font-size: 14px;
+    }
+
+    .info-contents-empty.is-visible {
+      display: block;
+    }
+
+    .info-contents-summary-container {
+      margin-top: 24px;
+    }
+
+    .info-contents-list.info-contents-summary {
+      width: 100%;
+    }
+
+    .info-contents-list.info-contents-summary dd {
+      padding-bottom: 0;
+    }
+
+    .info-contents-filter {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding-left: 166px;
+      margin-top: 24px;
+    }
+
+    .info-contents-filter button {
+      appearance: none;
+      -webkit-appearance: none;
+      border: 1px solid rgba(60, 101, 170, 0.28);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.68);
+      color: #555555;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1;
+      padding: 8px 13px;
+      transition: background-color ease 0.2s, border-color ease 0.2s, color ease 0.2s, box-shadow ease 0.2s;
+    }
+
+    .info-contents-filter button:hover {
+      border-color: rgba(198, 55, 156, 0.5);
+      background: rgba(198, 55, 156, 0.08);
+      color: #3c65aa;
+    }
+
+    .info-contents-filter button[aria-pressed="true"] {
+      border-color: transparent;
+      background: linear-gradient(140deg, var(--accent-color-1) 0%, var(--accent-color-2) 100%);
+      color: #ffffff;
+      box-shadow: 0 6px 18px rgba(60, 101, 170, 0.18);
     }
 
     .close-button {
@@ -519,6 +585,29 @@
         display: none;
       }
 
+      .info-contents-summary-container {
+        margin-top: 20px;
+      }
+
+      .info-contents-empty {
+        margin: 20px 0 0 0;
+      }
+
+      .info-contents-filter {
+        padding-left: 0;
+        margin-top: 20px;
+        gap: 6px;
+      }
+
+      .info-contents-filter button {
+        flex: 1 1 calc(50% - 6px);
+        padding: 9px 10px;
+      }
+
+      .info-contents-container-scrollable {
+        margin-top: 20px;
+      }
+
       .info-contents {
         padding: 20px;
       }
@@ -576,6 +665,34 @@
         createdNewOSS: {
           ja: "新しい OSS の公開",
           en: "Created a new OSS"
+        },
+        filterAll: {
+          ja: "すべて",
+          en: "All",
+        },
+        filterCareer: {
+          ja: "キャリア",
+          en: "Career",
+        },
+        filterTalk: {
+          ja: "登壇・講演",
+          en: "Talks",
+        },
+        filterBook: {
+          ja: "著書",
+          en: "Books",
+        },
+        filterBlog: {
+          ja: "ブログ",
+          en: "Blog",
+        },
+        filterOther: {
+          ja: "その他",
+          en: "Other",
+        },
+        filterEmpty: {
+          ja: "表示する項目はありません。",
+          en: "No items to show.",
         }
       }
     }
@@ -594,11 +711,17 @@
   <div>
     <label for="opener" class="close-button"><i class="fa-solid fa-xmark"></i></label>
   </div>
+  <div class="info-contents-container info-contents-summary-container">
+    <div class="info-contents-list-bar"></div>
+    <dl class="info-contents-list info-contents-summary"></dl>
+  </div>
+  <div class="info-contents-filter" role="toolbar" aria-label="Content filter"></div>
   <div class="info-contents-container-scrollable">
-    <div class="info-contents-container">
+    <div class="info-contents-container info-contents-activities-container">
       <div class="info-contents-list-bar"></div>
-      <dl class="info-contents-list"></dl>
+      <dl class="info-contents-list info-contents-activities"></dl>
     </div>
+    <div class="info-contents-empty" role="status"></div>
   </div>
 </div>
 
@@ -854,6 +977,54 @@
       this.getDate(),
     )
   }
+
+  const isValidDate = (date) => date instanceof Date && !Number.isNaN(date.getTime());
+
+  const parseDate = (value) => {
+    if (value === null || value === undefined || value === '') {
+      return null;
+    }
+    if (value instanceof Date) {
+      return value;
+    }
+    if (typeof value !== 'string') {
+      return new Date(value);
+    }
+
+    const dateMatch = value.match(/^(\d{4})[/-](\d{1,2})(?:[/-](\d{1,2}))?/);
+    if (!dateMatch) {
+      return new Date(value);
+    }
+
+    const year = parseInt(dateMatch[1], 10);
+    const month = parseInt(dateMatch[2], 10);
+    const day = dateMatch[3] ? parseInt(dateMatch[3], 10) : 1;
+    const date = new Date(year, month - 1, day);
+
+    if (
+      date.getFullYear() !== year
+      || date.getMonth() !== month - 1
+      || date.getDate() !== day
+    ) {
+      return new Date(NaN);
+    }
+
+    date.withDay = Boolean(dateMatch[3]);
+    return date;
+  };
+
+  const formatSingleDate = (time) => {
+    if (!isValidDate(time)) {
+      return '';
+    }
+
+    return time.format(
+      time.withDay
+        ? 'YYYY/M/D'
+        : 'YYYY/M'
+    );
+  };
+
   Node.prototype.loadData = function (path) {
     const key = window.WISTERIA.cache.keyPrefix + path;
     const item = localStorage.getItem(key);
@@ -924,6 +1095,15 @@
     );
   }
 
+  const activityFilters = [
+    { category: 'all', label: 'filterAll' },
+    { category: 'career', label: 'filterCareer' },
+    { category: 'talk', label: 'filterTalk' },
+    { category: 'book', label: 'filterBook' },
+    { category: 'blog', label: 'filterBlog' },
+    { category: 'other', label: 'filterOther' },
+  ];
+
   const renderActivity = (activity, layout = 'info-contents-item') => {
     const template = (name, props = {}) => {
       const target = Array.from(document.querySelectorAll('script[data-template-name]'))
@@ -949,22 +1129,15 @@
         return time;
       }
       if (time instanceof Date) {
-        return time.format(
-          time.withDay
-            ? 'YYYY/M/D'
-            : 'YYYY/M'
-        );
+        return formatSingleDate(time);
       }
 
-      return time.start.format(
-        time.start.withDay
-          ? 'YYYY/M/D'
-          : 'YYYY/M'
-      ) + ' - ' + (time.end ? time.end.format(
-        time.end.withDay
-          ? 'YYYY/M/D'
-          : 'YYYY/M'
-      ) : i18n('now'))
+      const start = formatSingleDate(time.start);
+      const end = time.end ? formatSingleDate(time.end) : i18n('now');
+
+      return start
+        ? start + ' - ' + end
+        : '';
     }
 
     const tags = template('info-contents-tags', {
@@ -982,14 +1155,10 @@
 
     return template(layout, {
       type: activity.type,
-      date: activity.time ? template('info-contents-item-date', {
-        children: typeof activity.time === 'string'
-          ? activity.time
-          : (
-            activity.time instanceof Date
-              ? activity.time.format(activity.time.withDay ? 'YYYY/M/D' : 'YYYY/M')
-              : activity.time.start.format(activity.time.start.withDay ? 'YYYY/M/D' : 'YYYY/M')
-          )
+      date: date ? template('info-contents-item-date', {
+        children: activity.time instanceof Date
+          ? formatSingleDate(activity.time)
+          : date
       }) : '',
       title: activity.link
         ? template('info-contents-item-title' + unpublished, {
@@ -1016,6 +1185,57 @@
     });
   };
 
+  const renderActivityList = (activities, category = 'all') => {
+    const filteredActivities = activities.filter(activity => (
+      activity.type !== 'summary'
+      && activity.category !== 'always'
+      && (
+        category === 'all'
+        || activity.category === category
+      )
+    ));
+
+    const isEmpty = filteredActivities.length === 0;
+    document.querySelector('.info-contents-activities-container').classList.toggle('is-empty', isEmpty);
+    document.querySelector('.info-contents-empty').classList.toggle('is-visible', isEmpty);
+    document.querySelector('.info-contents-empty').innerText = isEmpty ? i18n('filterEmpty') : '';
+    document.querySelector('.info-contents-activities').innerHTML = filteredActivities
+      .map(activity => renderActivity(activity, 'info-contents-item-layout')).join('');
+  };
+
+  const renderActivitySummaries = (activities) => {
+    const summaries = activities.filter(activity => (
+      activity.type === 'summary'
+      || activity.category === 'always'
+    ));
+
+    document.querySelector('.info-contents-summary').innerHTML = summaries
+      .map(activity => renderActivity(activity, 'info-contents-item-layout')).join('');
+  };
+
+  const renderActivityFilters = (activities) => {
+    const filter = document.querySelector('.info-contents-filter');
+    let currentCategory = 'all';
+
+    const draw = () => {
+      filter.innerHTML = activityFilters.map(item => (
+        '<button type="button" data-activity-filter="' + item.category + '" aria-pressed="' + (item.category === currentCategory ? 'true' : 'false') + '">' +
+          i18n(item.label) +
+        '</button>'
+      )).join('');
+
+      filter.querySelectorAll('[data-activity-filter]').forEach(button => {
+        button.addEventListener('click', e => {
+          currentCategory = e.currentTarget.getAttribute('data-activity-filter');
+          renderActivityList(activities, currentCategory);
+          draw();
+        });
+      });
+    };
+
+    draw();
+  };
+
   document.addEventListener('DOMContentLoaded', function (e) {
     const promises = [];
 
@@ -1024,6 +1244,7 @@
         const activities = [];
 
         activities.push({
+          category: "always",
           type: "summary",
           title: "Summary",
           children: payload.summary[window[CODE_NAME].lang]
@@ -1034,8 +1255,9 @@
         payload.books.forEach(book => {
           book.authors.forEach(author => {
             activities.push({
+              category: "book",
               type: "book",
-              time: new Date(author.published_at),
+              time: parseDate(author.published_at),
               image: author.image,
               link: author.link,
               title: i18n("publishedNewBook"),
@@ -1051,10 +1273,10 @@
             type: "experience.position",
             subtitle: position.name[window[CODE_NAME].lang],
             time: {
-              start: new Date(position.start),
+              start: parseDate(position.start),
               end: position.end === null
                 ? position.end
-                : new Date(position.end),
+                : parseDate(position.end),
             },
             tags: [],
           })).sort(
@@ -1073,6 +1295,7 @@
           })
 
           activities.push({
+            category: "career",
             type: "experience",
             time: items[0].time.start,
             title: i18n('joinTo', experience.name[window[CODE_NAME].lang]),
@@ -1091,8 +1314,9 @@
 
         payload.posts.forEach(post => {
           activities.push({
+            category: "blog",
             type: "article",
-            time: new Date(post.createdAt),
+            time: parseDate(post.createdAt),
             link: "https://sizu.me/memory/posts/" + post.slug,
             title: i18n("postedNewArticle"),
             subtitle: post.title,
@@ -1118,8 +1342,9 @@
 
           if (isOSS) {
             activities.push({
+              category: "oss",
               type: "activity" + unpublished,
-              time: new Date(activity.published_at),
+              time: parseDate(activity.published_at),
               link: activity.url,
               title: i18n("createdNewOSS"),
               subtitle: activity.title,
@@ -1129,8 +1354,9 @@
             return;
           }
           activities.push({
+            category: "talk",
             type: "activity" + unpublished,
-            time: new Date(activity.published_at),
+            time: parseDate(activity.published_at),
             link: activity.url,
             title: i18n("talked"),
             subtitle: (activity.tags.includes('Unpublished') ? i18n("unPublished") : '') + activity.title,
@@ -1146,17 +1372,21 @@
     Promise.all(promises).then((results) => {
       const sortedActivities = results.reduce((acc, activities) => [...acc, ...activities], []).sort(
         (a, b) => {
-          if (a.type === 'summary' || b.type === 'summary') {
+          if (a.type === 'summary') {
+            return -1;
+          }
+          if (b.type === 'summary') {
             return 1;
           }
-          return !a.time || !b.time
-            ? 1
-            : b.time.getTime() - a.time.getTime()
+          const aTime = isValidDate(a.time) ? a.time.getTime() : 0;
+          const bTime = isValidDate(b.time) ? b.time.getTime() : 0;
+          return bTime - aTime
         }
       );
 
-      document.querySelector('.info-contents-list').innerHTML = sortedActivities
-        .map(activity => renderActivity(activity, 'info-contents-item-layout')).join('');
+      renderActivitySummaries(sortedActivities);
+      renderActivityFilters(sortedActivities);
+      renderActivityList(sortedActivities);
     });
   })
 </script>
