@@ -1,5 +1,35 @@
 [
   {
+    "published_at": "2026-04-16T00:00:00+09:00",
+    "url": "https://speakerdeck.com/m3m0r7/focus-on-segmentation-and-targeting-for-writing-a-proposal",
+    "title": "セグメントとターゲットを意識するプロポーザルの書き方 〜採択の鍵は、誰に刺すかを見極めるマーケティング戦略にある〜",
+    "tags": [
+      "Talk",
+      "Business"
+    ],
+    "location": "Findy"
+  },
+  {
+    "published_at": "2026-04-11T00:00:00+09:00",
+    "url": "https://speakerdeck.com/m3m0r7/lets-implementing-a-mp3-player-with-php",
+    "title": "PHP で mp3 プレイヤーを実装しよう",
+    "tags": [
+      "Talk",
+      "Tech"
+    ],
+    "location": "PHP Conference Odawara 2026"
+  },
+  {
+    "published_at": "2026-03-22T00:00:00+09:00",
+    "url": "https://speakerdeck.com/m3m0r7/how-to-make-a-machine-emulator",
+    "title": "PHP でエミュレータを自作して Ubuntu を動かそう",
+    "tags": [
+      "Talk",
+      "Tech"
+    ],
+    "location": "PHPerKaigi 2026"
+  },
+  {
     "published_at": "2025-11-08T00:00:00+09:00",
     "url": "https://speakerdeck.com/m3m0r7/must-to-learn-php-standards-in-ai-era",
     "title": "AI 時代だからこそ学ぶべき PHP の基礎",
