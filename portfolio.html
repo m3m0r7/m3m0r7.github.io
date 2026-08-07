@@ -1,0 +1,1625 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="めもりーのポートフォリオ。CTO・エンジニアリングマネージャー・ソフトウェアエンジニアとしての経験、技術、執筆・登壇実績を紹介します。">
+  <meta name="theme-color" content="#6549a8">
+  <title>めもりー｜Portfolio</title>
+  <link rel="icon" href="assets/profile.png" type="image/png" sizes="1024x1024">
+  <link rel="apple-touch-icon" href="assets/profile.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --text: #20242a;
+      --muted: #606873;
+      --line: #dfe3e8;
+      --soft: #f5f7f9;
+      --accent-1: #c6379c;
+      --accent-2: #3c65aa;
+      --accent: var(--accent-2);
+      --gradient-start: #a12b85;
+      --gradient-middle: #7048a8;
+      --gradient-end: #3c65aa;
+      --accent-gradient: linear-gradient(100deg, var(--gradient-start), var(--gradient-middle) 56%, var(--gradient-end));
+      --max-width: 1040px;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: #fff;
+      color: var(--text);
+      font-family: "Noto Sans JP", sans-serif;
+      font-size: 17px;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+    }
+
+    a:hover {
+      text-decoration-thickness: 2px;
+    }
+
+    a:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 4px;
+    }
+
+    section,
+    footer,
+    .contact {
+      scroll-margin-top: 84px;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 10;
+      padding: 8px 14px;
+      background: var(--text);
+      color: #fff;
+      transform: translateY(-160%);
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .container {
+      width: min(calc(100% - 48px), var(--max-width));
+      margin-inline: auto;
+    }
+
+    .topbar {
+      position: sticky;
+      z-index: 20;
+      top: 0;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .topbar-inner {
+      display: flex;
+      min-height: 64px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .site-name {
+      display: inline-flex;
+      flex: 0 0 auto;
+      align-items: center;
+      gap: 9px;
+      color: var(--accent-2);
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .site-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .nav a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .nav a:hover {
+      color: var(--accent);
+    }
+
+    .nav .nav-cta {
+      padding: 8px 14px;
+      border-radius: 4px;
+      background: var(--accent-gradient);
+      color: #fff;
+      box-shadow: 0 5px 14px rgba(112, 72, 168, 0.18);
+    }
+
+    .nav .nav-cta:hover {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .profile {
+      padding: 80px 0 56px;
+    }
+
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 124px minmax(0, 1fr) minmax(220px, 0.38fr);
+      gap: 36px;
+      align-items: start;
+    }
+
+    .profile-icon-wrap {
+      display: grid;
+      width: 124px;
+      height: 124px;
+      padding: 5px;
+      border-radius: 50%;
+      background: var(--accent-gradient);
+      place-items: center;
+    }
+
+    .profile-icon {
+      width: 100%;
+      height: 100%;
+      border: 5px solid #fff;
+      border-radius: 50%;
+      background: #fff;
+      object-fit: cover;
+    }
+
+    .kicker {
+      margin: 0 0 18px;
+      color: var(--gradient-middle);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--gradient-middle);
+      font-size: clamp(40px, 6vw, 66px);
+      font-weight: 700;
+      letter-spacing: -0.05em;
+      line-height: 1.2;
+    }
+
+    .profile-summary {
+      max-width: 680px;
+      margin: 28px 0 0;
+      color: #343a42;
+      font-size: 19px;
+      line-height: 1.95;
+    }
+
+    .profile-links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 18px;
+      margin-top: 28px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .primary-button {
+      display: inline-flex;
+      min-height: 42px;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 18px;
+      border-radius: 4px;
+      background: var(--accent-gradient);
+      color: #fff;
+      box-shadow: 0 7px 18px rgba(112, 72, 168, 0.2);
+      text-decoration: none;
+    }
+
+    .primary-button:hover {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .profile-note {
+      padding: 24px;
+      border-top: 3px solid var(--text);
+      border-image: linear-gradient(90deg, var(--accent-1), var(--accent-2)) 1;
+      background: var(--soft);
+    }
+
+    .profile-note p {
+      margin: 0;
+    }
+
+    .profile-note-title {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .profile-note-text {
+      margin-top: 10px !important;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .summary-numbers {
+      display: grid;
+      margin: 0;
+      padding: 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      grid-template-columns: repeat(5, 1fr);
+      list-style: none;
+    }
+
+    .summary-numbers li {
+      padding: 25px 22px;
+      border-left: 1px solid var(--line);
+    }
+
+    .summary-numbers li:first-child {
+      border-left: 0;
+    }
+
+    .summary-numbers strong {
+      display: block;
+      color: var(--accent-2);
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .summary-numbers span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .section {
+      padding: 72px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: 190px minmax(0, 1fr);
+      gap: 56px;
+    }
+
+    .section-label {
+      margin: 0;
+      color: var(--gradient-middle);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 8px 0 0;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.5;
+    }
+
+    .section-grid > div:first-child h2 {
+      white-space: nowrap;
+    }
+
+    h2::after {
+      display: block;
+      width: 34px;
+      height: 3px;
+      margin-top: 12px;
+      background: var(--accent-gradient);
+      content: "";
+    }
+
+    @supports ((background-clip: text) or (-webkit-background-clip: text)) {
+      .kicker,
+      .section-label,
+      .site-name span {
+        background: var(--accent-gradient);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+      }
+    }
+
+    .section-lead {
+      max-width: 720px;
+      margin: 0 0 32px;
+      color: var(--muted);
+    }
+
+    .capability-list {
+      margin: 0;
+    }
+
+    .capability-item {
+      display: grid;
+      padding: 25px 0;
+      border-top: 1px solid var(--line);
+      grid-template-columns: 210px minmax(0, 1fr);
+      gap: 32px;
+    }
+
+    .capability-item:first-child {
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .capability-item:last-child {
+      padding-bottom: 0;
+    }
+
+    .capability-item h3,
+    .capability-item p {
+      margin: 0;
+    }
+
+    .capability-item h3 {
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.6;
+    }
+
+    .capability-item h3 span {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .capability-item p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .management-overview {
+      display: grid;
+      margin-bottom: 36px;
+      grid-template-columns: 190px minmax(0, 1fr);
+      gap: 32px;
+      align-items: start;
+    }
+
+    .management-years strong {
+      display: block;
+      font-size: 42px;
+      letter-spacing: -0.04em;
+      line-height: 1.2;
+    }
+
+    .management-role-year + .management-role-year {
+      margin-top: 22px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+    }
+
+    .management-years span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .management-detail {
+      margin: 0;
+      color: #343a42;
+    }
+
+    .data-list {
+      display: grid;
+      margin: 0;
+      padding: 0;
+      border-top: 1px solid var(--line);
+      grid-template-columns: repeat(2, 1fr);
+      list-style: none;
+    }
+
+    .data-list li {
+      padding: 22px 24px 22px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .data-list li:nth-child(even) {
+      padding-right: 0;
+      padding-left: 24px;
+      border-left: 1px solid var(--line);
+    }
+
+    .data-list strong {
+      display: block;
+      font-size: 15px;
+    }
+
+    .data-list span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .domain-list {
+      display: grid;
+      gap: 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .domain-item {
+      display: grid;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--line);
+      grid-template-columns: 110px 150px minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .domain-item h3,
+    .domain-item p {
+      margin: 0;
+    }
+
+    .domain-item h3 {
+      font-size: 17px;
+    }
+
+    .domain-years {
+      color: var(--accent-2);
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .domain-item p:last-child {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .annotation {
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .results {
+      display: grid;
+      margin: 0;
+      padding: 0;
+      grid-template-columns: repeat(2, 1fr);
+      list-style: none;
+    }
+
+    .result {
+      min-height: 140px;
+      padding: 25px 28px 25px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .result:nth-child(even) {
+      padding-right: 0;
+      padding-left: 28px;
+      border-left: 1px solid var(--line);
+    }
+
+    .result-value {
+      display: block;
+      color: var(--accent-2);
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1.3;
+    }
+
+    .result-label {
+      display: block;
+      margin-top: 9px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .result-detail {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .achievement-heading {
+      margin-top: 38px;
+    }
+
+    .achievement-list {
+      display: grid;
+      margin: 16px 0 0;
+      padding: 0;
+      border-top: 1px solid var(--line);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      list-style: none;
+    }
+
+    .achievement-list li {
+      padding: 22px 24px 22px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .achievement-list li:nth-child(even) {
+      padding-right: 0;
+      padding-left: 24px;
+      border-left: 1px solid var(--line);
+    }
+
+    .achievement-list strong,
+    .achievement-list span {
+      display: block;
+    }
+
+    .achievement-list strong {
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .achievement-list span {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.75;
+    }
+
+    .skill-matrix {
+      display: grid;
+      margin-bottom: 36px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .skill-group {
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+    }
+
+    .skill-group h3 {
+      margin: 0;
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .skill-group-note {
+      margin: 4px 0 17px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .skill-items {
+      display: grid;
+      gap: 13px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .skill-items li {
+      display: grid;
+      align-items: baseline;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 5px 8px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .skill-items li::after {
+      width: 100%;
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) var(--level), #e8e7ed var(--level), #e8e7ed 100%);
+      content: "";
+      grid-column: 1 / -1;
+    }
+
+    .skill-years {
+      color: var(--accent-2);
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .skill-note {
+      margin: -20px 0 32px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .repository-list {
+      margin: 0;
+      padding: 0;
+      border-top: 1px solid var(--line);
+      list-style: none;
+    }
+
+    .repository-list li {
+      display: grid;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--line);
+      grid-template-columns: 190px minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: baseline;
+    }
+
+    .repository-list a {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .repository-list span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .repository-list small {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .output-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+    }
+
+    .output-block {
+      padding-top: 20px;
+      border-top: 2px solid var(--text);
+    }
+
+    .output-block strong {
+      display: block;
+      font-size: 28px;
+      line-height: 1.3;
+    }
+
+    .output-block h3 {
+      margin: 10px 0 0;
+      font-size: 16px;
+    }
+
+    .output-block p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .book-grid {
+      display: grid;
+      margin-top: 16px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .subsection-heading {
+      margin: 34px 0 0;
+      font-size: 15px;
+    }
+
+    .book {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .book-cover {
+      display: flex;
+      height: 238px;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      border: 1px solid var(--line);
+      background: var(--soft);
+    }
+
+    .book-cover img {
+      width: auto;
+      max-width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 6px 8px rgba(32, 36, 42, 0.14));
+    }
+
+    .book h3 {
+      margin: 12px 0 0;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .book p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .other-books {
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .talk-list {
+      margin: 16px 0 0;
+      padding: 0;
+      border-top: 1px solid var(--line);
+      list-style: none;
+    }
+
+    .talk-list li {
+      display: grid;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--line);
+      grid-template-columns: 150px minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: baseline;
+    }
+
+    .talk-event {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .talk-list a {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.6;
+    }
+
+    .talk-year {
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .all-talks {
+      display: inline-block;
+      margin-top: 20px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .pricing-card {
+      position: relative;
+      display: flex;
+      min-height: 390px;
+      overflow: hidden;
+      flex-direction: column;
+      padding: 30px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .pricing-card::before {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 4px;
+      background: var(--accent-gradient);
+      content: "";
+    }
+
+    .pricing-type {
+      margin: 0;
+      color: var(--gradient-middle);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .pricing-card h3 {
+      margin: 8px 0 0;
+      font-size: 21px;
+      line-height: 1.5;
+    }
+
+    .pricing-price {
+      margin: 24px 0 0;
+      padding-bottom: 22px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .pricing-price strong {
+      display: block;
+      font-size: 32px;
+      letter-spacing: -0.04em;
+      line-height: 1.3;
+    }
+
+    .pricing-price span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .pricing-features {
+      display: grid;
+      gap: 10px;
+      margin: 22px 0 26px;
+      padding: 0;
+      color: var(--muted);
+      font-size: 13px;
+      list-style: none;
+    }
+
+    .pricing-features li {
+      position: relative;
+      padding-left: 18px;
+    }
+
+    .pricing-features li::before {
+      position: absolute;
+      top: 0.8em;
+      left: 0;
+      width: 7px;
+      height: 2px;
+      background: var(--accent-gradient);
+      content: "";
+    }
+
+    .pricing-cta {
+      display: block;
+      margin-top: auto;
+      padding: 10px 16px;
+      border: 1px solid rgba(112, 72, 168, 0.32);
+      border-radius: 4px;
+      background: #f8f5fc;
+      font-size: 13px;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .pricing-cta:hover {
+      border-color: var(--gradient-middle);
+      text-decoration: none;
+    }
+
+    .pricing-note {
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .contact {
+      padding: 64px 0;
+      background: var(--soft);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .contact h2 {
+      margin: 0;
+      font-size: 26px;
+    }
+
+    .contact p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .contact-links {
+      display: grid;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .contact-item {
+      display: grid;
+      grid-template-columns: 72px minmax(0, 1fr);
+      gap: 14px;
+    }
+
+    .contact-label {
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .email-value {
+      color: var(--text);
+      font-weight: 500;
+      user-select: all;
+    }
+
+    .footer {
+      padding: 24px 0;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    @media (max-width: 760px) {
+      .container {
+        width: min(calc(100% - 32px), var(--max-width));
+      }
+
+      .topbar-inner {
+        min-height: 58px;
+        gap: 12px;
+      }
+
+      .nav {
+        flex: 1 1 auto;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        gap: 18px;
+        overflow-x: auto;
+        padding: 18px 2px;
+        scrollbar-width: none;
+        white-space: nowrap;
+      }
+
+      .nav::-webkit-scrollbar {
+        display: none;
+      }
+
+      .profile {
+        padding: 56px 0 40px;
+      }
+
+      .profile-grid,
+      .section-grid,
+      .management-overview,
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+
+      h1 {
+        font-size: 43px;
+      }
+
+      .profile-summary {
+        font-size: 17px;
+      }
+
+      .profile-icon-wrap {
+        width: 96px;
+        height: 96px;
+      }
+
+      .summary-numbers {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .summary-numbers li:nth-child(3) {
+        border-left: 0;
+        border-top: 1px solid var(--line);
+      }
+
+      .summary-numbers li:nth-child(4) {
+        border-top: 1px solid var(--line);
+      }
+
+      .summary-numbers li:nth-child(5) {
+        grid-column: 1 / -1;
+        border-top: 1px solid var(--line);
+        border-left: 0;
+      }
+
+      .section {
+        padding: 52px 0;
+      }
+
+      .section-grid {
+        gap: 30px;
+      }
+
+      .capability-item,
+      .domain-item {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .domain-item {
+        padding: 22px 0;
+      }
+
+      .data-list,
+      .results,
+      .achievement-list,
+      .output-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .data-list li:nth-child(even),
+      .result:nth-child(even),
+      .achievement-list li:nth-child(even) {
+        padding-left: 0;
+        border-left: 0;
+      }
+
+      .result {
+        min-height: auto;
+      }
+
+      .repository-list li {
+        grid-template-columns: 1fr;
+        gap: 3px;
+      }
+
+      .skill-group {
+        padding: 18px;
+      }
+
+      .skill-matrix {
+        grid-template-columns: 1fr;
+      }
+
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pricing-card {
+        min-height: 0;
+        padding: 26px;
+      }
+
+      .book-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px 12px;
+      }
+
+      .book-cover {
+        height: 210px;
+        padding: 12px;
+      }
+
+      .talk-list li {
+        grid-template-columns: 1fr;
+        gap: 3px;
+      }
+
+      .contact-links,
+      .footer-inner {
+        flex-direction: column;
+      }
+
+      .footer-inner {
+        display: flex;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+    }
+
+    @media print {
+      @page {
+        margin: 14mm;
+        size: A4;
+      }
+
+      body {
+        font-size: 10pt;
+      }
+
+      .topbar,
+      .profile-links,
+      .contact {
+        display: none;
+      }
+
+      .profile,
+      .section {
+        padding: 10mm 0;
+      }
+
+      .profile-grid,
+      .section-grid {
+        grid-template-columns: 1fr;
+        gap: 6mm;
+      }
+
+      .summary-numbers,
+      .data-list,
+      .results,
+      .pricing-grid,
+      .output-grid {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">本文へ移動</a>
+
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="site-name" href="portfolio.html">
+        <img class="site-icon" src="assets/profile.png" alt="" width="1024" height="1024">
+        <span>めもりー</span>
+      </a>
+      <nav class="nav" aria-label="ページ内ナビゲーション">
+        <a href="#value">提供価値</a>
+        <a href="#management">マネジメント</a>
+        <a href="#domains">ドメイン</a>
+        <a href="#results">改善実績</a>
+        <a href="#technology">スキル</a>
+        <a href="#output">著書・登壇</a>
+        <a href="#pricing">契約形態</a>
+        <a class="nav-cta" href="#contact">問い合わせる</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="profile" aria-labelledby="profile-title">
+      <div class="container profile-grid">
+        <div class="profile-icon-wrap">
+          <img class="profile-icon" src="assets/profile.png" alt="めもりーのGitHubアイコン" width="1024" height="1024">
+        </div>
+        <div>
+          <p class="kicker">CTO / Engineering Manager / Software Engineer</p>
+          <h1 id="profile-title">めもりー</h1>
+          <p class="profile-summary">Webプロダクト開発に10年以上携わり、スタートアップでの執行役員CTO、上場企業・子会社でのCTO、エンジニアリングマネージャーを経験しています。技術戦略や組織づくりから設計・実装まで担当できます。</p>
+          <div class="profile-links">
+            <a class="primary-button" href="#contact">問い合わせる</a>
+            <a href="https://x.com/m3m0r7" target="_blank" rel="noopener noreferrer">X</a>
+            <a href="https://www.linkedin.com/in/m3m0r7" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <span class="email-value js-email" aria-live="polite">e-mailを生成中</span>
+            <noscript>e-mailの表示にはJavaScriptが必要です</noscript>
+          </div>
+        </div>
+        <aside class="profile-note" aria-label="現在の活動">
+          <p class="profile-note-title">現在</p>
+          <p class="profile-note-text">フリーランスのソフトウェアエンジニアとして、プロダクト開発や技術・組織課題の支援を行っています。</p>
+        </aside>
+      </div>
+    </section>
+
+    <div class="container">
+      <ul class="summary-numbers" aria-label="経験年数の概要">
+        <li><strong>10年以上</strong><span>Webプロダクト開発</span></li>
+        <li><strong>3年半以上</strong><span>CTO・執行役員CTO</span></li>
+        <li><strong>2年以上</strong><span>EM・テックリード</span></li>
+        <li><strong>8年以上</strong><span>BtoCプロダクト</span></li>
+        <li><strong>5年以上</strong><span>BtoB・BtoBtoC</span></li>
+      </ul>
+    </div>
+
+    <section id="value" class="section" aria-labelledby="value-title">
+      <div class="container section-grid">
+        <div>
+          <p class="section-label">01 / Value</p>
+          <h2 id="value-title">提供価値</h2>
+        </div>
+        <div>
+          <p class="section-lead">事業と開発の間にある課題を整理し、意思決定・組織設計・実装を一つの流れとして進めます。</p>
+          <div class="capability-list">
+            <div class="capability-item">
+              <h3><span>CTO / TECHNICAL LEADERSHIP</span>技術戦略と開発投資</h3>
+              <p>事業計画に接続する技術戦略、ロードマップ、予算・予実、要員計画を設計します。技術的負債やインフラコストも事業リスクと投資対効果から判断します。</p>
+            </div>
+            <div class="capability-item">
+              <h3><span>ENGINEERING MANAGEMENT</span>開発組織づくり</h3>
+              <p>採用、目標・評価、等級制度、チーム設計、1on1、オンボーディングを整え、個人の頑張りに依存しない組織をつくります。</p>
+            </div>
+            <div class="capability-item">
+              <h3><span>DELIVERY</span>開発プロセスの改善</h3>
+              <p>リリース頻度やリードタイムを可視化し、レビュー、デプロイ、問い合わせ対応などのボトルネックを改善します。</p>
+            </div>
+            <div class="capability-item">
+              <h3><span>HANDS-ON ENGINEERING</span>設計・実装・刷新</h3>
+              <p>新規開発、レガシーシステムのリアーキテクト、バックエンド、フロントエンド、インフラ、AIエージェント開発まで対応します。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="management" class="section" aria-labelledby="management-title">
+      <div class="container section-grid">
+        <div>
+          <p class="section-label">02 / Management</p>
+          <h2 id="management-title">マネジメント</h2>
+        </div>
+        <div>
+          <div class="management-overview">
+            <div class="management-years">
+              <div class="management-role-year">
+                <strong>3年半+</strong>
+                <span>CTO・執行役員CTO</span>
+              </div>
+              <div class="management-role-year">
+                <strong>2年+</strong>
+                <span>EM・テックリード</span>
+              </div>
+            </div>
+            <p class="management-detail">スタートアップから上場企業まで、技術と開発組織に責任を持つ役割を経験しています。250名規模の会社では執行役員CTOを担当し、エンジニア0名から約20名の組織立ち上げを行いました。</p>
+          </div>
+          <ul class="data-list">
+            <li><strong>上場企業・子会社のCTO</strong><span>技術戦略、予算、採用、開発組織、IT統制を担当</span></li>
+            <li><strong>スタートアップの執行役員CTO</strong><span>技術戦略、開発計画、要員計画、組織立ち上げ、基幹システム刷新を担当</span></li>
+            <li><strong>SaaSスタートアップのCTO</strong><span>AIエージェント開発、AIドリブンな開発体制を推進</span></li>
+            <li><strong>EM・テックリード</strong><span>チーム組成、開発プロセス、採用・評価・育成を担当</span></li>
+            <li><strong>0 → 約20名の組織づくり</strong><span>採用基準、目標・評価、等級制度、オンボーディングを整備</span></li>
+            <li><strong>ガバナンス・コスト</strong><span>IT統制、インフラ最適化、外部委託・オフショア管理</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="domains" class="section" aria-labelledby="domains-title">
+      <div class="container section-grid">
+        <div>
+          <p class="section-label">03 / Domains</p>
+          <h2 id="domains-title">ドメイン</h2>
+        </div>
+        <div>
+          <p class="section-lead">BtoCとBtoB・BtoBtoCの双方で、プロダクト開発と組織運営を経験しています。</p>
+          <div class="domain-list">
+            <article class="domain-item">
+              <h3>BtoC</h3>
+              <p class="domain-years">8年以上</p>
+              <p>メディア、サブスクリプション、EC、キャリア、コミュニティ、地図プラットフォーム。ユーザー体験、トラフィック、継続利用、運用負荷を扱ってきました。</p>
+            </article>
+            <article class="domain-item">
+              <h3>BtoB・BtoBtoC</h3>
+              <p class="domain-years">5年以上</p>
+              <p>マッチング、財務モデリングSaaS、教育決済、医療HR、業務支援。顧客業務、導入・運用、権限・データ設計、社内オペレーションを扱ってきました。</p>
+            </article>
+          </div>
+          <p class="annotation">期間は主なプロダクトへの関与期間を顧客区分ごとに集計した概算です。複数区分にまたがるプロダクトや並行案件を含みます。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="results" class="section" aria-labelledby="results-title">
+      <div class="container section-grid">
+        <div>
+          <p class="section-label">04 / Results</p>
+          <h2 id="results-title">改善実績</h2>
+        </div>
+        <div>
+          <p class="section-lead">数値に表れる改善に加え、開発組織やプロダクトに仕組みとして残る改善を進めてきました。</p>
+          <ul class="results">
+            <li class="result">
+              <span class="result-value">20 → 100件</span>
+              <span class="result-label">月間リリース数</span>
+              <span class="result-detail">開発プロセスとチーム運用を改善</span>
+            </li>
+            <li class="result">
+              <span class="result-value">7h → 4.6h</span>
+              <span class="result-label">レビューからデプロイまで</span>
+              <span class="result-detail">1人あたりのリードタイムを短縮</span>
+            </li>
+            <li class="result">
+              <span class="result-value">前年比 −17%</span>
+              <span class="result-label">インフラコスト</span>
+              <span class="result-detail">構成と利用状況を見直して削減</span>
+            </li>
+            <li class="result">
+              <span class="result-value">0 → 約20名</span>
+              <span class="result-label">エンジニア組織</span>
+              <span class="result-detail">採用・評価・チーム設計を含めて立ち上げ</span>
+            </li>
+          </ul>
+          <h3 class="subsection-heading achievement-heading">組織・プロセス・開発基盤の改善</h3>
+          <ul class="achievement-list">
+            <li>
+              <strong>評価・等級・採用基準を整備</strong>
+              <span>目標設定、評価制度、等級制度、採用基準を整え、開発組織を運営する基盤を構築。</span>
+            </li>
+            <li>
+              <strong>レガシーな社内基盤を刷新</strong>
+              <span>リアーキテクトとフルリプレイスを企画し、設計・技術選定・開発からリリースまで一貫して担当。</span>
+            </li>
+            <li>
+              <strong>短いサイクルで届けられる体制へ</strong>
+              <span>開発プロセスとチーム体制を見直し、隔週から週次でリリースできる運用へ改善。</span>
+            </li>
+            <li>
+              <strong>AIを前提とした開発体制を構築</strong>
+              <span>財務モデリングAIエージェントを実装し、AIフレンドリーかつAIドリブンな開発体制を推進。</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="technology" class="section" aria-labelledby="technology-title">
+      <div class="container section-grid">
+        <div>
+          <p class="section-label">05 / Technology</p>
+          <h2 id="technology-title">スキル</h2>
+        </div>
+        <div>
+          <p class="section-lead">マネジメントの役割でも技術から離れず、必要に応じて自ら設計・実装します。</p>
+          <div class="skill-matrix">
+            <div class="skill-group">
+              <h3>Languages</h3>
+              <p class="skill-group-note">経験年数順</p>
+              <ol class="skill-items">
+                <li style="--level: 100%"><span class="skill-name">PHP</span><span class="skill-years">10年以上</span></li>
+                <li style="--level: 100%"><span class="skill-name">JavaScript</span><span class="skill-years">10年以上</span></li>
+                <li style="--level: 60%"><span class="skill-name">TypeScript</span><span class="skill-years">6年以上</span></li>
+                <li style="--level: 50%"><span class="skill-name">Ruby</span><span class="skill-years">5年以上</span></li>
+                <li style="--level: 20%"><span class="skill-name">Python</span><span class="skill-years">2年以上</span></li>
+                <li style="--level: 20%"><span class="skill-name">Go</span><span class="skill-years">2年以上</span></li>
+                <li style="--level: 10%"><span class="skill-name">Rust</span><span class="skill-years">1年以上</span></li>
+                <li style="--level: 10%"><span class="skill-name">Objective-C</span><span class="skill-years">1年以上</span></li>
+              </ol>
+            </div>
+            <div class="skill-group">
+              <h3>Web / Framework</h3>
+              <p class="skill-group-note">経験年数順</p>
+              <ol class="skill-items">
+                <li style="--level: 80%"><span class="skill-name">Laravel</span><span class="skill-years">8年以上</span></li>
+                <li style="--level: 80%"><span class="skill-name">React</span><span class="skill-years">8年以上</span></li>
+                <li style="--level: 60%"><span class="skill-name">Swoole</span><span class="skill-years">6年以上</span></li>
+                <li style="--level: 50%"><span class="skill-name">Ruby on Rails</span><span class="skill-years">5年以上</span></li>
+                <li style="--level: 50%"><span class="skill-name">Node.js</span><span class="skill-years">5年以上</span></li>
+                <li style="--level: 50%"><span class="skill-name">WordPress</span><span class="skill-years">5年以上</span></li>
+                <li style="--level: 20%"><span class="skill-name">Next.js</span><span class="skill-years">2年以上</span></li>
+              </ol>
+            </div>
+            <div class="skill-group">
+              <h3>Data / Platform</h3>
+              <p class="skill-group-note">経験年数順</p>
+              <ol class="skill-items">
+                <li style="--level: 100%"><span class="skill-name">MySQL</span><span class="skill-years">10年以上</span></li>
+                <li style="--level: 80%"><span class="skill-name">AWS</span><span class="skill-years">8年以上</span></li>
+                <li style="--level: 80%"><span class="skill-name">Docker</span><span class="skill-years">8年以上</span></li>
+                <li style="--level: 50%"><span class="skill-name">PostgreSQL</span><span class="skill-years">5年以上</span></li>
+                <li style="--level: 30%"><span class="skill-name">Elasticsearch</span><span class="skill-years">3年以上</span></li>
+                <li style="--level: 10%"><span class="skill-name">AI / LLM Agent</span><span class="skill-years">1年以上</span></li>
+              </ol>
+            </div>
+          </div>
+          <p class="skill-note">経験年数は業務・個人開発で実際に扱った期間を合算した概算です。</p>
+          <ul class="repository-list" aria-label="主な公開リポジトリ">
+            <li>
+              <a href="https://github.com/m3m0r7/php-os" target="_blank" rel="noopener noreferrer">php-os</a>
+              <span>PHPで実装するOS</span>
+              <small>PHP</small>
+            </li>
+            <li>
+              <a href="https://github.com/m3m0r7/php-machine-emulator" target="_blank" rel="noopener noreferrer">php-machine-emulator</a>
+              <span>PHPで実装するマシンエミュレータ</span>
+              <small>PHP</small>
+            </li>
+            <li>
+              <a href="https://github.com/m3m0r7/rubyvm-on-php" target="_blank" rel="noopener noreferrer">rubyvm-on-php</a>
+              <span>PHPで実装するRuby VM</span>
+              <small>PHP</small>
+            </li>
+            <li>
+              <a href="https://github.com/m3m0r7/pe-vm" target="_blank" rel="noopener noreferrer">pe-vm</a>
+              <span>Rustで実装するPortable Executable実行環境</span>
+              <small>Rust / PE</small>
+            </li>
+            <li>
+              <a href="https://github.com/m3m0r7/nfc-for-php" target="_blank" rel="noopener noreferrer">nfc-for-php</a>
+              <span>PHPからNFCリーダーを扱うライブラリ</span>
+              <small>PHP / Device</small>
+            </li>
+            <li>
+              <a href="https://github.com/m3m0r7/pnl" target="_blank" rel="noopener noreferrer">pnl</a>
+              <span>PHP向けネイティブライブラリのパッケージマネージャー</span>
+              <small>Rust</small>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="output" class="section" aria-labelledby="output-title">
+      <div class="container section-grid">
+        <div>
+          <p class="section-label">06 / Output</p>
+          <h2 id="output-title">著書・登壇</h2>
+        </div>
+        <div>
+          <div class="output-grid">
+            <article class="output-block">
+              <strong>6件</strong>
+              <h3>書籍・雑誌への執筆</h3>
+              <p>PHP、非同期処理、レガシーコードなどを扱い、単著3冊を含みます。</p>
+            </article>
+            <article class="output-block">
+              <strong>30件以上</strong>
+              <h3>カンファレンス・イベント登壇</h3>
+              <p>技術、エンジニアリング組織、スタートアップ、キャリアを主なテーマに登壇しています。</p>
+            </article>
+          </div>
+
+          <h3 class="subsection-heading">主な著書</h3>
+          <div class="book-grid">
+            <a class="book" href="https://www.amazon.co.jp/dp/4297145871/" target="_blank" rel="noopener noreferrer">
+              <span class="book-cover"><img src="assets/books/memory_chan.png" alt="めもりーちゃんの PHP でプログラミング入門の表紙" width="522" height="676"></span>
+              <h3>めもりーちゃんの PHP でプログラミング入門</h3>
+              <p>技術評論社 / 単著 / 2024</p>
+            </a>
+            <a class="book" href="https://www.amazon.co.jp/dp/4863544103" target="_blank" rel="noopener noreferrer">
+              <span class="book-cover"><img src="assets/books/legacy_code.jpg" alt="レガシーコードとどう付き合うかの表紙" width="1748" height="2480"></span>
+              <h3>レガシーコードとどう付き合うか</h3>
+              <p>C&amp;R研究所 / 単著 / 2023</p>
+            </a>
+            <a class="book" href="https://www.amazon.co.jp/dp/B0BV69C24M" target="_blank" rel="noopener noreferrer">
+              <span class="book-cover"><img src="assets/books/swoole.jpg" alt="Swooleで学ぶPHP非同期処理の表紙" width="396" height="500"></span>
+              <h3>Swooleで学ぶPHP非同期処理</h3>
+              <p>技術評論社 / 単著 / 2023</p>
+            </a>
+          </div>
+          <p class="other-books">ほか『みんなのPHP』、Software Design 2019年12月号・2021年9月号へ共著・寄稿。</p>
+
+          <h3 class="subsection-heading">主な登壇</h3>
+          <ul class="talk-list">
+            <li>
+              <span class="talk-event">PHPerKaigi 2026</span>
+              <a href="https://speakerdeck.com/m3m0r7/how-to-make-a-machine-emulator" target="_blank" rel="noopener noreferrer">PHPでエミュレータを自作してUbuntuを動かそう</a>
+              <span class="talk-year">2026</span>
+            </li>
+            <li>
+              <span class="talk-event">PHP Conference Japan</span>
+              <a href="https://speakerdeck.com/m3m0r7/how-to-make-an-os-in-php" target="_blank" rel="noopener noreferrer">ChatGPTとつくるPHPでOS実装</a>
+              <span class="talk-year">2024</span>
+            </li>
+            <li>
+              <span class="talk-event">RubyKaigi 2024</span>
+              <a href="https://speakerdeck.com/m3m0r7/how-to-implement-a-rubyvm-with-php-rubykaigi2024" target="_blank" rel="noopener noreferrer">How to implement a RubyVM with PHP?</a>
+              <span class="talk-year">2024</span>
+            </li>
+            <li>
+              <span class="talk-event">AWS Startup Day</span>
+              <a href="https://speakerdeck.com/m3m0r7/introduction-of-my-careers-and-changing-my-mind" target="_blank" rel="noopener noreferrer">CTOまでのキャリアと転職活動における考え方の変化</a>
+              <span class="talk-year">2023</span>
+            </li>
+            <li>
+              <span class="talk-event">Builderscon</span>
+              <a href="https://speakerdeck.com/m3m0r7/php-de-jvm-woshi-zhuang-site-hello-world-wochu-li-surumade" target="_blank" rel="noopener noreferrer">How to implement JVM by PHP, And until output Hello World.</a>
+              <span class="talk-year">2019</span>
+            </li>
+          </ul>
+          <a class="all-talks" href="https://speakerdeck.com/m3m0r7" target="_blank" rel="noopener noreferrer">Speaker Deckでスライドを見る →</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing" class="section" aria-labelledby="pricing-title">
+      <div class="container section-grid">
+        <div>
+          <p class="section-label">07 / Pricing</p>
+          <h2 id="pricing-title">契約形態</h2>
+        </div>
+        <div>
+          <p class="section-lead">ご相談内容に合わせて、継続支援とプロジェクト単位のいずれにも対応します。</p>
+          <div class="pricing-grid">
+            <article class="pricing-card">
+              <p class="pricing-type">準委任</p>
+              <h3>継続的な伴走支援</h3>
+              <p class="pricing-price"><strong>応相談</strong><span>期間・稼働量に応じて調整</span></p>
+              <ul class="pricing-features">
+                <li>技術顧問・CTO / EM支援</li>
+                <li>プロダクト開発・技術課題の解決</li>
+                <li>開発プロセス・組織づくり</li>
+                <li>その他開発支援</li>
+              </ul>
+              <a class="pricing-cta" href="#contact">準委任について問い合わせる</a>
+            </article>
+            <article class="pricing-card">
+              <p class="pricing-type">請負</p>
+              <h3>プロジェクト単位の開発</h3>
+              <p class="pricing-price"><strong>応相談</strong><span>範囲・納期に応じて個別見積もり</span></p>
+              <ul class="pricing-features">
+                <li>新規機能・システム開発</li>
+                <li>技術検証・プロトタイプ</li>
+                <li>システム刷新・改善プロジェクト</li>
+              </ul>
+              <a class="pricing-cta" href="#contact">請負について問い合わせる</a>
+            </article>
+          </div>
+          <p class="pricing-note">内容、期間、チーム体制を確認したうえで、個別にお見積もりします。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <aside id="contact" class="contact" aria-labelledby="contact-title">
+    <div class="container contact-grid">
+      <div>
+        <h2 id="contact-title">問い合わせる</h2>
+        <p>技術顧問、開発組織の改善、プロダクト開発、登壇・執筆などをご相談いただけます。</p>
+      </div>
+      <div class="contact-links">
+        <div class="contact-item">
+          <span class="contact-label">X</span>
+          <a href="https://x.com/m3m0r7" target="_blank" rel="noopener noreferrer">@m3m0r7</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">LinkedIn</span>
+          <a href="https://www.linkedin.com/in/m3m0r7" target="_blank" rel="noopener noreferrer">linkedin.com/in/m3m0r7</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">E-mail</span>
+          <span class="email-value js-email" aria-live="polite">e-mailを生成中</span>
+          <noscript>e-mailの表示にはJavaScriptが必要です</noscript>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>© めもりー</span>
+      <span>Updated August 2026</span>
+    </div>
+  </footer>
+  <script>
+    (() => {
+      const encoded = [68, 95, 38, 51, 31, 7, 161, 211, 197, 187, 191, 129, 219, 117, 114, 90, 79, 10, 60, 1, 28, 231, 243, 158, 162, 189, 142];
+      const bytes = encoded.map((value, index) => value ^ ((index * 17 + 41) & 255));
+      const address = new TextDecoder().decode(Uint8Array.from(bytes));
+
+      document.querySelectorAll('.js-email').forEach((element) => {
+        element.textContent = address;
+      });
+    })();
+  </script>
+</body>
+</html>
