@@ -11,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/b88d781de7.js" crossorigin="anonymous"></script>
   <style>
     :root {
       --text: #20242a;
@@ -401,6 +402,74 @@
     .capability-item p {
       color: var(--muted);
       font-size: 15px;
+    }
+
+    .case-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .case-card {
+      position: relative;
+      display: flex;
+      min-height: 100%;
+      overflow: hidden;
+      flex-direction: column;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .case-card::before {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 3px;
+      background: var(--accent-gradient);
+      content: "";
+    }
+
+    .case-card-icon {
+      display: grid;
+      width: 44px;
+      height: 44px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      background: var(--accent-gradient);
+      color: #fff;
+      place-items: center;
+      box-shadow: 0 7px 18px rgba(112, 72, 168, 0.18);
+      font-size: 18px;
+    }
+
+    .case-card h3,
+    .case-card p {
+      margin: 0;
+    }
+
+    .case-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.6;
+    }
+
+    .case-card h3 span {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--accent);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .case-card p {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
     }
 
     .management-overview {
@@ -1116,7 +1185,8 @@
       .data-list,
       .results,
       .achievement-list,
-      .output-grid {
+      .output-grid,
+      .case-grid {
         grid-template-columns: 1fr;
       }
 
@@ -1237,6 +1307,7 @@
         <a href="#results">改善実績</a>
         <a href="#technology">スキル</a>
         <a href="#output">著書・登壇</a>
+        <a href="#examples">案件例</a>
         <a href="#pricing">契約形態</a>
         <a class="nav-cta" href="#contact">問い合わせる</a>
       </nav>
@@ -1604,10 +1675,54 @@
       </div>
     </section>
 
+    <section id="examples" class="section" aria-labelledby="examples-title">
+      <div class="container section-grid">
+        <div>
+          <p class="section-label">07 / Examples</p>
+          <h2 id="examples-title">案件例</h2>
+        </div>
+        <div>
+          <p class="section-lead">経営課題から日々の開発・運用まで、課題の所在と必要な支援範囲を整理し、実行まで伴走します。</p>
+          <div class="case-grid">
+            <article class="case-card">
+              <div class="case-card-icon" aria-hidden="true"><i class="fa-solid fa-people-group"></i></div>
+              <h3><span>ORGANIZATION / STRATEGY</span>組織組成・技術戦略</h3>
+              <p>経営観点を踏まえた組織組成、技術戦略の策定、技術アドバイザリー、コンサルティングを支援します。</p>
+            </article>
+            <article class="case-card">
+              <div class="case-card-icon" aria-hidden="true"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+              <h3><span>LEGACY / MAINTENANCE</span>既存システムの改修・技術的負債の返済</h3>
+              <p>多角的な知見をもとに、既存システムの改修、技術的負債の返済、技術調査・検証、運用保守に対応します。</p>
+            </article>
+            <article class="case-card">
+              <div class="case-card-icon" aria-hidden="true"><i class="fa-solid fa-layer-group"></i></div>
+              <h3><span>FULL-STACK DEVELOPMENT</span>フルスタックな開発支援</h3>
+              <p>アプリケーションの設計をはじめ、バックエンド（サーバーサイド）、フロントエンド、アプリ、インフラなど、領域にとらわれず支援します。</p>
+            </article>
+            <article class="case-card">
+              <div class="case-card-icon" aria-hidden="true"><i class="fa-solid fa-stopwatch"></i></div>
+              <h3><span>SHORT DEADLINE</span>短納期案件</h3>
+              <p>納期が短くてお困りの案件にも対応します。特急料金・着手金をいただきます。</p>
+            </article>
+            <article class="case-card">
+              <div class="case-card-icon" aria-hidden="true"><i class="fa-brands fa-wordpress-simple"></i></div>
+              <h3><span>WORDPRESS</span>WordPressのプラグイン・運用保守</h3>
+              <p>WordPressなどのプラグイン自作、カスタマイズ・メンテナンス、確かな知見に基づくWordPressの運用保守に対応します。</p>
+            </article>
+            <article class="case-card">
+              <div class="case-card-icon" aria-hidden="true"><i class="fa-solid fa-code"></i></div>
+              <h3><span>CODING / EMBEDDING</span>コーディング・動的ページの埋め込み</h3>
+              <p>一般的なコーディングや、既存サイトへの動的ページ埋め込み案件にも対応します。</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="pricing" class="section" aria-labelledby="pricing-title">
       <div class="container section-grid">
         <div>
-          <p class="section-label">07 / Pricing</p>
+          <p class="section-label">08 / Pricing</p>
           <h2 id="pricing-title">契約形態</h2>
         </div>
         <div>
@@ -1647,7 +1762,7 @@
     <div class="container contact-grid">
       <div>
         <h2 id="contact-title">問い合わせる</h2>
-        <p>技術顧問、開発組織の改善、プロダクト開発、登壇・執筆などをご相談いただけます。</p>
+        <p>まずはお気軽にご相談ください。初回ご相談及びお見積りは無償で行っております。</p>
       </div>
       <div class="contact-links">
         <div class="contact-item">
