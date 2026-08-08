@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="めもりーのポートフォリオ。CTO・エンジニアリングマネージャー・ソフトウェアエンジニアとしての経験、技術、執筆・登壇実績を紹介します。">
+  <meta name="description" content="Kei Inoueのポートフォリオ。CTO・エンジニアリングマネージャー・ソフトウェアエンジニアとしての経験、技術、執筆・登壇実績を紹介します。">
   <meta name="theme-color" content="#6549a8">
-  <title>めもりー｜Portfolio</title>
+  <title>Kei Inoue｜Portfolio</title>
   <link rel="icon" href="assets/profile.png" type="image/png" sizes="1024x1024">
   <link rel="apple-touch-icon" href="assets/profile.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -89,18 +89,20 @@
     }
 
     .topbar {
+      --topbar-progress: 0;
       position: sticky;
       z-index: 20;
       top: 0;
-      border-bottom: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.96);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgb(225 223 229 / var(--topbar-progress));
+      background: rgb(255 255 255 / calc(0.94 * var(--topbar-progress)));
+      box-shadow: 0 8px 28px rgb(62 35 91 / calc(0.08 * var(--topbar-progress)));
+      backdrop-filter: blur(calc(12px * var(--topbar-progress)));
+      -webkit-backdrop-filter: blur(calc(12px * var(--topbar-progress)));
     }
 
     .topbar-inner {
       display: flex;
-      min-height: 64px;
+      min-height: calc(64px - 6px * var(--topbar-progress));
       align-items: center;
       justify-content: space-between;
       gap: 24px;
@@ -472,6 +474,15 @@
       border-top: 1px solid var(--line);
     }
 
+    .domain-subheading {
+      margin: 32px 0 12px;
+      font-size: 14px;
+    }
+
+    .section-lead + .domain-subheading {
+      margin-top: 0;
+    }
+
     .domain-item {
       display: grid;
       padding: 28px 0;
@@ -500,6 +511,22 @@
     .domain-item p:last-child {
       color: var(--muted);
       font-size: 14px;
+    }
+
+    .phase-domains {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.7;
+    }
+
+    .phase-domains strong {
+      margin-right: 8px;
+      color: var(--accent);
+      font-size: 10px;
+      letter-spacing: 0.05em;
     }
 
     .annotation {
@@ -658,6 +685,15 @@
       margin: -20px 0 32px;
       color: var(--muted);
       font-size: 11px;
+    }
+
+    .repository-heading {
+      margin-bottom: 12px;
+    }
+
+    .repository-heading h3 {
+      margin: 0;
+      font-size: 14px;
     }
 
     .repository-list {
@@ -996,7 +1032,7 @@
       }
 
       .topbar-inner {
-        min-height: 58px;
+        min-height: calc(58px - 4px * var(--topbar-progress));
         gap: 12px;
       }
 
@@ -1192,7 +1228,7 @@
     <div class="container topbar-inner">
       <a class="site-name" href="portfolio.html">
         <img class="site-icon" src="assets/profile.png" alt="" width="1024" height="1024">
-        <span>めもりー</span>
+        <span>Kei Inoue</span>
       </a>
       <nav class="nav" aria-label="ページ内ナビゲーション">
         <a href="#value">提供価値</a>
@@ -1211,12 +1247,12 @@
     <section class="profile" aria-labelledby="profile-title">
       <div class="container profile-grid">
         <div class="profile-icon-wrap">
-          <img class="profile-icon" src="assets/profile.png" alt="めもりーのGitHubアイコン" width="1024" height="1024">
+          <img class="profile-icon" src="assets/profile.png" alt="Kei InoueのGitHubアイコン" width="1024" height="1024">
         </div>
         <div>
           <p class="kicker">CTO / Engineering Manager / Software Engineer</p>
-          <h1 id="profile-title">めもりー</h1>
-          <p class="profile-summary">Webプロダクト開発に10年以上携わり、スタートアップでの執行役員CTO、上場企業・子会社でのCTO、エンジニアリングマネージャーを経験しています。技術戦略や組織づくりから設計・実装まで担当できます。</p>
+          <h1 id="profile-title">Kei Inoue</h1>
+          <p class="profile-summary">Webプロダクト開発に10年超携わり、スタートアップでの執行役員CTO、上場企業・子会社でのCTO、エンジニアリングマネージャーを経験しています。技術戦略、組織組成、設計・開発、技術的負債の返済まで、幅広く対応できます。</p>
           <div class="profile-links">
             <a class="primary-button" href="#contact">問い合わせる</a>
             <a href="https://x.com/m3m0r7" target="_blank" rel="noopener noreferrer">X</a>
@@ -1234,11 +1270,11 @@
 
     <div class="container">
       <ul class="summary-numbers" aria-label="経験年数の概要">
-        <li><strong>10年以上</strong><span>Webプロダクト開発</span></li>
-        <li><strong>3年半以上</strong><span>CTO・執行役員CTO</span></li>
-        <li><strong>2年以上</strong><span>EM・テックリード</span></li>
-        <li><strong>8年以上</strong><span>BtoCプロダクト</span></li>
-        <li><strong>5年以上</strong><span>BtoB・BtoBtoC</span></li>
+        <li><strong>10年+</strong><span>Webプロダクト開発</span></li>
+        <li><strong>3年半+</strong><span>CTO・執行役員CTO</span></li>
+        <li><strong>2年+</strong><span>EM・テックリード</span></li>
+        <li><strong>8年+</strong><span>BtoCプロダクト</span></li>
+        <li><strong>5年+</strong><span>BtoB・BtoBtoC</span></li>
       </ul>
     </div>
 
@@ -1254,6 +1290,10 @@
             <div class="capability-item">
               <h3><span>CTO / TECHNICAL LEADERSHIP</span>技術戦略と開発投資</h3>
               <p>事業計画に接続する技術戦略、ロードマップ、予算・予実、要員計画を設計します。技術的負債やインフラコストも事業リスクと投資対効果から判断します。</p>
+            </div>
+            <div class="capability-item">
+              <h3><span>TECHNICAL DEBT</span>技術的負債の計画的な返済</h3>
+              <p>事業の成長戦略から逆算して技術方針と選定基準を定め、技術的負債が開発速度や品質に与える影響を整理します。事業価値と投資対効果に基づく返済計画を立て、継続的に開発パフォーマンスを高めます。</p>
             </div>
             <div class="capability-item">
               <h3><span>ENGINEERING MANAGEMENT</span>開発組織づくり</h3>
@@ -1311,20 +1351,39 @@
           <h2 id="domains-title">ドメイン</h2>
         </div>
         <div>
-          <p class="section-lead">BtoCとBtoB・BtoBtoCの双方で、プロダクト開発と組織運営を経験しています。</p>
+          <p class="section-lead">BtoCとBtoB・BtoBtoCの双方で、0 → 1の立ち上げから1 → 10の成長、10 → 100の拡大まで、プロダクト開発と組織運営を経験しています。</p>
+          <h3 class="domain-subheading">顧客・事業領域</h3>
           <div class="domain-list">
             <article class="domain-item">
               <h3>BtoC</h3>
-              <p class="domain-years">8年以上</p>
+              <p class="domain-years">8年+</p>
               <p>メディア、サブスクリプション、EC、キャリア、コミュニティ、地図プラットフォーム。ユーザー体験、トラフィック、継続利用、運用負荷を扱ってきました。</p>
             </article>
             <article class="domain-item">
               <h3>BtoB・BtoBtoC</h3>
-              <p class="domain-years">5年以上</p>
+              <p class="domain-years">5年+</p>
               <p>マッチング、財務モデリングSaaS、教育決済、医療HR、業務支援。顧客業務、導入・運用、権限・データ設計、社内オペレーションを扱ってきました。</p>
             </article>
           </div>
           <p class="annotation">期間は主なプロダクトへの関与期間を顧客区分ごとに集計した概算です。複数区分にまたがるプロダクトや並行案件を含みます。</p>
+          <h3 class="domain-subheading">事業・プロダクトフェーズ</h3>
+          <div class="domain-list">
+            <article class="domain-item">
+              <h3>0 → 1</h3>
+              <p class="domain-years">立ち上げ</p>
+              <p><span class="phase-domains"><strong>主な経験ドメイン</strong>知育玩具サブスクリプション、新規事業PoC、教育決済、財務モデリングSaaS・AIエージェント</span>仮説検証、技術選定、MVPの設計・実装、初期チームづくりまで、事業とプロダクトの立ち上げを経験しています。</p>
+            </article>
+            <article class="domain-item">
+              <h3>1 → 10</h3>
+              <p class="domain-years">成長</p>
+              <p><span class="phase-domains"><strong>主な経験ドメイン</strong>知育玩具サブスクリプション、教育決済、BtoBマッチング</span>顧客フィードバックを開発へつなぎ、機能拡張、品質改善、採用、開発プロセス整備を通じてプロダクトを成長させてきました。</p>
+            </article>
+            <article class="domain-item">
+              <h3>10 → 100</h3>
+              <p class="domain-years">拡大</p>
+              <p><span class="phase-domains"><strong>主な経験ドメイン</strong>知育玩具サブスクリプション、キャリアサービス、ゲーム攻略メディア、EC・地図プラットフォーム</span>複数チーム化、組織制度、IT統制、技術的負債の返済、基盤刷新を通じて、事業と開発組織の拡大を支えてきました。</p>
+            </article>
+          </div>
         </div>
       </div>
     </section>
@@ -1395,42 +1454,46 @@
               <h3>Languages</h3>
               <p class="skill-group-note">経験年数順</p>
               <ol class="skill-items">
-                <li style="--level: 100%"><span class="skill-name">PHP</span><span class="skill-years">10年以上</span></li>
-                <li style="--level: 100%"><span class="skill-name">JavaScript</span><span class="skill-years">10年以上</span></li>
-                <li style="--level: 60%"><span class="skill-name">TypeScript</span><span class="skill-years">6年以上</span></li>
-                <li style="--level: 50%"><span class="skill-name">Ruby</span><span class="skill-years">5年以上</span></li>
-                <li style="--level: 20%"><span class="skill-name">Python</span><span class="skill-years">2年以上</span></li>
-                <li style="--level: 20%"><span class="skill-name">Go</span><span class="skill-years">2年以上</span></li>
-                <li style="--level: 10%"><span class="skill-name">Rust</span><span class="skill-years">1年以上</span></li>
-                <li style="--level: 10%"><span class="skill-name">Objective-C</span><span class="skill-years">1年以上</span></li>
+                <li style="--level: 100%"><span class="skill-name">PHP</span><span class="skill-years">10年+</span></li>
+                <li style="--level: 100%"><span class="skill-name">JavaScript</span><span class="skill-years">10年+</span></li>
+                <li style="--level: 60%"><span class="skill-name">TypeScript</span><span class="skill-years">6年+</span></li>
+                <li style="--level: 50%"><span class="skill-name">Ruby</span><span class="skill-years">5年+</span></li>
+                <li style="--level: 20%"><span class="skill-name">Python</span><span class="skill-years">2年+</span></li>
+                <li style="--level: 20%"><span class="skill-name">Go</span><span class="skill-years">2年+</span></li>
+                <li style="--level: 10%"><span class="skill-name">Rust</span><span class="skill-years">1年+</span></li>
+                <li style="--level: 10%"><span class="skill-name">Objective-C</span><span class="skill-years">1年+</span></li>
               </ol>
             </div>
             <div class="skill-group">
               <h3>Web / Framework</h3>
               <p class="skill-group-note">経験年数順</p>
               <ol class="skill-items">
-                <li style="--level: 80%"><span class="skill-name">Laravel</span><span class="skill-years">8年以上</span></li>
-                <li style="--level: 80%"><span class="skill-name">React</span><span class="skill-years">8年以上</span></li>
-                <li style="--level: 50%"><span class="skill-name">Ruby on Rails</span><span class="skill-years">5年以上</span></li>
-                <li style="--level: 50%"><span class="skill-name">Node.js</span><span class="skill-years">5年以上</span></li>
-                <li style="--level: 50%"><span class="skill-name">WordPress</span><span class="skill-years">5年以上</span></li>
-                <li style="--level: 20%"><span class="skill-name">Next.js</span><span class="skill-years">2年以上</span></li>
+                <li style="--level: 80%"><span class="skill-name">Laravel</span><span class="skill-years">8年+</span></li>
+                <li style="--level: 80%"><span class="skill-name">React</span><span class="skill-years">8年+</span></li>
+                <li style="--level: 50%"><span class="skill-name">Ruby on Rails</span><span class="skill-years">5年+</span></li>
+                <li style="--level: 50%"><span class="skill-name">Node.js</span><span class="skill-years">5年+</span></li>
+                <li style="--level: 50%"><span class="skill-name">WordPress</span><span class="skill-years">5年+</span></li>
+                <li style="--level: 20%"><span class="skill-name">Next.js</span><span class="skill-years">2年+</span></li>
               </ol>
             </div>
             <div class="skill-group">
               <h3>Data / Platform</h3>
               <p class="skill-group-note">経験年数順</p>
               <ol class="skill-items">
-                <li style="--level: 100%"><span class="skill-name">MySQL</span><span class="skill-years">10年以上</span></li>
-                <li style="--level: 80%"><span class="skill-name">AWS</span><span class="skill-years">8年以上</span></li>
-                <li style="--level: 80%"><span class="skill-name">Docker</span><span class="skill-years">8年以上</span></li>
-                <li style="--level: 50%"><span class="skill-name">PostgreSQL</span><span class="skill-years">5年以上</span></li>
-                <li style="--level: 30%"><span class="skill-name">Elasticsearch</span><span class="skill-years">3年以上</span></li>
-                <li style="--level: 10%"><span class="skill-name">AI / LLM Agent</span><span class="skill-years">1年以上</span></li>
+                <li style="--level: 100%"><span class="skill-name">MySQL</span><span class="skill-years">10年+</span></li>
+                <li style="--level: 80%"><span class="skill-name">AWS</span><span class="skill-years">8年+</span></li>
+                <li style="--level: 80%"><span class="skill-name">Docker</span><span class="skill-years">8年+</span></li>
+                <li style="--level: 50%"><span class="skill-name">PostgreSQL</span><span class="skill-years">5年+</span></li>
+                <li style="--level: 30%"><span class="skill-name">Elasticsearch</span><span class="skill-years">3年+</span></li>
+                <li style="--level: 20%"><span class="skill-name">Terraform</span><span class="skill-years">2年+</span></li>
+                <li style="--level: 10%"><span class="skill-name">AI / LLM Agent</span><span class="skill-years">1年+</span></li>
               </ol>
             </div>
           </div>
-          <p class="skill-note">経験年数は業務・個人開発で実際に扱った期間を合算した概算です。</p>
+          <p class="skill-note">経験年数は業務・個人開発で実際に扱った期間を合算した概算です。その他細かい技術については省略しています。</p>
+          <div class="repository-heading">
+            <h3>GitHub / Public Work</h3>
+          </div>
           <ul class="repository-list" aria-label="主な公開リポジトリ">
             <li>
               <a href="https://github.com/m3m0r7/php-os" target="_blank" rel="noopener noreferrer">php-os</a>
@@ -1463,6 +1526,7 @@
               <small>Rust</small>
             </li>
           </ul>
+          <a class="all-talks" href="https://github.com/m3m0r7" target="_blank" rel="noopener noreferrer">GitHubでリポジトリを見る →</a>
         </div>
       </div>
     </section>
@@ -1481,7 +1545,7 @@
               <p>PHP、非同期処理、レガシーコードなどを扱い、単著3冊を含みます。</p>
             </article>
             <article class="output-block">
-              <strong>30件以上</strong>
+              <strong>30件+</strong>
               <h3>カンファレンス・イベント登壇</h3>
               <p>技術、エンジニアリング組織、スタートアップ、キャリアを主なテーマに登壇しています。</p>
             </article>
@@ -1605,7 +1669,7 @@
 
   <footer class="footer">
     <div class="container footer-inner">
-      <span>© めもりー</span>
+      <span>© Kei Inoue</span>
       <span>Updated August 2026</span>
     </div>
   </footer>
@@ -1618,6 +1682,32 @@
       document.querySelectorAll('.js-email').forEach((element) => {
         element.textContent = address;
       });
+    })();
+
+    (() => {
+      const topbar = document.querySelector('.topbar');
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const activationDistance = 120;
+      let frameRequested = false;
+
+      const updateTopbar = () => {
+        const progress = reducedMotion.matches
+          ? Number(window.scrollY > 0)
+          : Math.min(Math.max(window.scrollY / activationDistance, 0), 1);
+
+        topbar.style.setProperty('--topbar-progress', progress.toFixed(3));
+        frameRequested = false;
+      };
+
+      const requestTopbarUpdate = () => {
+        if (frameRequested) return;
+        frameRequested = true;
+        window.requestAnimationFrame(updateTopbar);
+      };
+
+      window.addEventListener('scroll', requestTopbarUpdate, { passive: true });
+      reducedMotion.addEventListener('change', requestTopbarUpdate);
+      updateTopbar();
     })();
   </script>
 </body>
