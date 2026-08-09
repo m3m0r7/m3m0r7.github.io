@@ -833,56 +833,6 @@
       font-size: 11px;
     }
 
-    .skill-details {
-      margin-bottom: 36px;
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      background: var(--soft);
-    }
-
-    .skill-details summary {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 16px 20px;
-      color: var(--text);
-      cursor: pointer;
-      font-size: 13px;
-      font-weight: 700;
-      list-style: none;
-    }
-
-    .skill-details summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .skill-details summary::after {
-      color: var(--accent-2);
-      content: "+";
-      font-size: 20px;
-      font-weight: 400;
-      line-height: 1;
-    }
-
-    .skill-details[open] summary {
-      border-bottom: 1px solid var(--line);
-    }
-
-    .skill-details[open] summary::after {
-      content: "−";
-    }
-
-    .skill-details summary:focus-visible {
-      outline: 3px solid var(--accent);
-      outline-offset: -3px;
-    }
-
-    .skill-details .skill-items {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      padding: 20px;
-    }
-
     .repository-heading {
       margin-bottom: 12px;
     }
@@ -1698,6 +1648,7 @@
               <ol class="skill-items">
                 <li style="--level: 100%"><span class="skill-name">PHP</span><span class="skill-years">10年+</span></li>
                 <li style="--level: 100%"><span class="skill-name">JavaScript</span><span class="skill-years">10年+</span></li>
+                <li style="--level: 100%"><span class="skill-name">HTML / CSS</span><span class="skill-years">10年+</span></li>
                 <li style="--level: 60%"><span class="skill-name">TypeScript</span><span class="skill-years">6年+</span></li>
                 <li style="--level: 30%"><span class="skill-name">Ruby</span><span class="skill-years">3年+</span></li>
                 <li style="--level: 20%"><span class="skill-name">Java</span><span class="skill-years">2年+</span></li>
@@ -1713,12 +1664,17 @@
               <ol class="skill-items">
                 <li style="--level: 80%"><span class="skill-name">Laravel</span><span class="skill-years">8年+</span></li>
                 <li style="--level: 80%"><span class="skill-name">React</span><span class="skill-years">8年+</span></li>
-                <li style="--level: 30%"><span class="skill-name">Ruby on Rails</span><span class="skill-years">3年+</span></li>
                 <li style="--level: 50%"><span class="skill-name">Node.js</span><span class="skill-years">5年+</span></li>
                 <li style="--level: 50%"><span class="skill-name">WordPress</span><span class="skill-years">5年+</span></li>
                 <li style="--level: 50%"><span class="skill-name">Next.js</span><span class="skill-years">5年+</span></li>
+                <li style="--level: 50%"><span class="skill-name">jQuery</span><span class="skill-years">5年+</span></li>
+                <li style="--level: 50%"><span class="skill-name">Bootstrap</span><span class="skill-years">5年+</span></li>
+                <li style="--level: 30%"><span class="skill-name">Ruby on Rails</span><span class="skill-years">3年+</span></li>
+                <li style="--level: 30%"><span class="skill-name">Material UI</span><span class="skill-years">3年+</span></li>
+                <li style="--level: 30%"><span class="skill-name">Tailwind CSS</span><span class="skill-years">3年+</span></li>
                 <li style="--level: 20%"><span class="skill-name">Nuxt</span><span class="skill-years">2年+</span></li>
                 <li style="--level: 20%"><span class="skill-name">Vue</span><span class="skill-years">2年+</span></li>
+                <li style="--level: 20%"><span class="skill-name">Headless UI</span><span class="skill-years">2年+</span></li>
                 <li style="--level: 10%"><span class="skill-name">React Native</span><span class="skill-years">1年+</span></li>
               </ol>
             </div>
@@ -1738,17 +1694,6 @@
               </ol>
             </div>
           </div>
-          <details class="skill-details">
-            <summary>その他の技術</summary>
-            <ol class="skill-items">
-              <li style="--level: 100%"><span class="skill-name">HTML / CSS</span><span class="skill-years">10年+</span></li>
-              <li style="--level: 50%"><span class="skill-name">jQuery</span><span class="skill-years">5年+</span></li>
-              <li style="--level: 50%"><span class="skill-name">Bootstrap</span><span class="skill-years">5年+</span></li>
-              <li style="--level: 30%"><span class="skill-name">Material UI</span><span class="skill-years">3年+</span></li>
-              <li style="--level: 30%"><span class="skill-name">Tailwind CSS</span><span class="skill-years">3年+</span></li>
-              <li style="--level: 20%"><span class="skill-name">Headless UI</span><span class="skill-years">2年+</span></li>
-            </ol>
-          </details>
           <p class="skill-note">経験年数は業務・個人開発で実際に扱った期間を合算した概算です。</p>
           <div class="repository-heading">
             <h3>GitHub / Public Work</h3>
