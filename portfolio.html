@@ -604,6 +604,54 @@
       font-size: 12px;
     }
 
+    .company-list {
+      display: grid;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .company-item {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding: 24px 20px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+    }
+
+    .company-logo {
+      height: 28px;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+      object-position: left center;
+    }
+
+    .company-domain,
+    .company-role {
+      margin: 0;
+    }
+
+    .company-domain {
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    .company-role {
+      margin-top: auto;
+      color: var(--accent-2);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
     .results {
       display: grid;
       margin: 0;
@@ -1264,8 +1312,8 @@
         grid-template-columns: 1fr;
       }
 
-      .skill-details .skill-items {
-        grid-template-columns: 1fr;
+      .company-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
       .pricing-grid {
@@ -1509,6 +1557,30 @@
               <p><span class="phase-domains"><strong>主な経験ドメイン</strong>知育玩具サブスクリプション、キャリアサービス、ゲーム攻略メディア、EC・地図プラットフォーム</span>複数チーム化、組織制度、IT統制、技術的負債の返済、基盤刷新を通じて、事業と開発組織の拡大を支えてきました。</p>
             </article>
           </div>
+          <h3 class="domain-subheading">経験企業の一部抜粋</h3>
+          <ul class="company-list">
+            <li class="company-item">
+              <img class="company-logo" src="assets/logos/base.png" alt="BASE" loading="lazy" width="171" height="50">
+              <p class="company-domain">ECプラットフォーム</p>
+              <p class="company-role">SWE</p>
+            </li>
+            <li class="company-item">
+              <img class="company-logo" src="assets/logos/gamewith.png" alt="GameWith" loading="lazy" width="171" height="27">
+              <p class="company-domain">ゲーム攻略メディア</p>
+              <p class="company-role">SWE</p>
+            </li>
+            <li class="company-item">
+              <img class="company-logo" src="assets/logos/torana.png" alt="トラーナ" loading="lazy" width="171" height="32">
+              <p class="company-domain">知育玩具サブスクの提供</p>
+              <p class="company-role">EM / TL / 執行役員CTO</p>
+            </li>
+            <li class="company-item">
+              <img class="company-logo" src="assets/logos/howtelevision.png" alt="ハウテレビジョン" loading="lazy" width="171" height="23">
+              <p class="company-domain">外資就活ドットコム</p>
+              <p class="company-role">CTO</p>
+            </li>
+          </ul>
+          <p class="annotation">ロゴは各社の商標または登録商標です。</p>
         </div>
       </div>
     </section>
