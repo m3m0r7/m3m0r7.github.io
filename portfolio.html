@@ -314,6 +314,26 @@
       gap: 56px;
     }
 
+    .pricing-section-grid {
+      display: block;
+    }
+
+    .pricing-section-heading {
+      margin: 0 0 28px;
+      text-align: center;
+    }
+
+    .pricing-section-heading h2::after {
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    .pricing-section-grid > div:last-child .section-lead {
+      margin-right: auto;
+      margin-left: auto;
+      text-align: center;
+    }
+
     .section-label {
       margin: 0;
       color: var(--gradient-middle);
@@ -612,7 +632,7 @@
       margin: 0;
       padding: 0;
       list-style: none;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 16px;
     }
 
@@ -624,6 +644,34 @@
       border: 1px solid var(--line);
       border-radius: 6px;
       background: #fff;
+    }
+
+    .company-logo-lockup {
+      display: inline-flex;
+      max-width: 100%;
+      align-items: center;
+    }
+
+    .company-logo-lockup--zaimo {
+      gap: 6px;
+      width: fit-content;
+      padding: 5px 10px 5px 8px;
+      border-radius: 4px;
+      background: #28724f;
+      color: #fff;
+    }
+
+    .company-logo-lockup--zaimo img {
+      width: 18px;
+      height: 18px;
+      object-fit: contain;
+    }
+
+    .company-logo-lockup--zaimo span {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
     }
 
     .company-logo {
@@ -1003,8 +1051,15 @@
 
     .pricing-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 20px;
+    }
+
+    #pricing {
+      background:
+        radial-gradient(circle at 8% 12%, rgb(198 55 156 / 0.1), transparent 26rem),
+        radial-gradient(circle at 92% 88%, rgb(60 101 170 / 0.1), transparent 30rem),
+        linear-gradient(135deg, #fcf9fd 0%, #f6f7fb 52%, #f1f6fc 100%);
     }
 
     .pricing-card {
@@ -1211,6 +1266,15 @@
       .contact-grid {
         grid-template-columns: 1fr;
         gap: 28px;
+      }
+
+      .pricing-section-grid {
+        display: grid;
+        gap: 30px;
+      }
+
+      .pricing-section-heading {
+        margin: 0;
       }
 
       h1 {
@@ -1553,14 +1617,27 @@
               <p class="company-role">SWE</p>
             </li>
             <li class="company-item">
-              <img class="company-logo" src="assets/logos/torana.png" alt="トラーナ" loading="lazy" width="171" height="32">
-              <p class="company-domain">知育玩具サブスクの提供</p>
-              <p class="company-role">EM / TL / 執行役員CTO</p>
+              <img class="company-logo" src="assets/logos/togetter.png" alt="Togetter" loading="lazy" width="444" height="84">
+              <p class="company-domain">メディア</p>
+              <p class="company-role">SWE</p>
             </li>
             <li class="company-item">
               <img class="company-logo" src="assets/logos/howtelevision.png" alt="ハウテレビジョン" loading="lazy" width="171" height="23">
               <p class="company-domain">外資就活ドットコム</p>
               <p class="company-role">CTO</p>
+            </li>
+            <li class="company-item">
+              <img class="company-logo" src="assets/logos/torana.png" alt="トラーナ" loading="lazy" width="171" height="32">
+              <p class="company-domain">知育玩具サブスクの提供</p>
+              <p class="company-role">EM / TL / 執行役員CTO</p>
+            </li>
+            <li class="company-item">
+              <div class="company-logo-lockup company-logo-lockup--zaimo">
+                <img src="assets/logos/zaimo.png" alt="" aria-hidden="true" loading="lazy" width="1024" height="1024">
+                <span>Zaimo.ai</span>
+              </div>
+              <p class="company-domain">AI財務SaaS</p>
+              <p class="company-role">CTO / 現在フェロー</p>
             </li>
           </ul>
           <p class="annotation">ロゴは各社の商標または登録商標です。</p>
@@ -1614,8 +1691,8 @@
             <li>
               <div class="achievement-icon" aria-hidden="true"><i class="fa-solid fa-arrows-rotate"></i></div>
               <div class="achievement-body">
-                <strong>レガシーな社内基盤を刷新</strong>
-                <span>リアーキテクトとフルリプレイスを企画し、設計・技術選定・開発からリリースまで一貫して担当。</span>
+                <strong>Ruby + jQueryのレガシーシステムを刷新</strong>
+                <span>AIが普及する前にRuby + jQueryで書かれたレガシーシステムを、2か月でPHP + Nextへフルリプレイス。</span>
               </div>
             </li>
             <li>
@@ -1652,7 +1729,8 @@
               <ol class="skill-items">
                 <li style="--level: 100%"><span class="skill-name">PHP</span><span class="skill-years">10年+</span></li>
                 <li style="--level: 100%"><span class="skill-name">JavaScript</span><span class="skill-years">10年+</span></li>
-                <li style="--level: 100%"><span class="skill-name">HTML / CSS</span><span class="skill-years">10年+</span></li>
+                <li style="--level: 100%"><span class="skill-name">HTML</span><span class="skill-years">10年+</span></li>
+                <li style="--level: 100%"><span class="skill-name">CSS</span><span class="skill-years">10年+</span></li>
                 <li style="--level: 60%"><span class="skill-name">TypeScript</span><span class="skill-years">6年+</span></li>
                 <li style="--level: 30%"><span class="skill-name">Ruby</span><span class="skill-years">3年+</span></li>
                 <li style="--level: 20%"><span class="skill-name">Java</span><span class="skill-years">2年+</span></li>
@@ -1679,11 +1757,10 @@
                 <li style="--level: 20%"><span class="skill-name">Nuxt</span><span class="skill-years">2年+</span></li>
                 <li style="--level: 20%"><span class="skill-name">Vue</span><span class="skill-years">2年+</span></li>
                 <li style="--level: 20%"><span class="skill-name">Headless UI</span><span class="skill-years">2年+</span></li>
-                <li style="--level: 10%"><span class="skill-name">React Native</span><span class="skill-years">1年+</span></li>
               </ol>
             </div>
             <div class="skill-group">
-              <h3>Data / Platform</h3>
+              <h3>OTHER</h3>
               <p class="skill-group-note">経験年数順</p>
               <ol class="skill-items">
                 <li style="--level: 100%"><span class="skill-name">MySQL</span><span class="skill-years">10年+</span></li>
@@ -1695,6 +1772,7 @@
                 <li style="--level: 20%"><span class="skill-name">Terraform</span><span class="skill-years">2年+</span></li>
                 <li style="--level: 10%"><span class="skill-name">Vercel</span><span class="skill-years">1年+</span></li>
                 <li style="--level: 10%"><span class="skill-name">AI / LLM Agent</span><span class="skill-years">1年+</span></li>
+                <li style="--level: 10%"><span class="skill-name">React Native</span><span class="skill-years">1年+</span></li>
               </ol>
             </div>
           </div>
@@ -1857,13 +1935,13 @@
     </section>
 
     <section id="pricing" class="section" aria-labelledby="pricing-title">
-      <div class="container section-grid">
-        <div>
+      <div class="container section-grid pricing-section-grid">
+        <div class="pricing-section-heading">
           <p class="section-label">08 / Pricing</p>
           <h2 id="pricing-title">契約形態</h2>
         </div>
         <div>
-          <p class="section-lead">ご相談内容に合わせて、継続支援とプロジェクト単位のいずれにも対応します。</p>
+          <p class="section-lead">ご相談内容に合わせて、継続支援、プロジェクト単位、単発のご依頼に対応します。</p>
           <div class="pricing-grid">
             <article class="pricing-card">
               <p class="pricing-type">準委任</p>
@@ -1885,11 +1963,25 @@
                 <li>新規機能・システム開発</li>
                 <li>技術検証・プロトタイプ</li>
                 <li>システム刷新・改善プロジェクト</li>
+                <li>既存システムの運用保守</li>
               </ul>
               <a class="pricing-cta" href="#contact">請負について問い合わせる</a>
             </article>
+            <article class="pricing-card">
+              <p class="pricing-type">その他</p>
+              <h3>ワンイシュー</h3>
+              <p class="pricing-price"><strong>応相談</strong><span>ご依頼内容により個別見積もり</span></p>
+              <ul class="pricing-features">
+                <li>組織コンサルティング・グロース提案</li>
+                <li>アプリケーション診断及びアーキテクチャ設計の提案</li>
+                <li>納期が短い炎上開発案件</li>
+                <li>開発資料の査読</li>
+                <li>登壇・講演依頼</li>
+              </ul>
+              <a class="pricing-cta" href="#contact">その他について問い合わせる</a>
+            </article>
           </div>
-          <p class="pricing-note">内容、期間、チーム体制を確認したうえで、個別にお見積もりします。</p>
+          <p class="pricing-note">内容、期間、チーム体制を確認したうえで、個別にお見積もりします。短納期・炎上案件の対応ご希望の場合は特急料金及び着手金をいただきます。</p>
         </div>
       </div>
     </section>
