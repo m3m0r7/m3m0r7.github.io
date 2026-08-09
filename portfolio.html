@@ -146,6 +146,10 @@
       color: var(--accent);
     }
 
+    .nav a.is-active {
+      color: var(--accent);
+    }
+
     .nav .nav-cta {
       padding: 8px 14px;
       border-radius: 4px;
@@ -1956,6 +1960,37 @@
       window.addEventListener('scroll', requestTopbarUpdate, { passive: true });
       reducedMotion.addEventListener('change', requestTopbarUpdate);
       updateTopbar();
+    })();
+
+    (() => {
+      const navLinks = Array.from(document.querySelectorAll('.nav a[href^="#"]:not(.nav-cta)'));
+      const linkBySectionId = new Map(
+        navLinks.map((link) => [link.getAttribute('href').slice(1), link])
+      );
+      const sections = navLinks
+        .map((link) => document.getElementById(link.getAttribute('href').slice(1)))
+        .filter(Boolean);
+
+      if (!sections.length || !('IntersectionObserver' in window)) return;
+
+      const setActive = (id) => {
+        navLinks.forEach((link) => link.classList.toggle('is-active', link === linkBySectionId.get(id)));
+      };
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((entry) => entry.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+          if (visible[0]) {
+            setActive(visible[0].target.id);
+          }
+        },
+        { rootMargin: '-45% 0px -50% 0px', threshold: 0 }
+      );
+
+      sections.forEach((section) => observer.observe(section));
     })();
   </script>
 </body>
