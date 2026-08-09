@@ -146,6 +146,10 @@
       color: var(--accent);
     }
 
+    .nav a.is-active {
+      color: var(--accent);
+    }
+
     .nav .nav-cta {
       padding: 8px 14px;
       border-radius: 4px;
@@ -438,10 +442,9 @@
       height: 44px;
       margin-bottom: 20px;
       border-radius: 12px;
-      background: var(--accent-gradient);
-      color: #fff;
+      background: var(--soft);
+      color: var(--accent-2);
       place-items: center;
-      box-shadow: 0 7px 18px rgba(112, 72, 168, 0.18);
       font-size: 18px;
     }
 
@@ -604,6 +607,54 @@
       font-size: 12px;
     }
 
+    .company-list {
+      display: grid;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .company-item {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding: 24px 20px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+    }
+
+    .company-logo {
+      height: 28px;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+      object-position: left center;
+    }
+
+    .company-domain,
+    .company-role {
+      margin: 0;
+    }
+
+    .company-domain {
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    .company-role {
+      margin-top: auto;
+      color: var(--accent-2);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
     .results {
       display: grid;
       margin: 0;
@@ -622,6 +673,18 @@
       padding-right: 0;
       padding-left: 28px;
       border-left: 1px solid var(--line);
+    }
+
+    .result-icon {
+      display: grid;
+      width: 36px;
+      height: 36px;
+      margin-bottom: 14px;
+      border-radius: 10px;
+      background: var(--soft);
+      color: var(--accent-2);
+      place-items: center;
+      font-size: 15px;
     }
 
     .result-value {
@@ -661,6 +724,8 @@
     }
 
     .achievement-list li {
+      display: flex;
+      gap: 16px;
       padding: 22px 24px 22px 0;
       border-bottom: 1px solid var(--line);
     }
@@ -669,6 +734,22 @@
       padding-right: 0;
       padding-left: 24px;
       border-left: 1px solid var(--line);
+    }
+
+    .achievement-icon {
+      display: grid;
+      flex: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--soft);
+      color: var(--accent-2);
+      place-items: center;
+      font-size: 15px;
+    }
+
+    .achievement-body {
+      min-width: 0;
     }
 
     .achievement-list strong,
@@ -1214,6 +1295,10 @@
         grid-template-columns: 1fr;
       }
 
+      .company-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
       .pricing-grid {
         grid-template-columns: 1fr;
       }
@@ -1455,6 +1540,30 @@
               <p><span class="phase-domains"><strong>主な経験ドメイン</strong>知育玩具サブスクリプション、キャリアサービス、ゲーム攻略メディア、EC・地図プラットフォーム</span>複数チーム化、組織制度、IT統制、技術的負債の返済、基盤刷新を通じて、事業と開発組織の拡大を支えてきました。</p>
             </article>
           </div>
+          <h3 class="domain-subheading">経験企業の一部抜粋</h3>
+          <ul class="company-list">
+            <li class="company-item">
+              <img class="company-logo" src="assets/logos/base.png" alt="BASE" loading="lazy" width="171" height="50">
+              <p class="company-domain">ECプラットフォーム</p>
+              <p class="company-role">SWE</p>
+            </li>
+            <li class="company-item">
+              <img class="company-logo" src="assets/logos/gamewith.png" alt="GameWith" loading="lazy" width="171" height="27">
+              <p class="company-domain">ゲーム攻略メディア</p>
+              <p class="company-role">SWE</p>
+            </li>
+            <li class="company-item">
+              <img class="company-logo" src="assets/logos/torana.png" alt="トラーナ" loading="lazy" width="171" height="32">
+              <p class="company-domain">知育玩具サブスクの提供</p>
+              <p class="company-role">EM / TL / 執行役員CTO</p>
+            </li>
+            <li class="company-item">
+              <img class="company-logo" src="assets/logos/howtelevision.png" alt="ハウテレビジョン" loading="lazy" width="171" height="23">
+              <p class="company-domain">外資就活ドットコム</p>
+              <p class="company-role">CTO</p>
+            </li>
+          </ul>
+          <p class="annotation">ロゴは各社の商標または登録商標です。</p>
         </div>
       </div>
     </section>
@@ -1469,21 +1578,25 @@
           <p class="section-lead">数値に表れる改善に加え、開発組織やプロダクトに仕組みとして残る改善を進めてきました。</p>
           <ul class="results">
             <li class="result">
+              <div class="result-icon" aria-hidden="true"><i class="fa-solid fa-rocket"></i></div>
               <span class="result-value">20 → 100件</span>
               <span class="result-label">月間リリース数</span>
               <span class="result-detail">開発プロセスとチーム運用を改善</span>
             </li>
             <li class="result">
+              <div class="result-icon" aria-hidden="true"><i class="fa-solid fa-gauge-high"></i></div>
               <span class="result-value">7h → 4.6h</span>
               <span class="result-label">レビューからデプロイまで</span>
               <span class="result-detail">1人あたりのリードタイムを短縮</span>
             </li>
             <li class="result">
+              <div class="result-icon" aria-hidden="true"><i class="fa-solid fa-coins"></i></div>
               <span class="result-value">前年比 −17%</span>
               <span class="result-label">インフラコスト</span>
               <span class="result-detail">構成と利用状況を見直して削減</span>
             </li>
             <li class="result">
+              <div class="result-icon" aria-hidden="true"><i class="fa-solid fa-users"></i></div>
               <span class="result-value">0 → 約20名</span>
               <span class="result-label">エンジニア組織</span>
               <span class="result-detail">採用・評価・チーム設計を含めて立ち上げ</span>
@@ -1492,20 +1605,32 @@
           <h3 class="subsection-heading achievement-heading">組織・プロセス・開発基盤の改善</h3>
           <ul class="achievement-list">
             <li>
-              <strong>評価・等級・採用基準を整備</strong>
-              <span>目標設定、評価制度、等級制度、採用基準を整え、開発組織を運営する基盤を構築。</span>
+              <div class="achievement-icon" aria-hidden="true"><i class="fa-solid fa-ranking-star"></i></div>
+              <div class="achievement-body">
+                <strong>評価・等級・採用基準を整備</strong>
+                <span>目標設定、評価制度、等級制度、採用基準を整え、開発組織を運営する基盤を構築。</span>
+              </div>
             </li>
             <li>
-              <strong>レガシーな社内基盤を刷新</strong>
-              <span>リアーキテクトとフルリプレイスを企画し、設計・技術選定・開発からリリースまで一貫して担当。</span>
+              <div class="achievement-icon" aria-hidden="true"><i class="fa-solid fa-arrows-rotate"></i></div>
+              <div class="achievement-body">
+                <strong>レガシーな社内基盤を刷新</strong>
+                <span>リアーキテクトとフルリプレイスを企画し、設計・技術選定・開発からリリースまで一貫して担当。</span>
+              </div>
             </li>
             <li>
-              <strong>短いサイクルで届けられる体制へ</strong>
-              <span>開発プロセスとチーム体制を見直し、隔週から週次でリリースできる運用へ改善。</span>
+              <div class="achievement-icon" aria-hidden="true"><i class="fa-solid fa-bolt"></i></div>
+              <div class="achievement-body">
+                <strong>短いサイクルで届けられる体制へ</strong>
+                <span>開発プロセスとチーム体制を見直し、隔週から週次でリリースできる運用へ改善。</span>
+              </div>
             </li>
             <li>
-              <strong>AIを前提とした開発体制を構築</strong>
-              <span>財務モデリングAIエージェントを実装し、AIフレンドリーかつAIドリブンな開発体制を推進。</span>
+              <div class="achievement-icon" aria-hidden="true"><i class="fa-solid fa-robot"></i></div>
+              <div class="achievement-body">
+                <strong>AIを前提とした開発体制を構築</strong>
+                <span>財務モデリングAIエージェントを実装し、AIフレンドリーかつAIドリブンな開発体制を推進。</span>
+              </div>
             </li>
           </ul>
         </div>
@@ -1527,8 +1652,10 @@
               <ol class="skill-items">
                 <li style="--level: 100%"><span class="skill-name">PHP</span><span class="skill-years">10年+</span></li>
                 <li style="--level: 100%"><span class="skill-name">JavaScript</span><span class="skill-years">10年+</span></li>
+                <li style="--level: 100%"><span class="skill-name">HTML / CSS</span><span class="skill-years">10年+</span></li>
                 <li style="--level: 60%"><span class="skill-name">TypeScript</span><span class="skill-years">6年+</span></li>
-                <li style="--level: 50%"><span class="skill-name">Ruby</span><span class="skill-years">5年+</span></li>
+                <li style="--level: 30%"><span class="skill-name">Ruby</span><span class="skill-years">3年+</span></li>
+                <li style="--level: 20%"><span class="skill-name">Java</span><span class="skill-years">2年+</span></li>
                 <li style="--level: 20%"><span class="skill-name">Python</span><span class="skill-years">2年+</span></li>
                 <li style="--level: 20%"><span class="skill-name">Go</span><span class="skill-years">2年+</span></li>
                 <li style="--level: 10%"><span class="skill-name">Rust</span><span class="skill-years">1年+</span></li>
@@ -1541,10 +1668,18 @@
               <ol class="skill-items">
                 <li style="--level: 80%"><span class="skill-name">Laravel</span><span class="skill-years">8年+</span></li>
                 <li style="--level: 80%"><span class="skill-name">React</span><span class="skill-years">8年+</span></li>
-                <li style="--level: 50%"><span class="skill-name">Ruby on Rails</span><span class="skill-years">5年+</span></li>
                 <li style="--level: 50%"><span class="skill-name">Node.js</span><span class="skill-years">5年+</span></li>
                 <li style="--level: 50%"><span class="skill-name">WordPress</span><span class="skill-years">5年+</span></li>
-                <li style="--level: 20%"><span class="skill-name">Next.js</span><span class="skill-years">2年+</span></li>
+                <li style="--level: 50%"><span class="skill-name">Next.js</span><span class="skill-years">5年+</span></li>
+                <li style="--level: 50%"><span class="skill-name">jQuery</span><span class="skill-years">5年+</span></li>
+                <li style="--level: 50%"><span class="skill-name">Bootstrap</span><span class="skill-years">5年+</span></li>
+                <li style="--level: 30%"><span class="skill-name">Ruby on Rails</span><span class="skill-years">3年+</span></li>
+                <li style="--level: 30%"><span class="skill-name">Material UI</span><span class="skill-years">3年+</span></li>
+                <li style="--level: 30%"><span class="skill-name">Tailwind CSS</span><span class="skill-years">3年+</span></li>
+                <li style="--level: 20%"><span class="skill-name">Nuxt</span><span class="skill-years">2年+</span></li>
+                <li style="--level: 20%"><span class="skill-name">Vue</span><span class="skill-years">2年+</span></li>
+                <li style="--level: 20%"><span class="skill-name">Headless UI</span><span class="skill-years">2年+</span></li>
+                <li style="--level: 10%"><span class="skill-name">React Native</span><span class="skill-years">1年+</span></li>
               </ol>
             </div>
             <div class="skill-group">
@@ -1554,14 +1689,16 @@
                 <li style="--level: 100%"><span class="skill-name">MySQL</span><span class="skill-years">10年+</span></li>
                 <li style="--level: 80%"><span class="skill-name">AWS</span><span class="skill-years">8年+</span></li>
                 <li style="--level: 80%"><span class="skill-name">Docker</span><span class="skill-years">8年+</span></li>
+                <li style="--level: 50%"><span class="skill-name">CI/CD</span><span class="skill-years">5年+</span></li>
                 <li style="--level: 50%"><span class="skill-name">PostgreSQL</span><span class="skill-years">5年+</span></li>
                 <li style="--level: 30%"><span class="skill-name">Elasticsearch</span><span class="skill-years">3年+</span></li>
                 <li style="--level: 20%"><span class="skill-name">Terraform</span><span class="skill-years">2年+</span></li>
+                <li style="--level: 10%"><span class="skill-name">Vercel</span><span class="skill-years">1年+</span></li>
                 <li style="--level: 10%"><span class="skill-name">AI / LLM Agent</span><span class="skill-years">1年+</span></li>
               </ol>
             </div>
           </div>
-          <p class="skill-note">経験年数は業務・個人開発で実際に扱った期間を合算した概算です。その他細かい技術については省略しています。</p>
+          <p class="skill-note">経験年数は業務・個人開発で実際に扱った期間を合算した概算です。</p>
           <div class="repository-heading">
             <h3>GitHub / Public Work</h3>
           </div>
@@ -1823,6 +1960,37 @@
       window.addEventListener('scroll', requestTopbarUpdate, { passive: true });
       reducedMotion.addEventListener('change', requestTopbarUpdate);
       updateTopbar();
+    })();
+
+    (() => {
+      const navLinks = Array.from(document.querySelectorAll('.nav a[href^="#"]:not(.nav-cta)'));
+      const linkBySectionId = new Map(
+        navLinks.map((link) => [link.getAttribute('href').slice(1), link])
+      );
+      const sections = navLinks
+        .map((link) => document.getElementById(link.getAttribute('href').slice(1)))
+        .filter(Boolean);
+
+      if (!sections.length || !('IntersectionObserver' in window)) return;
+
+      const setActive = (id) => {
+        navLinks.forEach((link) => link.classList.toggle('is-active', link === linkBySectionId.get(id)));
+      };
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((entry) => entry.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+          if (visible[0]) {
+            setActive(visible[0].target.id);
+          }
+        },
+        { rootMargin: '-45% 0px -50% 0px', threshold: 0 }
+      );
+
+      sections.forEach((section) => observer.observe(section));
     })();
   </script>
 </body>
