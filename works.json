@@ -1,0 +1,22 @@
+[
+  {
+    "url": "https://nyanner.mem.ooo/",
+    "title": "Nyanner",
+    "description": "猫を選び、難易度を選んで遊ぶ 2D 縦スクロールアクションゲーム。えるとぐり、それぞれの特性を活かしてステージに挑めます。",
+    "tags": [
+      "Work",
+      "Game"
+    ],
+    "image": "nyanner.png"
+  },
+  {
+    "url": "https://mjcalc.com/",
+    "title": "MJCalc",
+    "description": "牌を選びながら、符・翻をもとに麻雀の点数を計算できる Web ツール。役・符の一覧や精算ツールも利用できます。",
+    "tags": [
+      "Work",
+      "Web app"
+    ],
+    "image": "mjcalc.png"
+  }
+]

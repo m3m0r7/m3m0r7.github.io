@@ -540,6 +540,18 @@
       grid-template-areas: "col1 col2";
     }
 
+    .info-contents-list-item .work-figure {
+      grid-template-columns: 220px 1fr;
+      height: 180px;
+      gap: 16px;
+    }
+
+    .info-contents-list-item .work-figure .info-contents-list-figure {
+      height: 156px;
+      border-radius: 2px;
+      background-color: rgba(255, 255, 255, 0.72);
+    }
+
     .info-contents-list-item .type\[figure\]:hover,
     .info-contents-list-item .type\[activity\]:hover {
       background: rgba(0, 0, 0, 0.03);
@@ -651,6 +663,16 @@
         text-align: initial;
       }
 
+      .info-contents-list-item .work-figure {
+        grid-template-columns: 120px 1fr;
+        height: 150px;
+        gap: 10px;
+      }
+
+      .info-contents-list-item .work-figure .info-contents-list-figure {
+        height: 126px;
+      }
+
       .info-contents-list dd {
         padding: 10px 0 20px 0;
       }
@@ -705,6 +727,7 @@
           my: './my.json',
           articles: './articles.json',
           activities: './activities.json',
+          works: './works.json',
         },
       },
       i18n: {
@@ -759,6 +782,10 @@
         filterBlog: {
           ja: "ブログ",
           en: "Blog",
+        },
+        filterWork: {
+          ja: "作品",
+          en: "Works",
         },
         filterOther: {
           ja: "その他",
@@ -1185,6 +1212,7 @@
     { category: 'talk', label: 'filterTalk' },
     { category: 'book', label: 'filterBook' },
     { category: 'blog', label: 'filterBlog' },
+    { category: 'work', label: 'filterWork' },
     { category: 'other', label: 'filterOther' },
   ];
 
@@ -1453,6 +1481,27 @@
       })
     );
 
+    promises.push(
+      e.target.loadData(window[CODE_NAME].data.api.works).then((payload) => {
+        const activities = [];
+
+        payload.forEach(work => {
+          activities.push({
+            category: "work",
+            type: "work",
+            time: parseDate(work.published_at),
+            link: work.url,
+            title: work.title,
+            description: work.description,
+            image: work.image,
+            tags: work.tags,
+          });
+        });
+
+        return activities;
+      })
+    );
+
     Promise.all(promises).then((results) => {
       const sortedActivities = results.reduce((acc, activities) => [...acc, ...activities], []).sort(
         (a, b) => {
@@ -1489,6 +1538,23 @@
           <div class="info-contents-list-subtitle">
             {subtitle}
           </div>
+          <div class="info-contents-list-description">
+            {description}
+          </div>
+        </div>
+      </div>
+    </a>
+    <div class="info-contents-list-tags">
+      {tags}
+    </div>
+  </div>
+</script>
+<script type="text/plain" data-template-name="info-contents-body[work]">
+  <div class="info-contents-list-item">
+    <a href="{link}" target="_blank" rel="noopener noreferrer">
+      <div class="type[figure] work-figure">
+        <div class="info-contents-list-figure" style="background-image: url(./assets/works/{image});"></div>
+        <div class="info-contents-list-figure-summary">
           <div class="info-contents-list-description">
             {description}
           </div>
