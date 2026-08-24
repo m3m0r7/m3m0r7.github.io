@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&amp;family=M+PLUS+1+Code:wght@400;500;600;700&amp;family=Orbitron:wght@600;700;800;900&amp;family=Share+Tech+Mono&amp;display=swap"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&amp;family=M+PLUS+1+Code:wght@400;500;600;700&amp;family=Orbitron:wght@600;700;800&amp;family=Share+Tech+Mono&amp;display=swap"
   >
   <title>Hi! I am memory</title>
   <style>
@@ -448,9 +448,6 @@
 
     .archive-title {
       margin: 0;
-    }
-
-    .archive-title {
       font-size: clamp(1.8rem, 3.8vw, 3rem);
       font-weight: 650;
       letter-spacing: 0.06em;
@@ -688,18 +685,20 @@
       border-left: 1px solid rgb(166 48 78 / 22%);
     }
 
-.archive-item {
-  display: grid;
-  grid-template-columns: minmax(5.5rem, 0.26fr) minmax(0, 1fr);
-  align-items: first baseline;
+    .archive-item {
+      display: grid;
+      grid-template-columns: minmax(5.5rem, 0.26fr) minmax(0, 1fr);
+      align-items: first baseline;
       gap: clamp(1rem, 2.5vw, 2rem);
       padding: 1.25rem 0;
       border-bottom: 1px solid rgb(36 30 38 / 16%);
-}
+      contain-intrinsic-block-size: auto 7rem;
+      content-visibility: auto;
+    }
 
-.archive-item[data-kind="book"] {
-  align-items: start;
-}
+    .archive-item[data-kind="book"] {
+      align-items: start;
+    }
 
     .archive-item-date,
     .archive-item-title,
@@ -2473,7 +2472,7 @@
     </div>
   </dialog>
 
-  <script>
+  <script type="module">
     const GRID_WIDTH = 88;
     const GRID_HEIGHT = 48;
     const COLOR_ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_";
@@ -2667,7 +2666,7 @@
       }
     }
 
-    const renderCharacter = (canvas, hiddenCells = null) => {
+    const renderCharacter = (canvas, hiddenCells = null, fontFamily = "") => {
       const context = canvas.getContext("2d");
 
       if (!context) return;
@@ -2676,6 +2675,8 @@
       const cellHeight = 19;
       const sourceWidth = GRID_WIDTH * cellWidth;
       const sourceHeight = GRID_HEIGHT * cellHeight;
+      const terminalFont = fontFamily || getComputedStyle(document.documentElement)
+        .getPropertyValue("--terminal-font");
 
       context.clearRect(0, 0, canvas.width, canvas.height);
       context.setTransform(
@@ -2687,8 +2688,7 @@
         0,
       );
       context.imageSmoothingEnabled = false;
-      context.font = `18px ${getComputedStyle(document.documentElement)
-        .getPropertyValue("--terminal-font")}`;
+      context.font = `18px ${terminalFont}`;
       context.textAlign = "center";
       context.textBaseline = "middle";
 
@@ -2713,8 +2713,18 @@
       context.setTransform(1, 0, 0, 1, 0, 0);
     };
 
+    const copyCharacter = (source, target) => {
+      const context = target.getContext("2d");
+
+      if (!context) return;
+
+      context.clearRect(0, 0, target.width, target.height);
+      context.imageSmoothingEnabled = false;
+      context.drawImage(source, 0, 0, target.width, target.height);
+    };
+
     renderCharacter(art);
-    renderCharacter(profileDockIcon);
+    copyCharacter(art, profileDockIcon);
 
     const EMPLOYMENT_GROUPS = Object.freeze({
       "full-time": "Full-time employed",
@@ -2760,6 +2770,12 @@
     const expandedArchiveCategories = new Set();
     const initializedArchiveGroupCategories = new Set();
     const openArchiveGroups = new Set();
+    const archiveDateFormatter = new Intl.DateTimeFormat("en-CA", {
+      timeZone: "Asia/Tokyo",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
     let activeArchiveCategory = "career";
     let archiveData = null;
     let archiveLoadPromise = null;
@@ -2791,12 +2807,7 @@
       const date = new Date(value);
 
       if (Number.isNaN(date.getTime())) return String(value || "");
-      return new Intl.DateTimeFormat("en-CA", {
-        timeZone: "Asia/Tokyo",
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-      }).format(date).replaceAll("/", ".");
+      return archiveDateFormatter.format(date).replaceAll("/", ".");
     };
 
     const archiveYear = (value) => {
@@ -2830,7 +2841,7 @@
     };
 
     const requestJson = async (path) => {
-      const response = await fetch(path, { cache: "no-cache" });
+      const response = await fetch(path);
 
       if (!response.ok) throw new Error(`Failed to load ${path}: ${response.status}`);
       return response.json();
@@ -3053,6 +3064,7 @@
         );
         image.src = item.image;
         image.alt = `${item.title} ${isBook ? "cover" : "screenshot"}`;
+        image.decoding = "async";
         image.loading = "lazy";
         if (isBook) {
           body.prepend(image);
@@ -3307,6 +3319,27 @@
       " KYYYYYYKYYYYYYK ",
       "  Y Y Y   Y Y Y  ",
     ]);
+    const GAME_MEMORY_PICKUP_PALETTE = Object.freeze({
+      G: "#2f8b57",
+      K: "#241e26",
+      Y: "#f3be68",
+    });
+    const GAME_MEMORY_PICKUP_PIXELS = Object.freeze(
+      GAME_MEMORY_PICKUP_ART.flatMap((row, rowIndex) => (
+        Array.from(row, (tone, columnIndex) => (
+          tone === " " ? null : Object.freeze({ columnIndex, rowIndex, tone })
+        )).filter(Boolean)
+      )),
+    );
+    const gameScoreDateFormatter = new Intl.DateTimeFormat("en-CA", {
+      day: "2-digit",
+      hour: "2-digit",
+      hour12: false,
+      hourCycle: "h23",
+      minute: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
     const PORTRAIT_SPINNER_LABEL = spinner.getAttribute("aria-label");
     const PROFILE_SPINNER_LABEL = "Profile character icon. Memory (Kei Inoue).";
     let rotation = 0;
@@ -3331,6 +3364,11 @@
     let gameScore = 0;
     let gamePixelRatio = 1;
     let gamePaddleCenter = window.innerWidth / 2;
+    let gamePaddleWidth = 0;
+    let gameArtBounds = null;
+    let gameTerminalFont = "";
+    let gameHeadingFont = "";
+    let displayedGameElapsedSecond = 0;
     let gameDockHitTimer = 0;
     let gamePausedFrom = null;
     let gameChargePointerId = null;
@@ -3389,8 +3427,9 @@
 
     if ("ResizeObserver" in window) {
       new ResizeObserver(updateProfileStickyHeight).observe(profileOverview);
+    } else {
+      window.addEventListener("resize", updateProfileStickyHeight);
     }
-    window.addEventListener("resize", updateProfileStickyHeight);
 
     const render = () => {
       spinner.style.setProperty("--rotation", `${rotation}rad`);
@@ -3580,14 +3619,7 @@
     };
 
     const formatGameScoreDate = (playedAt) => {
-      const parts = new Intl.DateTimeFormat("en-CA", {
-        day: "2-digit",
-        hour: "2-digit",
-        hour12: false,
-        minute: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-      }).formatToParts(new Date(playedAt));
+      const parts = gameScoreDateFormatter.formatToParts(new Date(playedAt));
       const value = (type) => parts.find((part) => part.type === type)?.value || "--";
 
       return `${value("year")}.${value("month")}.${value("day")} ${value("hour")}:${value("minute")}`;
@@ -3626,8 +3658,10 @@
     };
 
     const updateGameScore = () => {
-      gameScoreElement.value = formatGameScore(gameScore);
-      gameScoreElement.textContent = formatGameScore(gameScore);
+      const formattedScore = formatGameScore(gameScore);
+
+      gameScoreElement.value = formattedScore;
+      gameScoreElement.textContent = formattedScore;
     };
 
     const formatGameElapsedTime = (milliseconds) => {
@@ -3638,9 +3672,14 @@
     };
 
     const updateGameElapsedTime = () => {
-      const elapsedTime = formatGameElapsedTime(gameElapsedMilliseconds);
-      if (gameElapsedTimeElement.textContent === elapsedTime) return;
+      const elapsedSecond = Math.min(
+        99 * 60 + 59,
+        Math.floor(gameElapsedMilliseconds / 1000),
+      );
+      if (displayedGameElapsedSecond === elapsedSecond) return;
 
+      displayedGameElapsedSecond = elapsedSecond;
+      const elapsedTime = formatGameElapsedTime(gameElapsedMilliseconds);
       gameElapsedTimeElement.value = elapsedTime;
       gameElapsedTimeElement.textContent = elapsedTime;
     };
@@ -3663,8 +3702,17 @@
       }
     };
 
+    const updateGameRenderMetrics = () => {
+      const rootStyle = getComputedStyle(document.documentElement);
+
+      gameArtBounds = art.getBoundingClientRect();
+      gamePaddleWidth = socialLinks.offsetWidth;
+      gameTerminalFont = rootStyle.getPropertyValue("--terminal-font");
+      gameHeadingFont = rootStyle.getPropertyValue("--game-heading-font");
+    };
+
     const setGamePaddleCenter = (clientX) => {
-      const paddleWidth = socialLinks.offsetWidth;
+      const paddleWidth = gamePaddleWidth || socialLinks.offsetWidth;
       const edgeSpace = 8;
       const halfWidth = paddleWidth / 2;
       const minimum = halfWidth + edgeSpace;
@@ -3980,25 +4028,17 @@
     const drawGameMemoryPickup = (pickup) => {
       if (!gameContext) return;
 
-      const palette = {
-        G: "#2f8b57",
-        K: "#241e26",
-        Y: "#f3be68",
-      };
       const offsetX = -pickup.width / 2;
       const offsetY = -pickup.height / 2;
-      const drawPixels = (colors, shift = 0) => {
-        GAME_MEMORY_PICKUP_ART.forEach((row, rowIndex) => {
-          Array.from(row).forEach((pixel, columnIndex) => {
-            if (pixel === " ") return;
-            gameContext.fillStyle = colors ? colors[pixel] : "rgb(36 30 38 / 18%)";
-            gameContext.fillRect(
-              Math.round(offsetX + columnIndex * pickup.pixelSize + shift),
-              Math.round(offsetY + rowIndex * pickup.pixelSize + shift),
-              Math.ceil(pickup.pixelSize),
-              Math.ceil(pickup.pixelSize),
-            );
-          });
+      const drawPixels = (palette, shift = 0) => {
+        GAME_MEMORY_PICKUP_PIXELS.forEach(({ columnIndex, rowIndex, tone }) => {
+          gameContext.fillStyle = palette ? palette[tone] : "rgb(36 30 38 / 18%)";
+          gameContext.fillRect(
+            Math.round(offsetX + columnIndex * pickup.pixelSize + shift),
+            Math.round(offsetY + rowIndex * pickup.pixelSize + shift),
+            Math.ceil(pickup.pixelSize),
+            Math.ceil(pickup.pixelSize),
+          );
         });
       };
 
@@ -4006,7 +4046,7 @@
       gameContext.translate(Math.round(pickup.x), Math.round(pickup.y));
       gameContext.imageSmoothingEnabled = false;
       drawPixels(null, pickup.pixelSize * 0.8);
-      drawPixels(palette);
+      drawPixels(GAME_MEMORY_PICKUP_PALETTE);
       gameContext.restore();
     };
 
@@ -4102,12 +4142,10 @@
       if (!gameContext || gameMemoryBoostRemaining <= 0) return;
 
       const label = `2X ${gameMemoryBoostRemaining.toFixed(1)}S`;
-      const headingFont = getComputedStyle(document.documentElement)
-        .getPropertyValue("--game-heading-font");
 
       gameContext.save();
       gameContext.fillStyle = "#76243d";
-      gameContext.font = `800 11px ${headingFont}`;
+      gameContext.font = `800 11px ${gameHeadingFont}`;
       gameContext.letterSpacing = "1px";
       gameContext.textAlign = "center";
       gameContext.textBaseline = "bottom";
@@ -4372,9 +4410,6 @@
     const updateAndDrawGameParticles = (elapsed) => {
       if (!gameContext) return;
 
-      const terminalFont = getComputedStyle(document.documentElement)
-        .getPropertyValue("--terminal-font");
-
       gameParticles = gameParticles.filter((particle) => {
         particle.life -= elapsed;
         if (particle.life <= 0) return false;
@@ -4384,7 +4419,7 @@
         particle.y += particle.vy * elapsed;
         gameContext.globalAlpha = Math.max(0, particle.life / particle.maxLife);
         gameContext.fillStyle = particle.color;
-        gameContext.font = `700 ${particle.fontSize}px ${terminalFont}`;
+        gameContext.font = `700 ${particle.fontSize}px ${gameTerminalFont}`;
         gameContext.textAlign = "center";
         gameContext.textBaseline = "middle";
         gameContext.fillText(particle.character, particle.x, particle.y);
@@ -4397,7 +4432,7 @@
       if (gameState !== "running" || !gameContext) return;
 
       const elapsed = Math.min((time - gamePreviousTime) / 1000, 0.028);
-      const artBounds = art.getBoundingClientRect();
+      const artBounds = gameArtBounds || art.getBoundingClientRect();
       const dockBounds = socialLinks.getBoundingClientRect();
       let artChanged = false;
 
@@ -4505,7 +4540,7 @@
       });
 
       if (artChanged) {
-        renderCharacter(art, destroyedPortraitCells);
+        renderCharacter(art, destroyedPortraitCells, gameTerminalFont);
         if (isPortraitCleared()) {
           finishGame("clear");
           return;
@@ -4525,6 +4560,7 @@
     const startGameRound = (token) => {
       if (gameState !== "countdown" || token !== gameRunToken) return;
 
+      updateGameRenderMetrics();
       gameGlyphs = createGameGlyphs();
       if (gameGlyphs.length === 0) {
         finishGame();
@@ -4602,12 +4638,13 @@
       render();
       renderCharacter(art);
       resizeGameLayer();
+      document.body.classList.add("is-game-mode");
+      updateGameRenderMetrics();
       setGamePaddleCenter(window.innerWidth / 2);
       breakoutLayer.hidden = false;
       gameCountdown.dataset.step = "0";
       gameCountdown.style.setProperty("--countdown-progress", "0");
       gameCountdown.setAttribute("aria-hidden", "false");
-      document.body.classList.add("is-game-mode");
       spinner.disabled = true;
       profilePortfolio.inert = true;
       profilePortfolio.setAttribute("aria-disabled", "true");
@@ -4727,6 +4764,10 @@
       destroyedPortraitCells.clear();
       gameGlyphs = [];
       gameParticles = [];
+      gameArtBounds = null;
+      gamePaddleWidth = 0;
+      gameTerminalFont = "";
+      gameHeadingFont = "";
       resetGameMemoryPower();
       renderCharacter(art);
 
@@ -4748,14 +4789,15 @@
       gameState = "gameover";
       restoreGamePresentation();
       gameOverTitle.textContent = isClear ? "CLEAR" : "GAME OVER";
-      gameFinalScore.value = formatGameScore(gameScore);
-      gameFinalScore.textContent = formatGameScore(gameScore);
+      const formattedScore = formatGameScore(gameScore);
+      gameFinalScore.value = formattedScore;
+      gameFinalScore.textContent = formattedScore;
       renderGameScoreHistory(saveGameScore(gameScore, gameElapsedMilliseconds));
 
       const shareUrl = new URL("https://twitter.com/intent/tweet");
       shareUrl.searchParams.set(
         "text",
-        `AA BREAKOUT / ${isClear ? "CLEAR / " : ""}SCORE ${formatGameScore(gameScore)}`,
+        `AA BREAKOUT / ${isClear ? "CLEAR / " : ""}SCORE ${formattedScore}`,
       );
       shareUrl.searchParams.set("url", window.location.href);
       gameShare.href = shareUrl.href;
@@ -4797,25 +4839,26 @@
       if (gameState !== "running") return;
       setGamePaddleCenter(event.clientX);
       if (event.pointerType === "touch" && mobileGameInput.matches && event.isPrimary) {
-        event.preventDefault();
         beginGameCharge(event.pointerId);
       }
-    }, { passive: false });
+    }, { passive: true });
 
     document.addEventListener("pointermove", (event) => {
       if (gameState !== "running" || !event.isPrimary) return;
       setGamePaddleCenter(event.clientX);
-      if (event.pointerType === "touch" && mobileGameInput.matches) event.preventDefault();
-    }, { passive: false });
+    }, { passive: true });
 
-    window.addEventListener("pointerup", (event) => releaseGameCharge(event.pointerId));
+    window.addEventListener("pointerup", (event) => releaseGameCharge(event.pointerId), {
+      passive: true,
+    });
     window.addEventListener("pointercancel", (event) => {
       if (event.pointerId === gameChargePointerId) resetGameCharge();
-    });
+    }, { passive: true });
 
     window.addEventListener("resize", () => {
       if (gameState === "idle" || gameState === "gameover") return;
       resizeGameLayer();
+      updateGameRenderMetrics();
       setGamePaddleCenter(gamePaddleCenter);
       gameMemoryPickups.forEach((pickup) => {
         const halfWidth = pickup.width / 2;
@@ -5043,6 +5086,10 @@
       if (!document.hidden) return;
 
       snapToOriginal();
+      if (gameState === "countdown" || gameState === "running") {
+        pauseGame();
+        return;
+      }
       gameMoveKeys.clear();
       if (gameChargePointerId === GAME_KEYBOARD_CHARGE_ID) resetGameCharge();
     });
