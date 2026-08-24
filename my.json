@@ -19,6 +19,19 @@
   },
   "experiences": [
     {
+      "employment_type": "full-time",
+      "name": {
+        "en": "Self employed",
+        "ja": "個人事業主"
+      },
+      "period": {
+        "start": "2025/7",
+        "end": null
+      },
+      "positions": []
+    },
+    {
+      "employment_type": "self-employed",
       "name": {
         "en": "Zaimo, Inc.",
         "ja": "Zaimo, Inc."
@@ -35,6 +48,7 @@
       ]
     },
     {
+      "employment_type": "full-time",
       "name": {
         "en": "HowTelevision, Inc.",
         "ja": "HowTelevision, Inc."
@@ -51,6 +65,7 @@
       ]
     },
     {
+      "employment_type": "full-time",
       "name": {
         "en": "Liiga, Inc.",
         "ja": "Liiga, Inc."
@@ -67,6 +82,7 @@
       ]
     },
     {
+      "employment_type": "full-time",
       "name": {
         "en": "enpay, Inc.",
         "ja": "enpay, Inc."
@@ -91,6 +107,7 @@
       ]
     },
     {
+      "employment_type": "full-time",
       "name": {
         "en": "Torana, Inc.",
         "ja": "Torana, Inc."
@@ -115,6 +132,7 @@
       ]
     },
     {
+      "employment_type": "self-employed",
       "name": {
         "en": "Togetter, Inc.",
         "ja": "Togetter, Inc."
@@ -147,6 +165,16 @@
       ]
     },
     {
+      "employment_type": "self-employed",
+      "name": {
+        "en": "Other companies",
+        "ja": "その他複数社"
+      },
+      "description": "Supported a wide range of companies.",
+      "positions": []
+    },
+    {
+      "employment_type": "full-time",
       "name": {
         "en": "BASE, Inc.",
         "ja": "BASE, Inc."
@@ -163,6 +191,7 @@
       ]
     },
     {
+      "employment_type": "full-time",
       "name": {
         "en": "GameWith, Inc.",
         "ja": "GameWith, Inc."
@@ -179,6 +208,7 @@
       ]
     },
     {
+      "employment_type": "full-time",
       "name": {
         "en": "Other companies",
         "ja": "その他複数社"

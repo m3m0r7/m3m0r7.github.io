@@ -1,5 +1,16 @@
 [
   {
+    "published_at": "2026-06-08T00:00:00+09:00",
+    "url": "https://github.com/m3m0r7/pnl",
+    "title": "m3m0r7/pnl",
+    "description": "A package manager for native libraries in PHP",
+    "language": "Rust",
+    "tags": [
+      "OSS",
+      "Tech"
+    ]
+  },
+  {
     "published_at": "2026-04-16T00:00:00+09:00",
     "url": "https://speakerdeck.com/m3m0r7/focus-on-segmentation-and-targeting-for-writing-a-proposal",
     "title": "セグメントとターゲットを意識するプロポーザルの書き方 〜採択の鍵は、誰に刺すかを見極めるマーケティング戦略にある〜",
@@ -20,6 +31,17 @@
     "location": "PHP Conference Odawara 2026"
   },
   {
+    "published_at": "2026-04-02T00:00:00+09:00",
+    "url": "https://github.com/m3m0r7/php-mp3-player",
+    "title": "m3m0r7/php-mp3-player",
+    "description": "A native MP3 player written in PHP with SDL and FFI",
+    "language": "PHP",
+    "tags": [
+      "OSS",
+      "Tech"
+    ]
+  },
+  {
     "published_at": "2026-03-22T00:00:00+09:00",
     "url": "https://speakerdeck.com/m3m0r7/how-to-make-a-machine-emulator",
     "title": "PHP でエミュレータを自作して Ubuntu を動かそう",
@@ -28,6 +50,39 @@
       "Tech"
     ],
     "location": "PHPerKaigi 2026"
+  },
+  {
+    "published_at": "2026-02-09T00:00:00+09:00",
+    "url": "https://github.com/m3m0r7/nyanp",
+    "title": "m3m0r7/nyanp",
+    "description": "A native compiler and runtime for PHP, written in Rust",
+    "language": "Rust",
+    "tags": [
+      "OSS",
+      "Tech"
+    ]
+  },
+  {
+    "published_at": "2026-01-27T00:00:00+09:00",
+    "url": "https://github.com/m3m0r7/llm-translator-rust",
+    "title": "m3m0r7/llm-translator-rust",
+    "description": "A text and document translator powered by LLMs, written in Rust",
+    "language": "Rust",
+    "tags": [
+      "OSS",
+      "Tech"
+    ]
+  },
+  {
+    "published_at": "2026-01-04T00:00:00+09:00",
+    "url": "https://github.com/m3m0r7/pe-vm",
+    "title": "m3m0r7/pe-vm",
+    "description": "A portable executable (PE) executor written in Rust",
+    "language": "Rust",
+    "tags": [
+      "OSS",
+      "Tech"
+    ]
   },
   {
     "published_at": "2025-11-08T00:00:00+09:00",
@@ -115,6 +170,7 @@
     "url": "https://github.com/m3m0r7/php-machine-emulator",
     "title": "m3m0r7/php-machine-emulator",
     "description": "A machine emulator written in PHP",
+    "language": "PHP",
     "tags": [
       "OSS",
       "Tech"
@@ -125,6 +181,7 @@
     "url": "https://github.com/m3m0r7/php-os",
     "title": "m3m0r7/php-os",
     "description": "An operating system written in PHP",
+    "language": "PHP",
     "tags": [
       "OSS",
       "Tech"
@@ -144,7 +201,8 @@
     "published_at": "2024-03-22T00:00:00+09:00",
     "url": "https://github.com/m3m0r7/ez-door-sign",
     "title": "m3m0r7/ez-door-sign",
-    "description": "The EZ Door Sign (an IoT device) controller written in PHP",
+    "description": "An IoT door sign controller written in PHP",
+    "language": "PHP",
     "tags": [
       "OSS",
       "Tech"
@@ -155,6 +213,7 @@
     "url": "https://github.com/m3m0r7/php-libusb",
     "title": "m3m0r7/php-libusb",
     "description": "A libusb wrapper written in PHP FFI",
+    "language": "PHP",
     "tags": [
       "OSS",
       "Tech"
@@ -224,8 +283,10 @@
   },
   {
     "published_at": "2023-07-12T00:00:00+09:00",
-    "url": "https://github.com/m3m0r7/ez-door-sign",
-    "title": "m3m0r7/rubyvm-on-php - A RubyVM written in PHP",
+    "url": "https://github.com/m3m0r7/rubyvm-on-php",
+    "title": "m3m0r7/rubyvm-on-php",
+    "description": "A RubyVM written in PHP",
+    "language": "PHP",
     "tags": [
       "OSS",
       "Tech"
@@ -336,7 +397,9 @@
   {
     "published_at": "2021-10-08T00:00:00+09:00",
     "url": "https://github.com/m3m0r7/nfc-for-php",
-    "title": "m3m0r7/nfc-for-php - NFC Reader written in PHP",
+    "title": "m3m0r7/nfc-for-php",
+    "description": "An NFC reader written in PHP",
+    "language": "PHP",
     "tags": [
       "OSS",
       "Tech",
@@ -493,7 +556,8 @@
     "published_at": "2015-01-30T00:00:00+09:00",
     "url": "https://github.com/php-java/php-java",
     "title": "php-java/php-java",
-    "description": "Implement JVM by PHP",
+    "description": "A JVM implementation written in PHP",
+    "language": "PHP",
     "tags": [
       "OSS",
       "Tech"
