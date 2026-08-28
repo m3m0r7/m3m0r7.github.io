@@ -1078,7 +1078,7 @@ class SpaghettiGame {
     this.clearTime.textContent = formattedTime;
     this.clearTime.value = formattedTime;
     const shareUrl = new URL("https://twitter.com/intent/tweet");
-    shareUrl.searchParams.set("text", `SPAGHETTI CODE / ${level.name} を ${formattedTime} でほどいた！`);
+    shareUrl.searchParams.set("text", `SPAGHETTI CODE / ${level.name} を ${formattedTime} でほどいた！\n#spaghetti_code`);
     shareUrl.searchParams.set("url", window.location.href);
     this.shareButton.href = shareUrl.href;
     const nextLevelKey = LEVEL_ORDER[LEVEL_ORDER.indexOf(this.levelKey) + 1];

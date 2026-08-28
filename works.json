@@ -1,5 +1,15 @@
 [
   {
+    "url": "https://i.mem.ooo/game/spaghetti-code/",
+    "title": "SPAGHETTI CODE",
+    "description": "種類も重さも異なるケーブルの絡まりを、3D 空間で現実のようにほどく物理パズルゲーム。",
+    "tags": [
+      "Work",
+      "Game"
+    ],
+    "image": "spaghetti-code.png"
+  },
+  {
     "url": "https://nyanner.mem.ooo/",
     "title": "Nyanner",
     "description": "猫を選び、難易度を選んで遊ぶ 2D 縦スクロールアクションゲーム。えるとぐり、それぞれの特性を活かしてステージに挑めます。",
