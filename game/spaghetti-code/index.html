@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f7f7f2">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="種類も重さも異なるケーブルの絡まりを、3D空間で現実のようにほどく物理パズルゲーム。">
+  <title>SPAGHETTI CODE</title>
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&amp;family=Noto+Sans+JP:wght@400;500;600;700;800;900&amp;family=Oxanium:wght@500;600;700;800&amp;family=Share+Tech+Mono&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css">
+  <link rel="stylesheet" href="./css/game.css?v=25">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.167.1/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.167.1/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <main class="game-shell" id="game-shell">
+    <canvas
+      id="game-canvas"
+      aria-label="床に置かれた、さまざまな種類の絡まったケーブル"
+      aria-describedby="keyboard-instructions"
+      tabindex="0"
+    ></canvas>
+    <p class="sr-only" id="keyboard-instructions">
+      ケーブルをドラッグしてほどきます。空いている場所のドラッグで視点を回し、Shiftキーを押しながらホイールで視点を移動します。プラスキーとマイナスキーで拡大縮小します。Escapeキーでポーズ、疑問符キーでヘルプを表示します。
+    </p>
+
+    <div class="scene-vignette" aria-hidden="true"></div>
+
+    <div class="game-hud-stack">
+      <aside class="game-hud" aria-label="プレイ状況" aria-live="polite">
+        <p class="hud-case"><span>CASE</span><strong id="hud-level">—</strong><b id="hud-cables">— CABLES</b></p>
+        <div class="hud-time-panel">
+          <span class="hud-time-label">TIME</span>
+          <p class="hud-time" id="hud-time">00:00:00.00</p>
+        </div>
+      </aside>
+
+      <nav class="hud-actions" aria-label="ゲーム操作">
+        <button class="hud-action" id="hud-help-button" type="button" disabled>
+          <span class="hud-action-disc" aria-hidden="true"><i class="fa-solid fa-circle-question"></i></span>
+          <span class="hud-action-label">ヘルプ</span>
+        </button>
+        <button class="hud-action" id="hud-retry-button" type="button" disabled>
+          <span class="hud-action-disc" aria-hidden="true"><i class="fa-solid fa-arrow-rotate-right"></i></span>
+          <span class="hud-action-label">リトライ</span>
+        </button>
+        <button class="hud-action" id="hud-pause-button" type="button" disabled>
+          <span class="hud-action-disc" aria-hidden="true"><i class="fa-solid fa-pause"></i></span>
+          <span class="hud-action-label">ポーズ</span>
+        </button>
+        <button class="hud-action" id="hud-fullscreen-button" type="button" aria-pressed="false" disabled>
+          <span class="hud-action-disc" aria-hidden="true"><i class="fa-solid fa-expand"></i></span>
+          <span class="hud-action-label">フルスクリーン</span>
+        </button>
+      </nav>
+    </div>
+
+    <section class="controls-card" aria-labelledby="controls-title">
+      <h2 class="controls-title" id="controls-title">HOW TO PLAY</h2>
+      <ul>
+        <li>
+          <span class="control-visual mouse-visual is-active" aria-hidden="true">
+            <svg viewBox="0 0 30 40"><rect x="5" y="2" width="20" height="34" rx="10"/><path d="M15 2v12M5 15h20"/><path class="mouse-fill" d="M6.5 14V12a8.5 8.5 0 0 1 8.5-8.5V14z"/></svg>
+          </span>
+          <span><b>DRAG CABLE</b><small>ケーブルを掴む</small></span>
+        </li>
+        <li>
+          <span class="control-visual mouse-visual" aria-hidden="true">
+            <svg viewBox="0 0 30 40"><rect x="5" y="2" width="20" height="34" rx="10"/><path d="M15 2v12M5 15h20"/><path d="M2 21h4m18 0h4M4 19l-2 2 2 2m22-4 2 2-2 2"/></svg>
+          </span>
+          <span><b>DRAG SPACE</b><small>視点を回す</small></span>
+        </li>
+        <li>
+          <kbd>SHIFT + <span class="wheel-icon" aria-hidden="true"></span></kbd>
+          <span><b>MOVE VIEW</b><small>視点を移動 / 2本指対応</small></span>
+        </li>
+        <li>
+          <kbd class="zoom-keys"><span class="zoom-in" role="img" aria-label="拡大"></span><span class="zoom-out" role="img" aria-label="縮小"></span></kbd>
+          <span><b>ZOOM</b><small>ピンチ操作にも対応</small></span>
+        </li>
+        <li>
+          <kbd class="text-key">ESC</kbd>
+          <span><b>PAUSE</b><small>ポーズメニュー</small></span>
+        </li>
+        <li>
+          <kbd class="text-key">?</kbd>
+          <span><b>HELP</b><small>ヘルプを表示</small></span>
+        </li>
+      </ul>
+    </section>
+
+    <div class="grab-readout" id="grab-readout" aria-hidden="true">
+      <span class="grab-dot"></span>
+      <span id="grab-label">ケーブル</span>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <div class="countdown-overlay" id="countdown-overlay" aria-live="assertive" aria-atomic="true" hidden>
+      <p id="countdown-label">3</p>
+    </div>
+
+    <section class="menu-layer is-visible" id="start-screen" role="dialog" aria-modal="true" aria-labelledby="start-title">
+      <div class="menu-backdrop" aria-hidden="true">
+        <span class="menu-atmosphere atmosphere-ring"></span>
+        <span class="menu-atmosphere atmosphere-cross"></span>
+        <span class="menu-atmosphere atmosphere-scan"></span>
+      </div>
+      <div class="menu-shell">
+        <header class="menu-heading">
+          <h1 class="sr-only" id="start-title">SPAGHETTI CODE</h1>
+          <div class="menu-logo" aria-hidden="true">
+            <div class="logo-wordmark"><span>SPAGHETTI</span><b>CODE</b></div>
+            <span class="logo-subline"><i></i> OPERATION: REFACTOR THE CODE <i></i></span>
+          </div>
+        </header>
+
+        <div class="menu-phases">
+          <section class="menu-phase difficulty-phase" id="difficulty-phase" aria-labelledby="difficulty-title">
+        <div class="spaghetti-mark" aria-hidden="true">
+          <svg viewBox="0 0 720 330" role="presentation">
+            <defs>
+              <filter id="plate-shadow" x="-20%" y="-30%" width="140%" height="170%">
+                <feDropShadow dx="0" dy="18" stdDeviation="13" flood-color="#000" flood-opacity=".28"/>
+              </filter>
+              <linearGradient id="plate-face" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#fff"/>
+                <stop offset=".64" stop-color="#f2f4ef"/>
+                <stop offset="1" stop-color="#d9ddd7"/>
+              </linearGradient>
+              <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#fff"/>
+                <stop offset=".28" stop-color="#aeb5b0"/>
+                <stop offset=".52" stop-color="#f8faf7"/>
+                <stop offset="1" stop-color="#7b827d"/>
+              </linearGradient>
+            </defs>
+            <ellipse class="plate-shadow" cx="360" cy="246" rx="276" ry="63"/>
+            <g class="utensil fork" transform="rotate(-9 110 188)">
+              <path class="fork-silhouette" d="M78 80h10v49h8V80h10v49h8V80h10v49h8V80h10v68c0 18-10 31-26 38v71c0 8-5 13-12 13s-12-5-12-13v-71c-15-7-24-20-24-38V80z"/>
+              <path class="fork-shine" d="M104 190v62"/>
+            </g>
+            <g class="utensil spoon" transform="rotate(13 608 198)">
+              <rect x="601" y="150" width="14" height="111" rx="7"/>
+              <ellipse cx="608" cy="116" rx="34" ry="46"/>
+              <ellipse class="utensil-shine" cx="597" cy="104" rx="10" ry="20"/>
+            </g>
+            <ellipse class="plate" cx="360" cy="205" rx="254" ry="94" filter="url(#plate-shadow)"/>
+            <ellipse class="plate-rim" cx="360" cy="200" rx="220" ry="70"/>
+            <ellipse class="plate-highlight" cx="360" cy="188" rx="194" ry="49"/>
+            <g class="cable-pile">
+              <path class="pile-depth" d="M167 213C208 150 273 271 329 211s85-73 142-8 65 50 91 24"/>
+              <path d="M176 225C212 282 277 172 337 185s31 97 99 76 46-99 108-78"/>
+              <path d="M195 181C235 132 286 252 349 247s48-121 116-94 34 98 94 82"/>
+              <path d="M211 248C185 194 250 158 307 213s89 47 126-7-8-105 75-102"/>
+              <path d="M224 204C277 160 243 99 310 92s77 78 44 116 57 68 93 17-4-92 66-92"/>
+              <path d="M243 250C299 207 267 146 327 137s88 77 49 111 52 55 94 7 0-76 66-64"/>
+              <path d="M264 166C288 102 336 59 384 94s8 88-28 112 46 66 83 19 12-98 72-84"/>
+              <path d="M286 249C257 195 301 147 356 158s68 87 15 108 28 43 73 1"/>
+              <path d="M287 132C321 61 399 59 419 111s-49 70-60 104 72 65 103 9"/>
+              <path class="lime-cable" d="M205 224C257 281 319 218 306 168s29-90 76-69 39 72 9 99 42 63 94 25 32-76 82-46"/>
+              <path class="cable-shine" d="M277 126C313 77 357 70 389 98"/>
+              <path class="cable-shine" d="M196 238C231 262 262 229 281 202"/>
+              <path class="cable-shine" d="M402 151C432 128 465 142 480 173"/>
+              <rect class="connector power-connector" x="151" y="202" width="34" height="27" rx="4"/>
+              <path class="connector-pin" d="M151 209h-14m14 12h-14"/>
+              <rect class="connector hdmi-connector" x="537" y="224" width="42" height="28" rx="4"/>
+              <rect class="connector-port" x="549" y="232" width="19" height="6" rx="2"/>
+              <rect class="power-strip-mark" x="449" y="184" width="67" height="25" rx="8"/>
+              <circle class="power-strip-port" cx="465" cy="196.5" r="5"/>
+              <circle class="power-strip-port" cx="483" cy="196.5" r="5"/>
+              <circle class="power-strip-port" cx="501" cy="196.5" r="5"/>
+              <circle class="earbud" cx="296" cy="113" r="14"/>
+              <circle class="earbud" cx="514" cy="130" r="13"/>
+            </g>
+          </svg>
+        </div>
+
+        <div class="menu-actions">
+          <h2 class="sr-only" id="difficulty-title">難易度を選択</h2>
+          <div class="difficulty-rail" aria-hidden="true"><span>SELECT CASE</span><b>01—06</b></div>
+          <div class="difficulty-list" id="difficulty-list">
+            <button class="difficulty-option is-selected" type="button" data-level="easy" aria-pressed="true">
+              <span class="difficulty-index" aria-hidden="true">01</span><span class="difficulty-main"><span class="difficulty-name">EASY</span><small>ENTRY CASE</small></span><span class="difficulty-status">READY</span><span class="difficulty-lock" aria-hidden="true"></span>
+            </button>
+            <button class="difficulty-option" type="button" data-level="normal" aria-pressed="false">
+              <span class="difficulty-index" aria-hidden="true">02</span><span class="difficulty-main"><span class="difficulty-name">NORMAL</span><small>STANDARD CASE</small></span><span class="difficulty-status">READY</span><span class="difficulty-lock" aria-hidden="true"></span>
+            </button>
+            <button class="difficulty-option" type="button" data-level="hard" aria-pressed="false">
+              <span class="difficulty-index" aria-hidden="true">03</span><span class="difficulty-main"><span class="difficulty-name">HARD</span><small>HEAVY CASE</small></span><span class="difficulty-status">READY</span><span class="difficulty-lock" aria-hidden="true"></span>
+            </button>
+            <button class="difficulty-option is-locked" type="button" data-level="extream" aria-pressed="false" disabled>
+              <span class="difficulty-index" aria-hidden="true">04</span><span class="difficulty-main"><span class="difficulty-name">EXTREAM</span><small>MARBLE CASE</small></span><span class="difficulty-status">LOCKED</span><span class="difficulty-lock" aria-hidden="true"></span>
+            </button>
+            <button class="difficulty-option is-locked" type="button" data-level="ultimate" aria-pressed="false" disabled>
+              <span class="difficulty-index" aria-hidden="true">05</span><span class="difficulty-main"><span class="difficulty-name">ULTIMATE</span><small>SERVER CASE</small></span><span class="difficulty-status">LOCKED</span><span class="difficulty-lock" aria-hidden="true"></span>
+            </button>
+            <button class="difficulty-option is-locked" type="button" data-level="unknown" aria-pressed="false" disabled>
+              <span class="difficulty-index" aria-hidden="true">06</span><span class="difficulty-main"><span class="difficulty-name">UNKNOWN</span><small>CLASSIFIED</small></span><span class="difficulty-status">LOCKED</span><span class="difficulty-lock" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+          </section>
+
+          <section class="menu-phase ranking-phase" id="ranking-phase" aria-labelledby="ranking-title" aria-hidden="true" hidden inert>
+            <div class="ranking-panel">
+              <header class="ranking-header">
+                <button class="ranking-back" id="ranking-back-button" type="button" aria-label="難易度選択に戻る">
+                  <i class="fa-solid fa-arrow-left" aria-hidden="true"></i><span>BACK</span>
+                </button>
+                <div class="ranking-heading">
+                  <p>LOCAL RANKING / TOP 5</p>
+                  <h2 id="ranking-title" tabindex="-1"><span id="ranking-level">EASY</span><small id="ranking-cables">3 CABLES</small></h2>
+                </div>
+              </header>
+
+              <div class="ranking-board">
+                <div class="ranking-columns" aria-hidden="true"><span>RANK</span><span>TIME</span><span>STATUS</span></div>
+                <ol class="ranking-list" id="ranking-list"></ol>
+                <p class="ranking-empty" id="ranking-empty" aria-live="polite">
+                  <b>NO RECORDS YET.</b><span>この難易度の最初の記録を作ろう。</span>
+                </p>
+              </div>
+
+              <button class="start-button" id="start-button" type="button"><span>START</span></button>
+            </div>
+          </section>
+        </div>
+        <p class="debug-indicator" id="debug-indicator" hidden>DEBUG MODE / ALL UNLOCKED</p>
+      </div>
+      <p class="menu-copyright">Copyright &copy; <a href="https://i.mem.ooo" target="_blank" rel="noopener noreferrer">めもりー</a></p>
+    </section>
+
+    <p class="game-version"><span>Ver</span> 1.0.0</p>
+
+    <aside class="author-skit" id="author-skit" role="status" aria-live="polite" aria-atomic="true" aria-hidden="true">
+      <div class="author-skit-avatar" aria-hidden="true">
+        <img src="./assets/aa.me.x2.svg" alt="">
+      </div>
+      <div class="author-skit-dialogue">
+        <span>OPERATOR</span>
+        <p id="author-skit-message"></p>
+      </div>
+    </aside>
+
+    <dialog class="game-dialog pause-dialog" id="pause-screen" aria-labelledby="pause-title">
+      <div class="pause-shell">
+        <p class="dialog-eyebrow">GAME PAUSED</p>
+        <h2 id="pause-title">PAUSED.</h2>
+        <div class="pause-actions">
+          <button class="dialog-action primary-action" id="resume-button" type="button">
+            <span>続行する</span><b aria-hidden="true">▶</b>
+          </button>
+          <button class="dialog-action" id="retry-button" type="button">
+            <span>リトライする</span><b class="replay-icon" aria-hidden="true"></b>
+          </button>
+          <button class="dialog-action" id="pause-menu-button" type="button">
+            <span>スタート画面に戻る</span><b class="menu-icon" aria-hidden="true"></b>
+          </button>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="game-dialog retry-confirm-dialog" id="retry-confirm-screen" aria-labelledby="retry-confirm-title" aria-describedby="retry-confirm-description">
+      <div class="retry-confirm-shell">
+        <p class="dialog-eyebrow">RETRY CASE</p>
+        <h2 id="retry-confirm-title">RETRY?</h2>
+        <p class="retry-confirm-description" id="retry-confirm-description">現在のタイムと操作内容は失われます。</p>
+        <div class="retry-confirm-actions">
+          <button class="dialog-action primary-action" id="retry-confirm-button" type="button">
+            <span>リトライする</span><i class="fa-solid fa-arrow-rotate-right" aria-hidden="true"></i>
+          </button>
+          <button class="dialog-action" id="retry-cancel-button" type="button">
+            <span>キャンセル</span><i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="game-dialog clear-dialog" id="clear-screen" aria-labelledby="clear-title">
+      <div class="clear-shell">
+        <p class="clear-eyebrow">CABLES CLEARED</p>
+        <h2 id="clear-title">CLEAR!</h2>
+        <p class="clear-level" id="clear-level">EASY / 3 CABLES</p>
+        <div class="score-block">
+          <span>SCORE / TIME</span>
+          <output id="clear-time">00:00:00.00</output>
+        </div>
+        <div class="clear-actions">
+          <a class="dialog-action share-action" id="share-button" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener noreferrer">
+            <span>X で共有する</span><b aria-hidden="true">X</b>
+          </a>
+          <button class="dialog-action primary-action" id="next-level-button" type="button">
+            <span>次の難易度に挑戦する</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </button>
+          <button class="dialog-action" id="replay-button" type="button">
+            <span>もう一度プレイする</span><b class="replay-icon" aria-hidden="true"></b>
+          </button>
+          <button class="dialog-action text-action" id="clear-menu-button" type="button">
+            <span>スタート画面に戻る</span>
+          </button>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="game-dialog help-dialog" id="help-screen" aria-labelledby="help-title" aria-describedby="help-body">
+      <div class="help-shell">
+        <p class="dialog-eyebrow">HOW TO PLAY</p>
+        <h2 id="help-title">HELP.</h2>
+        <div class="help-content" id="help-body">
+          <section class="help-section">
+            <h3>ゲームのクリア方法</h3>
+            <p>各ケーブルが他のケーブルと接触しない状態、つまり解ければクリア。</p>
+          </section>
+          <section class="help-section">
+            <h3>ゲーム攻略のコツ</h3>
+            <p>カメラのアングルをうまく調整して、引っ張りを調整しよう。</p>
+            <p>あとは君の今までの人生でどれだけケーブルを解いてきたかが勝負の要だ！<br>幸運を祈る。</p>
+          </section>
+        </div>
+        <button class="dialog-action primary-action" id="help-close-button" type="button">
+          <span>閉じる</span><b aria-hidden="true">×</b>
+        </button>
+      </div>
+    </dialog>
+
+    <section class="fatal-message" id="fatal-message" hidden>
+      <p>RENDERER FAILURE</p>
+      <h2>3Dを開始できませんでした。</h2>
+      <span>WebGL対応ブラウザで再読み込みしてください。</span>
+    </section>
+  </main>
+
+  <noscript>このゲームをプレイするにはJavaScriptを有効にしてください。</noscript>
+  <script type="module" src="./js/game.js?v=16"></script>
+</body>
+</html>
