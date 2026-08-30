@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { WORLD } from "./config.js";
+import { WORLD } from "./config.js?v=2";
 import { createAccessoryVisual, createConnectorVisual } from "./cable-visuals.js";
 
 const UP = new THREE.Vector3(0, 1, 0);
@@ -129,6 +129,10 @@ export class Rope {
         this.particles[particleIndex].boundaryRadius,
         connectorRadius,
       );
+      this.particles[particleIndex].floorRadius = Math.max(
+        this.particles[particleIndex].floorRadius,
+        connectorRadius,
+      );
       for (const mesh of visual.meshes) {
         mesh.userData.rope = this;
         mesh.userData.particleIndex = particleIndex;
@@ -142,6 +146,7 @@ export class Rope {
       const particleIndex = Math.round(accessory.t * (this.particles.length - 1));
       this.particles[particleIndex].radius = Math.max(this.particles[particleIndex].radius, 0.25);
       this.particles[particleIndex].boundaryRadius = Math.max(this.particles[particleIndex].boundaryRadius, 0.25);
+      this.particles[particleIndex].floorRadius = Math.max(this.particles[particleIndex].floorRadius, 0.25);
       for (const mesh of visual.meshes) {
         mesh.userData.rope = this;
         mesh.userData.particleIndex = particleIndex;
@@ -308,6 +313,7 @@ export class RopeWorld {
     this.held = null;
     this.gravity = new THREE.Vector3(0, -15, 0);
     this.floorY = WORLD.floorY;
+    this.floorSurface = null;
     this.hashCellSize = 0.52;
     this.lastContactCount = 0;
     this.lastInterCableContactCount = 0;
@@ -323,8 +329,13 @@ export class RopeWorld {
     this.gravity.set(0, gravityY, 0);
   }
 
-  setFloorY(floorY) {
+  setFloorY(floorY, floorSurface = null) {
     this.floorY = floorY;
+    this.floorSurface = floorSurface;
+  }
+
+  floorYAt(position) {
+    return this.floorSurface?.(position.x, position.z) ?? this.floorY;
   }
 
   load(sceneDefinition) {
@@ -426,7 +437,7 @@ export class RopeWorld {
     for (const rope of this.ropes) {
       const floorRetention = THREE.MathUtils.clamp(0.56 / Math.sqrt(0.88 + rope.weight * 0.12), 0.46, 0.56);
       for (const particle of rope.particles) {
-        const floor = this.floorY + rope.radius;
+        const floor = this.floorYAt(particle.position) + particle.floorRadius;
         if (particle.position.y < floor) {
           particle.position.y = floor;
           particle.previous.y = floor;
@@ -508,7 +519,10 @@ export class RopeWorld {
         center.multiplyScalar(1 / junction.particles.length);
         previousCenter.multiplyScalar(1 / junction.particles.length);
       }
-      center.y = Math.max(center.y, ...junction.particles.map((particle) => this.floorY + particle.floorRadius));
+      center.y = Math.max(
+        center.y,
+        ...junction.particles.map((particle) => this.floorYAt(particle.position) + particle.floorRadius),
+      );
       for (const particle of junction.particles) {
         particle.position.copy(center);
         particle.previous.copy(previousCenter);

@@ -1,7 +1,8 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { LEVEL_ORDER, LEVELS, SPECIAL_LEVEL_KEY, WORLD, createCableDefinitions } from "./config.js";
-import { RopeWorld } from "./rope-physics.js?v=3";
+import { LEVEL_ORDER, LEVELS, SPECIAL_LEVEL_KEY, WORLD, createCableDefinitions } from "./config.js?v=2";
+import { plateSurfaceYAt, tableContactMetrics } from "./plate-surface.js?v=1";
+import { RopeWorld } from "./rope-physics.js?v=4";
 import { readLocalRankings, saveLocalScore } from "./score-storage.js";
 import { SURFACE_THEMES, createSurfaceTexture } from "./surface-themes.js";
 
@@ -16,7 +17,7 @@ const AUTHOR_SKIT_MESSAGES = Object.freeze({
   extream: "ズポッ コレハ スパゲッティ コード",
   ultimate: "モウ ナニガ ナンダカ ワカラナイ ヨ",
   unknown: "ウワー ムジュウリョク デ コード カタヅケル ノ ユメミタイダ",
-  special: "サラ カラ ハミダシタラ ソク ゲームオーバー ヤデ。シンチョウニ ナ。",
+  special: "コード ガ テーブル ニ オチタラ ゲームオーバー ヤデ。シンチョウニ ナ。",
 });
 
 class SoundDesign {
@@ -225,8 +226,6 @@ class SpaghettiGame {
     const playArea = LEVELS[SPECIAL_LEVEL_KEY].playArea;
     const plateRadiusX = playArea.radiusX;
     const plateRadiusZ = playArea.radiusZ;
-    const wellRadiusX = plateRadiusX - 0.7;
-    const wellRadiusZ = plateRadiusZ - 0.7;
     this.specialTable = new THREE.Group();
     this.specialTable.visible = false;
 
@@ -256,36 +255,27 @@ class SpaghettiGame {
       clearcoat: 0.72,
       clearcoatRoughness: 0.18,
     });
-    const plate = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 0.16, 96), plateMaterial);
+    const plateProfile = [];
+    const profileSegments = 32;
+    for (let index = 0; index <= profileSegments; index += 1) {
+      const radius = index / profileSegments;
+      plateProfile.push(new THREE.Vector2(
+        radius,
+        plateSurfaceYAt(radius * plateRadiusX, 0, playArea, WORLD.floorY),
+      ));
+    }
+    plateProfile.push(
+      new THREE.Vector2(0.998, 0.32),
+      new THREE.Vector2(0.985, 0.15),
+      new THREE.Vector2(0.95, 0.06),
+      new THREE.Vector2(0.84, 0.018),
+      new THREE.Vector2(0, 0.018),
+    );
+    const plate = new THREE.Mesh(new THREE.LatheGeometry(plateProfile, 128), plateMaterial);
     plate.scale.set(plateRadiusX, 1, plateRadiusZ);
     plate.castShadow = true;
     plate.receiveShadow = true;
     this.specialTable.add(plate);
-
-    const plateWell = new THREE.Mesh(
-      new THREE.CircleGeometry(1, 96),
-      new THREE.MeshPhysicalMaterial({
-        color: 0xffffff,
-        roughness: 0.16,
-        clearcoat: 0.88,
-        clearcoatRoughness: 0.12,
-      }),
-    );
-    plateWell.rotation.x = -Math.PI / 2;
-    plateWell.position.y = playArea.floorY + 0.002;
-    plateWell.scale.set(wellRadiusX, wellRadiusZ, 1);
-    plateWell.receiveShadow = true;
-    this.specialTable.add(plateWell);
-
-    const rim = new THREE.Mesh(
-      new THREE.TorusGeometry(1, 0.035, 10, 128),
-      new THREE.MeshPhysicalMaterial({ color: 0xe1ddd0, roughness: 0.24, clearcoat: 0.78 }),
-    );
-    rim.rotation.x = Math.PI / 2;
-    rim.position.y = playArea.floorY + 0.055;
-    rim.scale.set(plateRadiusX - 0.38, plateRadiusZ - 0.38, 1);
-    rim.castShadow = true;
-    this.specialTable.add(rim);
 
     this.scene.add(this.specialTable);
   }
@@ -349,7 +339,12 @@ class SpaghettiGame {
     this.scene.fog.far = theme.fogFar ?? 110;
     this.renderer.toneMappingExposure = theme.exposure;
     this.ropeWorld?.setGravity(theme.gravityY ?? -15);
-    this.ropeWorld?.setFloorY(playArea?.floorY ?? WORLD.floorY);
+    this.ropeWorld?.setFloorY(
+      isSpecial ? WORLD.floorY : playArea?.floorY ?? WORLD.floorY,
+      isSpecial
+        ? (x, z) => plateSurfaceYAt(x, z, playArea, WORLD.floorY)
+        : null,
+    );
     this.tabletop.visible = !isSpecial;
     this.worldBorder.visible = !isSpecial;
     this.specialTable.visible = isSpecial;
@@ -1196,31 +1191,15 @@ class SpaghettiGame {
     this.controls.enabled = true;
   }
 
-  specialBoundaryMetrics() {
+  specialTableContactMetrics() {
     const playArea = LEVELS[SPECIAL_LEVEL_KEY].playArea;
-    let maximumRatio = 0;
-    let outsideCableId = null;
-    for (const rope of this.ropeWorld.ropes) {
-      for (const particle of rope.particles) {
-        const distance = Math.hypot(particle.position.x, particle.position.z);
-        const directionX = distance > 0.0001 ? particle.position.x / distance : 1;
-        const directionZ = distance > 0.0001 ? particle.position.z / distance : 0;
-        const boundaryDistance = 1 / Math.sqrt(
-          (directionX / playArea.radiusX) ** 2 + (directionZ / playArea.radiusZ) ** 2,
-        );
-        const ratio = (distance + particle.boundaryRadius) / boundaryDistance;
-        if (ratio <= maximumRatio) continue;
-        maximumRatio = ratio;
-        outsideCableId = ratio > 1 ? rope.cableId : null;
-      }
-    }
-    return { outside: maximumRatio > 1, maximumRatio, outsideCableId };
+    return tableContactMetrics(this.ropeWorld.ropes, playArea, WORLD.floorY);
   }
 
   checkSpecialFailure() {
     if (this.levelKey !== SPECIAL_LEVEL_KEY) return false;
-    const result = this.specialBoundaryMetrics();
-    if (!result.outside) return false;
+    const result = this.specialTableContactMetrics();
+    if (!result.touchingTable) return false;
     this.failSpecialLevel();
     return true;
   }

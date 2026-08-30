@@ -1,7 +1,7 @@
 import * as THREE from "three";
-import { LEVEL_ORDER, LEVELS } from "./levels.js";
+import { LEVEL_ORDER, LEVELS } from "./levels.js?v=2";
 
-export { LEVEL_ORDER, LEVELS, SPECIAL_LEVEL_KEY } from "./levels.js";
+export { LEVEL_ORDER, LEVELS, SPECIAL_LEVEL_KEY } from "./levels.js?v=2";
 
 export const WORLD = Object.freeze({ floorY: 0, halfWidth: 15, halfDepth: 9.5, maxHeight: 8 });
 

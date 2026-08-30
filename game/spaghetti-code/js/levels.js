@@ -8,5 +8,5 @@ export const LEVELS = Object.freeze({
   extream: { name: "EXTREAM", count: 12, complexity: 5, note: "Twelve products. Friction compounds quickly.", patterns: ["cinquefoil", "birdnest", "figure8", "overhand", "helix", "coil"] },
   ultimate: { name: "ULTIMATE", count: 15, complexity: 6, note: "Fifteen products. Every pull moves the pile.", patterns: ["cinquefoil", "birdnest", "figure8", "overhand", "helix", "coil"] },
   unknown: { name: "UNKNOWN", count: 18, complexity: 7, physicalWeightScale: 1 / 81, dragContactGrip: 0.98, dragPileFollow: 0.12, note: "Eighteen products drift in zero gravity.", patterns: ["cinquefoil", "birdnest", "figure8", "overhand", "helix", "coil"] },
-  special: { name: "SPECIAL", count: 24, complexity: 8, layoutScale: 0.48, playArea: { shape: "ellipse", radiusX: 10.2, radiusZ: 6, floorY: 0.08 }, note: "Keep every cable on the plate.", patterns: ["cinquefoil", "birdnest", "figure8", "overhand", "helix", "coil"] },
+  special: { name: "SPECIAL", count: 24, complexity: 8, layoutScale: 0.48, playArea: { shape: "ellipse", radiusX: 11.2, radiusZ: 6.7, floorY: 0.12, wellRadiusRatio: 0.58, rimRadiusRatio: 0.92, rimY: 0.62, edgeY: 0.46 }, note: "Keep every cable off the table.", patterns: ["cinquefoil", "birdnest", "figure8", "overhand", "helix", "coil"] },
 });

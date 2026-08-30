@@ -1,4 +1,4 @@
-import { LEVELS } from "./levels.js";
+import { LEVELS } from "./levels.js?v=2";
 
 export const SCORE_STORAGE_KEY = "spaghetti-code:scores:v1";
 export const MAX_LOCAL_RANKING_ENTRIES = 5;
