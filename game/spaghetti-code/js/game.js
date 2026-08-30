@@ -1,13 +1,14 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { LEVEL_ORDER, LEVELS, WORLD, createCableDefinitions } from "./config.js";
-import { RopeWorld } from "./rope-physics.js?v=2";
+import { LEVEL_ORDER, LEVELS, SPECIAL_LEVEL_KEY, WORLD, createCableDefinitions } from "./config.js";
+import { RopeWorld } from "./rope-physics.js?v=3";
 import { readLocalRankings, saveLocalScore } from "./score-storage.js";
 import { SURFACE_THEMES, createSurfaceTexture } from "./surface-themes.js";
 
 const CONTACT_FREE_STABLE_MS = 650;
 const PROGRESS_STORAGE_KEY = "spaghetti-code:progress:v1";
 const DEFAULT_UNLOCKED_INDEX = LEVEL_ORDER.indexOf("hard");
+const SPECIAL_TRIGGER_COUNT = 8;
 const AUTHOR_SKIT_MESSAGES = Object.freeze({
   easy: "ハヤク コード カタヅケロ。セッショク シテイタラ アカンデ。",
   normal: "コード カタヅケル ノ タノシイダロ",
@@ -15,6 +16,7 @@ const AUTHOR_SKIT_MESSAGES = Object.freeze({
   extream: "ズポッ コレハ スパゲッティ コード",
   ultimate: "モウ ナニガ ナンダカ ワカラナイ ヨ",
   unknown: "ウワー ムジュウリョク デ コード カタヅケル ノ ユメミタイダ",
+  special: "サラ カラ ハミダシタラ ソク ゲームオーバー ヤデ。シンチョウニ ナ。",
 });
 
 class SoundDesign {
@@ -81,6 +83,7 @@ class SpaghettiGame {
     this.pauseScreen = document.querySelector("#pause-screen");
     this.retryScreen = document.querySelector("#retry-confirm-screen");
     this.clearScreen = document.querySelector("#clear-screen");
+    this.gameOverScreen = document.querySelector("#game-over-screen");
     this.helpScreen = document.querySelector("#help-screen");
     this.fatalMessage = document.querySelector("#fatal-message");
     this.levelKey = "easy";
@@ -93,6 +96,7 @@ class SpaghettiGame {
     this.retryOpener = null;
     this.debugMode = false;
     this.debugPressCount = 0;
+    this.specialTriggerPressCount = 0;
     this.countdownTimer = 0;
     this.countdownToken = 0;
     this.startTime = 0;
@@ -204,16 +208,86 @@ class SpaghettiGame {
     this.scene.add(this.tabletop);
 
     this.borderMaterial = new THREE.LineBasicMaterial({ color: 0x252925, transparent: true, opacity: 0.42 });
-    const border = new THREE.LineSegments(
+    this.worldBorder = new THREE.LineSegments(
       new THREE.EdgesGeometry(new THREE.BoxGeometry(WORLD.halfWidth * 2, 0.02, WORLD.halfDepth * 2)),
       this.borderMaterial,
     );
-    border.position.y = -0.01;
-    this.scene.add(border);
+    this.worldBorder.position.y = -0.01;
+    this.scene.add(this.worldBorder);
 
+    this.setupSpecialTable();
     this.setupCyberBackdrop();
     this.ropeWorld = new RopeWorld(this.scene);
     this.applySurfaceTheme(this.levelKey);
+  }
+
+  setupSpecialTable() {
+    const playArea = LEVELS[SPECIAL_LEVEL_KEY].playArea;
+    const plateRadiusX = playArea.radiusX;
+    const plateRadiusZ = playArea.radiusZ;
+    const wellRadiusX = plateRadiusX - 0.7;
+    const wellRadiusZ = plateRadiusZ - 0.7;
+    this.specialTable = new THREE.Group();
+    this.specialTable.visible = false;
+
+    const tabletop = new THREE.Mesh(
+      new THREE.BoxGeometry(WORLD.halfWidth * 2, 0.62, WORLD.halfDepth * 2),
+      this.floorMaterial,
+    );
+    tabletop.position.y = -0.31;
+    tabletop.castShadow = true;
+    tabletop.receiveShadow = true;
+    this.specialTable.add(tabletop);
+
+    const legMaterial = new THREE.MeshStandardMaterial({ color: 0x3f2417, roughness: 0.82 });
+    for (const x of [-WORLD.halfWidth + 1.55, WORLD.halfWidth - 1.55]) {
+      for (const z of [-WORLD.halfDepth + 1.35, WORLD.halfDepth - 1.35]) {
+        const leg = new THREE.Mesh(new THREE.BoxGeometry(0.9, 5.5, 0.9), legMaterial);
+        leg.position.set(x, -3.25, z);
+        leg.castShadow = true;
+        this.specialTable.add(leg);
+      }
+    }
+
+    const plateMaterial = new THREE.MeshPhysicalMaterial({
+      color: 0xf7f4e9,
+      roughness: 0.2,
+      metalness: 0,
+      clearcoat: 0.72,
+      clearcoatRoughness: 0.18,
+    });
+    const plate = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 0.16, 96), plateMaterial);
+    plate.scale.set(plateRadiusX, 1, plateRadiusZ);
+    plate.castShadow = true;
+    plate.receiveShadow = true;
+    this.specialTable.add(plate);
+
+    const plateWell = new THREE.Mesh(
+      new THREE.CircleGeometry(1, 96),
+      new THREE.MeshPhysicalMaterial({
+        color: 0xffffff,
+        roughness: 0.16,
+        clearcoat: 0.88,
+        clearcoatRoughness: 0.12,
+      }),
+    );
+    plateWell.rotation.x = -Math.PI / 2;
+    plateWell.position.y = playArea.floorY + 0.002;
+    plateWell.scale.set(wellRadiusX, wellRadiusZ, 1);
+    plateWell.receiveShadow = true;
+    this.specialTable.add(plateWell);
+
+    const rim = new THREE.Mesh(
+      new THREE.TorusGeometry(1, 0.035, 10, 128),
+      new THREE.MeshPhysicalMaterial({ color: 0xe1ddd0, roughness: 0.24, clearcoat: 0.78 }),
+    );
+    rim.rotation.x = Math.PI / 2;
+    rim.position.y = playArea.floorY + 0.055;
+    rim.scale.set(plateRadiusX - 0.38, plateRadiusZ - 0.38, 1);
+    rim.castShadow = true;
+    this.specialTable.add(rim);
+
+    this.scene.add(this.specialTable);
   }
 
   setupCyberBackdrop() {
@@ -266,6 +340,8 @@ class SpaghettiGame {
 
   applySurfaceTheme(levelKey) {
     const theme = SURFACE_THEMES[levelKey] ?? SURFACE_THEMES.easy;
+    const playArea = LEVELS[levelKey]?.playArea;
+    const isSpecial = levelKey === SPECIAL_LEVEL_KEY;
     this.shell.dataset.level = levelKey;
     this.scene.background.setHex(theme.background);
     this.scene.fog.color.setHex(theme.fog);
@@ -273,6 +349,10 @@ class SpaghettiGame {
     this.scene.fog.far = theme.fogFar ?? 110;
     this.renderer.toneMappingExposure = theme.exposure;
     this.ropeWorld?.setGravity(theme.gravityY ?? -15);
+    this.ropeWorld?.setFloorY(playArea?.floorY ?? WORLD.floorY);
+    this.tabletop.visible = !isSpecial;
+    this.worldBorder.visible = !isSpecial;
+    this.specialTable.visible = isSpecial;
     if (this.cyberBackdrop) this.cyberBackdrop.visible = levelKey === "unknown";
     if (!this.surfaceTextures.has(levelKey)) {
       this.surfaceTextures.set(levelKey, createSurfaceTexture(levelKey, this.renderer));
@@ -310,6 +390,7 @@ class SpaghettiGame {
     this.authorSkitMessage = document.querySelector("#author-skit-message");
     this.clearLevel = document.querySelector("#clear-level");
     this.clearTime = document.querySelector("#clear-time");
+    this.gameOverLevel = document.querySelector("#game-over-level");
     this.shareButton = document.querySelector("#share-button");
     this.nextLevelButton = document.querySelector("#next-level-button");
     this.debugIndicator = document.querySelector("#debug-indicator");
@@ -324,7 +405,10 @@ class SpaghettiGame {
     this.rankingList = document.querySelector("#ranking-list");
     this.rankingEmpty = document.querySelector("#ranking-empty");
     this.difficultyButtons = [...document.querySelectorAll(".difficulty-option")];
-    this.highestUnlockedIndex = this.readProgress();
+    this.specialTrigger = document.querySelector("#special-trigger");
+    const progress = this.readProgress();
+    this.highestUnlockedIndex = progress.highestUnlockedIndex;
+    this.unknownCleared = progress.unknownCleared;
     this.gameChromeElements = [
       this.canvas,
       document.querySelector(".game-hud-stack"),
@@ -354,6 +438,7 @@ class SpaghettiGame {
     this.difficultyButtons.forEach((button) => {
       button.addEventListener("click", () => this.showRanking(button.dataset.level));
     });
+    this.specialTrigger.addEventListener("click", () => this.activateSpecialTrigger());
     document.querySelector("#start-button").addEventListener("click", () => this.startGame(this.levelKey));
     document.querySelector("#ranking-back-button").addEventListener("click", () => this.showDifficultySelection());
     this.nextLevelButton.addEventListener("click", () => this.startNextLevel());
@@ -369,6 +454,8 @@ class SpaghettiGame {
     this.fullscreenButton.addEventListener("click", () => this.toggleFullscreen());
     document.querySelector("#retry-confirm-button").addEventListener("click", () => this.confirmRetry());
     document.querySelector("#retry-cancel-button").addEventListener("click", () => this.cancelRetry());
+    document.querySelector("#game-over-retry-button").addEventListener("click", () => this.startGame(SPECIAL_LEVEL_KEY, true));
+    document.querySelector("#game-over-menu-button").addEventListener("click", () => this.returnToMenu());
     this.clearScreen.addEventListener("cancel", (event) => event.preventDefault());
     this.pauseScreen.addEventListener("cancel", (event) => {
       event.preventDefault();
@@ -382,11 +469,11 @@ class SpaghettiGame {
       event.preventDefault();
       this.cancelRetry();
     });
+    this.gameOverScreen.addEventListener("cancel", (event) => event.preventDefault());
   }
 
   selectLevel(levelKey) {
-    const levelIndex = LEVEL_ORDER.indexOf(levelKey);
-    if (!LEVELS[levelKey] || !this.isLevelUnlocked(levelIndex)) return;
+    if (!this.canAccessLevel(levelKey)) return;
     this.levelKey = levelKey;
     this.difficultyButtons.forEach((button) => {
       const selected = button.dataset.level === levelKey;
@@ -409,8 +496,7 @@ class SpaghettiGame {
   }
 
   showRanking(levelKey) {
-    const levelIndex = LEVEL_ORDER.indexOf(levelKey);
-    if (!LEVELS[levelKey] || !this.isLevelUnlocked(levelIndex)) return;
+    if (!this.canAccessLevel(levelKey)) return;
     this.selectLevel(levelKey);
     this.renderRanking(levelKey);
     this.setMenuPhase("ranking");
@@ -421,7 +507,10 @@ class SpaghettiGame {
     this.setMenuPhase("difficulty");
     if (!focus) return;
     window.setTimeout(() => {
-      this.difficultyButtons.find((button) => button.dataset.level === this.levelKey)?.focus({ preventScroll: true });
+      const focusTarget = this.levelKey === SPECIAL_LEVEL_KEY
+        ? this.specialTrigger
+        : this.difficultyButtons.find((button) => button.dataset.level === this.levelKey);
+      focusTarget?.focus({ preventScroll: true });
     }, 0);
   }
 
@@ -449,16 +538,34 @@ class SpaghettiGame {
   }
 
   readProgress() {
+    let stored = null;
     try {
-      const stored = JSON.parse(localStorage.getItem(PROGRESS_STORAGE_KEY) ?? "null");
-      const storedIndex = LEVEL_ORDER.indexOf(stored?.highestUnlocked);
-      return THREE.MathUtils.clamp(
-        storedIndex >= DEFAULT_UNLOCKED_INDEX ? storedIndex : DEFAULT_UNLOCKED_INDEX,
-        DEFAULT_UNLOCKED_INDEX,
-        LEVEL_ORDER.length - 1,
-      );
+      stored = JSON.parse(localStorage.getItem(PROGRESS_STORAGE_KEY) ?? "null");
     } catch {
-      return DEFAULT_UNLOCKED_INDEX;
+      stored = null;
+    }
+    const storedIndex = LEVEL_ORDER.indexOf(stored?.highestUnlocked);
+    const unknownCleared = stored?.unknownCleared === true || readLocalRankings().unknown.length > 0;
+    return {
+      highestUnlockedIndex: unknownCleared
+        ? LEVEL_ORDER.length - 1
+        : THREE.MathUtils.clamp(
+          storedIndex >= DEFAULT_UNLOCKED_INDEX ? storedIndex : DEFAULT_UNLOCKED_INDEX,
+          DEFAULT_UNLOCKED_INDEX,
+          LEVEL_ORDER.length - 1,
+        ),
+      unknownCleared,
+    };
+  }
+
+  saveProgress() {
+    try {
+      localStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify({
+        highestUnlocked: LEVEL_ORDER[this.highestUnlockedIndex],
+        unknownCleared: this.unknownCleared,
+      }));
+    } catch {
+      // 保存できない環境でも、現在のセッション内では解禁状態を維持する。
     }
   }
 
@@ -476,10 +583,45 @@ class SpaghettiGame {
           : `${LEVELS[button.dataset.level].name}を選択`,
       );
     });
+    this.updateSpecialTrigger();
+  }
+
+  updateSpecialTrigger() {
+    const available = this.canAccessSpecial();
+    this.specialTrigger.disabled = !available;
+    this.specialTrigger.tabIndex = available ? 0 : -1;
+    this.specialTrigger.setAttribute("aria-hidden", String(!available));
+    if (available) this.specialTrigger.setAttribute("aria-label", "スパゲッティのロゴ");
+    else this.specialTrigger.removeAttribute("aria-label");
+    this.specialTrigger.classList.toggle("is-secret-ready", available);
+  }
+
+  activateSpecialTrigger() {
+    if (this.status !== "menu" || this.menuPhase !== "difficulty" || !this.canAccessSpecial()) return;
+    this.specialTriggerPressCount += 1;
+    this.specialTrigger.classList.remove("is-secret-tapped");
+    void this.specialTrigger.offsetWidth;
+    this.specialTrigger.classList.add("is-secret-tapped");
+    this.sound.enable();
+    this.sound.tone(120 + this.specialTriggerPressCount * 22, 0.055, 0.01, "triangle");
+    if (this.specialTriggerPressCount < SPECIAL_TRIGGER_COUNT) return;
+    this.specialTriggerPressCount = 0;
+    this.showToast("SPECIAL CASE FOUND");
+    this.showRanking(SPECIAL_LEVEL_KEY);
   }
 
   isLevelUnlocked(levelIndex) {
-    return this.debugMode || levelIndex <= this.highestUnlockedIndex;
+    return levelIndex >= 0 && (this.debugMode || levelIndex <= this.highestUnlockedIndex);
+  }
+
+  canAccessLevel(levelKey) {
+    if (!LEVELS[levelKey]) return false;
+    if (levelKey === SPECIAL_LEVEL_KEY) return this.canAccessSpecial();
+    return this.isLevelUnlocked(LEVEL_ORDER.indexOf(levelKey));
+  }
+
+  canAccessSpecial() {
+    return this.unknownCleared === true || this.debugMode;
   }
 
   activateDebugMode() {
@@ -498,22 +640,25 @@ class SpaghettiGame {
     const unlockedIndex = Math.max(this.highestUnlockedIndex, currentIndex + 1);
     if (unlockedIndex === this.highestUnlockedIndex) return;
     this.highestUnlockedIndex = unlockedIndex;
-    try {
-      localStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify({
-        highestUnlocked: LEVEL_ORDER[unlockedIndex],
-      }));
-    } catch {
-      // 保存できない環境でも、現在のセッション内では解禁状態を維持する。
-    }
+    this.saveProgress();
     this.updateProgressUi();
+  }
+
+  markUnknownCleared() {
+    if (this.levelKey !== "unknown" || this.unknownCleared) return;
+    this.unknownCleared = true;
+    this.saveProgress();
+    this.updateSpecialTrigger();
   }
 
   startGame(levelKey, reuseCase = false) {
     const level = LEVELS[levelKey];
     const levelIndex = LEVEL_ORDER.indexOf(levelKey);
-    if (!level || !this.isLevelUnlocked(levelIndex)) return;
+    const isSpecial = levelKey === SPECIAL_LEVEL_KEY;
+    if (!this.canAccessLevel(levelKey)) return;
     this.cancelCountdown();
     this.sound.enable();
+    this.specialTriggerPressCount = 0;
     this.levelKey = levelKey;
     this.applySurfaceTheme(levelKey);
     if (!reuseCase || this.activeSeed === null) {
@@ -522,7 +667,7 @@ class SpaghettiGame {
     }
     const sceneDefinition = createCableDefinitions(
       levelKey,
-      this.activeSeed + LEVEL_ORDER.indexOf(levelKey) * 100003,
+      this.activeSeed + (isSpecial ? LEVEL_ORDER.length : levelIndex) * 100003,
     );
     this.ropeWorld.load(sceneDefinition);
     this.status = "countdown";
@@ -539,6 +684,7 @@ class SpaghettiGame {
     this.closeModal(this.pauseScreen);
     this.closeModal(this.retryScreen);
     this.closeModal(this.clearScreen);
+    this.closeModal(this.gameOverScreen);
     this.closeModal(this.helpScreen);
     this.retryReturnStatus = null;
     this.retryOpener = null;
@@ -549,7 +695,9 @@ class SpaghettiGame {
     this.renderer.shadowMap.enabled = level.count <= 24;
     const isPortrait = window.innerWidth / window.innerHeight < 0.72;
     const crowdScale = Math.log2(level.count / 6);
-    if (isPortrait) {
+    if (isSpecial && isPortrait) {
+      this.camera.position.set(38, 34, 0);
+    } else if (isPortrait) {
       this.camera.position.set(0, 19 + crowdScale * 4.2, 27 + crowdScale * 7.2);
     } else {
       this.camera.position.set(0, 13 + crowdScale * 3.8, 15 + crowdScale * 5.8);
@@ -769,6 +917,8 @@ class SpaghettiGame {
     this.ropeWorld.release();
     this.endGrabUi();
     this.status = "menu";
+    if (this.levelKey === SPECIAL_LEVEL_KEY) this.levelKey = "unknown";
+    this.specialTriggerPressCount = 0;
     this.setHudActionsEnabled(false);
     this.resumeStatus = null;
     this.helpReturnStatus = null;
@@ -777,12 +927,13 @@ class SpaghettiGame {
     this.closeModal(this.pauseScreen);
     this.closeModal(this.retryScreen);
     this.closeModal(this.clearScreen);
+    this.closeModal(this.gameOverScreen);
     this.closeModal(this.helpScreen);
     this.showDifficultySelection(false);
     this.openModal(this.startScreen);
     this.setGameChromeInert(true);
     this.updateProgressUi();
-    this.applySurfaceTheme(this.levelKey);
+    this.selectLevel(this.levelKey);
     window.setTimeout(() => {
       this.difficultyButtons.find((button) => button.dataset.level === this.levelKey)?.focus({ preventScroll: true });
     }, 50);
@@ -1045,6 +1196,50 @@ class SpaghettiGame {
     this.controls.enabled = true;
   }
 
+  specialBoundaryMetrics() {
+    const playArea = LEVELS[SPECIAL_LEVEL_KEY].playArea;
+    let maximumRatio = 0;
+    let outsideCableId = null;
+    for (const rope of this.ropeWorld.ropes) {
+      for (const particle of rope.particles) {
+        const distance = Math.hypot(particle.position.x, particle.position.z);
+        const directionX = distance > 0.0001 ? particle.position.x / distance : 1;
+        const directionZ = distance > 0.0001 ? particle.position.z / distance : 0;
+        const boundaryDistance = 1 / Math.sqrt(
+          (directionX / playArea.radiusX) ** 2 + (directionZ / playArea.radiusZ) ** 2,
+        );
+        const ratio = (distance + particle.boundaryRadius) / boundaryDistance;
+        if (ratio <= maximumRatio) continue;
+        maximumRatio = ratio;
+        outsideCableId = ratio > 1 ? rope.cableId : null;
+      }
+    }
+    return { outside: maximumRatio > 1, maximumRatio, outsideCableId };
+  }
+
+  checkSpecialFailure() {
+    if (this.levelKey !== SPECIAL_LEVEL_KEY) return false;
+    const result = this.specialBoundaryMetrics();
+    if (!result.outside) return false;
+    this.failSpecialLevel();
+    return true;
+  }
+
+  failSpecialLevel() {
+    if (this.status !== "playing" || this.levelKey !== SPECIAL_LEVEL_KEY) return;
+    this.status = "failed";
+    this.ropeWorld.release();
+    this.endGrabUi();
+    this.controls.enabled = false;
+    this.setHudActionsEnabled(false);
+    this.gameOverLevel.textContent = `${LEVELS[SPECIAL_LEVEL_KEY].name} / ${LEVELS[SPECIAL_LEVEL_KEY].count} CABLES`;
+    this.openModal(this.gameOverScreen);
+    this.setGameChromeInert(true);
+    window.setTimeout(() => {
+      document.querySelector("#game-over-retry-button")?.focus({ preventScroll: true });
+    }, 50);
+  }
+
   checkClear(now) {
     if (this.ropeWorld.held || now - this.lastMetricCheck < 220) return;
     this.lastMetricCheck = now;
@@ -1064,6 +1259,7 @@ class SpaghettiGame {
     this.ropeWorld.release();
     this.endGrabUi();
     this.sound.clear();
+    this.markUnknownCleared();
     this.unlockNextLevel();
     this.setHudActionsEnabled(false);
     const level = LEVELS[this.levelKey];
@@ -1081,7 +1277,8 @@ class SpaghettiGame {
     shareUrl.searchParams.set("text", `SPAGHETTI CODE / ${level.name} を ${formattedTime} でほどいた！\n#spaghetti_code`);
     shareUrl.searchParams.set("url", window.location.href);
     this.shareButton.href = shareUrl.href;
-    const nextLevelKey = LEVEL_ORDER[LEVEL_ORDER.indexOf(this.levelKey) + 1];
+    const currentLevelIndex = LEVEL_ORDER.indexOf(this.levelKey);
+    const nextLevelKey = currentLevelIndex >= 0 ? LEVEL_ORDER[currentLevelIndex + 1] : null;
     this.nextLevelButton.hidden = !nextLevelKey;
     this.openModal(this.clearScreen);
     this.setGameChromeInert(true);
@@ -1092,6 +1289,7 @@ class SpaghettiGame {
   startNextLevel() {
     if (this.status !== "cleared") return;
     const currentIndex = LEVEL_ORDER.indexOf(this.levelKey);
+    if (currentIndex < 0) return;
     const nextLevelKey = LEVEL_ORDER[currentIndex + 1];
     if (!nextLevelKey || !this.isLevelUnlocked(currentIndex + 1)) return;
     this.startGame(nextLevelKey);
@@ -1171,7 +1369,7 @@ class SpaghettiGame {
     if (this.status === "playing") {
       this.ropeWorld.step(dt);
       this.hudTime.textContent = this.formatTime(now - this.startTime);
-      this.checkClear(now);
+      if (!this.checkSpecialFailure()) this.checkClear(now);
     }
     this.renderer.render(this.scene, this.camera);
   }

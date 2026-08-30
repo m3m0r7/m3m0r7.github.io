@@ -55,6 +55,8 @@ export class Rope {
     this.pattern = definition.pattern;
     this.radius = definition.radius;
     this.weight = definition.weight;
+    this.dragContactGrip = definition.dragContactGrip;
+    this.dragPileFollow = definition.dragPileFollow;
     this.stiffness = definition.stiffness;
     this.bendStiffness = definition.bendStiffness;
     this.externalEnds = definition.externalEnds;
@@ -63,6 +65,7 @@ export class Rope {
       position: point.clone(),
       previous: point.clone(),
       radius: Math.max(definition.radius * 1.45, 0.15),
+      boundaryRadius: definition.radius,
       floorRadius: definition.radius,
       globalId: globalIdStart + index,
       ropeId: definition.id,
@@ -120,9 +123,11 @@ export class Rope {
       const visual = createConnectorVisual(kind, definition.radius, definition.color);
       if (!visual) return null;
       const particleIndex = endpointIndex === 0 ? 0 : this.particles.length - 1;
-      this.particles[particleIndex].radius = Math.max(
-        this.particles[particleIndex].radius,
-        connectorCollisionRadius(kind, this.particles[particleIndex].radius),
+      const connectorRadius = connectorCollisionRadius(kind, definition.radius);
+      this.particles[particleIndex].radius = Math.max(this.particles[particleIndex].radius, connectorRadius);
+      this.particles[particleIndex].boundaryRadius = Math.max(
+        this.particles[particleIndex].boundaryRadius,
+        connectorRadius,
       );
       for (const mesh of visual.meshes) {
         mesh.userData.rope = this;
@@ -136,6 +141,7 @@ export class Rope {
       const visual = createAccessoryVisual(accessory.kind, definition.radius);
       const particleIndex = Math.round(accessory.t * (this.particles.length - 1));
       this.particles[particleIndex].radius = Math.max(this.particles[particleIndex].radius, 0.25);
+      this.particles[particleIndex].boundaryRadius = Math.max(this.particles[particleIndex].boundaryRadius, 0.25);
       for (const mesh of visual.meshes) {
         mesh.userData.rope = this;
         mesh.userData.particleIndex = particleIndex;
@@ -301,10 +307,12 @@ export class RopeWorld {
     this.pickables = [];
     this.held = null;
     this.gravity = new THREE.Vector3(0, -15, 0);
+    this.floorY = WORLD.floorY;
     this.hashCellSize = 0.52;
     this.lastContactCount = 0;
     this.lastInterCableContactCount = 0;
     this.cableContactLoads = new Map();
+    this.cableContactLinks = new Map();
     this.visualFrame = 0;
     this.sleeping = false;
     this.settlingAfterRelease = false;
@@ -313,6 +321,10 @@ export class RopeWorld {
 
   setGravity(gravityY) {
     this.gravity.set(0, gravityY, 0);
+  }
+
+  setFloorY(floorY) {
+    this.floorY = floorY;
   }
 
   load(sceneDefinition) {
@@ -349,6 +361,7 @@ export class RopeWorld {
     this.junctions = [];
     this.pickables = [];
     this.cableContactLoads.clear();
+    this.cableContactLinks.clear();
     this.sleeping = true;
     this.settlingAfterRelease = false;
     this.idleTime = 0;
@@ -413,7 +426,7 @@ export class RopeWorld {
     for (const rope of this.ropes) {
       const floorRetention = THREE.MathUtils.clamp(0.56 / Math.sqrt(0.88 + rope.weight * 0.12), 0.46, 0.56);
       for (const particle of rope.particles) {
-        const floor = WORLD.floorY + rope.radius;
+        const floor = this.floorY + rope.radius;
         if (particle.position.y < floor) {
           particle.position.y = floor;
           particle.previous.y = floor;
@@ -451,6 +464,30 @@ export class RopeWorld {
     const delta = this.held.target.clone().sub(this.held.particle.position);
     if (delta.length() > maxStep) delta.setLength(maxStep);
     this.held.particle.position.add(delta);
+    this.translateConnectedPile(delta);
+  }
+
+  translateConnectedPile(delta) {
+    const follow = this.held?.rope.dragPileFollow ?? 0;
+    if (follow <= 0 || delta.lengthSq() < 0.00000001) return;
+    const heldCableId = this.held.rope.cableId;
+    const connectedCableIds = new Set([heldCableId]);
+    const pendingCableIds = [heldCableId];
+    while (pendingCableIds.length) {
+      const cableId = pendingCableIds.pop();
+      for (const linkedCableId of this.cableContactLinks.get(cableId) ?? []) {
+        if (connectedCableIds.has(linkedCableId)) continue;
+        connectedCableIds.add(linkedCableId);
+        pendingCableIds.push(linkedCableId);
+      }
+    }
+    for (const rope of this.ropes) {
+      if (rope.cableId === heldCableId || !connectedCableIds.has(rope.cableId)) continue;
+      for (const particle of rope.particles) {
+        particle.position.addScaledVector(delta, follow);
+        particle.previous.addScaledVector(delta, follow);
+      }
+    }
   }
 
   solveJunctions() {
@@ -471,7 +508,7 @@ export class RopeWorld {
         center.multiplyScalar(1 / junction.particles.length);
         previousCenter.multiplyScalar(1 / junction.particles.length);
       }
-      center.y = Math.max(center.y, ...junction.particles.map((particle) => WORLD.floorY + particle.floorRadius));
+      center.y = Math.max(center.y, ...junction.particles.map((particle) => this.floorY + particle.floorRadius));
       for (const particle of junction.particles) {
         particle.position.copy(center);
         particle.previous.copy(previousCenter);
@@ -509,6 +546,7 @@ export class RopeWorld {
     let contacts = 0;
     let interCableContacts = 0;
     const cableContactLoads = new Map();
+    const cableContactLinks = new Map();
 
     for (const particle of particles) {
       for (const [ox, oy, oz] of HASH_NEIGHBORS) {
@@ -547,7 +585,7 @@ export class RopeWorld {
             && particle.cableId !== other.cableId
             && (particle.cableId === this.held.rope.cableId || other.cableId === this.held.rope.cableId)
           );
-          const grip = activeCableContact ? 0.82 : particleHeld || otherHeld ? 0.6 : 0.2;
+          const grip = activeCableContact ? this.held.rope.dragContactGrip : particleHeld || otherHeld ? 0.6 : 0.2;
           particle.position.addScaledVector(tangentVelocity, grip * particleShare);
           other.position.addScaledVector(tangentVelocity, -grip * otherShare);
           const friction = THREE.MathUtils.clamp(0.46 + correction / minimum * 0.7, 0.46, 0.76);
@@ -562,6 +600,10 @@ export class RopeWorld {
             interCableContacts += 1;
             cableContactLoads.set(particle.cableId, (cableContactLoads.get(particle.cableId) ?? 0) + 1);
             cableContactLoads.set(other.cableId, (cableContactLoads.get(other.cableId) ?? 0) + 1);
+            if (!cableContactLinks.has(particle.cableId)) cableContactLinks.set(particle.cableId, new Set());
+            if (!cableContactLinks.has(other.cableId)) cableContactLinks.set(other.cableId, new Set());
+            cableContactLinks.get(particle.cableId).add(other.cableId);
+            cableContactLinks.get(other.cableId).add(particle.cableId);
           }
         }
       }
@@ -569,6 +611,7 @@ export class RopeWorld {
     this.lastContactCount = contacts;
     this.lastInterCableContactCount = interCableContacts;
     this.cableContactLoads = cableContactLoads;
+    this.cableContactLinks = cableContactLinks;
   }
 
   resetMotion(anchorXZ = null) {

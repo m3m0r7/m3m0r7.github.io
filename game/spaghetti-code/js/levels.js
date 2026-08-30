@@ -1,4 +1,5 @@
 export const LEVEL_ORDER = ["easy", "normal", "hard", "extream", "ultimate", "unknown"];
+export const SPECIAL_LEVEL_KEY = "special";
 
 export const LEVELS = Object.freeze({
   easy: { name: "EASY", count: 3, complexity: 2, note: "Three core products. Learn the pull.", patterns: ["figure8", "overhand", "birdnest", "helix"] },
@@ -6,5 +7,6 @@ export const LEVELS = Object.freeze({
   hard: { name: "HARD", count: 9, complexity: 4, note: "Nine adapters and branches tighten the center.", patterns: ["cinquefoil", "figure8", "overhand", "birdnest", "helix", "coil"] },
   extream: { name: "EXTREAM", count: 12, complexity: 5, note: "Twelve products. Friction compounds quickly.", patterns: ["cinquefoil", "birdnest", "figure8", "overhand", "helix", "coil"] },
   ultimate: { name: "ULTIMATE", count: 15, complexity: 6, note: "Fifteen products. Every pull moves the pile.", patterns: ["cinquefoil", "birdnest", "figure8", "overhand", "helix", "coil"] },
-  unknown: { name: "UNKNOWN", count: 18, complexity: 7, note: "Eighteen products drift in zero gravity.", patterns: ["cinquefoil", "birdnest", "figure8", "overhand", "helix", "coil"] },
+  unknown: { name: "UNKNOWN", count: 18, complexity: 7, physicalWeightScale: 1 / 81, dragContactGrip: 0.98, dragPileFollow: 0.12, note: "Eighteen products drift in zero gravity.", patterns: ["cinquefoil", "birdnest", "figure8", "overhand", "helix", "coil"] },
+  special: { name: "SPECIAL", count: 24, complexity: 8, layoutScale: 0.48, playArea: { shape: "ellipse", radiusX: 10.2, radiusZ: 6, floorY: 0.08 }, note: "Keep every cable on the plate.", patterns: ["cinquefoil", "birdnest", "figure8", "overhand", "helix", "coil"] },
 });

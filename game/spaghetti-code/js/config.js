@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { LEVEL_ORDER, LEVELS } from "./levels.js";
 
-export { LEVEL_ORDER, LEVELS } from "./levels.js";
+export { LEVEL_ORDER, LEVELS, SPECIAL_LEVEL_KEY } from "./levels.js";
 
 export const WORLD = Object.freeze({ floorY: 0, halfWidth: 15, halfDepth: 9.5, maxHeight: 8 });
 
@@ -177,6 +177,8 @@ function createMainStrand(cableId, strandId, level, typeKey, rng) {
     const centerWeight = Math.sin(Math.PI * t);
     point.applyAxisAngle(new THREE.Vector3(0, 1, 0), fanRotation);
     point.y += Math.sin(t * Math.PI * 2 * (2.4 + level.complexity * 0.2) + verticalPhase) * 0.22 * centerWeight;
+    point.x *= level.layoutScale ?? 1;
+    point.z *= level.layoutScale ?? 1;
   }
 
   sourceCurve = new THREE.CatmullRomCurve3(controlPoints, false, "centripetal", 0.4);
@@ -200,7 +202,9 @@ function createMainStrand(cableId, strandId, level, typeKey, rng) {
     stiffness: 0.8 + rng() * 0.13,
     bendStiffness: 0.065 + rng() * 0.1,
     roughness: 0.24 + rng() * 0.18,
-    weight: type.weightScale * (0.94 + rng() * 0.16),
+    weight: type.weightScale * (level.physicalWeightScale ?? 1) * (0.94 + rng() * 0.16),
+    dragContactGrip: level.dragContactGrip ?? 0.82,
+    dragPileFollow: level.dragPileFollow ?? 0,
     connectors: type.ends,
     externalEnds: type.branched ? [true, false] : [true, true],
     accessories: type.accessory ? [{ kind: type.accessory, t: 0.52 }] : [],

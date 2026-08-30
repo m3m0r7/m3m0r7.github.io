@@ -52,6 +52,16 @@ export const SURFACE_THEMES = Object.freeze({
     exposure: 1.08,
     gravityY: 0,
   },
+  special: {
+    name: "木製テーブルの皿",
+    background: 0x322117,
+    fog: 0x322117,
+    fogNear: 34,
+    fogFar: 95,
+    roughness: 0.68,
+    metalness: 0,
+    exposure: 1.08,
+  },
 });
 
 function createRandom(seed) {
@@ -208,6 +218,33 @@ function drawWood() {
   return surface;
 }
 
+function drawDiningTable() {
+  const { surface, context } = createSurface();
+  const random = createRandom(0x73706563);
+  const gradient = context.createLinearGradient(0, 0, surface.width, surface.height);
+  gradient.addColorStop(0, "#8e5b35");
+  gradient.addColorStop(0.45, "#6f3f24");
+  gradient.addColorStop(1, "#4c2a19");
+  context.fillStyle = gradient;
+  context.fillRect(0, 0, surface.width, surface.height);
+
+  for (let grain = 0; grain < 72; grain += 1) {
+    const y = random() * surface.height;
+    const bend = (random() - 0.5) * 42;
+    context.strokeStyle = `rgb(43 20 10 / ${0.08 + random() * 0.19})`;
+    context.lineWidth = 0.6 + random() * 2.2;
+    context.beginPath();
+    context.moveTo(-30, y);
+    context.bezierCurveTo(190, y + bend, 520, y - bend, surface.width + 30, y + bend * 0.35);
+    context.stroke();
+  }
+
+  context.strokeStyle = "rgb(255 224 181 / 14%)";
+  context.lineWidth = 2;
+  context.strokeRect(7, 7, surface.width - 14, surface.height - 14);
+  return surface;
+}
+
 function drawMarble() {
   const { surface, context } = createSurface();
   const random = createRandom(0x6d617262);
@@ -340,6 +377,7 @@ const DRAWERS = {
   extream: drawMarble,
   ultimate: drawServerFloor,
   unknown: drawUnknownFloor,
+  special: drawDiningTable,
 };
 
 export function createSurfaceTexture(levelKey, renderer) {

@@ -1,10 +1,11 @@
-import { LEVEL_ORDER, LEVELS } from "./levels.js";
+import { LEVELS } from "./levels.js";
 
 export const SCORE_STORAGE_KEY = "spaghetti-code:scores:v1";
 export const MAX_LOCAL_RANKING_ENTRIES = 5;
+const SCORE_LEVEL_KEYS = Object.freeze(Object.keys(LEVELS));
 
 function createEmptyRankings() {
-  return Object.fromEntries(LEVEL_ORDER.map((levelKey) => [levelKey, []]));
+  return Object.fromEntries(SCORE_LEVEL_KEYS.map((levelKey) => [levelKey, []]));
 }
 
 function normalizeCompletedAt(value) {
@@ -56,7 +57,7 @@ export function normalizeScoreStore(storedValue) {
     storedValue.forEach((record) => collectRecord(rankings, record));
   } else {
     const groupedScores = storedValue.byDifficulty ?? storedValue;
-    LEVEL_ORDER.forEach((levelKey) => {
+    SCORE_LEVEL_KEYS.forEach((levelKey) => {
       if (!Array.isArray(groupedScores[levelKey])) return;
       groupedScores[levelKey].forEach((record) => collectRecord(rankings, record, levelKey));
     });
@@ -67,7 +68,7 @@ export function normalizeScoreStore(storedValue) {
     });
   }
 
-  LEVEL_ORDER.forEach((levelKey) => {
+  SCORE_LEVEL_KEYS.forEach((levelKey) => {
     rankings[levelKey] = sortAndLimit(rankings[levelKey]);
   });
   return rankings;

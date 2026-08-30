@@ -107,6 +107,12 @@ button:disabled {
   --theme-title: var(--white);
 }
 
+.game-shell[data-level="special"] {
+  --theme-bg: #322117;
+  --theme-glow: #a86c3c;
+  --theme-title: var(--white);
+}
+
 .game-shell,
 #game-canvas {
   position: fixed;
@@ -792,6 +798,10 @@ button:disabled {
   stroke: #111523;
 }
 
+.game-shell[data-level="special"] .scene-vignette {
+  box-shadow: inset 0 0 13rem rgb(25 10 3 / 58%);
+}
+
 .menu-shell {
   position: relative;
   z-index: 3;
@@ -907,10 +917,44 @@ button:disabled {
 }
 
 .spaghetti-mark {
+  display: block;
   width: 100%;
   max-height: min(38svh, 19rem);
+  padding: 0;
+  border: 0;
   margin: clamp(-1.25rem, -1.7vw, -0.4rem) auto clamp(-0.85rem, -1.2vw, -0.25rem);
+  appearance: none;
+  background: transparent;
+  color: inherit;
+  cursor: default;
   filter: drop-shadow(0 1.2rem 1.1rem rgb(0 0 0 / 14%));
+  opacity: 1;
+}
+
+.spaghetti-mark.is-secret-ready {
+  cursor: pointer;
+}
+
+.spaghetti-mark:disabled {
+  cursor: default;
+}
+
+.spaghetti-mark.is-secret-tapped svg {
+  animation: secret-logo-tap 180ms ease-out;
+}
+
+.spaghetti-mark.is-secret-ready:focus-visible svg {
+  transform: scale(1.035);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .spaghetti-mark.is-secret-ready:hover svg {
+    transform: scale(1.035);
+  }
+}
+
+@keyframes secret-logo-tap {
+  45% { transform: scale(0.985) rotate(-0.35deg); }
 }
 
 .spaghetti-mark svg {
@@ -919,6 +963,8 @@ button:disabled {
   height: 100%;
   max-height: min(38svh, 19rem);
   overflow: visible;
+  transform-origin: center;
+  transition: transform 180ms ease-out;
 }
 
 .plate-shadow {
@@ -1672,7 +1718,8 @@ button:disabled {
 
 .pause-dialog::backdrop,
 .help-dialog::backdrop,
-.retry-confirm-dialog::backdrop {
+.retry-confirm-dialog::backdrop,
+.game-over-dialog::backdrop {
   background: rgb(9 11 9 / 72%);
   backdrop-filter: blur(2.2rem) brightness(0.35);
 }
@@ -1680,7 +1727,8 @@ button:disabled {
 .clear-shell,
 .pause-shell,
 .help-shell,
-.retry-confirm-shell {
+.retry-confirm-shell,
+.game-over-shell {
   display: grid;
   padding: clamp(1.5rem, 6vw, 2.8rem);
   background: var(--white-pure);
@@ -1758,13 +1806,15 @@ button:disabled {
 
 .clear-actions,
 .pause-actions,
-.retry-confirm-actions {
+.retry-confirm-actions,
+.game-over-actions {
   display: grid;
   gap: 0.55rem;
 }
 
 .pause-actions,
-.retry-confirm-actions {
+.retry-confirm-actions,
+.game-over-actions {
   margin-top: clamp(1.5rem, 5vw, 2.4rem);
 }
 
@@ -1773,6 +1823,18 @@ button:disabled {
   color: #414642;
   font-size: 0.78rem;
   font-weight: 600;
+}
+
+.game-over-dialog h2 {
+  color: #a51d18;
+  font-size: clamp(2.6rem, 9vw, 4.4rem);
+}
+
+.game-over-description {
+  margin: 1.25rem 0 0;
+  color: #414642;
+  font-size: 0.78rem;
+  font-weight: 700;
 }
 
 .help-content {
