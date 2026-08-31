@@ -1596,7 +1596,7 @@ class ShredderGame {
         return false;
       }
       feed.combinedLoad = this.getActivePaperLoad();
-      if (feed.willJam || feed.combinedLoad > LEVELS[this.levelKey].feedLimit + 0.001) {
+      if (feed.willJam || feed.combinedLoad > LEVELS[this.levelKey].jamLimit + 0.001) {
         if (!feed.jamReason) feed.jamReason = "THICKNESS / ANGLE";
         this.triggerJam(feed);
         return true;
@@ -1730,7 +1730,7 @@ class ShredderGame {
     if (this.activeFeeds.length > 0) {
       const combinedLoad = this.getActivePaperLoad();
       const preparationJam = this.activeFeeds.find((feed) => feed.willJam);
-      if (preparationJam || combinedLoad > LEVELS[this.levelKey].feedLimit + 0.001) {
+      if (preparationJam || combinedLoad > LEVELS[this.levelKey].jamLimit + 0.001) {
         const jamFeed = preparationJam ?? this.activeFeeds[0];
         jamFeed.combinedLoad = combinedLoad;
         if (!jamFeed.jamReason) jamFeed.jamReason = "THICKNESS / ANGLE";
@@ -1874,7 +1874,7 @@ class ShredderGame {
     if (this.activeFeeds.length > 0 || this.activeForeignFeed) {
       const combinedLoad = this.getActivePaperLoad();
       const preparationJam = this.activeFeeds.find((feed) => feed.willJam);
-      if (preparationJam || combinedLoad > LEVELS[this.levelKey].feedLimit + 0.001) {
+      if (preparationJam || combinedLoad > LEVELS[this.levelKey].jamLimit + 0.001) {
         const jamFeed = preparationJam ?? this.activeFeeds[0];
         jamFeed.combinedLoad = combinedLoad;
         if (!jamFeed.jamReason) jamFeed.jamReason = "THICKNESS / ANGLE";
