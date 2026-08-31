@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#e8f5fb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="オフィスデスクに山積みの書類を裁断し、散らかった文房具を分別して素早く片づける3Dタイムアタックゲーム。">
+  <title>THE SHREDDER</title>
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&amp;family=Noto+Sans+JP:wght@400;500;600;700;800;900&amp;family=Oxanium:wght@500;600;700;800&amp;family=Share+Tech+Mono&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css">
+  <link rel="stylesheet" href="./css/game.css?v=17">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.167.1/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.167.1/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <main class="game-shell" id="game-shell" data-level="easy">
+    <canvas
+      id="game-canvas"
+      aria-label="オフィスデスクの上に、家庭用シュレッダー、山積みの処分書類、散らかった文房具がある3Dゲーム画面"
+      aria-describedby="keyboard-instructions"
+      tabindex="0"
+    ></canvas>
+    <p class="sr-only" id="keyboard-instructions">
+      書類をドラッグし、投入口の上から下向きに差し込みます。掴んだ位置と紙の角度は自動補正されず、斜めにすると投入時の厚みが増えます。途中で離した紙は柔らかさに応じてひらひらとデスクへ落ちます。ドラッグ中はマウスホイールまたはQキーとEキーで回転できます。Shiftキーで複数枚を持てます。本と辞書はXキーを複数回押して投入可能な書類へ分け、ホッチキス書類はXキーで針を外せます。未処理のまま投入すると必ず詰まります。ペン、定規、ハンコ、ホッチキス本体、穴あけパンチはゴミ箱へ直接運ぶのが正解ですが、投入口へ上から差し込むこともでき、少し噛み込んだところで異物詰まりになります。左右キーで書類を選び、スペースキーで束へ追加、Enterキーで投入できます。詰まりは本体の赤い逆回転ボタン、裁断くずは前面ケースと机上のゴミ箱を直接操作します。平常時は速く冷えますが、シュレッダー温度が100%になると35%までゆっくり冷却して再開します。Escapeキーでポーズします。
+    </p>
+
+    <div class="scene-vignette" aria-hidden="true"></div>
+    <div class="scene-grain" aria-hidden="true"></div>
+
+    <div class="game-hud-stack" id="game-hud-stack">
+      <aside class="game-hud" aria-label="プレイ状況" aria-live="polite">
+        <p class="hud-case">
+          <span>CASE</span>
+          <strong id="hud-level">EASY</strong>
+          <b id="hud-remaining">34 LEFT</b>
+        </p>
+        <div class="hud-time-panel">
+          <span>TIME</span>
+          <p id="hud-time">00:00:00.00</p>
+        </div>
+        <div class="hud-meters">
+          <section id="bundle-debug" aria-label="選択中の束と投入時の厚み" hidden>
+            <span><b>BUNDLE / THICKNESS</b><output id="hud-bundle-count">0 / 0.0 EQ</output></span>
+            <div class="meter-track"><i id="bundle-meter"></i></div>
+          </section>
+          <section aria-label="ゴミ箱容量">
+            <span><b>BIN</b><output id="hud-bin-label">0 / 20</output></span>
+            <div class="meter-track bin-track"><i id="bin-meter"></i></div>
+          </section>
+          <section class="hud-thermal" aria-label="シュレッダー温度" aria-live="off">
+            <span><b>シュレッダー温度</b><output id="machine-heat">0%</output></span>
+            <div class="thermal-track"><i id="heat-meter"></i></div>
+          </section>
+        </div>
+      </aside>
+
+      <nav class="hud-actions" aria-label="ゲーム操作">
+        <button class="hud-action" id="hud-help-button" type="button" aria-label="ヘルプ" disabled>
+          <span aria-hidden="true"><i class="fa-solid fa-circle-question"></i></span><b>ヘルプ</b>
+        </button>
+        <button class="hud-action" id="hud-retry-button" type="button" aria-label="リトライ" disabled>
+          <span aria-hidden="true"><i class="fa-solid fa-arrow-rotate-right"></i></span><b>リトライ</b>
+        </button>
+        <button class="hud-action" id="hud-pause-button" type="button" aria-label="ポーズ" disabled>
+          <span aria-hidden="true"><i class="fa-solid fa-pause"></i></span><b>ポーズ</b>
+        </button>
+        <button class="hud-action" id="hud-fullscreen-button" type="button" aria-label="全画面" aria-pressed="false" disabled>
+          <span aria-hidden="true"><i class="fa-solid fa-expand"></i></span><b>全画面</b>
+        </button>
+      </nav>
+    </div>
+
+    <div class="sr-only" aria-live="polite">
+      <b id="machine-status">READY</b>
+      <span id="machine-instruction">紙を入口の上から差し込む</span>
+    </div>
+
+    <button class="prep-action" id="prep-action" type="button" hidden>
+      <i class="fa-solid fa-scissors" aria-hidden="true"></i>
+      <span>書類を前処理する</span>
+      <small>0 / 1 — X キー</small>
+    </button>
+
+    <section class="controls-card" aria-labelledby="controls-title">
+      <h2 id="controls-title">HOW TO PLAY</h2>
+      <ul>
+        <li><kbd><i class="fa-solid fa-computer-mouse"></i></kbd><span><b>INSERT</b><small>上から</small></span></li>
+        <li><kbd>SHIFT</kbd><span><b>MULTI</b><small>まとめる</small></span></li>
+        <li><kbd>Q E</kbd><span><b>ROTATE</b><small>回す</small></span></li>
+        <li><kbd>X</kbd><span><b>PREP</b><small>破る・針</small></span></li>
+      </ul>
+    </section>
+
+    <div class="selection-readout" id="selection-readout" aria-hidden="true">
+      <i></i><span id="selection-label">書類</span><b id="selection-count">1</b>
+    </div>
+
+    <div class="feed-guide" id="feed-guide" aria-hidden="true">
+      <span id="feed-guide-label">MOVE ABOVE SLOT</span><i></i>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <div class="manager-skit" id="manager-skit" role="status" aria-live="polite" aria-atomic="true" aria-hidden="true">
+      <div class="manager-portrait" aria-hidden="true">
+        <img src="../spaghetti-code/assets/aa.me.x2.svg" alt="">
+      </div>
+      <div class="manager-dialogue">
+        <span>総務部長 / GENERAL AFFAIRS MANAGER</span>
+        <p id="manager-line">コラッ！！</p>
+        <small id="manager-hint">ヒントを確認してください。</small>
+      </div>
+    </div>
+
+    <div class="waste-marker" id="waste-marker" aria-hidden="true">
+      <i class="fa-solid fa-trash-can"></i><span><b>ゴミ箱</b><small>WASTE</small></span>
+    </div>
+
+    <div class="countdown-overlay" id="countdown-overlay" aria-live="assertive" aria-atomic="true" hidden>
+      <p id="countdown-label">3</p>
+    </div>
+
+    <section class="menu-layer is-visible" id="start-screen" role="dialog" aria-modal="true" aria-labelledby="start-title">
+      <div class="menu-pattern" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="menu-shell">
+        <header class="menu-heading">
+          <div class="menu-brand">
+            <h1 id="start-title"><span>THE</span><b>SHREDDER</b></h1>
+          </div>
+        </header>
+
+        <div class="menu-grid">
+          <section class="mascot-panel" id="mascot-panel" aria-labelledby="mascot-name">
+            <span class="panel-code">OFFICE PARTNER / SRD-01</span>
+            <button class="shredder-kun" id="special-trigger" type="button" aria-label="シュレッダーくん" disabled>
+              <span class="mascot-speech" id="mascot-speech" hidden></span>
+              <svg viewBox="0 0 360 420" role="img" aria-labelledby="shredder-kun-title">
+                <title id="shredder-kun-title">家庭用シュレッダーをモチーフにしたシュレッダーくん</title>
+                <defs>
+                  <linearGradient id="kun-body" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#fbfdff"/>
+                    <stop offset="1" stop-color="#cfe7f2"/>
+                  </linearGradient>
+                  <linearGradient id="kun-bin" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#8dc4da" stop-opacity=".82"/>
+                    <stop offset="1" stop-color="#387594" stop-opacity=".94"/>
+                  </linearGradient>
+                  <filter id="kun-shadow" x="-30%" y="-30%" width="160%" height="180%">
+                    <feDropShadow dx="0" dy="18" stdDeviation="14" flood-color="#285a72" flood-opacity=".22"/>
+                  </filter>
+                </defs>
+                <ellipse class="kun-shadow" cx="180" cy="382" rx="118" ry="22"/>
+                <g class="kun-paper">
+                  <path d="M142 37h76v96h-76z"/>
+                  <path d="M151 48h40M151 61h51M151 74h44M151 87h53"/>
+                  <circle cx="191" cy="105" r="12"/>
+                  <text x="191" y="111" text-anchor="middle">秘</text>
+                </g>
+                <g class="kun-arm kun-arm-left"><path d="M75 210c-35 9-48 31-43 60"/><circle cx="32" cy="276" r="13"/></g>
+                <g class="kun-arm kun-arm-right"><path d="M285 210c35 9 48 31 43 60"/><circle cx="328" cy="276" r="13"/></g>
+                <g class="kun-machine" filter="url(#kun-shadow)">
+                  <rect class="kun-case" x="72" y="126" width="216" height="230" rx="27"/>
+                  <path class="kun-top" d="M61 135c0-18 14-32 32-32h174c18 0 32 14 32 32v51H61z"/>
+                  <rect class="kun-slot" x="108" y="126" width="144" height="14" rx="7"/>
+                  <circle class="kun-light" cx="265" cy="156" r="8"/>
+                  <rect class="kun-bin" x="94" y="211" width="172" height="125" rx="15"/>
+                  <path class="kun-bin-shine" d="M111 224h31v97h-31z"/>
+                  <g class="kun-face">
+                    <path d="M123 183q18-13 36 0"/>
+                    <path d="M201 183q18-13 36 0"/>
+                    <circle cx="141" cy="184" r="7"/>
+                    <circle cx="219" cy="184" r="7"/>
+                    <path d="M153 199q27 25 54 0"/>
+                  </g>
+                  <rect class="kun-label" x="125" y="247" width="110" height="34" rx="6"/>
+                  <text x="180" y="269" text-anchor="middle">SRD-01</text>
+                </g>
+                <g class="kun-feet"><path d="M111 351v23M249 351v23"/><circle cx="111" cy="379" r="12"/><circle cx="249" cy="379" r="12"/></g>
+              </svg>
+            </button>
+            <div class="secret-progress" id="special-progress" aria-hidden="true">
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            </div>
+            <div class="mascot-caption">
+              <h2 id="mascot-name">シュレッダーくん</h2>
+              <p id="mascot-status">GENERAL AFFAIRS SUPPORT MACHINE</p>
+            </div>
+          </section>
+
+          <section class="difficulty-panel" aria-labelledby="difficulty-title">
+            <header>
+              <h2 id="difficulty-title">DIFFICULTY</h2>
+            </header>
+            <div class="difficulty-list" id="difficulty-list">
+              <button class="difficulty-option is-selected" type="button" data-level="easy" aria-pressed="true">
+                <span class="difficulty-index">01</span><span class="difficulty-main"><b>EASY</b><small>34 ITEMS</small></span><span class="difficulty-status">READY</span><i class="difficulty-lock" aria-hidden="true"></i>
+              </button>
+              <button class="difficulty-option" type="button" data-level="normal" aria-pressed="false">
+                <span class="difficulty-index">02</span><span class="difficulty-main"><b>NORMAL</b><small>62 ITEMS</small></span><span class="difficulty-status">READY</span><i class="difficulty-lock" aria-hidden="true"></i>
+              </button>
+              <button class="difficulty-option" type="button" data-level="hard" aria-pressed="false">
+                <span class="difficulty-index">03</span><span class="difficulty-main"><b>HARD</b><small>101 ITEMS</small></span><span class="difficulty-status">READY</span><i class="difficulty-lock" aria-hidden="true"></i>
+              </button>
+              <button class="difficulty-option is-locked" type="button" data-level="extream" aria-pressed="false" disabled>
+                <span class="difficulty-index">04</span><span class="difficulty-main"><b>EXTREAM</b><small>129 ITEMS</small></span><span class="difficulty-status">LOCKED</span><i class="difficulty-lock" aria-hidden="true"></i>
+              </button>
+              <button class="difficulty-option is-locked" type="button" data-level="ultimate" aria-pressed="false" disabled>
+                <span class="difficulty-index">05</span><span class="difficulty-main"><b>ULTIMATE</b><small>157 ITEMS</small></span><span class="difficulty-status">LOCKED</span><i class="difficulty-lock" aria-hidden="true"></i>
+              </button>
+              <button class="difficulty-option is-locked" type="button" data-level="unknown" aria-pressed="false" disabled>
+                <span class="difficulty-index">06</span><span class="difficulty-main"><b>UNKNOWN</b><small>190 ITEMS</small></span><span class="difficulty-status">LOCKED</span><i class="difficulty-lock" aria-hidden="true"></i>
+              </button>
+            </div>
+          </section>
+
+          <section class="case-panel" aria-labelledby="case-title">
+            <div class="case-number" aria-hidden="true"><span id="case-index">01</span><i id="case-total">/06</i></div>
+            <p>CASE</p>
+            <span class="case-access" id="case-access">UNLOCKED</span>
+            <h2 id="case-title">INBOX OVERFLOW</h2>
+            <dl class="case-specs">
+              <div><dt>ITEMS</dt><dd id="case-count">34</dd></div>
+              <div><dt>MAX LOAD</dt><dd id="case-load">4.0</dd></div>
+              <div><dt>BIN</dt><dd id="case-bin">20</dd></div>
+            </dl>
+            <section class="ranking-preview" aria-labelledby="ranking-title">
+              <div><h3 id="ranking-title">LOCAL BEST</h3><span>TOP 3</span></div>
+              <ol id="ranking-list"></ol>
+              <p id="ranking-empty">NO RECORDS YET</p>
+            </section>
+            <button class="start-button" id="start-button" type="button"><span>BECOME A SHREDDER OFFICER</span><i class="fa-solid fa-play" aria-hidden="true"></i></button>
+          </section>
+        </div>
+        <p class="debug-indicator" id="debug-indicator" hidden>DEBUG MODE / ALL CASES UNLOCKED</p>
+      </div>
+      <p class="menu-copyright">Copyright &copy; <a href="https://i.mem.ooo" target="_blank" rel="noopener noreferrer">めもりー</a></p>
+    </section>
+
+    <p class="game-version"><span>Ver</span> 1.0.0</p>
+
+    <dialog class="game-dialog pause-dialog" id="pause-screen" aria-labelledby="pause-title">
+      <div class="dialog-shell">
+        <p class="dialog-eyebrow">MACHINE PAUSED</p>
+        <h2 id="pause-title">PAUSED.</h2>
+        <div class="dialog-actions">
+          <button class="dialog-action primary-action" id="resume-button" type="button"><span>続行する</span><i class="fa-solid fa-play" aria-hidden="true"></i></button>
+          <button class="dialog-action" id="retry-button" type="button"><span>リトライする</span><i class="fa-solid fa-arrow-rotate-right" aria-hidden="true"></i></button>
+          <button class="dialog-action" id="pause-menu-button" type="button"><span>スタート画面に戻る</span><i class="fa-solid fa-list" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="game-dialog retry-dialog" id="retry-screen" aria-labelledby="retry-title" aria-describedby="retry-description">
+      <div class="dialog-shell compact-shell">
+        <p class="dialog-eyebrow">RESET CASE</p>
+        <h2 id="retry-title">RETRY?</h2>
+        <p id="retry-description">現在のタイムと進捗は失われます。</p>
+        <div class="dialog-actions horizontal-actions">
+          <button class="dialog-action primary-action" id="retry-confirm-button" type="button"><span>リトライ</span><i class="fa-solid fa-check" aria-hidden="true"></i></button>
+          <button class="dialog-action" id="retry-cancel-button" type="button"><span>キャンセル</span><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="game-dialog game-over-dialog" id="game-over-screen" aria-labelledby="game-over-title" aria-describedby="game-over-description">
+      <div class="dialog-shell game-over-shell">
+        <p class="dialog-eyebrow">SPECIAL RULE VIOLATION</p>
+        <h2 id="game-over-title">GAME OVER</h2>
+        <div class="game-over-manager">
+          <img src="../spaghetti-code/assets/aa.me.x2.svg" alt="">
+          <blockquote>君は一体何年シュレッダー係をやっているのだ！<br>間違えるなんてけしからん！</blockquote>
+        </div>
+        <p class="game-over-description" id="game-over-description">SPECIALでは一度の投入ミスも許されません。</p>
+        <div class="dialog-actions">
+          <button class="dialog-action primary-action" id="game-over-retry-button" type="button"><span>SPECIALをやり直す</span><i class="fa-solid fa-arrow-rotate-right" aria-hidden="true"></i></button>
+          <button class="dialog-action" id="game-over-menu-button" type="button"><span>スタート画面に戻る</span><i class="fa-solid fa-list" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="game-dialog clear-dialog" id="clear-screen" aria-labelledby="clear-title">
+      <div class="dialog-shell clear-shell">
+        <p class="dialog-eyebrow">ALL ITEMS CLEARED</p>
+        <h2 id="clear-title">CLEAR!</h2>
+        <p class="clear-level" id="clear-level">EASY / 34 ITEMS</p>
+        <div class="score-block"><span>SCORE / TIME</span><output id="clear-time">00:00:00.00</output></div>
+        <dl class="clear-stats">
+          <div><dt>MAX BUNDLE</dt><dd id="clear-max-bundle">0</dd></div>
+          <div><dt>JAMS</dt><dd id="clear-jams">0</dd></div>
+          <div><dt>BIN EMPTIED</dt><dd id="clear-empties">0</dd></div>
+        </dl>
+        <div class="dialog-actions">
+          <a class="dialog-action share-action" id="share-button" href="https://x.com/intent/post" target="_blank" rel="noopener noreferrer"><span>X にポストする</span><b aria-hidden="true">X</b></a>
+          <button class="dialog-action primary-action" id="next-level-button" type="button"><span>次の難易度</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+          <button class="dialog-action" id="replay-button" type="button"><span>もう一度プレイ</span><i class="fa-solid fa-arrow-rotate-right" aria-hidden="true"></i></button>
+          <button class="dialog-action text-action" id="clear-menu-button" type="button"><span>スタート画面に戻る</span></button>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="game-dialog help-dialog" id="help-screen" aria-labelledby="help-title" aria-describedby="help-body">
+      <div class="dialog-shell help-shell">
+        <p class="dialog-eyebrow">HOW TO PLAY</p>
+        <h2 id="help-title">HELP.</h2>
+        <div class="help-content" id="help-body">
+          <section><span>01</span><div><h3>全部片づけろ。</h3><p>紙は上から。Xで本と針。異物はゴミ箱。</p></div></section>
+          <section><span>02</span><div><h3>機械を焼くな。</h3><p>温度を見ろ。危なくなったら異物を捨てて冷ませ。詰まったら赤いボタン。以上。</p></div></section>
+        </div>
+        <button class="dialog-action primary-action" id="help-close-button" type="button"><span>閉じる</span><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+      </div>
+    </dialog>
+
+    <section class="fatal-message" id="fatal-message" hidden>
+      <p>RENDERER FAILURE</p>
+      <h2>3Dを開始できませんでした。</h2>
+      <span>WebGL対応ブラウザで再読み込みしてください。</span>
+    </section>
+  </main>
+
+  <noscript>このゲームをプレイするにはJavaScriptを有効にしてください。</noscript>
+  <script type="module" src="./js/game.js?v=18"></script>
+</body>
+</html>
