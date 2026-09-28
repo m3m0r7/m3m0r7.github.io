@@ -1,0 +1,51 @@
+/* 作業台だけで完結するミニゲーム。通常の観察パネルとは配置を分ける。 */
+.cable-dialog{width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;margin:0;inset:0;border-radius:0;border:0;background:#0c151ddf!important;backdrop-filter:blur(14px);color:#e8f0ef}
+.cable-dialog .dialog-top{position:absolute;right:25px;top:22px;z-index:4;padding:0}
+.cable-dialog #inspect-kicker{display:none}
+.cable-dialog #inspect-content{height:100%;max-height:none;padding:0;overflow:hidden}
+.cable-dialog #inspect-title{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);margin:0}
+#cable-search-mount{height:100%;display:grid;grid-template-rows:auto minmax(0,1fr) auto;padding:0 22px 16px;gap:0}
+.cable-game-header{display:flex;align-items:center;gap:17px;min-height:106px;padding:18px 70px 18px 5px}
+.cable-game-emblem{width:56px;height:56px;border:1px solid #97d4c744;border-radius:15px;display:grid;place-items:center;background:linear-gradient(145deg,#37545a55,#14212944);box-shadow:inset 0 1px #ffffff18}
+.cable-game-emblem .icon{width:29px;height:29px;color:#abdcd0}
+.cable-eyebrow{display:block;font-size:10px;letter-spacing:.14em;color:#a0b6bb;line-height:1.6}
+.cable-game-header h3{font-size:25px;font-weight:500;letter-spacing:.055em;line-height:1.4;margin:5px 0 0}
+.cable-game-time{margin-left:auto;display:grid;grid-template-columns:auto auto;align-items:center;column-gap:15px;font-size:10px;color:#9bb0b9}
+.cable-game-time strong{font:400 28px var(--mono);font-variant-numeric:tabular-nums;color:#d7e5e7}
+.cable-game-time small{grid-column:1/-1;text-align:right;font-size:9px;margin-top:4px;letter-spacing:.1em;color:#7d959e}
+.cable-search-stage{min-height:0;position:relative;border:1px solid #c1dce128;border-radius:16px;overflow:hidden;background:#15202b;isolation:isolate;box-shadow:0 14px 40px #0004}
+.cable-search-stage canvas{display:block;width:100%;height:100%;touch-action:none;outline-offset:-4px}
+.cable-search-stage canvas:focus-visible{outline:2px solid #99cfc599}
+.cable-workbench-shade{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 52%,transparent 36%,#0b152030 77%,#0b152070);box-shadow:inset 0 0 55px #0310183d}
+.cable-target-card,.cable-contact-card{position:absolute;top:17px;pointer-events:none;padding:15px 18px;border:1px solid #b1d5da26;border-radius:11px;background:#0b172579;backdrop-filter:blur(9px);box-shadow:0 8px 25px #0002}
+.cable-target-card{left:17px}.cable-contact-card{right:17px;min-width:230px}
+.cable-target-card>div{display:flex;gap:12px;align-items:center;margin-top:10px}.cable-target-card .icon{width:34px;height:34px;color:#98d9c7}
+.cable-target-card strong{display:block;font-size:14px;letter-spacing:.05em;font-weight:500}.cable-target-card small{display:block;font-size:9px;color:#aabfc5;margin-top:4px}
+#inspect-content .cable-target-card p{font-size:10px;color:#b5c7c9;margin:12px 0 0;line-height:1.6}
+.cable-contact-card>strong{display:block;font-size:14px;font-weight:500;color:#ecc697;margin:9px 0 11px;letter-spacing:.04em}
+.cable-contact-card>small{display:block;font-size:9px;color:#adc1c8;margin-top:8px;line-height:1.7}
+.cable-contact-card.is-clear>strong{color:#99dec4}
+.cable-settle-track{height:3px;border-radius:2px;background:#c9e4df26;overflow:hidden}.cable-settle-track i{display:block;width:0;height:100%;background:#9ae3c5;box-shadow:0 0 10px #9ae3c580;transition:width .12s linear}
+.cable-held-label{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);border:1px solid #bfe6d945;border-radius:30px;padding:10px 20px;background:#07161dcc;color:#d2f1e6;font-size:11px;pointer-events:none;backdrop-filter:blur(8px)}
+.cable-stage-card{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(425px,calc(100% - 60px));max-height:calc(100% - 28px);overflow:auto;box-sizing:border-box;text-align:center;padding:22px 30px;border:1px solid #cbdfdf45;border-radius:20px;background:linear-gradient(145deg,#172936ec,#0c161fe8);box-shadow:0 25px 90px #0009,inset 0 1px #ffffff15;backdrop-filter:blur(18px);z-index:2}
+.cable-card-symbol{display:grid;place-items:center;width:58px;height:58px;border-radius:18px;border:1px solid #a3d2c54d;background:#8bc1b713;margin:0 auto 17px;transform:rotate(-8deg)}.cable-card-symbol .icon{width:30px;height:30px;color:#b3e6d4;transform:rotate(8deg)}
+.cable-stage-card h4{font-size:24px;letter-spacing:.06em;font-weight:500;margin:12px 0 15px;line-height:1.5}
+#inspect-content .cable-stage-card p{font-size:12px;line-height:2;color:#b4c7cb;margin:12px 0}
+.cable-intro-steps{display:grid;gap:11px;text-align:left;padding:18px 0;margin:14px 0 18px;border-top:1px solid #c7dfdf21;border-bottom:1px solid #c7dfdf21;font-size:11px;color:#d4e3e4}
+.cable-intro-steps span{display:flex;gap:12px;align-items:center}.cable-intro-steps .icon{width:17px;height:17px;color:#9acdbf}
+.cable-stage-card .primary-button{display:flex;align-items:center;justify-content:space-between;gap:20px;width:100%;padding:13px 17px;border:1px solid #b6ded281;background:#a3d2c71f;color:#d4f6e6;border-radius:9px;font-size:12px}
+.cable-stage-card .primary-button:hover{background:#a3d2c739;border-color:#c5efdf}.cable-stage-card .primary-button span{font-size:19px}
+.cable-search-stage[data-phase=intro] .cable-target-card,.cable-search-stage[data-phase=intro] .cable-contact-card{opacity:.45}
+.cable-search-stage[data-phase=won] .cable-workbench-shade{background:#07161b66;backdrop-filter:blur(3px)}
+.cable-win-card{border-color:#b2e8d77a;box-shadow:0 25px 100px #0009,0 0 90px #60cfaa14;animation:cable-result-in .35s ease-out}
+.cable-win-card .cable-card-symbol{border-radius:50%;transform:none;box-shadow:0 0 35px #82e5b827}.cable-win-card .cable-card-symbol .icon{transform:none}
+.cable-win-item{display:flex;gap:15px;align-items:center;text-align:left;border:1px solid #a3e7cd2b;padding:17px;margin:23px 0;border-radius:12px;background:#8ac6b80b;font-size:13px}.cable-win-item>.icon{width:37px;height:37px;color:#9de4c9}.cable-win-item strong{display:block;font-size:9px;font-weight:400;margin-top:7px;color:#a9c2bc}
+.cable-search-controls{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:13px 24px;padding:17px 6px 0}
+.cable-feedback{display:flex;align-items:center;gap:11px;min-width:0}.cable-feedback-dot{width:6px;height:6px;background:#9bcebd;border-radius:50%;box-shadow:0 0 10px #9bcebd66;flex:none}
+#inspect-content #cable-search-status{margin:0;font-size:11px;line-height:1.8;color:#c0d5d5;min-height:20px}
+.cable-hand-controls{display:flex;align-items:center;gap:7px}.cable-hand-controls button{font-size:10px;padding:9px 12px;white-space:nowrap;background:#8baeba0a;border-color:#91afb32e;color:#cededd}.cable-hand-controls .icon{width:13px;height:13px;margin-right:3px}.cable-hand-controls button:disabled{opacity:.38;cursor:default}.cable-hand-controls kbd{margin-left:5px;font-size:9px}
+.cable-key-guide{grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:17px;flex-wrap:wrap;padding:12px 0 0;border-top:1px solid #d9eded14;color:#8ba1a8;font-size:9px}.cable-key-guide span{display:flex;align-items:center;gap:7px}.cable-key-guide kbd{display:inline-grid;place-items:center;min-width:23px;padding:4px 6px;background:#b7d4da09;border:1px solid #a6c3c42b;border-bottom-width:2px;border-radius:4px;color:#c6d8da;font:10px var(--font);white-space:nowrap}
+@keyframes cable-result-in{from{opacity:0;transform:translate(-50%,-45%)}to{opacity:1;transform:translate(-50%,-50%)}}
+@media(max-height:760px){.cable-game-header{min-height:83px;padding:12px 70px 12px 5px}.cable-game-header h3{font-size:21px}.cable-game-emblem{height:45px;width:45px}.cable-stage-card{padding:20px 28px}.cable-card-symbol{width:45px;height:45px;margin-bottom:11px}.cable-stage-card h4{font-size:21px;margin:8px 0}.cable-intro-steps{margin:9px 0 13px;padding:12px 0;gap:9px}.cable-target-card,.cable-contact-card{padding:11px 14px}.cable-search-controls{padding-top:12px;gap:10px}.cable-key-guide{padding-top:9px;gap:12px}}
+@media(max-width:1100px){.cable-contact-card{min-width:180px}.cable-target-card{max-width:210px}.cable-search-controls{grid-template-columns:1fr}.cable-hand-controls{justify-content:flex-end}.cable-key-guide{gap:9px}.cable-game-header h3{font-size:20px}}
+@media(prefers-reduced-motion:reduce){.cable-win-card{animation:none}.cable-settle-track i{transition:none}}

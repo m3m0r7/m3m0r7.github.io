@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101624">
+  <meta name="description" content="家の中を歩いて、つながらないネットの謎を解く。一人称の3Dエンジニア脱出ゲーム。">
+  <title>リンクダウン</title>
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./css/game.css?v=20260928-linkdown-v2">
+  <link rel="stylesheet" href="./css/theme.css?v=20260928-linkdown-v2">
+  <link rel="stylesheet" href="./css/cable-search.css?v=20260928-linkdown-v2">
+  <link rel="stylesheet" href="./css/documents.css?v=20260928-linkdown-v2">
+  <link rel="preload" href="./fonts/noto-sans-jp.woff2" as="font" type="font/woff2" crossorigin>
+  <script type="importmap">{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.167.1/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.167.1/examples/jsm/",
+    "./js/pet-station.js": "./js/pet-station.js?v=20260928-linkdown-v2",
+    "./js/mesh-batching.js": "./js/mesh-batching.js?v=20260928-linkdown-v2",
+    "./js/invoice.js": "./js/invoice.js?v=20260928-linkdown-v2",
+    "./js/supply-search.mjs": "./js/supply-search.mjs?v=20260928-linkdown-v2",
+    "./js/server-storage.js": "./js/server-storage.js?v=20260928-linkdown-v2",
+    "./js/climate.js": "./js/climate.js?v=20260928-linkdown-v2",
+    "./js/sofa-details.js": "./js/sofa-details.js?v=20260928-linkdown-v2",
+    "./js/cable-layout.mjs": "./js/cable-layout.mjs?v=20260928-linkdown-v2",
+    "./js/cable-workbench.js": "./js/cable-workbench.js?v=20260928-linkdown-v2",
+    "./js/share.mjs": "./js/share.mjs?v=20260928-linkdown-v2",
+    "./js/cable-search.js": "./js/cable-search.js?v=20260928-linkdown-v2",
+    "./js/desk-accessories.js": "./js/desk-accessories.js?v=20260928-linkdown-v2",
+    "./js/equipment-racks.js": "./js/equipment-racks.js?v=20260928-linkdown-v2",
+    "./js/debug-sequence.mjs": "./js/debug-sequence.mjs?v=20260928-linkdown-v2",
+    "./js/architecture.js": "./js/architecture.js?v=20260928-linkdown-v2",
+    "./js/bedroom.js": "./js/bedroom.js?v=20260928-linkdown-v2",
+    "./js/bootstrap.js": "./js/bootstrap.js?v=20260928-linkdown-v2",
+    "./js/browser-view.mjs": "./js/browser-view.mjs?v=20260928-linkdown-v2",
+    "./js/care-items.js": "./js/care-items.js?v=20260928-linkdown-v2",
+    "./js/cats.js": "./js/cats.js?v=20260928-linkdown-v2",
+    "./js/conversation.mjs": "./js/conversation.mjs?v=20260928-linkdown-v2",
+    "./js/document-format.mjs": "./js/document-format.mjs?v=20260928-linkdown-v2",
+    "./js/financial-documents.mjs": "./js/financial-documents.mjs?v=20260928-linkdown-v2",
+    "./js/todo-documents.mjs": "./js/todo-documents.mjs?v=20260928-linkdown-v2",
+    "./js/terminal-view.mjs": "./js/terminal-view.mjs?v=20260928-linkdown-v2",
+    "./js/documents.mjs": "./js/documents.mjs?v=20260928-linkdown-v2",
+    "./js/domestic.js": "./js/domestic.js?v=20260928-linkdown-v2",
+    "./js/exploration.mjs": "./js/exploration.mjs?v=20260928-linkdown-v2",
+    "./js/fridge-food.js": "./js/fridge-food.js?v=20260928-linkdown-v2",
+    "./js/game.js": "./js/game.js?v=20260928-linkdown-v2",
+    "./js/home-inspections.mjs": "./js/home-inspections.mjs?v=20260928-linkdown-v2",
+    "./js/home-layout.mjs": "./js/home-layout.mjs?v=20260928-linkdown-v2",
+    "./js/house-fixtures.js": "./js/house-fixtures.js?v=20260928-linkdown-v2",
+    "./js/house.js": "./js/house.js?v=20260928-linkdown-v2",
+    "./js/icons.js": "./js/icons.js?v=20260928-linkdown-v2",
+    "./js/inspection.mjs": "./js/inspection.mjs?v=20260928-linkdown-v2",
+    "./js/insurance-card.js": "./js/insurance-card.js?v=20260928-linkdown-v2",
+    "./js/kitchen.js": "./js/kitchen.js?v=20260928-linkdown-v2",
+    "./js/library.js": "./js/library.js?v=20260928-linkdown-v2",
+    "./js/minimap.js": "./js/minimap.js?v=20260928-linkdown-v2",
+    "./js/models.js": "./js/models.js?v=20260928-linkdown-v2",
+    "./js/monitor.js": "./js/monitor.js?v=20260928-linkdown-v2",
+    "./js/movement.mjs": "./js/movement.mjs?v=20260928-linkdown-v2",
+    "./js/navigation.mjs": "./js/navigation.mjs?v=20260928-linkdown-v2",
+    "./js/network-cable.js": "./js/network-cable.js?v=20260928-linkdown-v2",
+    "./js/readers.js": "./js/readers.js?v=20260928-linkdown-v2",
+    "./js/room.js": "./js/room.js?v=20260928-linkdown-v2",
+    "./js/shell-files.mjs": "./js/shell-files.mjs?v=20260928-linkdown-v2",
+    "./js/state.mjs": "./js/state.mjs?v=20260928-linkdown-v2",
+    "./js/surfaces.js": "./js/surfaces.js?v=20260928-linkdown-v2",
+    "./js/terminal.mjs": "./js/terminal.mjs?v=20260928-linkdown-v2",
+    "./js/typewriter.js": "./js/typewriter.js?v=20260928-linkdown-v2"
+  }
+}</script>
+</head>
+<body>
+  <main id="app" class="app">
+    <canvas id="room-canvas" tabindex="0" aria-label="二階建ての家。WASDで移動、矢印キーで見回し、XまたはSpaceで目の前のものを調べます。"></canvas>
+    <div class="vignette" aria-hidden="true"></div>
+    <header class="hud-header">
+      <a class="wordmark" href="../../" aria-label="ホームへ戻る">リンクダウン<span>3D 脱出ゲーム / 第一話</span></a>
+      
+      <nav class="top-actions" aria-label="ゲームメニュー"><button id="pause-button" class="history-button" title="ポーズ（Esc）">ポーズ</button><button id="clear-button" class="history-button" hidden>クリア記録</button><button id="look-button" title="マウス移動だけで見回す">マウス視点</button>
+        <button id="history-button" class="history-button" title="会話ログ（L）"><span data-icon="notebook"></span>会話ログ <small id="history-count">0</small></button>
+        <button id="sound-button" class="icon-button" aria-label="効果音をオン" aria-pressed="false" title="効果音"><span data-icon="sound"></span></button>
+        <button id="help-button" class="icon-button" aria-label="操作方法" title="操作方法"><span data-icon="help"></span></button>
+        <button id="restart-button" class="icon-button" aria-label="最初からやり直す" title="最初から"><span data-icon="restart"></span></button>
+      </nav>
+    </header>
+    <aside class="minimap" aria-label="家のミニマップ"><canvas id="minimap-canvas" aria-label="家の地図"></canvas><div><span id="location-name">２階 / 仕事部屋</span><time id="timer">00:00</time></div></aside>
+    <div class="mission-tag"><span id="connection-light"></span><span id="objective-text">ホームページへの接続を復旧する</span></div>
+    <div class="movement-help"><div><kbd>W</kbd><span class="key-row"><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></span></div><span>移動<span>クリックで調べる</span></span><span class="extra-keys"><span><kbd>Esc</kbd> ポーズ</span></span></div>
+    <div class="reticle" id="reticle" aria-hidden="true"></div>
+    <button id="interact-button" class="interact-prompt" hidden><kbd>X</kbd><span id="aim-label"></span><span id="interact-verb">調べる</span></button>
+    <section class="device-toolbar" id="device-toolbar" aria-label="立体の観察" hidden><div><span class="eyebrow">近くで観察中</span><strong id="inspection-name">観察中の物</strong><small>ドラッグ / 矢印キーで回り込む · ホイールで拡大</small></div><button id="leave-device" class="secondary-button">観察を終える <kbd>Esc</kbd></button></section>
+    <aside id="inspection-panel" class="inspection-panel" aria-label="観察したこと" hidden><span class="eyebrow">見えること・触れるところ</span><p id="inspection-description"></p><div id="inspection-actions"></div><p id="inspection-result" role="status"></p><small>物をドラッグして観察 · 操作箇所はクリック<br>数字 1–9 でも操作できます</small></aside>
+    <aside id="tutorial" class="tutorial" aria-label="操作ガイド" hidden><div class="tutorial-top"><span id="tutorial-counter" class="eyebrow"></span><button id="skip-tutorial" aria-label="操作ガイドを閉じる">スキップ</button></div><div aria-live="polite" aria-atomic="true"><h2 id="tutorial-title"></h2><p id="tutorial-description"></p></div><div class="tutorial-progress" aria-hidden="true"><i></i><i></i><i></i></div></aside>
+    <footer class="hud-footer">
+      <div class="inventory-wrap"><button id="journal-button" class="journal-button" aria-label="調査ノート"><span data-icon="notebook"></span><span>調査ノート<small id="clue-count">0 / 10</small></span></button><section class="inventory" aria-label="所持アイテム"><span class="inventory-label">所持品 <span id="inventory-count">0 / 4</span></span><div id="inventory-slots" class="inventory-slots"></div></section></div>
+    </footer>
+    <div class="touch-controls"><div id="joystick" class="joystick" role="group" aria-label="移動パッド"><span id="joystick-knob"></span></div><span>左で移動 · ドラッグで視点 · 物をタップして調べる</span></div>
+    <span id="save-status" class="save-status">自動セーブ</span>
+    <div id="loading" class="loading"><span class="loading-spinner"></span><h1>リンクダウン</h1><p>家の灯りをつけています…</p></div>
+    <div id="load-error" class="load-error" hidden><h2>家を表示できませんでした</h2><p id="load-error-message">接続と WebGL の設定を確認して、再読み込みしてください。</p><button class="primary-button" onclick="location.reload()">再読み込み</button></div>
+  </main>
+  <dialog id="game-top" class="game-top" aria-labelledby="game-top-title">
+    <div class="game-top-layout">
+      <div class="game-top-intro"><span class="top-overline">家の中に、答えがある。</span><h1 id="game-top-title">リンク<em>ダウン</em></h1><p>いつもの朝、いつものサイトだけが開かない。部屋を歩いて手がかりを集め、通信が途絶えた原因を突き止める、一人称の謎解きゲーム。</p><div class="top-rule"></div><span class="top-save-note">進行状況は自動で保存されます。</span><a href="../../" class="top-home-link">ホームページへ</a></div>
+      <section class="episode-list" aria-label="エピソードを選ぶ"><div class="episode-heading"><h2>エピソードを選ぶ</h2><span>全３話</span></div>
+        <button id="episode-one" autofocus class="episode-card episode-available"><span class="episode-number">01</span><span class="episode-copy"><small>第１話</small><strong>リンクダウン</strong><span>いつもの仕事部屋。つながらない朝。</span><span id="episode-progress" class="episode-progress">未プレイ</span><span id="episode-action" class="episode-action">はじめる <b aria-hidden="true">↗</b></span></span></button>
+        <button class="episode-card episode-locked" disabled><span class="episode-number">02</span><span class="episode-copy"><strong>第２話</strong><span>準備中</span></span><span class="episode-lock" data-icon="lock"></span></button>
+        <button class="episode-card episode-locked" disabled><span class="episode-number">03</span><span class="episode-copy"><strong>第３話</strong><span>準備中</span></span><span class="episode-lock" data-icon="lock"></span></button>
+      </section>
+    </div>
+  </dialog>
+  <dialog id="pause-dialog" class="pause-dialog" aria-labelledby="pause-title"><span class="eyebrow">第１話 / リンクダウン</span><h2 id="pause-title">ひと休み。</h2><p>ゲームを一時停止しています。</p><div class="pause-progress"><span>探索時間 <strong id="pause-time">00:00</strong></span><span>調査ノート <strong id="pause-notes">0</strong></span></div><button id="resume-game" class="primary-button">探索を続ける</button><button id="return-game-top" class="secondary-button">ゲームトップへ戻る</button><small id="pause-save-status">進行状況は自動保存されています。</small></dialog>
+  <dialog id="inspect-dialog" class="inspect-dialog" aria-labelledby="inspect-title"><div class="dialog-top"><span id="inspect-kicker" class="eyebrow">調べる</span><button class="icon-button close-dialog" aria-label="閉じる"><span data-icon="close"></span></button></div><div id="inspect-content"></div></dialog>
+  <dialog id="pc-dialog" class="pc-dialog" aria-labelledby="pc-title">
+    <div class="pc-bar"><div class="window-dots" aria-hidden="true"><i></i><i></i><i></i></div><span id="pc-title">memoryOS</span><span class="pc-machine">memory-home</span><button class="icon-button close-dialog" aria-label="PCを閉じる"><span data-icon="close"></span></button></div>
+    <div class="desktop"><nav class="desktop-dock" aria-label="PCアプリ"><span class="os-label">作業用アプリ</span><button data-app="browser"><span data-icon="globe"></span><span>ブラウザ</span></button><button data-app="files"><span data-icon="folder"></span><span>ファイル</span></button><button data-app="network"><span data-icon="network"></span><span>ネットワーク</span></button><button data-app="terminal"><span data-icon="terminal"></span><span>ターミナル</span></button><div class="os-user"><img src="./assets/player.jpg" alt=""><span>memory<small>ローカルアカウント</small></span></div></nav><section id="pc-content" class="pc-window" aria-label="アプリの内容"></section></div>
+    <div class="pc-status"><span><i id="pc-status-dot"></i> 有線接続</span><span>作業用コンピューター</span></div>
+  </dialog>
+  <dialog id="intro-dialog" class="intro-dialog" aria-labelledby="intro-title" aria-describedby="intro-dialogue">
+    <header class="intro-heading"><div><span id="intro-kicker" class="eyebrow">第１話 / いつもの仕事部屋</span><h2 id="intro-title">今日も、システムエンジニアの仕事だ。</h2><p id="intro-status" role="status"></p></div><button id="skip-intro" class="intro-skip">導入をスキップ <span data-icon="right"></span></button></header>
+    <section class="intro-story"><div class="intro-companion"><div class="intro-portrait"><img src="./assets/player.jpg" alt="あなた" width="104" height="104"><span class="intro-surprise" aria-hidden="true">!?</span></div><div class="intro-speech"><span class="eyebrow">あなた <small>仕事部屋にて</small></span><p id="intro-dialogue" aria-live="off"></p></div></div><button id="intro-next" class="dialogue-next">次へ</button><span id="intro-chapter" class="intro-chapter">序章 / 1 / 4</span></section>
+  </dialog>
+  <dialog id="briefing-dialog" class="briefing-dialog" aria-labelledby="briefing-title"><span class="eyebrow">今回の目的</span><h2 id="briefing-title">ホームページへの接続を復旧する</h2><p>席を立って、家の中を調べよう。</p><p>物をクリックして調べる。<br>床をダブルクリック、または WASD で移動。<br>X / Space でも調査や会話を進められます。</p><button id="begin-exploring" class="primary-button">探索を始める <span data-icon="right"></span></button></dialog>
+  <aside id="skit" class="skit" popover="manual" aria-label="あなたの会話"><button id="skit-next" class="skit-card" aria-label="会話の全文表示・次へ"><img src="./assets/player.jpg" alt="あなた" width="84" height="84"><span class="skit-copy"><span class="skit-speaker">あなた</span><span id="dialogue-text" aria-live="off"></span><small id="skit-prompt">次へ</small></span></button><button id="skit-log" class="skit-log" aria-label="会話ログを開く">会話ログ <kbd>L</kbd></button></aside>
+  <dialog id="history-dialog" class="history-dialog" aria-labelledby="history-title"><div class="history-heading"><div><span class="eyebrow">仕事部屋の記録</span><h2 id="history-title">会話ログ</h2></div><button class="icon-button close-dialog" aria-label="会話ログを閉じる"><span data-icon="close"></span></button></div><p class="history-caption">最新 240 件を自動保存。導入と探索中の会話を読み返せます。</p><ol id="history-lines" class="history-lines" tabindex="0" aria-label="会話の履歴"></ol></dialog>
+  <div id="acquisition" class="acquisition" popover="manual" role="status" aria-live="polite"><span id="acquisition-icon"></span><div><small id="acquisition-kind"></small><strong id="acquisition-name"></strong></div></div>
+  <div id="toast" class="toast" popover="manual" role="status"></div>
+  <script type="module" src="./js/bootstrap.js?v=20260928-linkdown-v2"></script>
+</body>
+</html>
