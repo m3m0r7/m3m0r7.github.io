@@ -19,7 +19,8 @@
       --ink: #241e26;
       --muted: #6d686e;
       --paper: #fcefe0;
-      --spinner-size: min(76vw, calc(100svh - 14rem), 40rem);
+      /* 下部の案内とドックに必要な高さを残す。 */
+      --spinner-size: min(76vw, calc(100svh - 22rem), 40rem);
       --profile-sticky-height: 0px;
       --system-mono-font: ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Monaco,
         "Cascadia Mono", "Roboto Mono", "Noto Sans Mono CJK JP", "Noto Sans JP", monospace;
@@ -175,12 +176,16 @@
       user-select: none;
       -webkit-tap-highlight-color: transparent;
       -webkit-user-select: none;
-      transition:
-        width 280ms cubic-bezier(0.22, 0.7, 0.18, 1),
-        height 280ms cubic-bezier(0.22, 0.7, 0.18, 1),
-        filter 180ms ease;
+      transition: filter 180ms ease;
       will-change: transform;
       contain: paint;
+    }
+
+    body.is-profile-transitioning .spinner {
+      transition:
+        width 160ms cubic-bezier(0.22, 0.7, 0.18, 1),
+        height 160ms cubic-bezier(0.22, 0.7, 0.18, 1),
+        filter 180ms ease;
     }
 
     body.is-archive .spinner {
@@ -1924,7 +1929,7 @@
 
     @media (max-width: 30rem) {
       :root {
-        --spinner-size: min(72vw, calc(100svh - 13rem));
+        --spinner-size: min(72vw, max(5rem, calc(100svh - 18rem)));
       }
 
       body.is-archive .stage {
@@ -1972,7 +1977,7 @@
       }
 
       .game-start-hint {
-        bottom: 14.75svh;
+        bottom: max(5.5rem, 14.75svh);
       }
 
       .archive-title {
@@ -1991,6 +1996,50 @@
       .archive-position {
         grid-template-columns: 1fr;
         gap: 0;
+      }
+    }
+
+    @media (max-height: 36rem) and (min-width: 30rem) {
+      :root {
+        --spinner-size: min(76vw, calc(100vw - 19rem), max(5rem, calc(100svh - 12rem)), 18rem);
+      }
+
+      body:not(.is-archive) .profile-overview {
+        grid-template-columns: var(--spinner-size) auto;
+        align-items: center;
+      }
+
+      body:not(.is-archive) .rotate-hint {
+        right: auto;
+        left: calc(var(--spinner-size) - 6rem);
+      }
+    }
+
+    @media (max-height: 19rem), (max-height: 21rem) and (max-width: 30rem) {
+      html:not(.is-archive),
+      body:not(.is-archive) {
+        overflow-y: auto;
+      }
+
+      body:not(.is-archive):not(.is-game-mode) main {
+        min-height: 0;
+        padding: 1rem 0 0;
+      }
+
+      body:not(.is-archive):not(.is-game-mode) .game-start-hint {
+        position: static;
+        display: block;
+        margin: 1rem auto 0;
+        transform: none;
+      }
+
+      body:not(.is-archive):not(.is-game-mode) .social-links {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        width: fit-content;
+        margin: 1rem auto;
+        transform: none;
       }
     }
 
@@ -2015,6 +2064,10 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
+      body.is-profile-transitioning .spinner {
+        transition: none;
+      }
+
       .archive,
       .archive-group-marker,
       .archive-group-summary,
@@ -3497,6 +3550,7 @@
     const finishProfileMorph = (showProfile) => {
       profileVisible = showProfile;
       profileTransitioning = false;
+      document.body.classList.remove("is-profile-transitioning");
       art.classList.remove("is-morphing");
       art.removeAttribute("aria-busy");
       profileLink.removeAttribute("aria-disabled");
@@ -3532,6 +3586,7 @@
 
       snapToOriginal();
       profileTransitioning = true;
+      document.body.classList.add("is-profile-transitioning");
 
       if (showProfile) {
         void loadArchiveData();
